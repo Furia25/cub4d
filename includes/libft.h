@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 17:11:02 by halnuma           #+#    #+#             */
-/*   Updated: 2025/02/10 15:22:45 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/02/19 11:38:06 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strappend(char *s1, char *s2);
 char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strndup(const char *src, int size);
 char	**ft_split(char const *s, char c);
 char	**ft_multi_split(char const *s, char *c);
 void	*ft_free_split(char **res);
