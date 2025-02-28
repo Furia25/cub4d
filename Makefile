@@ -1,6 +1,6 @@
 .PHONY: all clean fclean re libft
 
-# ------ COLORS ------
+# ------ COLORS ------ #
 
 _END			= \033[0m
 _GREY			= \033[0;30m
@@ -12,14 +12,13 @@ _PURPLE			= \033[0;35m
 _CYAN			= \033[0;36m
 _BOLD			= \e[1m
 
-# ------ VARIABLES ------
+# ------ VARIABLES ------ #
 
 NAME			= 42SP
 CC				= cc
-AR				= ar -rcs
 CFLAGS			= -Wall -Wextra -Werror
 
-# ------ PATHS ------
+# ------ PATHS ------ #
 
 P_OBJ 			= obj/
 P_SRC 			= src/
@@ -27,11 +26,11 @@ P_UTILS			= $(P_SRC)utils/
 P_INC			= includes/
 P_LIB			= libft/
 
-# ------ FILES ------
+# ------ FILES ------ #
 
 MAIN			= main
 
-UTILS			=
+UTILS			= utils
 
 HDR_SRC			= libft
 
@@ -46,19 +45,29 @@ OBJ_ALL 		= $(OBJ_MAIN) $(OBJ_UTILS)
 HEADERS			= $(addprefix $(P_INC), $(addsuffix .h, $(HDR_SRC)))
 LIBFT			= $(P_LIB)libft.a
 
-# ------ RULES ------
+# ------ RULES ------ #
 
 all: 			libft $(NAME)
 
-$(NAME): 		$(SRC_ALL) Makefile $(HEADERS) $(LIBFT)
-				@$(CC) $(CFLAGS) -I $(P_INC) $(SRC_ALL) $(LIBFT) -o $@
-				@echo "$(_YELLOW)Compiling $(SRC_ALL)$(_END)"
-				@echo "$(_GREEN)$(_BOLD)$(NAME) compiled!$(_END)"
+$(NAME):		$(OBJ_ALL) Makefile $(HEADERS)
+				@$(CC) $(CFLAGS) -I $(P_INC) $(OBJ_ALL) $(LIBFT) -o $@
+				@echo "$(_GREEN)$(_BOLD)=> $(NAME) compiled!$(_END)"
+
+$(P_OBJ):
+				@mkdir -p $(P_OBJ)
+
+$(P_OBJ)%.o:	$(P_SRC)%.c Makefile $(HEADERS) | $(P_OBJ)
+				@echo "$(_YELLOW)Compiling $<...$(_END)"
+				@$(CC) $(CFLAGS) -I $(P_INC) -c $< -o $@
+
+$(P_OBJ)%.o:	$(P_UTILS)%.c Makefile $(HEADERS) | $(P_OBJ)
+				@echo "$(_YELLOW)Compiling $<...$(_END)"
+				@$(CC) $(CFLAGS) -I $(P_INC) -c $< -o $@
 
 libft:		
 				@$(MAKE) -C $(P_LIB) --no-print-directory
 
-# ------ BASIC RULES ------
+# ------ BASIC RULES ------ #
 
 clean: 
 				@rm -rf $(P_OBJ)
