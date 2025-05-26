@@ -20,13 +20,23 @@ flowchart TD
     GameThread -- Execute --> n2["Game Logic <br>"]
     n2 L_n2_Triple_Buffering_0@-- Update --> Triple_Buffering
     n1@{ shape: terminal}
-    style n1 fill:#FFCDD2
-    style GameThread fill:#f9f,stroke:#333,stroke-width:2px
-    style GraphicsThread fill:#f9f,stroke:#333,stroke-width:2px
-    style n2 fill:#BBDEFB
+     n1:::Ash
+     n1:::Aqua
+     n1:::Peach
+     GameThread:::Rose
+     GraphicsThread:::Rose
+     n2:::Aqua
+    classDef Rose stroke-width:1px, stroke-dasharray:none, stroke:#FF5978, fill:#FFDFE5, color:#8E2236
+    classDef Ash stroke-width:1px, stroke-dasharray:none, stroke:#999999, fill:#EEEEEE, color:#000000
+    classDef Aqua stroke-width:1px, stroke-dasharray:none, stroke:#46EDC8, fill:#DEFFF8, color:#378E7A
+    classDef Peach stroke-width:1px, stroke-dasharray:none, stroke:#FBB35A, fill:#FFEFDB, color:#8F632D
+    style GameThread stroke-width:2px
+    style GraphicsThread stroke-width:2px
     linkStyle 0 stroke:#757575,fill:none
     linkStyle 1 stroke:#757575,fill:none
     L_Buffer3_GraphicsThread_0@{ animation: fast } 
     L_n2_Triple_Buffering_0@{ animation: fast }
+
+
 
 ```
