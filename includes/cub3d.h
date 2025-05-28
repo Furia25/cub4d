@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/28 21:05:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/05/29 00:32:13 by val              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <sys/time.h>
 # include <X11/keysymdef.h>
+# include <X11/Xlib.h>
+# include <stdint.h>
+# include <stdlib.h>
 
 # include "libft.h"
 # include "mlx.h"
@@ -25,6 +28,12 @@
 
 # define WINDOW_WIDTH	1920
 # define WINDOW_HEIGHT	1080
+
+typedef enum e_keymap
+{
+	KEY_QUIT = XK_Escape,
+	KEY_TEST = XK_e
+}	t_keymap;
 
 typedef struct s_key
 {
@@ -63,4 +72,6 @@ uint64_t	get_time_ms(void);
 
 int			key_released(int key_pressed, void *param);
 int			key_pressed(int key_pressed, void *param);
+void		handle_keys(t_game *game);
+void		handle_key(t_key key, t_game *game);
 #endif

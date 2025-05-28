@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/28 21:09:35 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/05/29 00:27:10 by val              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int	loop(void *param)
 	game = param;
 	while (index < KEY_MEMORY)
 	{
-		printf("{%d} ", game->keys[index].keycode);
+		printf("{%d %lu} \n", game->keys[index].keycode, game->keys[index].time);
 		index++;
 	}
 	printf("\n");
 	usleep(100000);
+	handle_keys(game);
 	return (1);
 }
 
@@ -50,7 +51,7 @@ void	run_game(t_game *game)
 		exit(EXIT_FAILURE);
 	}
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
-	mlx_hook(game->win, KeyPress, KeyReleaseMask, key_released, game);
+	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
 	mlx_loop_hook(game->mlx, loop, game);
 	mlx_loop(game->mlx);

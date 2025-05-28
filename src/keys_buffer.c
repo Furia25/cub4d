@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys_utils.c                                       :+:      :+:    :+:   */
+/*   keys_buffer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:10:34 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/28 21:11:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/05/29 00:36:31 by val              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,15 @@ int	key_released(int key_pressed, void *param)
 {
 	t_game	*game;
 
+	ft_putstr_fd("zeub", 2);
 	game = param;
 	return (remove_keys(key_pressed, game->keys));
 }
 
 static bool	add_keys(int keycode, t_key *keys)
 {
-	int	index;
+	int			index;
+	uint64_t	timecode;
 
 	index = 0;
 	while (index < KEY_MEMORY)
@@ -44,6 +46,8 @@ static bool	add_keys(int keycode, t_key *keys)
 			keys[index].time = get_time_ms();
 			return (true);
 		}
+		else if (keys[index].keycode == keycode)
+			return (true);
 		index++;
 	}
 	return (false);

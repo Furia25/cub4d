@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vdurand <vdurand@student.42.fr>            +#+  +:+       +#+         #
+#    By: val <val@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/05/28 21:06:19 by vdurand          ###   ########.fr        #
+#    Updated: 2025/05/29 00:01:31 by val              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ SRC_FILES = \
 	main.c \
 	init_game.c \
 	end_game.c \
-	keys_utils.c \
+	keys_buffer.c \
+	keys_handlers.c \
 	map_utils.c \
 	time_utils.c
 
