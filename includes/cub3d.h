@@ -23,6 +23,7 @@
 # include "mlx.h"
 # include "mlx_int.h"
 # include "stdbool.h"
+// # include "crazypng.h"
 
 # define KEY_MEMORY	10
 
@@ -67,17 +68,26 @@ typedef struct s_game
 	t_key		keys[KEY_MEMORY];
 }	t_game;
 
-int			check_file_extension(char *filename);
 void		run_game(t_game *game);
 int			exit_game(t_game *game);
-int			key_hook(int key_pressed, void *param);
-char		**read_map(char *map_file, t_game *game);
-void		check_map_errors(t_game *game, char *map_file);
-void		free_map(char **map);
 uint64_t	get_time_ms(void);
 
+// ----- KEYS ----- //
+int			key_hook(int key_pressed, void *param);
 int			key_released(int key_pressed, void *param);
 int			key_pressed(int key_pressed, void *param);
 void		handle_keys(t_game *game);
 void		handle_key(t_key key, t_game *game);
+
+// ----- MAP_UTILS ----- //
+int			check_file_extension(char *filename);
+char		**read_map(char *map_file, t_game *game);
+void		check_map_errors(t_game *game, char *map_file);
+void		free_map(char **map);
+
+// ----- PARSING ----- //
+int			check_colors(char **map);
+int			check_tiles_borders(char **map, int line_nb);
+int			check_paths(char **map);
+
 #endif

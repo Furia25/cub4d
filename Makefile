@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: val <val@student.42.fr>                    +#+  +:+       +#+         #
+#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/05/29 00:01:31 by val              ###   ########.fr        #
+#    Updated: 2025/05/30 11:05:45 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ else
 endif
 
 # Project
-NAME = cube3d
+NAME = cub3d
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes
@@ -63,7 +63,8 @@ SRC_FILES = \
 	keys_buffer.c \
 	keys_handlers.c \
 	map_utils.c \
-	time_utils.c
+	time_utils.c \
+	parsing.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

@@ -35,7 +35,7 @@ int	key_released(int key_pressed, void *param)
 static bool	add_keys(int keycode, t_key *keys)
 {
 	int			index;
-	uint64_t	timecode;
+	// uint64_t	timecode;
 
 	index = 0;
 	while (index < KEY_MEMORY)
