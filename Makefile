@@ -1,96 +1,137 @@
-.PHONY: all clean fclean re libft
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: val <val@student.42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
+#    Updated: 2025/05/29 00:01:31 by val              ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-# ------ COLORS ------ #
+#	ANSI COLORS
+BLACK = \033[30m
+RED = \033[31m
+GREEN = \033[32m
+YELLOW = \033[33m
+BLUE = \033[34m
+MAGENTA = \033[35m
+CYAN = \033[36m
+WHITE = \033[37m
 
-_END			= \033[0m
-_GREY			= \033[0;30m
-_RED			= \033[0;31m
-_GREEN			= \033[0;32m
-_YELLOW			= \033[0;33m
-_BLUE			= \033[0;34m
-_PURPLE			= \033[0;35m
-_CYAN			= \033[0;36m
-_BOLD			= \e[1m
+BG_BLACK = \033[40m
+BG_RED = \033[41m
+BG_GREEN = \033[42m
+BG_YELLOW = \033[43m
+BG_BLUE = \033[44m
+BG_MAGENTA = \033[45m
+BG_CYAN = \033[46m
+BG_WHITE = \033[47m
 
-# ------ VARIABLES ------ #
+BOLD = \033[1m
+DIM = \033[2m
+ITALIC = \033[3m
+UNDERLINE = \033[4m
+BLINK = \033[5m
+REVERSE = \033[7m
+HIDDEN = \033[8m
+RESET = \033[0m
 
-NAME			= cub3d
-CC				= cc
-CFLAGS			= -Wall -Wextra -Werror
-LFLAGS 			= -L$(P_MLX) -L$(P_INC) -lmlx -lXext -lX11 -lm -lbsd
+# Verbose control
+VERBOSE = 0
+ifeq ($(VERBOSE),1)
+	SILENT =
+	DUMP_OUT =
+else
+	SILENT = @
+	DUMP_OUT = > /dev/null 2>&1
+endif
 
-# ------ PATHS ------ #
+# Project
+NAME = cube3d
+SRC_DIR = src
+OBJ_DIR = obj
+INC_DIR = includes
+LIBS_DIR = libs
 
-P_OBJ 			= obj/
-P_SRC 			= src/
-P_UTILS			= $(P_SRC)utils/
-P_INC			= includes/
-P_LIB			= libft/
-P_MLX			= mlx/
+# Source files
+SRC_FILES = \
+	main.c \
+	init_game.c \
+	end_game.c \
+	keys_buffer.c \
+	keys_handlers.c \
+	map_utils.c \
+	time_utils.c
 
-# ------ FILES ------ #
+SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-MAIN			= main			init_game		\
-				end_game		keys_utils		\
-				map_utils
+# Libs
+LIBS_DIRS := $(shell find $(LIBS_DIR) -maxdepth 1 -mindepth 1 -type d)
+LIBS = $(foreach dir, $(LIBS_DIRS), $(dir)/$(shell basename $(dir) | sed 's/^lib//g' | sed 's/^/lib/').a)
+LIBS_NO_LIB = $(foreach dir, $(LIBS_DIRS), $(patsubst lib%, %, $(notdir $(dir))))
 
-UTILS			= 
+# Compiler & flags
+CC = cc
+CFLAGS = -Werror -Wextra -Wall
+INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS))
+LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 
-HDR_SRC			= libft			mlx_int			\
-				mlx				cub3d
+# Targets
+.PHONY: all clean fclean re fcleanlibs
 
-SRC_MAIN		= $(addprefix $(P_SRC), $(addsuffix .c, $(MAIN)))
-SRC_UTILS		= $(addprefix $(P_UTILS), $(addsuffix .c, $(UTILS)))
-SRC_ALL			= $(SRC_MAIN) $(SRC_UTILS)
+all: $(NAME)
 
-OBJ_MAIN 		= $(addprefix $(P_OBJ), $(addsuffix .o, $(MAIN)))
-OBJ_UTILS 		= $(addprefix $(P_OBJ), $(addsuffix .o, $(UTILS)))
-OBJ_ALL 		= $(OBJ_MAIN) $(OBJ_UTILS)
+$(NAME): $(OBJ) $(LIBS)
+	$(SILENT) $(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	@echo "$(BG_GREEN)>>> Program $(NAME) compiled!$(RESET)"
 
-HEADERS			= $(addprefix $(P_INC), $(addsuffix .h, $(HDR_SRC)))
-LIBFT			= $(P_LIB)libft.a
-MLX				= $(P_MLX)libmlx_Linux.a		$(P_MLX)libmlx.a
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
+	$(SILENT) mkdir -p $(dir $@)
+	@echo "$(BLUE)>>> Compiling $<...$(RESET)"
+	$(SILENT) $(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
 
-# ------ RULES ------ #
+$(LIBS): %.a:
+	$(SILENT) \
+	if [ -f "$(@D)/configure" ]; then \
+		echo "$(CYAN)>>> Found configure in $(notdir $(@D)), running it...$(RESET)"; \
+		cd "$(@D)" && ./configure $(DUMP_OUT); \
+		if [ $$? -ne 0 ]; then \
+			echo "$(RED)>>> ./configure failed in $(notdir $(@D)) – aborting.$(RESET)"; \
+			exit 1; \
+		else \
+			exit 0; \
+		fi; \
+	fi; \
+	echo "$(MAGENTA)>>> Compiling library $(notdir $@)...$(RESET)"; \
+	$(MAKE) -C $(dir $@) > /dev/null 2> make_errors.log || { \
+		echo "$(RED)>>> Error compiling $(notdir $@):$(RESET)"; \
+		cat make_errors.log; rm -f make_errors.log; exit 1; }; \
+	rm -f make_errors.log; \
+	if $(MAKE) -C $(dir $@) -n bonus $(DUMP_OUT); then \
+		echo "$(DIM)$(MAGENTA)>>> Bonus rule exists, compiling...$(RESET)"; \
+		$(MAKE) -C $(dir $@) bonus > /dev/null 2> make_errors.log || { \
+			echo "$(RED)>>> Error compiling bonus for $(notdir $@):$(RESET)"; \
+			cat make_errors.log; rm -f make_errors.log; exit 1; }; \
+		rm -f make_errors.log; \
+	fi; \
+	echo "$(BG_BLUE)$(GREEN)>>> Compilation of $(notdir $@) completed!$(RESET)"
 
-all: 			libft make_mlx $(NAME)
+clean:
+	@echo "$(YELLOW)>>> Cleaning objects$(RESET)"
+	$(SILENT) rm -rf $(OBJ_DIR)
 
-$(NAME):		$(OBJ_ALL) Makefile $(HEADERS) $(LIBFT)
-				@$(CC) $(CFLAGS) $(LFLAGS) -I $(P_INC) $(OBJ_ALL) $(LIBFT) $(MLX) -o $@
-				@echo "$(_GREEN)$(_BOLD)=> $(NAME) compiled!$(_END)"
+fcleanlibs:
+	$(SILENT) for dir in $(LIBS_DIRS); do \
+		$(MAKE) -C $$dir clean $(DUMP_OUT); \
+		$(MAKE) -C $$dir fclean $(DUMP_OUT); \
+		echo "$(GREEN)>>> Cleaned all in $$dir$(RESET)"; \
+	done
 
-$(P_OBJ):
-				@mkdir -p $(P_OBJ)
+fclean: clean fcleanlibs
+	@echo "$(YELLOW)>>> Cleaning executable...$(RESET)"
+	$(SILENT) rm -f $(NAME)
 
-$(P_OBJ)%.o:	$(P_SRC)%.c Makefile $(HEADERS) $(LIBFT) | $(P_OBJ)
-				@echo "$(_YELLOW)Compiling $<...$(_END)"
-				@$(CC) $(CFLAGS) -I $(P_INC) -c $< -o $@
-
-# $(P_OBJ)%.o:	$(P_UTILS)%.c Makefile $(HEADERS) $(LIBFT) $(MLX) | $(P_OBJ)
-# 				@echo "$(_YELLOW)Compiling $<...$(_END)"
-# 				@$(CC) $(CFLAGS) -I $(P_INC) -c $< -o $@
-
-libft:		
-				@$(MAKE) -C $(P_LIB) --no-print-directory
-
-make_mlx:		
-				@$(MAKE) -C $(P_MLX)
-
-# ------ BASIC RULES ------ #
-
-clean: 
-				@rm -rf $(P_OBJ)
-				@$(MAKE) -C $(P_LIB) clean --no-print-directory
-				@$(MAKE) -C $(P_MLX) clean --no-print-directory
-				@echo "$(_CYAN)$(NAME) cleaned!$(_END)"
-
-fclean:
-				@$(MAKE) clean --no-print-directory
-				@$(MAKE) -C $(P_LIB) fclean --no-print-directory
-				@rm -rf $(LIBFT)
-				@rm -rf $(NAME)
-				@echo "$(_CYAN)$(NAME) full cleaned!$(_END)"
-
-re:
-				@$(MAKE) fclean --no-print-directory
-				@$(MAKE) all --no-print-directory
+re: fclean all

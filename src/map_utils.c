@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:13:59 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/28 15:09:18 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/05/29 00:02:26 by val              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ int	determine_line_nb(char *map_file)
 		ft_putstr_fd("Map error", 2);
 		return (0);
 	}
-	line = get_next_line(fd);
+	line = get_next_line(fd).line;
 	if (line)
 		line_nb++;
 	while (line)
 	{
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(fd).line;
 		if (line)
 			line_nb++;
 	}
@@ -67,11 +67,11 @@ char	**read_map(char *map_file, t_game *game)
 	game->map = (char **)malloc(sizeof(char *) * (game->height + 1));
 	if (!(game->map))
 		return (NULL);
-	game->map[0] = get_next_line(fd);
+	game->map[0] = get_next_line(fd).line;
 	i = 0;
 	while (++i < game->height)
 	{
-		game->map[i] = get_next_line(fd);
+		game->map[i] = get_next_line(fd).line;
 		if (!game->map[i])
 			return (NULL);
 	}
