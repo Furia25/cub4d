@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys_buffer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:10:34 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/29 00:36:31 by val              ###   ########.fr       */
+/*   Updated: 2025/06/02 10:39:49 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	key_released(int key_pressed, void *param)
 {
 	t_game	*game;
 
-	ft_putstr_fd("zeub", 2);
+	// ft_putstr_fd("zeub", 2);
 	game = param;
 	return (remove_keys(key_pressed, game->keys));
 }

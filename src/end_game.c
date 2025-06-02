@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/21 11:27:12 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/02 11:07:27 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int	exit_game(t_game *game)
 {
-	free_map(game->map);	
+	free_map(game->file_content);
+	free(game->paths);
+	free(game->colors);
+	free(game->map);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	// destroy_images(game);

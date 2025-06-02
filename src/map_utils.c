@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:13:59 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/29 00:02:26 by val              ###   ########.fr       */
+/*   Updated: 2025/06/02 10:29:22 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,29 @@ char	**read_map(char *map_file, t_game *game)
 		exit (EXIT_FAILURE);
 	}
 	game->height = determine_line_nb(map_file);
-	game->map = (char **)malloc(sizeof(char *) * (game->height + 1));
-	if (!(game->map))
+	game->file_content = (char **)malloc(sizeof(char *) * (game->height + 1));
+	if (!(game->file_content))
 		return (NULL);
-	game->map[0] = get_next_line(fd).line;
+	game->file_content[0] = get_next_line(fd).line;
 	i = 0;
 	while (++i < game->height)
 	{
-		game->map[i] = get_next_line(fd).line;
-		if (!game->map[i])
+		game->file_content[i] = get_next_line(fd).line;
+		if (!game->file_content[i])
 			return (NULL);
 	}
-	game->map[i] = NULL;
+	game->file_content[i] = NULL;
 	close(fd);
-	return (game->map);
+	return (game->file_content);
 }
 
 int	check_map_validity(t_game *game)
 {
-	if (!check_paths(game->map))
+	if (!check_paths(game))
 		return (0);
-	if (!check_colors(game->map))
+	if (!check_colors(game))
 		return (0);
-	if (!check_tiles_borders(game->map, game->height))
+	if (!check_tiles_borders(game))
 		return (0);
 	return (1);
 }
@@ -100,7 +100,7 @@ void	check_map_errors(t_game *game, char *map_file)
 	}
 	if (!check_map_validity(game))
 	{
-		free_map(game->map);
+		free_map(game->file_content);
 		ft_putstr_fd("Error: The map is not valid", 2);
 		exit(EXIT_FAILURE);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/29 00:32:13 by val              ###   ########.fr       */
+/*   Updated: 2025/06/02 13:33:41 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,14 @@
 
 # define KEY_MEMORY	10
 
-# define WINDOW_WIDTH	1920
-# define WINDOW_HEIGHT	1080
+# define WINDOW_WIDTH		1920
+# define WINDOW_HEIGHT		1080
+
+# define MAP_TILE_SIZE		16
+# define MINIMAP_SIZE		256
+# define MINIMAP_X_START	40
+# define MINIMAP_Y_START	784
+# define MINIMAP_BORDER		5
 
 typedef enum e_keymap
 {
@@ -62,7 +68,10 @@ typedef struct s_game
 	int			pos_x;
 	int			pos_y;
 	int			end;
+	char		**file_content;
 	char		**map;
+	char		**paths;
+	char		**colors;
 	int			steps;
 	int			direction;
 	t_key		keys[KEY_MEMORY];
@@ -86,8 +95,11 @@ void		check_map_errors(t_game *game, char *map_file);
 void		free_map(char **map);
 
 // ----- PARSING ----- //
-int			check_colors(char **map);
-int			check_tiles_borders(char **map, int line_nb);
-int			check_paths(char **map);
+int			check_colors(t_game *game);
+int			check_tiles_borders(t_game *game);
+int			check_paths(t_game *game);
+
+// ----- MINIMAP ----- //
+void		draw_minimap(t_game *game);
 
 #endif

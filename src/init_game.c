@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/29 00:27:10 by val              ###   ########.fr       */
+/*   Updated: 2025/06/02 11:11:07 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ int	loop(void *param)
 
 	index = 0;
 	game = param;
-	while (index < KEY_MEMORY)
-	{
-		printf("{%d %lu} \n", game->keys[index].keycode, game->keys[index].time);
-		index++;
-	}
-	printf("\n");
-	usleep(100000);
+	// while (index < KEY_MEMORY)
+	// {
+	// 	// printf("{%d %lu} \n", game->keys[index].keycode, game->keys[index].time);
+	// 	index++;
+	// }
+	// printf("\n");
 	handle_keys(game);
 	return (1);
 }
@@ -53,6 +52,7 @@ void	run_game(t_game *game)
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
+	draw_minimap(game);
 	mlx_loop_hook(game->mlx, loop, game);
 	mlx_loop(game->mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/05/30 11:03:40 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/02 13:42:51 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,60 +24,95 @@ int	check_tile_validity(char c)
 int	check_borders(char *line, int row, int line_nb)
 {
 	int		i;
-	int		j;
-	
-	i = 0;
-	while (line[i])
+
+	i = -1;
+	while (line[++i])
 	{
 		if (row == 8 || row == line_nb - 1)
 		{
 			if (line[i] != '1' && line[i] != ' ' && line[i] != '\n')
-			return (0);
-		}
-		else
-		{
-			j = 0;
-			while (line[j] == ' ')
-				j++;
-			if (line[j] != '1')
-				return (0);
-			while (line[j] != '\n')
-				j++;
-			if (line[j - 1] != '1')
 				return (0);
 		}
-		i++;
-	}
-	return (1);	
-}
-
-int	check_tiles_borders(char **map, int line_nb)
-{
-	int	i;
-	int	j;
-
-	i = 8;
-	j = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (!check_borders(map[i], i, line_nb))
-				return (0);
-			if (!check_tile_validity(map[i][j]))
-				return (0);
-			j++;
-		}
-		i++;
 	}
 	return (1);
 }
 
-int	check_paths(char **map)
+int	player_tile(char c)
+{
+	if (c != 'N' && c != 'S' && c != 'E' && c != 'W')
+		return (0);
+	return (1);
+}
+
+int	center_tile(char c)
+{
+	if (c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W')
+		return (0);
+	return (1);
+}
+
+int	wrapping_tile(char c)
+{
+	if (c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W' && c != '1')
+		return (0);
+	return (1);
+}
+
+int	borders_around(char **map, int i, int j)
+{
+	if (!wrapping_tile(map[i + 1][j]) || !wrapping_tile(map[i - 1][j]))
+		return (0);
+	if (!wrapping_tile(map[i][j + 1]) || !wrapping_tile(map[i][j - 1]))
+		return (0);
+	return (1);
+}
+
+int	check_tiles_borders(t_game *game)
+{
+	int	i;
+	int	j;
+	int	k;
+	int	player;
+
+	i = 8;
+	j = 0;
+	k = 0;
+	player = 0;
+	game->map = (char **)malloc(sizeof(char *) * ((game->height - 8) + 1));
+	if (!game->map)
+		return (0);
+	while (game->file_content[i])
+	{
+		j = 0;
+		game->map[k] = game->file_content[i];
+		while (game->file_content[i][j])
+		{
+			if (player_tile(game->file_content[i][j]))
+			{
+				game->pos_x = j;
+				game->pos_y = i;
+				player = 1;
+			}
+			if (!check_tile_validity(game->file_content[i][j]))
+				return (0);
+			if (center_tile(game->file_content[i][j]) && \
+			!borders_around(game->file_content, i, j))
+				return (0);
+			j++;
+		}
+		i++;
+		k++;
+	}
+	game->map[k] = NULL;
+	if (!player)
+		return (0);
+	return (1);
+}
+
+int	check_paths(t_game *game)
 {
 	char	*line;
-	// t_png	png;
+	int		fd;
 	int		i;
 	char	*identifiers[4];
 
@@ -86,47 +121,67 @@ int	check_paths(char **map)
 	identifiers[1] = "SO ";
 	identifiers[2] = "WE ";
 	identifiers[3] = "EA ";
+	game->paths = (char **)malloc(sizeof(char *) * 5);
+	if (!game->paths)
+		return (0);
 	while (i < 4)
 	{
-		line = map[i];
+		line = game->file_content[i];
+		game->paths[i] = game->file_content[i];
 		if (ft_strncmp(line, identifiers[i], 3))
 			return (0);
 		line += (sizeof(char) * 3);
-		// png = png_open(line);
-		// if (!png || png == -1)
-		// 	return (0);
-		// png_close(png);
+		line[ft_strlen(line) - 1] = '\0';
+		fd = open(line, O_RDONLY);
+		if (!fd || fd == -1)
+			return (0);
+		close(fd);
 		i++;
 	}
+	game->paths[i] = NULL;
 	return (1);
 }
 
-int	check_colors(char **map)
+int	check_colors(t_game *game)
 {
 	char	*line;
 	int		i;
 	int		j;
+	int		k;
 	char	*identifiers[2];
 	char	**rgb;
 
 	i = 5;
+	k = 0;
 	identifiers[0] = "F ";
 	identifiers[1] = "C ";
+	game->colors = (char **)malloc(sizeof(char *) * 3);
+	if (!game->colors)
+		return (0);
 	while (i < 7)
 	{
-		line = map[i];
+		line = game->file_content[i];
+		game->colors[k] = game->file_content[i];
 		if (ft_strncmp(line, identifiers[i - 5], 2))
 			return (0);
 		line += (sizeof(char) * 2);
 		rgb = ft_split(line, ',');
+		if (!rgb)
+			return (0);
 		j = 0;
 		while (rgb[j])
 		{
 			if (ft_atoi(rgb[j]) < 0 || ft_atoi(rgb[j]) > 255)
+			{
+				free_map(rgb);
 				return (0);
+			}
 			j++;
 		}
+		free_map(rgb);
 		i++;
+		k++;
 	}
+	game->colors[k] = NULL;
 	return (1);
 }
