@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/04 09:50:21 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/04 15:52:55 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,16 @@
 # define MINIMAP_X_START	40
 # define MINIMAP_Y_START	784
 # define MINIMAP_BORDER		5
+# define MINIMAP_P_SIZE		4
 
 typedef enum e_keymap
 {
 	KEY_QUIT = XK_Escape,
-	KEY_TEST = XK_e
+	KEY_TEST = XK_e,
+	KEY_UP = XK_w,
+	KEY_DOWN = XK_s,
+	KEY_LEFT = XK_a,
+	KEY_RIGHT = XK_d
 }	t_keymap;
 
 typedef struct s_key
@@ -54,19 +59,24 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+typedef struct s_win_img
+{
+	void	*img_ptr;
+	char	*data;
+	int		endian;
+	int		size_line;
+	int		bpp;
+}	t_win_img;
+
 typedef struct s_game
 {
 	void		*mlx;
 	char		*win;
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
+	t_win_img	*img;
 	int			width;
 	int			height;
-	int			endian;
-	int			pos_x;
-	int			pos_y;
+	double		pos_x;
+	double		pos_y;
 	int			end;
 	char		**file_content;
 	char		**map;
@@ -98,6 +108,7 @@ void		free_map(char **map);
 int			check_colors(t_game *game);
 int			check_tiles_borders(t_game *game);
 int			check_paths(t_game *game);
+int			center_tile(char c);
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);

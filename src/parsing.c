@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/04 09:52:11 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/04 13:34:08 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,10 @@ int	check_tiles_borders(t_game *game)
 			{
 				if (player)
 					return (0);
-				game->pos_x = j;
-				game->pos_y = i - 8;
+				game->pos_x = (double)j;
+				game->pos_y = (double)(i - 8);
+				// game->pos_x = 26.5;
+				// game->pos_y = 11.5;
 				player = 1;
 			}
 			if (!check_tile_validity(game->file_content[i][j]))
@@ -133,7 +135,10 @@ int	check_paths(t_game *game)
 		if (ft_strncmp(line, identifiers[i], 3))
 			return (0);
 		line += (sizeof(char) * 3);
-		line[ft_strlen(line) - 1] = '\0';
+		if (line)
+			line[ft_strlen(line) - 1] = '\0';
+		else
+			return (0);
 		fd = open(line, O_RDONLY);
 		if (!fd || fd == -1)
 			return (0);

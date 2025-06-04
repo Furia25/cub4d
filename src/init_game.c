@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/02 11:11:07 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/04 13:28:26 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	loop(void *param)
 
 void	run_game(t_game *game)
 {
+	t_win_img	img;
+
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
@@ -49,10 +51,14 @@ void	run_game(t_game *game)
 		free(game->mlx);
 		exit(EXIT_FAILURE);
 	}
-	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
-	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
-	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
+	img.img_ptr = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	img.data = mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_line, &img.endian);
+	game->img = &img;
 	draw_minimap(game);
+	// mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
+	// mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
+	mlx_hook(game->win, KeyPress, KeyPressMask, key_hook, game);
+	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
 	mlx_loop_hook(game->mlx, loop, game);
 	mlx_loop(game->mlx);
 }
