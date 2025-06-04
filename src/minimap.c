@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/02 14:11:34 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/04 09:53:03 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,21 @@ void	draw_line(char *line, t_game *game, int pos_y)
 
 	tile = game->pos_x - 7;
 	pos_x = 0;
-	while (line[tile] && tile < game->pos_x - 7)
+	while (tile < 0)
+	{
+		tile++;
+		pos_x++;
+	}
+	if (!line)
+	{
+		while (tile < game->pos_x + 8)
+		{
+			tile++;
+			pos_x++;
+		}
+		return ;
+	}
+	while (line[tile] && tile < game->pos_x + 8)
 	{
 		if (line[tile] == '0')
 			draw_tile(game, pos_x, pos_y, 0x000075255);
@@ -66,7 +80,7 @@ void	draw_border(t_game *game)
 		j = 0;
 		while (j < MINIMAP_SIZE)
 		{
-			if (j < 5 || j > MINIMAP_SIZE - 5 || i < 5 || i > MINIMAP_SIZE - 5)
+			if (j < MINIMAP_BORDER || j > MINIMAP_SIZE - MINIMAP_BORDER || i < MINIMAP_BORDER || i > MINIMAP_SIZE - MINIMAP_BORDER)
 				mlx_pixel_put(game->mlx, game->win, i + MINIMAP_X_START, j + MINIMAP_Y_START, color);
 			j++;
 		}
@@ -94,17 +108,25 @@ void	draw_player(t_game *game)
 
 void	draw_minimap(t_game *game)
 {
-	// int	i;
+	int	i;
 	// int	j;
 	int	line;
 
 	draw_border(game);
 	// draw_player(game);
-	printf("%d %d\n", game->pos_x, game->pos_y);
+	// printf("%d %d\n", game->pos_x, game->pos_y);
+	i = 0;
 	line = game->pos_y - 7;
-	while (game->map[line] && line < game->pos_y + 7)
+	while (line < 0)
 	{
-		draw_line(game->map[line], game, line);
+		draw_line(NULL, game, i);
 		line++;
+		i++;
+	}
+	while (game->map[line] && line < game->pos_y + 8)
+	{
+		draw_line(game->map[line], game, i);
+		line++;
+		i++;
 	}
 }
