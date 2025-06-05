@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/04 15:52:55 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/05 21:43:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@
 # include "mlx.h"
 # include "mlx_int.h"
 # include "stdbool.h"
-// # include "crazypng.h"
+# include "crazypng.h"
+# include "math.h"
+# include "maths2.h"
+# include "maths2_geometry.h"
 
 # define KEY_MEMORY	10
 

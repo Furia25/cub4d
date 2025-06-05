@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/04 10:33:01 by halnuma          ###   ########.fr        #
+#    Updated: 2025/06/05 21:42:59 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,11 +77,12 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIBS_DIRS := $(shell find $(LIBS_DIR) -maxdepth 1 -mindepth 1 -type d)
 LIBS = $(foreach dir, $(LIBS_DIRS), $(dir)/$(shell basename $(dir) | sed 's/^lib//g' | sed 's/^/lib/').a)
 LIBS_NO_LIB = $(foreach dir, $(LIBS_DIRS), $(patsubst lib%, %, $(notdir $(dir))))
+LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
 CFLAGS = -Werror -Wextra -Wall
-INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS))
+INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 
 # Targets
