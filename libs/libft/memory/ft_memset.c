@@ -6,14 +6,14 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:52:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 00:09:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/06 13:58:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "stdint.h"
 
-void	*memset_fast(void *ptr, int value, size_t num)
+void	*ft_memset(void *ptr, int value, size_t num)
 {
 	unsigned char	*p;
 	unsigned char	val;

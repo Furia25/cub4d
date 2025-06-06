@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 01:50:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/05 01:18:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/06 19:16:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ typedef struct s_vec3
 	float	y;
 	float	z;
 }	t_vec3;
+
+typedef struct s_ivec2
+{
+	int	x;
+	int	y;
+}	t_ivec2;
+
+typedef struct s_ivec3
+{
+	int	x;
+	int	y;
+	int	z;
+}	t_ivec3;
 
 /*
 Types representing 2D objects should be reserved for this usage.

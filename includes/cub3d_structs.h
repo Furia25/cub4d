@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/05 23:31:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/06 14:18:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,31 @@
 # include <X11/Xlib.h>
 # include <stdint.h>
 
-typedef enum e_keymap
+typedef enum e_key_type
 {
-	KEY_QUIT = XK_Escape,
-	KEY_TEST = XK_e,
-	KEY_UP = XK_w,
-	KEY_DOWN = XK_s,
-	KEY_LEFT = XK_a,
-	KEY_RIGHT = XK_d
-}	t_keymap;
+	KEY_QUIT,
+	KEY_TEST,
+	KEY_UP,
+	KEY_DOWN,
+	KEY_LEFT,
+	KEY_RIGHT,
+	KEY_MAX_COUNT
+}	t_key_type;
+
+static const int	g_keymap[KEY_MAX_COUNT] = {
+[KEY_QUIT] = XK_Escape,
+[KEY_TEST] = XK_e,
+[KEY_UP] = XK_w,
+[KEY_DOWN] = XK_s,
+[KEY_LEFT] = XK_a,
+[KEY_RIGHT] = XK_d
+};
 
 typedef struct s_key
 {
-	uint64_t	time;
-	int			keycode;
+	uint64_t		time;
+	t_key_type		type;
+	bool			pressed;
 }	t_key;
 
 typedef struct s_img_data

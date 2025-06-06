@@ -1,32 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_game.c                                         :+:      :+:    :+:   */
+/*   raycast_misc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/06 20:15:03 by vdurand          ###   ########.fr       */
+/*   Created: 2025/06/06 21:25:20 by vdurand           #+#    #+#             */
+/*   Updated: 2025/06/06 21:25:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_rendering.h"
 
-int	exit_game(t_game *game)
-{
-	tilemap_free(game->tilemap);
-	free(game->paths);
-	free(game->colors);
-	free(game->map);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->img)
-	{
-		if (game->img->img_ptr)
-			mlx_destroy_image(game->mlx, game->img->img_ptr);
-		free(game->img);
-	}
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	exit(EXIT_SUCCESS);
-}

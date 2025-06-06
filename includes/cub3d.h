@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/05 23:48:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/06 20:14:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@
 
 # include "cub3d_structs.h"
 # include "cub3d_drawing.h"
-
-# define KEY_MEMORY	10
+# include "tilemap.h"
 
 # define WINDOW_WIDTH		1920
 # define WINDOW_HEIGHT		1080
@@ -62,16 +61,18 @@ typedef struct s_game
 	char		**map;
 	char		**paths;
 	char		**colors;
-	t_key		keys[KEY_MEMORY];
+	t_tilemap	*tilemap;
+	t_key		key_buffer[KEY_MAX_COUNT];
 }	t_game;
 
 void		run_game(t_game *game);
 int			exit_game(t_game *game);
+int			game_loop(void *param);
 uint64_t	get_time_ms(void);
 
 // ----- KEYS ----- //
-bool		is_key_pressed(int keycode, t_game *game);
-int			key_hook(int key_pressed, void *param);
+void		show_keys(t_game *game);
+bool		is_key_pressed(t_key_type type, t_game *game);
 int			key_released(int key_pressed, void *param);
 int			key_pressed(int key_pressed, void *param);
 void		handle_keys(t_game *game);

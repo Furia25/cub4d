@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:15:50 by val               #+#    #+#             */
-/*   Updated: 2025/06/04 23:04:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/06 18:40:44 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ extern float		fclamp(float x, float min, float max);
 extern int			max(int a, int b);
 extern int			min(int a, int b);
 
+extern int			sign(double x);
 extern int			m2_abs(int x);
 extern int			normalize(int x, int min, int max);
 extern double		dnormalize(double x, double min, double max);

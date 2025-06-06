@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_game.c                                         :+:      :+:    :+:   */
+/*   cub3d_rendering.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/06 20:15:03 by vdurand          ###   ########.fr       */
+/*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
+/*   Updated: 2025/06/06 21:23:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef CUBE3D_RENDERING_H
+# define CUBE3D_RENDERING_H
+# include "tilemap.h"
 
-int	exit_game(t_game *game)
+typedef struct s_raycast_hit
 {
-	tilemap_free(game->tilemap);
-	free(game->paths);
-	free(game->colors);
-	free(game->map);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->img)
-	{
-		if (game->img->img_ptr)
-			mlx_destroy_image(game->mlx, game->img->img_ptr);
-		free(game->img);
-	}
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	exit(EXIT_SUCCESS);
-}
+	t_ray2		original_ray;
+	bool		hitted;
+	int			orientation;
+	double		dist;
+	t_vec2		pos;
+	t_tile_info	tile_info;
+	t_tile_type	tile_type;
+	t_tilemap	*tilemap;
+}	t_raycast_hit;
+
+t_raycast_hit	raycast_tilemap(t_ray2 *ray, t_tilemap *tilemap);
+
+#endif

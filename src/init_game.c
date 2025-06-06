@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/06 00:13:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/06 21:18:26 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,13 @@ bool	create_frame_image(t_game *game)
 	return (true);
 }
 
-void	update_player(t_player *player, t_game *game)
-{
-	int	x_axis;
-	int	y_axis;
-
-	x_axis =  is_key_pressed(KEY_RIGHT, game) - is_key_pressed(KEY_LEFT, game);
-	y_axis =  is_key_pressed(KEY_DOWN, game) - is_key_pressed(KEY_UP, game);
-	printf("Player : %f, %f\n", player->position.x, player->position.y);
-	player->position.x += (x_axis * player->speed);
-	player->position.y += (y_axis * player->speed);
-}
-
-int	loop(void *param)
-{
-	t_game	*game;
-	t_img_data *frame;
-
-	game = param;
-	frame = game->img;
-	memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
-	handle_keys(game);
-	update_player(&game->player, game);
-	/*TEST TILES*/
-	img_draw_rect(rgba8(255, 255, 0, 255), rect_new(game->player.position, vec2_new(50, 50)), frame);
-	mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-	return (1);
-}
+const char *test_tab[5] = {
+	"11111",
+	"10001",
+	"10101",
+	"10001",
+	"11111"
+};
 
 void	run_game(t_game *game)
 {
@@ -76,9 +56,10 @@ void	run_game(t_game *game)
 		free(game->mlx);
 		exit(EXIT_FAILURE);
 	}
+	game->tilemap = tilemap_from_tab((char **)test_tab, 5, 5, 1);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
-	mlx_loop_hook(game->mlx, loop, game);
+	mlx_loop_hook(game->mlx, game_loop, game);
 	game->player.speed = 3;
 	if (!create_frame_image(game))
 		exit_game(game);

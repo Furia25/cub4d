@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_game.c                                         :+:      :+:    :+:   */
+/*   tilemap_basics.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/06 20:15:03 by vdurand          ###   ########.fr       */
+/*   Created: 2025/06/06 20:03:09 by vdurand           #+#    #+#             */
+/*   Updated: 2025/06/06 20:03:23 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "tilemap.h"
 
-int	exit_game(t_game *game)
+bool	tilemap_is_tile_valid(size_t x, size_t y, t_tilemap *map)
 {
-	tilemap_free(game->tilemap);
-	free(game->paths);
-	free(game->colors);
-	free(game->map);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->img)
-	{
-		if (game->img->img_ptr)
-			mlx_destroy_image(game->mlx, game->img->img_ptr);
-		free(game->img);
-	}
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	exit(EXIT_SUCCESS);
+	return (x > 0 && x < map->width && y > 0 && y < map->height);
+}
+
+t_tile	*tilemap_get_tile(size_t x, size_t y, t_tilemap *map)
+{
+	return (&map->tiles[y][x]);
 }
