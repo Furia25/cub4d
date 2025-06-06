@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/05 21:42:59 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/06 00:06:27 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,15 +57,13 @@ LIBS_DIR = libs
 
 # Source files
 SRC_FILES = \
+	time_utils.c \
 	main.c \
+	keys_handling.c \
+	keys_buffer.c \
 	init_game.c \
 	end_game.c \
-	keys_buffer.c \
-	keys_handlers.c \
-	map_utils.c \
-	time_utils.c \
-	parsing.c \
-	minimap.c
+	drawing/draw_basics.c
 
 HEADERS = \
 	cub3d.h
@@ -81,7 +79,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -O3
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 

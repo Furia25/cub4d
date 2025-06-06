@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/05 21:43:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/05 23:48:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # include "maths2.h"
 # include "maths2_geometry.h"
 
+# include "cub3d_structs.h"
+# include "cub3d_drawing.h"
+
 # define KEY_MEMORY	10
 
 # define WINDOW_WIDTH		1920
@@ -40,53 +43,25 @@
 # define MINIMAP_BORDER		5
 # define MINIMAP_P_SIZE		4
 
-typedef enum e_keymap
+typedef struct s_player
 {
-	KEY_QUIT = XK_Escape,
-	KEY_TEST = XK_e,
-	KEY_UP = XK_w,
-	KEY_DOWN = XK_s,
-	KEY_LEFT = XK_a,
-	KEY_RIGHT = XK_d
-}	t_keymap;
-
-typedef struct s_key
-{
-	uint64_t	time;
-	int			keycode;
-}	t_key;
-
-typedef struct s_point
-{
-	int	x;
-	int	y;
-}	t_point;
-
-typedef struct s_win_img
-{
-	void	*img_ptr;
-	char	*data;
-	int		endian;
-	int		size_line;
-	int		bpp;
-}	t_win_img;
+	t_bbox	collision_box;
+	t_vec2	position;
+	float	speed;
+}	t_player;
 
 typedef struct s_game
 {
 	void		*mlx;
 	char		*win;
-	t_win_img	*img;
+	t_img_data	*img;
 	int			width;
 	int			height;
-	double		pos_x;
-	double		pos_y;
-	int			end;
+	t_player	player;
 	char		**file_content;
 	char		**map;
 	char		**paths;
 	char		**colors;
-	int			steps;
-	int			direction;
 	t_key		keys[KEY_MEMORY];
 }	t_game;
 
@@ -95,6 +70,7 @@ int			exit_game(t_game *game);
 uint64_t	get_time_ms(void);
 
 // ----- KEYS ----- //
+bool		is_key_pressed(int keycode, t_game *game);
 int			key_hook(int key_pressed, void *param);
 int			key_released(int key_pressed, void *param);
 int			key_pressed(int key_pressed, void *param);
