@@ -6,13 +6,15 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 21:23:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/06 22:29:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_RENDERING_H
 # define CUBE3D_RENDERING_H
 # include "tilemap.h"
+
+# define RENDER_DISTANCE	100
 
 typedef struct s_raycast_hit
 {

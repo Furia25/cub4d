@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/06 20:39:39 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/06 21:29:05 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ SRC_FILES = \
 	tilemaps/tilemap_populate.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_basics.c \
-	rendering/raycast.c \
+	rendering/raycast_dda.c \
 	drawing/draw_basics.c
 
 HEADERS = \

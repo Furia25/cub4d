@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rays2D.c                                           :+:      :+:    :+:   */
+/*   rays2_basics.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 19:08:53 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/05 19:21:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/06 21:27:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "maths2_geometry.h"
 
-t_ray2	ray2_from_angle(t_vec2 origin, float angle)
+t_ray2	ray2_from_angle(t_vec2 origin, float rad_angle)
 {
 	t_ray2	ray;
 
 	ray.origin = vec2_new(origin.x, origin.y);
-	ray.dir_normal = vec2_new(cosf(angle), sinf(angle));
+	ray.dir_normal = vec2_new(cosf(rad_angle), sinf(rad_angle));
 	return (ray);
 }
 
