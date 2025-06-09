@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/06 20:14:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/09 14:44:54 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,15 @@
 # define MINIMAP_X_START	40
 # define MINIMAP_Y_START	784
 # define MINIMAP_BORDER		5
-# define MINIMAP_P_SIZE		4
+# define MINIMAP_P_SIZE		8
+# define MOUSE_SENS			0.006
 
 typedef struct s_player
 {
 	t_bbox	collision_box;
 	t_vec2	position;
+	t_vec2	direction;
+	float	rad_direction;
 	float	speed;
 }	t_player;
 
@@ -92,5 +95,26 @@ int			center_tile(char c);
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);
+void		rad_to_vect(t_vec2 *direction, float rad);
+int			check_corners(t_game *game, double pos_x, double pos_y);
+
+// ----- MAP_UTILS ----- //
+int			check_file_extension(char *filename);
+char		**read_map(char *map_file, t_game *game);
+void		check_map_errors(t_game *game, char *map_file);
+void		free_map(char **map);
+
+// ----- PARSING ----- //
+int			check_colors(t_game *game);
+int			check_tiles_borders(t_game *game);
+int			check_paths(t_game *game);
+int			center_tile(char c);
+
+// ----- MINIMAP ----- //
+void		draw_minimap(t_game *game);
+void 		draw_player(t_game *game);
+
+
+int			mouse_move(int x, int y, t_game *game);
 
 #endif

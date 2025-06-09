@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/05 19:36:38 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/09 14:55:06 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,7 @@ DEP = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.d, $(SRC))
 
 CC = cc 
 CFLAGS = -Wall -Werror -Wextra -O3 -Winline
-INCLUDES = -I$(INC_DIR) -lm
+INCLUDES = -I$(INC_DIR)
 
 $(NAME): $(OBJ)
 	$(SILENT) $(AR) rcs $@ $^ $(DUMP_OUT)

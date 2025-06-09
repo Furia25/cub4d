@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 22:42:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/09 14:48:10 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include "cub3d_rendering.h"
 #include "mlx.h"
 #include "mlx_int.h"
+
+/*
+if (key_pressed == KEY_UP)
+		handle_dir_input(game, game->pos_x + (0.125 * game->direction.x), game->pos_y - (0.125 * game->direction.y), key_pressed);
+	if (key_pressed == KEY_RIGHT)
+		handle_dir_input(game, game->pos_x + (0.125 * game->direction.y), game->pos_y + (0.125 * game->direction.x), key_pressed);
+	if (key_pressed == KEY_DOWN)
+		handle_dir_input(game, game->pos_x - (0.125 * game->direction.x), + game->pos_y + (0.125 * game->direction.y), key_pressed);
+	if (key_pressed == KEY_LEFT)
+		handle_dir_input(game, game->pos_x - (0.125 * game->direction.y), game->pos_y - (0.125 * game->direction.x), key_pressed);*/
 
 void	update_player(t_player *player, t_game *game)
 {
