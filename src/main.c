@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:21:21 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/09 14:48:40 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/09 16:45:43 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int ac, char **av)
 {
 	t_game		game;
 
-	ft_memset(&game, 0, sizeof(t_game));
+	memset(&game, 0, sizeof(t_game));
 	if (ac != 2)
 	{
 		ft_putstr_fd("Error: One argument needed", 2);
@@ -27,7 +27,10 @@ int	main(int ac, char **av)
 		ft_putstr_fd("Error: Wrong file extension (.cub needed)", 2);
 		exit(EXIT_FAILURE);
 	}
-	check_map_errors(&game, av[1]);
+	parsing(&game, av[1]);
+	game.tilemap = tilemap_from_tab(game.map, game.width, game.height, 1);
+	if (!game.colors)
+		exit_game(&game);
 	run_game(&game);
 	return (0);
 }

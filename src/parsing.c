@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/06 14:39:48 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/09 16:45:21 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,47 +73,42 @@ int	check_tiles_borders(t_game *game)
 	int	j;
 	int	k;
 	int	player;
+	int	width;
 
 	i = 8;
 	j = 0;
 	k = 0;
 	player = 0;
-	game->map = (char **)malloc(sizeof(char *) * ((game->height - 8) + 1));
+	game->width = 0;
+	game->map = (char **)malloc(sizeof(char *) * ((game->height -7) + 1));
+	game->height -= 7;
 	if (!game->map)
 		return (0);
 	while (game->file_content[i])
 	{
 		j = 0;
 		game->map[k] = game->file_content[i];
+		width = ft_strlen(game->file_content[i]);
+		if (width > game->width)
+			game->width = width;
 		while (game->file_content[i][j])
 		{
 			if (player_tile(game->file_content[i][j]))
 			{
 				if (player)
 					return (0);
-				game->pos_x = (double)j + 0.5;
-				game->pos_y = (double)(i - 8) + 0.5;
+				game->player.position.x = (double)j + 0.5;
+				game->player.position.y = (double)(i - 8) + 0.5;
 				if (game->file_content[i][j] == 'N')
-				{
-					game->rad_direction = PI / 2;
-					rad_to_vect(&game->direction, game->rad_direction);
-				}
+					game->player.rad_direction = M_PI / 2;
 				else if (game->file_content[i][j] == 'S')
-				{
-					game->rad_direction = 3 * PI / 2;
-					rad_to_vect(&game->direction, game->rad_direction);	
-				}
+					game->player.rad_direction = 3 * M_PI / 2;
 				else if (game->file_content[i][j] == 'E')
-				{
-					game->rad_direction = PI;
-					rad_to_vect(&game->direction, game->rad_direction);
-				}
+					game->player.rad_direction = M_PI;
 				else if (game->file_content[i][j] == 'W')
-				{
-					game->rad_direction = 0;
-					rad_to_vect(&game->direction, game->rad_direction);
-				}
-				printf("x:%f y:%f\n", game->direction.x, game->direction.y);
+					game->player.rad_direction = 0;
+				rad_to_vect(&game->player.direction, game->player.rad_direction);
+				printf("x:%f y:%f\n", game->player.direction.x, game->player.direction.y);
 				player = 1;
 			}
 			if (!check_tile_validity(game->file_content[i][j]))

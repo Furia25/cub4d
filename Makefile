@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/06 21:29:05 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/09 15:33:50 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,17 +57,23 @@ LIBS_DIR = libs
 
 # Source files
 SRC_FILES = \
-	time_utils.c \
 	main.c \
-	keys_handling.c \
-	keys_buffer.c \
-	init_game.c \
-	game_loop.c \
-	end_game.c \
-	tilemaps/tilemap_populate.c \
-	tilemaps/tilemap_managing.c \
-	tilemaps/tilemap_basics.c \
 	rendering/raycast_dda.c \
+	rendering/raycast_misc.c \
+	tilemaps/tilemap_basics.c \
+	tilemaps/tilemap_managing.c \
+	tilemaps/tilemap_populate.c \
+	end_game.c \
+	game_loop.c \
+	init_game.c \
+	keys_buffer.c \
+	keys_handling.c \
+	map_utils.c \
+	minimap.c \
+	move_utils.c \
+	parsing.c \
+	tiles_testing.c \
+	time_utils.c \
 	drawing/draw_basics.c
 
 HEADERS = \

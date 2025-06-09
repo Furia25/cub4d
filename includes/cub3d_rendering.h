@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_rendering.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 22:29:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/09 15:33:22 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE3D_RENDERING_H
 # define CUBE3D_RENDERING_H
+# include "maths2_vectors.h"
 # include "tilemap.h"
 
 # define RENDER_DISTANCE	100

@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:13:59 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/04 13:39:48 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/09 16:43:34 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	check_map_validity(t_game *game)
 	return (1);
 }
 
-void	check_map_errors(t_game *game, char *map_file)
+void	parsing(t_game *game, char *map_file)
 {
 	if (!read_map(map_file, game))
 	{

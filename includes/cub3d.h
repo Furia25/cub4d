@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/09 14:44:54 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/09 16:52:11 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 # include "maths2.h"
 # include "maths2_geometry.h"
 
+# include "tilemap.h"
 # include "cub3d_structs.h"
 # include "cub3d_drawing.h"
-# include "tilemap.h"
 
 # define WINDOW_WIDTH		1920
 # define WINDOW_HEIGHT		1080
@@ -40,8 +40,10 @@
 # define MINIMAP_X_START	40
 # define MINIMAP_Y_START	784
 # define MINIMAP_BORDER		5
-# define MINIMAP_P_SIZE		8
 # define MOUSE_SENS			0.006
+# define MINIMAP_P_SIZE		8
+
+# define PLAYER_SIZE		0.25
 
 typedef struct s_player
 {
@@ -84,7 +86,7 @@ void		handle_key(t_key key, t_game *game);
 // ----- MAP_UTILS ----- //
 int			check_file_extension(char *filename);
 char		**read_map(char *map_file, t_game *game);
-void		check_map_errors(t_game *game, char *map_file);
+void		parsing(t_game *game, char *map_file);
 void		free_map(char **map);
 
 // ----- PARSING ----- //
@@ -101,7 +103,7 @@ int			check_corners(t_game *game, double pos_x, double pos_y);
 // ----- MAP_UTILS ----- //
 int			check_file_extension(char *filename);
 char		**read_map(char *map_file, t_game *game);
-void		check_map_errors(t_game *game, char *map_file);
+void		parsing(t_game *game, char *map_file);
 void		free_map(char **map);
 
 // ----- PARSING ----- //
@@ -113,7 +115,6 @@ int			center_tile(char c);
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);
 void 		draw_player(t_game *game);
-
 
 int			mouse_move(int x, int y, t_game *game);
 

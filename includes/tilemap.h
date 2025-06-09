@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tilemap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 20:36:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/09 15:32:53 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TILEMAP_H
 # define TILEMAP_H
-
+# include <stddef.h>
+# include <stdbool.h>
 /*THIS IS JUST A TEST*/
 
 typedef enum e_texture_type
