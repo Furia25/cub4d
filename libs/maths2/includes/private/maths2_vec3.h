@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 01:48:16 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/05 01:14:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/10 18:48:32 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ extern float		vec3_distance2(const t_vec3 a, const t_vec3 b);
 extern t_vec3		vec3_normalize(t_vec3 v);
 extern t_quaternion	vec3_to_homogeneous(const t_vec3 v);
 extern bool			vec3_equal(t_vec3 a, t_vec3 b);
+extern t_vec3		vec3_from_angle(float angle);
 
 #endif

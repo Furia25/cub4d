@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/09 14:55:06 by halnuma          ###   ########.fr        #
+#    Updated: 2025/06/10 18:55:22 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,8 @@ SRC_FILES = \
 	vectors/vec3_base.c \
 	vectors/vec3_properties.c \
 	vectors/vectors_utils.c \
+	vectors/vec2_misc.c \
+	vectors/vec3_misc.c \
 	angles.c \
 	sqrt.c \
 	easing/easing_quad.c \

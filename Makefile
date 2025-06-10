@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/09 15:33:50 by halnuma          ###   ########.fr        #
+#    Updated: 2025/06/10 20:07:20 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,10 +59,12 @@ LIBS_DIR = libs
 SRC_FILES = \
 	main.c \
 	rendering/raycast_dda.c \
+	rendering/render.c \
 	rendering/raycast_misc.c \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_populate.c \
+	player_movement.c \
 	end_game.c \
 	game_loop.c \
 	init_game.c \
@@ -81,6 +83,7 @@ HEADERS = \
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+DEP = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.d, $(SRC))
 
 # Libs
 LIBS_DIRS := $(shell find $(LIBS_DIR) -maxdepth 1 -mindepth 1 -type d)
@@ -90,12 +93,9 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -O3 -g3
+CFLAGS = -Werror -Wextra -Wall -O3
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
-
-# Targets
-.PHONY: all clean fclean re fcleanlibs
 
 all: $(NAME)
 
@@ -106,7 +106,7 @@ $(NAME): $(OBJ) $(LIBS)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
 	$(SILENT) mkdir -p $(dir $@)
 	@echo "$(BLUE)>>> Compiling $<...$(RESET)"
-	$(SILENT) $(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
+	$(SILENT) $(CC) $(CFLAGS) -MMD -MP $(INC_FLAGS) -c $< -o $@
 
 $(LIBS): %.a:
 	$(SILENT) \
@@ -150,3 +150,8 @@ fclean: clean fcleanlibs
 	$(SILENT) rm -f $(NAME)
 
 re: fclean all
+
+# Targets
+.PHONY: all clean fclean re fcleanlibs
+
+-include $(DEP)

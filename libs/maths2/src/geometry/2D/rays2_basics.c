@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 19:08:53 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 21:27:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/10 18:49:22 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_ray2	ray2_from_angle(t_vec2 origin, float rad_angle)
 	t_ray2	ray;
 
 	ray.origin = vec2_new(origin.x, origin.y);
-	ray.dir_normal = vec2_new(cosf(rad_angle), sinf(rad_angle));
+	ray.dir_normal = vec2_from_angle(rad_angle);
 	return (ray);
 }
 

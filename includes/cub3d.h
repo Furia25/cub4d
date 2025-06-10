@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/09 16:52:11 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/10 19:02:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_player
 	t_vec2	direction;
 	float	rad_direction;
 	float	speed;
+	float	fov_deg;
 }	t_player;
 
 typedef struct s_game
@@ -117,5 +118,6 @@ void		draw_minimap(t_game *game);
 void 		draw_player(t_game *game);
 
 int			mouse_move(int x, int y, t_game *game);
+void		update_player(t_player *player, t_game *game);
 
 #endif

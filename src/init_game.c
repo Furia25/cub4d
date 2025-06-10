@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/09 16:31:08 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/10 19:50:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,15 @@ bool	create_frame_image(t_game *game)
 	return (true);
 }
 
-const char *test_tab[6] = {
-	"11111111",
-	"10011101",
-	"10001001",
-	"10001001",
-	"10000001",
-	"11111111"
-};
-
 void	init_player(t_player *player)
 {
 	float	size;
 	t_vec3	min;
 	t_vec3	max;
 
+	player->fov_deg = 80;
 	size = PLAYER_SIZE / 2;
-	player->speed = 0.02;
+	player->speed = 0.03;
 	min = vec3_new(player->position.x - size, player->position.y - size, 0);
 	max = vec3_new(player->position.x + size, player->position.y + size, 0);
 	player->collision_box = bbox_new(min, max);

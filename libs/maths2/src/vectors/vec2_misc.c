@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   angles.c                                           :+:      :+:    :+:   */
+/*   vec2_misc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 02:31:44 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/10 18:45:36 by vdurand          ###   ########.fr       */
+/*   Created: 2025/06/10 18:45:57 by vdurand           #+#    #+#             */
+/*   Updated: 2025/06/10 18:55:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "maths2.h"
+#include "private/maths2_vec2.h"
+#include "math.h"
 
-double	deg_to_rad(double deg)
+t_vec2	vec2_from_angle(float angle)
 {
-	return (deg * (M_PI / 180.0));
-}
+	t_vec2	vec;
 
-double	rad_to_deg(double rad)
-{
-	return (rad * (180.0 / M_PI));
+	vec.x = cosf(angle);
+	vec.y = sinf(angle);
+	return (vec);
 }
