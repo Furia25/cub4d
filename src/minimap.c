@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/09 16:04:22 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/11 00:59:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	draw_line(char *line, t_game *game, double pos_y)
 	pos_x = 0;
 	while (tile < 0)
 	{
-		draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(0, 0, 0, 255));
+		draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(0, 0, 0, 200));
 		tile++;
 		pos_x++;
 	}
@@ -69,7 +69,7 @@ void	draw_line(char *line, t_game *game, double pos_y)
 	{
 		while (tile < (int)game->player.position.x + 9)
 		{
-			draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(0, 0, 0, 255));
+			draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(0, 0, 0, 200));
 			tile++;
 			pos_x++;
 		}
@@ -78,17 +78,17 @@ void	draw_line(char *line, t_game *game, double pos_y)
 	while (line[tile] && tile < (int)game->player.position.x + 9)
 	{
 		if (center_tile(line[tile]))
-			draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(255, 150, 100, 255));
+			draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(255, 150, 100, 200));
 		if (line[tile] == '1')
-			draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(200, 10, 40, 255));
+			draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(200, 10, 40, 200));
 		if (line[tile] == ' ' || line[tile] == '\n')
-			draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(0, 0, 0, 0));
+			draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(0, 0, 0, 200));
 		tile++;
 		pos_x++;
 	}
 	while (tile < (int)game->player.position.x + 9)
 	{
-		draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(0, 0, 0, 0));
+		draw_tile(game, pos_x, pos_y, off_x, off_y, rgba8(0, 0, 0, 200));
 		tile++;
 		pos_x++;
 	}
@@ -100,7 +100,7 @@ void	draw_border(t_game *game)
 	int				j;
 	t_png_pixel8	color;
 
-	color = rgba8(25, 255, 25, 255);
+	color = rgba8(25, 255, 25, 200);
 	i = 0;
 	while (i < MINIMAP_SIZE)
 	{
@@ -132,7 +132,7 @@ void	draw_player(t_game *game)
 		while (j < MINIMAP_P_SIZE)
 		{
 			img_draw_pixel(
-				rgba8(255, 0, 10, 255),
+				rgba8(255, 0, 10, 200),
 				((7 * MAP_TILE_SIZE) + i + MINIMAP_X_START + MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
 				((7 * MAP_TILE_SIZE) + j + MINIMAP_Y_START + MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
 				game->img
@@ -148,7 +148,6 @@ void	draw_minimap(t_game *game)
 	int		i;
 	int		line;
 
-	printf("x:%f y:%f\n", game->player.position.x, game->player.position.y);
 	i = 0;
 	line = (int)game->player.position.y - 7;
 	while (line < 0)

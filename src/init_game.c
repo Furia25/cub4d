@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/10 19:50:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/10 20:12:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_player(t_player *player)
 
 	player->fov_deg = 80;
 	size = PLAYER_SIZE / 2;
-	player->speed = 0.03;
+	player->speed = 0.07;
 	min = vec3_new(player->position.x - size, player->position.y - size, 0);
 	max = vec3_new(player->position.x + size, player->position.y + size, 0);
 	player->collision_box = bbox_new(min, max);

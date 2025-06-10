@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_loop.c                                        :+:      :+:    :+:   */
+/*   draw_geometry.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/11 00:58:44 by vdurand          ###   ########.fr       */
+/*   Created: 2025/06/11 00:07:45 by vdurand           #+#    #+#             */
+/*   Updated: 2025/06/11 00:07:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "cub3d_rendering.h"
-#include "mlx.h"
-#include "mlx_int.h"
 
-int	game_loop(void *param)
+void	img_draw_rect(t_png_pixel8 rgba, t_rect rectangle, t_img_data *img)
 {
-	t_game			*game;
-	t_img_data		*frame;
+	size_t	x;
+	size_t	y;
 
-	game = param;
-	frame = game->img;
-	memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
-	handle_keys(game);
-	update_player(&game->player, game);
-	render(game);
-	mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-	return (1);
+	y = 0;
+	while (y < rectangle.size.y)
+	{
+		x = 0;
+		while (x < rectangle.size.x)
+		{
+			img_draw_pixel(rgba, rectangle.pos.x + x, rectangle.pos.y + y, img);
+			x++;
+		}
+		y++;
+	}
 }

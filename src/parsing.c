@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/09 16:45:21 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/11 00:59:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int	check_tiles_borders(t_game *game)
 				else if (game->file_content[i][j] == 'W')
 					game->player.rad_direction = 0;
 				rad_to_vect(&game->player.direction, game->player.rad_direction);
-				printf("x:%f y:%f\n", game->player.direction.x, game->player.direction.y);
 				player = 1;
 			}
 			if (!check_tile_validity(game->file_content[i][j]))

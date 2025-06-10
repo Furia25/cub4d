@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/10 18:36:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/10 23:50:30 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <X11/keysym.h>
 # include <X11/Xlib.h>
 # include <stdint.h>
+# include <crazypng.h>
 
 typedef enum e_key_type
 {
@@ -58,5 +59,7 @@ typedef struct s_img_data
     int		size_line;
     int		endian;
 }	t_img_data;
+
+typedef t_png_pixel8	t_rgba8;
 
 #endif
