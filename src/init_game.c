@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/10 20:12:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/11 13:46:48 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ void	run_game(t_game *game)
 	}
 	if (!create_frame_image(game))
 		exit_game(game);
-	
 	init_player(&game->player);
-	draw_minimap(game);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_mouse_move(game->mlx, game->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);

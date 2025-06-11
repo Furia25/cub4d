@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/11 00:02:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/11 14:01:02 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	render(t_game *game)
 	render_init(WINDOW_WIDTH, WINDOW_HEIGHT, &context, game);
 	render_rays(0, context.render_width, &context);
 	draw_minimap(game);
+	handle_full_map(game);
 }
 
 static void	render_init(int width, int height, t_render_context *context, t_game *game)

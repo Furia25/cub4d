@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_structs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/10 23:50:30 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/11 11:11:58 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <X11/Xlib.h>
 # include <stdint.h>
 # include <crazypng.h>
+# include "cub3d.h"
 
 typedef enum e_key_type
 {
@@ -25,6 +26,7 @@ typedef enum e_key_type
 	KEY_DOWN,
 	KEY_LEFT,
 	KEY_RIGHT,
+	KEY_TAB,
 	KEY_TEST_RIGHT,
 	KEY_TEST_LEFT,
 	KEY_MAX_COUNT
@@ -37,6 +39,7 @@ static const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_DOWN] = XK_s,
 [KEY_LEFT] = XK_a,
 [KEY_RIGHT] = XK_d,
+[KEY_TAB] = XK_Tab,
 [KEY_TEST_LEFT] = XK_Left,
 [KEY_TEST_RIGHT] = XK_Right,
 };
@@ -59,6 +62,7 @@ typedef struct s_img_data
     int		size_line;
     int		endian;
 }	t_img_data;
+
 
 typedef t_png_pixel8	t_rgba8;
 

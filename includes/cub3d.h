@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/10 23:50:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/11 11:54:15 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@
 # define WINDOW_WIDTH		1920
 # define WINDOW_HEIGHT		1080
 
-# define MAP_TILE_SIZE		16
+# define MAP_TILE_SIZE		32
+# define MMAP_TILE_SIZE		16
 # define MINIMAP_SIZE		249
 # define MINIMAP_X_START	40
 # define MINIMAP_Y_START	784
 # define MINIMAP_BORDER		5
-# define MOUSE_SENS			0.006
+# define MOUSE_SENS			0.008
 # define MINIMAP_P_SIZE		8
 
 # define PLAYER_SIZE		0.25
@@ -71,6 +72,17 @@ typedef struct s_game
 	t_key		key_buffer[KEY_MAX_COUNT];
 }	t_game;
 
+typedef struct s_tile_context
+{
+	t_game	*game;
+	char	*line;
+	int		tile;
+	int		pos_x;
+	int		pos_y;
+	int		off_x;
+	int		off_y;
+}	t_tile_context;
+
 void		run_game(t_game *game);
 int			exit_game(t_game *game);
 int			game_loop(void *param);
@@ -92,7 +104,7 @@ void		free_map(char **map);
 
 // ----- PARSING ----- //
 int			check_colors(t_game *game);
-int			check_tiles_borders(t_game *game);
+int			check_tiles_and_borders(t_game *game);
 int			check_paths(t_game *game);
 int			center_tile(char c);
 
@@ -112,10 +124,20 @@ int			check_colors(t_game *game);
 int			check_tiles_borders(t_game *game);
 int			check_paths(t_game *game);
 int			center_tile(char c);
+int			borders_around(char **map, int i, int j);
+int			check_borders(char *line, int row, int line_nb);
+int			check_tile_validity(char c);
+int			wrapping_tile(char c);
+int			center_tile(char c);
+int			player_tile(char c);
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);
 void 		draw_player(t_game *game);
+void		draw_tile(t_tile_context *tile, t_png_pixel8 color);
+void		draw_border(t_game *game);
+void		draw_player(t_game *game);
+void		handle_full_map(t_game *game);
 
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);

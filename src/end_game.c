@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/06 20:15:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/11 09:58:46 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	exit_game(t_game *game)
 	free(game->paths);
 	free(game->colors);
 	free(game->map);
+	free_map(game->file_content);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->img)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/11 01:16:25 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/11 13:37:13 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,12 @@ SRC_FILES = \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_populate.c \
+	minimap/minimap_drawing.c \
+	minimap/minimap_logic.c \
+	minimap/full_map.c \
+	parsing/parsing.c \
+	parsing/borders.c \
+	parsing/tile_type.c \
 	player_movement.c \
 	end_game.c \
 	game_loop.c \
@@ -71,9 +77,7 @@ SRC_FILES = \
 	keys_buffer.c \
 	keys_handling.c \
 	map_utils.c \
-	minimap.c \
 	move_utils.c \
-	parsing.c \
 	time_utils.c \
 	drawing/draw_basics.c \
 
@@ -92,7 +96,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -O3 -march=native -ffast-math
+CFLAGS = -Werror -Wextra -Wall -O3 -march=native -ffast-math -g3
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 

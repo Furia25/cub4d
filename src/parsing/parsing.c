@@ -3,71 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 00:59:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/11 10:57:42 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_tile_validity(char c)
-{
-	if (c != '1' && c != '0' && c != 'N' && c != 'E' && \
-		c != 'S' && c != 'W' && c != ' ' && c != '\n')
-		return (0);
-	return (1);
-}
-
-
-int	check_borders(char *line, int row, int line_nb)
-{
-	int		i;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (row == 8 || row == line_nb - 1)
-		{
-			if (line[i] != '1' && line[i] != ' ' && line[i] != '\n')
-				return (0);
-		}
-	}
-	return (1);
-}
-
-int	player_tile(char c)
-{
-	if (c != 'N' && c != 'S' && c != 'E' && c != 'W')
-		return (0);
-	return (1);
-}
-
-int	center_tile(char c)
-{
-	if (c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W')
-		return (0);
-	return (1);
-}
-
-int	wrapping_tile(char c)
-{
-	if (c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W' && c != '1')
-		return (0);
-	return (1);
-}
-
-int	borders_around(char **map, int i, int j)
-{
-	if (!wrapping_tile(map[i + 1][j]) || !wrapping_tile(map[i - 1][j]))
-		return (0);
-	if (!wrapping_tile(map[i][j + 1]) || !wrapping_tile(map[i][j - 1]))
-		return (0);
-	return (1);
-}
-
-int	check_tiles_borders(t_game *game)
+int	check_tiles_and_borders(t_game *game)
 {
 	int	i;
 	int	j;

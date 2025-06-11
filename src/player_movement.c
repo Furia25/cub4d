@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/10 19:49:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/11 13:31:35 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	update_player(t_player *player, t_game *game)
 	t_vec2	dir;
 	t_vec2	move;
 
-	strafe =  is_key_pressed(KEY_RIGHT, game) - is_key_pressed(KEY_LEFT, game);
-	forward =  is_key_pressed(KEY_UP, game) - is_key_pressed(KEY_DOWN, game);
+	strafe = is_key_pressed(KEY_RIGHT, game) - is_key_pressed(KEY_LEFT, game);
+	forward = is_key_pressed(KEY_UP, game) - is_key_pressed(KEY_DOWN, game);
 	player->rad_direction += (M_PI / 100) * (is_key_pressed(KEY_TEST_RIGHT, game) - is_key_pressed(KEY_TEST_LEFT, game));
 	dir = vec2_from_angle(player->rad_direction);
 	move = vec2_add(vec2_scale(dir, forward), vec2_scale(vec2_new(-dir.y, dir.x), strafe));
