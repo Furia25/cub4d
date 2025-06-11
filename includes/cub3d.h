@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/10 23:50:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/11 18:05:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define MINIMAP_X_START	40
 # define MINIMAP_Y_START	784
 # define MINIMAP_BORDER		5
-# define MOUSE_SENS			0.006
+# define MOUSE_SENS			0.001
 # define MINIMAP_P_SIZE		8
 
 # define PLAYER_SIZE		0.25
@@ -57,8 +57,8 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	void		*mlx;
-	char		*win;
+	t_xvar		*mlx;
+	t_win_list	*win;
 	t_img_data	*img;
 	int			width;
 	int			height;
@@ -69,6 +69,7 @@ typedef struct s_game
 	char		**colors;
 	t_tilemap	*tilemap;
 	t_key		key_buffer[KEY_MAX_COUNT];
+	Cursor		cursor;
 }	t_game;
 
 void		run_game(t_game *game);

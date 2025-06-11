@@ -6,13 +6,46 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/10 20:12:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/11 19:16:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "mlx.h"
 #include "mlx_int.h"
+
+#include <X11/Xlib.h>
+#include <X11/cursorfont.h>
+#include <stdlib.h>
+#include <string.h>
+#include <mlx.h>
+
+#include <X11/Xlib.h>
+#include <X11/cursorfont.h>
+#include <stdlib.h>
+#include <string.h>
+#include <mlx.h>
+
+#include <X11/Xlib.h>
+#include <X11/cursorfont.h>
+
+/* int mouse_hide(t_xvar *xvar, t_win_list *win, Cursor *cursor)
+{
+	const static char	empty_data[] = {45};
+	Pixmap		blank;
+	XColor		dummy;
+		
+	blank = XCreateBitmapFromData(xvar->display, win->window, empty_data, 1, 1);
+	if (blank == 0)
+		return (0);
+	memset(&dummy, 0, sizeof(XColor));
+	*cursor = XCreatePixmapCursor(xvar->display, blank, blank, &dummy, &dummy, 0, 0);
+	XFreePixmap(xvar->display, blank);
+	if (*cursor == 0)
+		return (0);
+	XDefineCursor(xvar->display, win->window, *cursor);
+	return (1); */
+}
 
 bool	create_frame_image(t_game *game)
 {
@@ -62,7 +95,7 @@ void	run_game(t_game *game)
 	}
 	if (!create_frame_image(game))
 		exit_game(game);
-	
+	mouse_hide(game->mlx, game->win, &game->cursor);
 	init_player(&game->player);
 	draw_minimap(game);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
