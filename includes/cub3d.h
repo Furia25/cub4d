@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/12 19:38:12 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/12 23:48:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,17 @@
 
 typedef struct s_player
 {
+	float	speed;
+	float	eye_height;
+	float	jump_force;
+	float	fov_deg;
 	t_bbox	collision_box;
 	t_vec2	position;
 	t_vec2	direction;
 	float	rad_direction;
-	float	speed;
-	float	fov_deg;
+	float	height;
+	float	jump_velocity;
+	bool	is_grounded;
 }	t_player;
 
 typedef struct s_game

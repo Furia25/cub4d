@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/12 23:18:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 00:43:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	render_ray(float base_angle, int column,
 	ctx.step.x = sign(ray->dir_normal.x);
 	ctx.step.y = sign(ray->dir_normal.y);
 	ctx.buffer.n_hits = 0;
-	ctx.result = ctx.buffer.hits;
+	ctx.actual = ctx.buffer.hits;
 	raycast_init(&ctx);
 	raycast_launch(&ctx);
 	while (ctx.buffer.n_hits > 0)
@@ -40,7 +40,7 @@ void	render_ray(float base_angle, int column,
 		ctx.buffer.n_hits--;
 		ctx.buffer.hits[ctx.buffer.n_hits].original_angle = base_angle;
 		ctx.buffer.hits[ctx.buffer.n_hits].original_ray = *ray;
-		render_draw_ray(base_angle, column, &ctx.buffer.hits[ctx.buffer.n_hits], render_ctx);
+		render_draw_ray(ctx.buffer.hits + ctx.buffer.n_hits, &ctx, render_ctx);
 	}
 }
 
@@ -81,19 +81,19 @@ static inline void	raycast_launch(t_raycast_context *ctx)
 		{
 			ctx->step_dist.x += ctx->delta_dist.x;
 			ctx->actual_tile.x += ctx->step.x;
-			ctx->result->orientation = 0;
+			ctx->actual->orientation = 0;
 		}
 		else
 		{
 			ctx->step_dist.y += ctx->delta_dist.y;
 			ctx->actual_tile.y += ctx->step.y;
-			ctx->result->orientation = 1;
+			ctx->actual->orientation = 1;
 		}
-		if (check_wall_tile(ctx->result, ctx))
+		if (check_wall_tile(ctx->actual, ctx))
 		{
-			raycast_set_dist(ctx->result, ctx);
+			raycast_set_dist(ctx->actual, ctx);
 			if (ctx->buffer.n_hits++ < MAX_HITS)
-				ctx->result = ctx->buffer.hits + ctx->buffer.n_hits;
+				ctx->actual = ctx->buffer.hits + ctx->buffer.n_hits;
 		}
 	}
 }
@@ -112,8 +112,6 @@ static inline bool	check_wall_tile(t_raycast_hit *hit,
 	tile = tilemap_get_tile(tile_x, tile_y, ctx->tilemap);
 	hit->tile_info = &tile->info;
 	hit->tile = tile;
-	if (tile->info.wall && tile->info.visible)
-		return (true);
 	return (false);
 }
 

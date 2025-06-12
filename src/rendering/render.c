@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/12 22:23:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/12 23:47:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void	render_init(int width, int height, t_render_context *context, t_game
 	context->direction = game->player.rad_direction;
 	context->render_height = height;
 	context->render_width = width;
+	context->eye_height = game->player.height;
 	context->fov = deg_to_rad(game->player.fov_deg);
 	context->fov_x = context->fov;
 	context->fov_y = deg_to_rad(game->player.fov_deg - 15);
-	context->eye_height = 0.5f;
 	context->proj_dist_x = (WINDOW_WIDTH  / 2.0f) / tanf(context->fov_x  / 2.0f);
 	context->proj_dist_y = (WINDOW_HEIGHT / 2.0f) / tanf(context->fov_y  / 2.0f);
 }

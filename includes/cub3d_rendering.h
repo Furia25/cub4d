@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/12 23:17:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 00:23:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,20 @@ typedef struct s_raycast_context
 	t_render_context	*render_ctx;
 	t_ray2				*ray;
 	t_tilemap			*tilemap;
-	t_raycast_hit		*result;
+	t_raycast_hit		*actual;
 	t_raycast_buffer	buffer;
 	t_ivec2				actual_tile;
 	t_vec2				delta_dist;
 	t_vec2				step_dist;
 	t_ivec2				step;
 	int					column;
+	int					last_wall_end;
 }   t_raycast_context;
 
 void	render(t_game *game);
 void	render_rays(int start_x, int end_x, t_render_context *render);
 void	render_ray(float base_angle, int column,
 		t_ray2 *ray, t_render_context *render_ctx);
-void	render_draw_ray(float ray_angle, int column,
-		t_raycast_hit *result, t_render_context *context);
+void	render_draw_ray(t_raycast_hit *actual, t_raycast_context *ctx, t_render_context *render);
 
 #endif

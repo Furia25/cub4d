@@ -6,11 +6,12 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/10 19:49:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/12 23:51:40 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "maths2_easing.h"
 
 void	player_move_collision(t_vec2 move, t_player *player, t_game *game)
 {
@@ -28,6 +29,27 @@ void	player_move_collision(t_vec2 move, t_player *player, t_game *game)
 	}
 }
 
+void	player_handle_jump(t_player *plr, t_game *game)
+{
+	const float	gravity = -0.015f;
+	bool		jumping;
+
+	jumping = is_key_pressed(KEY_JUMP, game);
+	if (jumping && plr->is_grounded)
+	{
+		plr->jump_velocity = plr->jump_force;
+		plr->is_grounded = false;
+	}
+	plr->jump_velocity += gravity;
+	plr->height += plr->jump_velocity;
+	if (plr->height <= plr->eye_height)
+	{
+		plr->height = plr->eye_height;
+		plr->jump_velocity = 0;
+		plr->is_grounded = true;
+	}
+}
+
 void	update_player(t_player *player, t_game *game)
 {
 	float	forward;
@@ -35,6 +57,7 @@ void	update_player(t_player *player, t_game *game)
 	t_vec2	dir;
 	t_vec2	move;
 
+	player_handle_jump(player, game);
 	strafe =  is_key_pressed(KEY_RIGHT, game) - is_key_pressed(KEY_LEFT, game);
 	forward =  is_key_pressed(KEY_UP, game) - is_key_pressed(KEY_DOWN, game);
 	player->rad_direction += (M_PI / 100) * (is_key_pressed(KEY_TEST_RIGHT, game) - is_key_pressed(KEY_TEST_LEFT, game));

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 00:59:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 00:20:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw_tile(t_game *game, int pos_x, int pos_y, int off_x, int off_y, t_png_p
 				x < MINIMAP_X_START + MINIMAP_SIZE && \
 				y >= MINIMAP_Y_START + MINIMAP_BORDER && \
 				y < MINIMAP_Y_START + MINIMAP_SIZE)
-				img_draw_pixel(color, x, y, game->img);
+				draw_pixel(color, x, y, game->img);
 			j++;
 		}
 		i++;
@@ -112,7 +112,7 @@ void	draw_border(t_game *game)
 				i < MINIMAP_BORDER || \
 				i > MINIMAP_SIZE - MINIMAP_BORDER)
 			{
-				img_draw_pixel(color, i + MINIMAP_X_START, j + MINIMAP_Y_START, game->img);
+				draw_pixel(color, i + MINIMAP_X_START, j + MINIMAP_Y_START, game->img);
 			}
 			j++;
 		}
@@ -131,7 +131,7 @@ void	draw_player(t_game *game)
 		j = 0;
 		while (j < MINIMAP_P_SIZE)
 		{
-			img_draw_pixel(
+			draw_pixel(
 				rgba8(255, 0, 10, 200),
 				((7 * MAP_TILE_SIZE) + i + MINIMAP_X_START + MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
 				((7 * MAP_TILE_SIZE) + j + MINIMAP_Y_START + MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),

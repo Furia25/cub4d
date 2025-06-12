@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/11 01:15:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 00:20:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static inline void	set_pixel(t_png_pixel8 src,
 	}
 }
 
-void	img_draw_pixel(t_png_pixel8 src, int x, int y, t_img_data *img)
+void	draw_pixel(t_png_pixel8 src, int x, int y, t_img_data *img)
 {
 	uint32_t	*pixel;
 
