@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/10 20:12:42 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/12 20:00:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef enum e_tile_type
 	TILE_MAX_COUNT
 }	t_tile_type;
 
-typedef struct t_tile_info
+typedef struct t_tile_data
 {
 	t_tile_type		type;
 	bool			solid;
@@ -40,12 +40,14 @@ typedef struct t_tile_info
 	bool			blocking;
 	t_texture_type	texture;
 	const char		*name;
-}	t_tile_info;
+}	t_tile_data;
 
 typedef struct s_tile
 {
+	float		ceiling;
+	float		floor;
 	t_tile_type	type;
-	t_tile_info	info;
+	t_tile_data	info;
 }	t_tile;
 
 typedef struct s_tilemap
@@ -57,7 +59,7 @@ typedef struct s_tilemap
 }	t_tilemap;
 
 /*[TYPE]      = Type, Solid, Wall, Visible, Blocking*/
-static const t_tile_info	g_base_tile_info[TILE_MAX_COUNT] = {
+static const t_tile_data	g_base_tile_info[TILE_MAX_COUNT] = {
 [TILE_EMPTY] = {TILE_EMPTY, false, false, false, false, TEXTURE_NAN, "Empty"},
 [TILE_WALL] = {TILE_WALL, true, true, true, true, TEXTURE_WALL, "Wall"},
 };

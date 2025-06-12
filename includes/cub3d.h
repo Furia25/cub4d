@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 18:05:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/12 19:38:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "crazypng.h"
 # include "math.h"
 # include "maths2.h"
+# include "maths2_rng.h"
 # include "maths2_geometry.h"
 
 # include "tilemap.h"
@@ -69,7 +70,7 @@ typedef struct s_game
 	char		**colors;
 	t_tilemap	*tilemap;
 	t_key		key_buffer[KEY_MAX_COUNT];
-	Cursor		cursor;
+	t_rng_state	rng;
 }	t_game;
 
 void		run_game(t_game *game);

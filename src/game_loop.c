@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/11 19:01:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/12 22:25:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,24 @@ uint64_t	get_fps(uint64_t start_time);
 
 int	game_loop(void *param)
 {
-	uint64_t		start_time;
+	static uint64_t	last_time = 0;
+	uint64_t		time;
 	t_game			*game;
 	t_img_data		*frame;
 
 	game = param;
 	frame = game->img;
-	start_time = get_time_ms();
-	memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
-	handle_keys(game);
-	update_player(&game->player, game);
-	render(game);
-	mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-	printf("FPS : %lu\n", get_fps(start_time));
+	time = get_time_ms();
+	if (time >= last_time)
+	{
+		last_time = time;
+		memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
+		handle_keys(game);
+		update_player(&game->player, game);
+		render(game);
+		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
+		printf("FPS : %lu\n", get_fps(time));
+	}
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/11 18:22:49 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/12 23:19:17 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ LIBS_DIR = libs
 # Source files
 SRC_FILES = \
 	main.c \
+	rendering/render_draw_ray.c \
 	rendering/raycast_dda.c \
 	rendering/render.c \
 	rendering/raycast_misc.c \
@@ -92,7 +93,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -O3 -march=native -ffast-math -g3
+CFLAGS = -Werror -Wextra -Wall -O3 -march=native -ffast-math -flto
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 
