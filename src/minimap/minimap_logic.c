@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 11:54:54 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/13 10:13:29 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	draw_empty_tile(t_tile_context *tile, int limit)
 	}
 }
 
-void	draw_plain_tiles(t_tile_context *tile)
+void	draw_plain_tile(t_tile_context *tile)
 {
 	while (tile->line[tile->tile]
 		&& tile->tile < (int)tile->game->player.position.x + 9)
@@ -62,13 +62,13 @@ void	draw_line(char *line, t_game *game, double pos_y)
 	tile = (int)game->player.position.x - 7;
 	pos_x = 0;
 	tile_info = (t_tile_context){game, line, tile, pos_x, pos_y, off_x, off_y};
-	draw_empty_tile(&tile_info, 0);
 	if (!line)
 	{
 		draw_empty_tile(&tile_info, (int)tile_info.game->player.position.x + 9);
 		return ;
 	}
-	draw_plain_tiles(&tile_info);
+	draw_empty_tile(&tile_info, 0);
+	draw_plain_tile(&tile_info);
 	draw_empty_tile(&tile_info, (int)tile_info.game->player.position.x + 9);
 }
 
@@ -78,14 +78,14 @@ void	draw_minimap(t_game *game)
 	int		line;
 
 	i = 0;
-	line = (int)game->player.position.y - 7;
-	while (line < 0)
+	line = (int)game->player.position.y - 8;
+	while (++line < 0)
 	{
 		draw_line(NULL, game, i);
-		line++;
 		i++;
 	}
-	while (game->map[line] && line < (int)game->player.position.y + 9)
+	while (line < game->height \
+		&& game->map[line] && line < (int)game->player.position.y + 9)
 	{
 		draw_line(game->map[line], game, i);
 		line++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilemap_populate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:20:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 22:21:28 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 13:52:00 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 t_tilemap	*tilemap_from_tab(char **tab, size_t width,
 				size_t height, size_t tile_size)
 {
-	t_tilemap	*result;
-	size_t		y;
+	t_tilemap		*result;
+	size_t			y;
+	t_png_textures	textures;
 
 	result = tilemap_new(width, height, tile_size);
 	if (!result)
 		return (NULL);
+	textures.wall = png_open("assets/no-texture.png");
+	result->textures = textures;
 	y = 0;
 	while (y < height)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   crazypng_deflate.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 14:45:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/05/06 04:23:07 by val              ###   ########.fr       */
+/*   Updated: 2025/06/13 10:35:57 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "crazypng_utils.h"
 # include "crazypng_bitstream.h"
 # include "crazypng_huffman.h"
+# include "libft.h"
 
 # define INFLATE_ERROR_UNSUPPORTED_METHOD	\
 	"Decompression Error : Unsupported compression method\n"

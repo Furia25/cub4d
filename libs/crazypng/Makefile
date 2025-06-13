@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vdurand <vdurand@student.42.fr>            +#+  +:+       +#+         #
+#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/05/06 17:23:19 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/13 11:59:57 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -110,7 +110,9 @@ INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)
 all: makelibft $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_DIR)/libft.a
-	$(SILENT) $(AR) rcs $@ $^ $(DUMP_OUT)
+	@cp $(LIBFT_DIR)/libft.a $@
+	$(SILENT) $(AR) rcs $@ $(OBJ) $(DUMP_OUT)
+#	$(SILENT) $(AR) rcs $@ $^ $(DUMP_OUT)
 	@echo "$(BG_GREEN)>>> Library $@ built$(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile $(INC_DIR)/*.h | $(OBJ_DIR)

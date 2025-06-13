@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 10:57:42 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/13 09:34:39 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ int	check_tiles_and_borders(t_game *game)
 				return (0);
 			if (center_tile(game->file_content[i][j]) && \
 			!borders_around(game->file_content, i, j))
+			{
+				printf("%d %d\n", i, j);
 				return (0);
+			}
 			j++;
 		}
 		i++;

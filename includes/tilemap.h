@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/11 14:59:29 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/13 10:32:18 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define TILEMAP_H
 # include <stddef.h>
 # include <stdbool.h>
+# include "crazypng.h"
+
 /*THIS IS JUST A TEST*/
 
 typedef enum e_texture_type
@@ -30,6 +32,11 @@ typedef enum e_tile_type
 	TILE_WALL,
 	TILE_MAX_COUNT
 }	t_tile_type;
+
+typedef struct s_png_textures
+{
+	t_png	*wall;
+}	t_png_textures;
 
 typedef struct t_tile_info
 {
@@ -50,16 +57,17 @@ typedef struct s_tile
 
 typedef struct s_tilemap
 {
-	t_tile	**tiles;
-	size_t	width;
-	size_t	height;
-	size_t	tile_size;
+	t_tile			**tiles;
+	size_t			width;
+	size_t			height;
+	size_t			tile_size;
+	t_png_textures	textures;
 }	t_tilemap;
 
 /*[TYPE]      = Type, Solid, Wall, Visible, Blocking*/
 static const t_tile_info	g_base_tile_info[TILE_MAX_COUNT] = {
 [TILE_EMPTY] = {TILE_EMPTY, false, false, false, false, TEXTURE_NAN, "Empty"},
-[TILE_WALL] = {TILE_WALL, false, true, true, true, TEXTURE_WALL, "Wall"},
+[TILE_WALL] = {TILE_WALL, true, true, true, true, TEXTURE_WALL, "Wall"},
 };
 
 t_tilemap	*tilemap_new(size_t width, size_t height, size_t tile_size);

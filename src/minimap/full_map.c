@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 14:20:49 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/13 09:26:50 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,23 @@ void	draw_tiles(t_game *game, int pos_x, int pos_y, t_png_pixel8 color)
 {
 	int	i;
 	int	j;
+	int	w_tile_size;
+	int	h_tile_size;
+	int	tile_size;
 
+	w_tile_size = WINDOW_WIDTH / game->width;
+	h_tile_size = WINDOW_HEIGHT / game->height;
+	if (w_tile_size > h_tile_size)
+		tile_size = h_tile_size;
+	else
+		tile_size = w_tile_size;
 	i = 0;
-	while (i < MAP_TILE_SIZE)
+	while (i < tile_size)
 	{
 		j = 0;
-		while (j < MAP_TILE_SIZE)
+		while (j < tile_size)
 		{
-			img_draw_pixel(color, (pos_x * MAP_TILE_SIZE + i), (pos_y * MAP_TILE_SIZE + j), game->img);
+			img_draw_pixel(color, (pos_x * tile_size + i), (pos_y * tile_size + j), game->img);
 			j++;
 		}
 		i++;

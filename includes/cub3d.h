@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 15:11:04 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/13 10:16:53 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include "tilemap.h"
 # include "cub3d_structs.h"
 # include "cub3d_drawing.h"
+# include "cub3d_rendering.h"
 
 # define WINDOW_WIDTH		1920
 # define WINDOW_HEIGHT		1080
@@ -82,6 +83,35 @@ typedef struct s_tile_context
 	int		off_x;
 	int		off_y;
 }	t_tile_context;
+
+typedef struct s_render_context
+{
+	t_game		*game;
+	t_img_data	*frame;
+	t_player	*player;
+	t_vec2		position;
+	int			render_width;
+	int			render_height;
+	float		fov;
+	float		direction;
+}	t_render_context;
+
+typedef struct s_raycast_hit
+{
+	t_ray2		original_ray;
+	bool		hitted;
+	int			orientation;
+	double		dist;
+	t_vec2		pos;
+	t_tile_info	tile_info;
+	t_tile_type	tile_type;
+	t_tilemap	*tilemap;
+}	t_raycast_hit;
+
+t_raycast_hit	raycast_tilemap(t_ray2 *ray, t_tilemap *tilemap);
+
+void			render_rays(int start_x, int end_x, t_render_context *render);
+void			render(t_game *game);
 
 void		run_game(t_game *game);
 int			exit_game(t_game *game);
@@ -141,5 +171,6 @@ void		handle_full_map(t_game *game);
 
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
+void		render_texture(t_raycast_hit *result, t_render_context *context, int collumn, int *row, int wall_end);
 
 #endif
