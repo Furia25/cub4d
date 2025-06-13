@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/13 00:12:00 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 02:32:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	init_player(t_player *player)
 	t_vec3	max;
 
 	player->speed = 0.07;
-	player->eye_height = 1.5f;
+	player->eye_height = 0.5f;
 	player->jump_force = 0.2f;
 	player->fov_deg = 80;
 	size = PLAYER_SIZE / 2;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 00:43:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 02:31:32 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ static inline bool	check_wall_tile(t_raycast_hit *hit,
 	tile = tilemap_get_tile(tile_x, tile_y, ctx->tilemap);
 	hit->tile_info = &tile->info;
 	hit->tile = tile;
+	if (tile->info.wall)
+		return (true);
 	return (false);
 }
 

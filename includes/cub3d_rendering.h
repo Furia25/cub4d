@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 00:23:24 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 02:33:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct s_raycast_context
 }   t_raycast_context;
 
 void	render(t_game *game);
-void	render_rays(int start_x, int end_x, t_render_context *render);
 void	render_ray(float base_angle, int column,
 		t_ray2 *ray, t_render_context *render_ctx);
 void	render_draw_ray(t_raycast_hit *actual, t_raycast_context *ctx, t_render_context *render);

@@ -6,14 +6,16 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/12 23:47:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 02:33:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_rendering.h"
 
-static void	render_init(int width, int height, t_render_context *context, t_game *game);
+static void			render_init(int width, int height,
+		t_render_context *context, t_game *game);
+static inline void	render_rays(int start, int end, t_render_context *render);
 
 void	render(t_game *game)
 {
@@ -42,15 +44,15 @@ static void	render_init(int width, int height, t_render_context *context, t_game
 	context->proj_dist_y = (WINDOW_HEIGHT / 2.0f) / tanf(context->fov_y  / 2.0f);
 }
 
-void	render_rays(int start_x, int end_x, t_render_context *render)
+static inline void	render_rays(int start, int end, t_render_context *render)
 {
 	t_ray2			ray;
 	int				x;
 	float			camera_x;
 	float			ray_angle;
 
-	x = start_x;
-	while (x < end_x)
+	x = start;
+	while (x < end)
 	{
 		camera_x = 2.0 * x / (float)WINDOW_WIDTH - 1.0;
 		ray_angle = render->direction + atan(camera_x * tan(render->fov / 2));
