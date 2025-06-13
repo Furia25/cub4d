@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 02:33:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/13 16:08:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_raycast_hit
 	float		original_angle;
 	int			orientation;
 	double		dist;
+	bool		back_face;
 	t_tile_data	*tile_info;
 	t_tile		*tile;
 }	t_raycast_hit;
@@ -59,13 +60,13 @@ typedef struct s_raycast_context
 	t_ray2				*ray;
 	t_tilemap			*tilemap;
 	t_raycast_hit		*actual;
+	t_raycast_hit		*last;
 	t_raycast_buffer	buffer;
 	t_ivec2				actual_tile;
 	t_vec2				delta_dist;
 	t_vec2				step_dist;
 	t_ivec2				step;
 	int					column;
-	int					last_wall_end;
 }   t_raycast_context;
 
 void	render(t_game *game);
