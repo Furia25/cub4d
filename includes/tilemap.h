@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/12 20:00:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/15 17:59:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,7 @@
 # define TILEMAP_H
 # include <stddef.h>
 # include <stdbool.h>
-/*THIS IS JUST A TEST*/
-
-typedef enum e_texture_type
-{
-	TEXTURE_NAN,
-	TEXTURE_WALL,
-	TEXTURE_TEST,
-	TEXTURE_MAX_COUNT
-}	t_texture_type;
+# include "cub3d_texture.h"
 
 typedef enum e_tile_type
 {

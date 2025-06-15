@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/12 23:51:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/15 20:30:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ void	update_player(t_player *player, t_game *game)
 	t_vec2	dir;
 	t_vec2	move;
 
+	if (is_key_pressed(KEY_TEST_UP, game))
+		player->eye_height += 0.02;
+	if (is_key_pressed(KEY_TEST_DOWN, game))
+		player->eye_height -= 0.02;
 	player_handle_jump(player, game);
 	strafe =  is_key_pressed(KEY_RIGHT, game) - is_key_pressed(KEY_LEFT, game);
 	forward =  is_key_pressed(KEY_UP, game) - is_key_pressed(KEY_DOWN, game);

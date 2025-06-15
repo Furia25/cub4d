@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 18:18:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/15 20:39:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	render_ray(float base_angle, int column,
 	ctx.step.y = sign(ray->dir_normal.y);
 	ctx.buffer.n_hits = 0;
 	ctx.actual = ctx.buffer.hits;
-	ctx.last = NULL;
+	ctx.last_end = 0;
+	ctx.last_start = 0;
 	raycast_init(&ctx);
 	raycast_launch(&ctx);
 	while (ctx.buffer.n_hits > 0)
@@ -93,7 +94,6 @@ static inline void	raycast_launch(t_raycast_context *ctx)
 		if (check_wall_tile(ctx->actual, ctx))
 		{
 			raycast_set_dist(ctx->actual, ctx);
-			ctx->last = ctx->actual;
 			if (ctx->buffer.n_hits++ < MAX_HITS)
 				ctx->actual = ctx->buffer.hits + ctx->buffer.n_hits;
 		}

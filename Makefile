@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/13 20:10:36 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/15 18:41:00 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRC_FILES = \
 	parsing.c \
 	time_utils.c \
 	drawing/draw_basics.c \
+	rendering/render_spans.c \
 
 HEADERS = \
 	cub3d.h

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 16:34:00 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/15 17:42:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	game_loop(void *param)
 	time = get_time_ms();
 	if (time >= last_time)
 	{
-		last_time = time + 32;
+		last_time = time;
 		memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
 		handle_keys(game);
 		update_player(&game->player, game);

@@ -6,18 +6,20 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 16:08:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/15 20:39:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_RENDERING_H
-# define CUBE3D_RENDERING_H
+#ifndef CUB3D_RENDERING_H
+# define CUB3D_RENDERING_H
 # include "maths2_vectors.h"
 # include "tilemap.h"
 # include "cub3d.h"
+# include "cub3d_texture.h"
 
 # define RENDER_DISTANCE	100
 # define MAX_HITS			100
+# define MAX_AREAS			256
 
 typedef struct s_render_context
 {
@@ -54,24 +56,46 @@ typedef struct s_raycast_buffer
 	size_t			n_hits;
 }	t_raycast_buffer;
 
+typedef struct s_span
+{
+	int	y_start;
+	int	y_end;
+}	t_span;
+
+typedef struct s_area
+{
+	float			height;
+	t_texture_type	texture;
+	int				min;
+	int				max;
+	t_span			spans[WINDOW_WIDTH + 2];
+}	t_area;
+
 typedef struct s_raycast_context
 {
 	t_render_context	*render_ctx;
 	t_ray2				*ray;
 	t_tilemap			*tilemap;
 	t_raycast_hit		*actual;
-	t_raycast_hit		*last;
 	t_raycast_buffer	buffer;
 	t_ivec2				actual_tile;
 	t_vec2				delta_dist;
 	t_vec2				step_dist;
 	t_ivec2				step;
 	int					column;
-}   t_raycast_context;
+	int					last_start;
+	int					last_end;
+}	t_raycast_context;
 
 void	render(t_game *game);
 void	render_ray(float base_angle, int column,
-		t_ray2 *ray, t_render_context *render_ctx);
-void	render_draw_ray(t_raycast_hit *actual, t_raycast_context *ctx, t_render_context *render);
+			t_ray2 *ray, t_render_context *render_ctx);
+void	render_draw_ray(t_raycast_hit *actual,
+			t_raycast_context *ctx, t_render_context *render);
+
+/*AREAS for floor and ceil handling*/
+void	areas_init(void);
+void	areas_add(float height, t_texture_type tex, int column, t_span span);
+void	render_ceil_floor(t_render_context *render);
 
 #endif

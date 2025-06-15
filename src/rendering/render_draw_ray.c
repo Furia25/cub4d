@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 20:11:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/15 20:50:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,23 @@ void	render_draw_ray(t_raycast_hit *actual, t_raycast_context *ctx, t_render_con
 	int		y;
 
 	corrected_dist = actual->dist * cosf(actual->original_angle - render->direction);
-	float	y_floor  = ((actual->tile->floor  - render->eye_height)  / corrected_dist ) * render->proj_dist_y;
+	float	y_floor  = ((actual->tile->floor - render->eye_height)  / corrected_dist ) * render->proj_dist_y;
 	float	y_ceiling = ((actual->tile->ceiling - render->eye_height)  / corrected_dist ) * render->proj_dist_y;
-	wall_start = clamp((int)(-y_ceiling + WINDOW_HEIGHT/2), 0, WINDOW_HEIGHT );
-	wall_end = clamp((int)(-y_floor   + WINDOW_HEIGHT/2), 0, WINDOW_HEIGHT );
-	y = 0;
-	// printf("%i, %i, %i, %i\n", rgba8(0,0,0,255).a, rgba8(0,0,0,255).r,rgba8(0,0,0,255).g, rgba8(0,0,0,255).b);
-	// exit(0);
-	while (y < WINDOW_HEIGHT)
+	wall_start = clamp(-y_ceiling + WINDOW_HEIGHT/2, 0, WINDOW_HEIGHT);
+	wall_end = clamp(-y_floor + WINDOW_HEIGHT/2, 0, WINDOW_HEIGHT);
+	if (wall_start >= 0)
+		areas_add(actual->tile->ceiling, TEXTURE_NAN, ctx->column, (t_span){0, wall_start});
+	if (wall_end < WINDOW_HEIGHT)
+		areas_add(actual->tile->floor, TEXTURE_WALL, ctx->column, (t_span){wall_end, WINDOW_HEIGHT});
+	y = wall_start;
+	while (y < wall_end)
 	{
-
-		if (y > wall_start && y < wall_end)
-		{
-			if (actual->orientation)
-				draw_pixel(rgba8(255, 0, 255, 255),
-					ctx->column, y, render->frame);
-			else
-				draw_pixel(rgba8(255, 0, 140, 255),
-					ctx->column, y, render->frame);
-		}
+		if (actual->orientation)
+			draw_pixel(rgba8(255, 0, 255, 255),
+				ctx->column, y, render->frame);
+		else
+			draw_pixel(rgba8(255, 0, 140, 255),
+				ctx->column, y, render->frame);
 		y++;
 	}
 }

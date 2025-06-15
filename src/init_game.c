@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/13 19:28:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/15 19:38:35 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ bool	create_frame_image(t_game *game)
 	if (!game->img->img_ptr)
 		return (false);
 	img = game->img;
-	img->width = WINDOW_WIDTH;
-	img->height = WINDOW_HEIGHT;
+	img->width = WINDOW_WIDTH + 2;
+	img->height = WINDOW_HEIGHT + 2;
 	img->connection = game->mlx;
 	img->buffer = mlx_get_data_addr(img->img_ptr, &img->pbits, &img->size_line, &img->endian);
 	return (true);
