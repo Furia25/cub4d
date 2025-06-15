@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 17:56:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/15 20:27:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 00:36:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 
 static t_area	g_areas[MAX_AREAS] = {0};
 static size_t	g_areas_used = 0;
+static int		g_span_start[WINDOW_HEIGHT] = {0};
 
-void	areas_init(void)
-{
-	g_areas_used = 0;
-}
-
-#define EMPTY_Y_START  (WINDOW_HEIGHT + 1)
-		
 void	areas_add(float height, t_texture_type texture,
 		int column, t_span span)
 {
@@ -29,82 +23,111 @@ void	areas_add(float height, t_texture_type texture,
 	t_area	*area;
 	t_span	*actual_sp;
 
+	column += 1;
 	index = 0;
 	while (index < g_areas_used)
 	{
-		area = &g_areas[index];
-		actual_sp = &area->spans[column + 1];
-		if (height != area->height || texture != area->texture)
+		area = &g_areas[index++];
+		if (area->height != height || area->texture != texture)
+			continue;
+		actual_sp = &area->spans[column];
+		if (actual_sp->start != AREA_EMPTY)
 		{
-			index++;
+			if (span.start <= actual_sp->end + 1 && actual_sp->start <= span.end + 1) {
+				actual_sp->start = min(actual_sp->start, span.start);
+				actual_sp->end   = max(actual_sp->end,   span.end);
+				return;
+			}
 			continue;
 		}
-		if (actual_sp->y_start != -1)
-		{
-			if (span.y_end == actual_sp->y_start)
-				actual_sp->y_start = span.y_start;
-			else if (span.y_start == actual_sp->y_end)
-				actual_sp->y_end = span.y_end;
-		}
 		else
-		{
-			actual_sp->y_start = span.y_start;
-			actual_sp->y_end   = span.y_end;
-			if (column < area->min)
-				area->min = column;
-			if (column > area->max)
-				area->max = column;
-		}
-		return ;
+			break ;
 	}
 	if (g_areas_used < MAX_AREAS)
 	{
 		area = &g_areas[g_areas_used++];
-		area->height  = height;
+		area->height = height;
 		area->texture = texture;
-		area->min     = column;
-		area->max     = column;
+		area->min = WINDOW_WIDTH;
+		area->max = -1;
 		index = 0;
 		while (index < WINDOW_WIDTH + 2)
 		{
-			area->spans[index].y_start = -1;
-			area->spans[index].y_end   = -1;
+			area->spans[index].start = AREA_EMPTY;
 			index++;
 		}
-		area->spans[column + 1] = span;
 	}
+	area->spans[column] = span;
+	if (column < area->min)
+		area->min = column;
+	if (column > area->max)
+		area->max = column;
 }
 
-
+static inline void	area_span_draw(t_span span_x, int y,
+		t_area *area, t_render_context *render);
+static inline void create_horizontals(int x, t_area *area,
+		t_render_context *render);
 
 void	render_ceil_floor(t_render_context *render)
 {
-	size_t	area_index;
+	size_t	index;
 	t_area	*area;
 	int		x;
-	t_span	*span;
-	int		y;
 
-	area_index = 0;
-	while (area_index < g_areas_used)
+	index = 0;
+	while (index < g_areas_used)
 	{
-		area = &g_areas[area_index];
+		area = &g_areas[index++];
+		if (area->min > area->max)
+			continue ;
 		x = area->min;
-		while (x <= area->max)
+		while (x < area->max + 2)
 		{
-			span = &area->spans[x + 1];
-			if (span->y_start <= span->y_end)
-			{
-				y = span->y_start;
-				while (y < span->y_end)
-				{
-					draw_pixel(rgba8(125, 200, 55, 125),
-						x, y, render->frame);
-					y++;
-				}
-			}
+			create_horizontals(x, area, render);
 			x++;
 		}
-		area_index++;
+	}
+	g_areas_used = 0;
+	index = 0;
+	while (index < WINDOW_HEIGHT)
+	{
+		g_span_start[index] = AREA_EMPTY;
+		index++;
+	}
+}
+
+static inline void create_horizontals(int x, t_area *area,
+		t_render_context *render)
+{
+	t_span	*pre;
+	t_span	*actual;
+	int		y;
+
+	pre = &area->spans[x - 1];
+	actual = &area->spans[x];
+	if (pre->start == AREA_EMPTY || actual->start == AREA_EMPTY)
+        return;
+	y = pre->start;
+	while (y < actual->start && y <= pre->end)
+		area_span_draw((t_span){g_span_start[y], x - 1}, y++, area, render);
+	y = pre->end;
+	while (y > actual->end && y >= pre->start)
+		area_span_draw((t_span){g_span_start[y], x - 1}, y--, area, render);
+	y = actual->start;
+	while (y < pre->start && y <= actual->end)
+		g_span_start[y++] = x - 1;
+	y = actual->end;
+	while (y > pre->end && y >= actual->start)
+		g_span_start[y--] = x - 1;
+}
+
+static inline void	area_span_draw(t_span span_x, int y,
+		t_area *area, t_render_context *render)
+{
+	while (span_x.start <= span_x.end)
+	{
+		draw_pixel(rgba8(255, 0 + 125 * area->texture, 0, 200), span_x.start, y, render->frame);
+		span_x.start++;
 	}
 }

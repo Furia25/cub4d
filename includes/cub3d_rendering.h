@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/15 20:39:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/15 23:49:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include "cub3d_texture.h"
 
 # define RENDER_DISTANCE	100
-# define MAX_HITS			100
 # define MAX_AREAS			256
+
+# define AREA_EMPTY			-1
 
 typedef struct s_render_context
 {
@@ -50,16 +51,10 @@ typedef struct s_raycast_hit
 	t_tile		*tile;
 }	t_raycast_hit;
 
-typedef struct s_raycast_buffer
-{
-	t_raycast_hit	hits[MAX_HITS];
-	size_t			n_hits;
-}	t_raycast_buffer;
-
 typedef struct s_span
 {
-	int	y_start;
-	int	y_end;
+	int	start;
+	int	end;
 }	t_span;
 
 typedef struct s_area
@@ -76,8 +71,7 @@ typedef struct s_raycast_context
 	t_render_context	*render_ctx;
 	t_ray2				*ray;
 	t_tilemap			*tilemap;
-	t_raycast_hit		*actual;
-	t_raycast_buffer	buffer;
+	t_raycast_hit		actual;
 	t_ivec2				actual_tile;
 	t_vec2				delta_dist;
 	t_vec2				step_dist;
@@ -94,7 +88,6 @@ void	render_draw_ray(t_raycast_hit *actual,
 			t_raycast_context *ctx, t_render_context *render);
 
 /*AREAS for floor and ceil handling*/
-void	areas_init(void);
 void	areas_add(float height, t_texture_type tex, int column, t_span span);
 void	render_ceil_floor(t_render_context *render);
 

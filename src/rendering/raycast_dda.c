@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/15 20:39:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/15 22:19:11 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,18 @@ void	render_ray(float base_angle, int column,
 {
 	t_raycast_context	ctx;
 
+	ctx.actual.original_angle = base_angle;
+	ctx.actual.original_ray = *ray;
 	ctx.column = column;
 	ctx.render_ctx = render_ctx;
 	ctx.ray = ray;
 	ctx.tilemap = render_ctx->tilemap;
 	ctx.step.x = sign(ray->dir_normal.x);
 	ctx.step.y = sign(ray->dir_normal.y);
-	ctx.buffer.n_hits = 0;
-	ctx.actual = ctx.buffer.hits;
 	ctx.last_end = 0;
-	ctx.last_start = 0;
+	ctx.last_start = WINDOW_HEIGHT;
 	raycast_init(&ctx);
 	raycast_launch(&ctx);
-	while (ctx.buffer.n_hits > 0)
-	{
-		ctx.buffer.n_hits--;
-		ctx.buffer.hits[ctx.buffer.n_hits].original_angle = base_angle;
-		ctx.buffer.hits[ctx.buffer.n_hits].original_ray = *ray;
-		render_draw_ray(ctx.buffer.hits + ctx.buffer.n_hits, &ctx, render_ctx);
-	}
 }
 
 static inline void	raycast_init(t_raycast_context *ctx)
@@ -83,19 +76,18 @@ static inline void	raycast_launch(t_raycast_context *ctx)
 		{
 			ctx->step_dist.x += ctx->delta_dist.x;
 			ctx->actual_tile.x += ctx->step.x;
-			ctx->actual->orientation = 0;
+			ctx->actual.orientation = 0;
 		}
 		else
 		{
 			ctx->step_dist.y += ctx->delta_dist.y;
 			ctx->actual_tile.y += ctx->step.y;
-			ctx->actual->orientation = 1;
+			ctx->actual.orientation = 1;
 		}
-		if (check_wall_tile(ctx->actual, ctx))
+		if (check_wall_tile(&ctx->actual, ctx))
 		{
-			raycast_set_dist(ctx->actual, ctx);
-			if (ctx->buffer.n_hits++ < MAX_HITS)
-				ctx->actual = ctx->buffer.hits + ctx->buffer.n_hits;
+			raycast_set_dist(&ctx->actual, ctx);
+			render_draw_ray(&ctx->actual, ctx, ctx->render_ctx);
 		}
 	}
 }
