@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:03:09 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/10 19:49:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 14:00:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	tilemap_is_tile_valid(size_t x, size_t y, t_tilemap *map)
 	return (x < map->width && y < map->height);
 }
 
-t_tile	*tilemap_get_tile(size_t x, size_t y, t_tilemap *map)
+t_tile	*tilemap_get_tile(int x, int y, t_tilemap *map)
 {
 	return (&map->tiles[y][x]);
 }
