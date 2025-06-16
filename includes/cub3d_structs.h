@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/15 20:30:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 19:03:32 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ typedef struct s_key
 
 typedef struct s_img_data
 {
-    void	*connection;
-    void	*img_ptr;
-    char	*buffer;
-    int		width;
-    int		height;
-    int		pbits;
-    int		size_line;
-    int		endian;
+    void		*connection;
+    void		*img_ptr;
+    char		*buffer;
+    int			width;
+    int			height;
+    int			pbits;
+    int			size_line;
+    int			endian;
 }	t_img_data;
 
 typedef t_png_pixel8	t_rgba8;

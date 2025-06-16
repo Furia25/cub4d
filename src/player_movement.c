@@ -6,22 +6,26 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/16 15:48:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 17:20:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "maths2_easing.h"
 
-void	player_move_collision(t_vec2 move, t_player *player, t_game *game)
+void	player_move_collision(t_vec3 move, t_player *player, t_game *game)
 {
-	if (!tilemap_collision_bbox(move.x, 0, player->collision_box, game->tilemap))
+	t_vec3	temp_v;
+
+	temp_v = vec3_new(move.x, 0, 0);
+	if (!tilemap_collision_bbox(temp_v, player->collision_box, game->tilemap))
 	{
 		player->position.x += move.x;
 		player->collision_box.min.x += move.x;
 		player->collision_box.max.x += move.x;
 	}
-	if (!tilemap_collision_bbox(0, move.y, player->collision_box, game->tilemap))
+	temp_v = vec3_new(0, move.y, 0);
+	if (!tilemap_collision_bbox(temp_v, player->collision_box, game->tilemap))
 	{
 		player->position.y += move.y;
 		player->collision_box.min.y += move.y;
@@ -41,11 +45,15 @@ void	player_handle_jump(t_player *plr, t_game *game)
 		plr->is_grounded = false;
 	}
 	plr->jump_velocity += gravity;
-	plr->height += plr->jump_velocity;
-	if (plr->height <= plr->eye_height)
+	if (!tilemap_collision_bbox((t_vec3){0, 0, plr->jump_velocity}, plr->collision_box, game->tilemap))
 	{
-		plr->height = plr->eye_height;
-		plr->jump_velocity = 0;
+		plr->height += plr->jump_velocity;
+		plr->collision_box.min.z += plr->jump_velocity;
+		plr->collision_box.max.z += plr->jump_velocity;
+	}
+	else
+	{
+		plr->jump_velocity = 0.0f;
 		plr->is_grounded = true;
 	}
 }
@@ -57,10 +65,6 @@ void	update_player(t_player *player, t_game *game)
 	t_vec2	dir;
 	t_vec2	move;
 
-	if (is_key_pressed(KEY_TEST_UP, game))
-		player->eye_height += 0.02;
-	if (is_key_pressed(KEY_TEST_DOWN, game))
-		player->eye_height -= 0.02;
 	player_handle_jump(player, game);
 	strafe =  is_key_pressed(KEY_RIGHT, game) - is_key_pressed(KEY_LEFT, game);
 	forward =  is_key_pressed(KEY_UP, game) - is_key_pressed(KEY_DOWN, game);
@@ -69,5 +73,5 @@ void	update_player(t_player *player, t_game *game)
 	move = vec2_add(vec2_scale(dir, forward), vec2_scale(vec2_new(-dir.y, dir.x), strafe));
 	if (vec2_length(move) > 0.0f)
 		move = vec2_scale(vec2_normalize(move), player->speed);
-	player_move_collision(move, player, game);
+	player_move_collision((t_vec3){move.x, move.y, 0}, player, game);
 }

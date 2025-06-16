@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:02:52 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 19:17:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 18:52:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static inline int	rgba_to_int(t_png_pixel8 rgba)
 	return (rgba.a << 24 | rgba.r << 16 | rgba.g << 8 | rgba.b);
 }
 
-void		draw_pixel(t_rgba8 rgba, unsigned int x, unsigned int y, t_img_data *img);
-void		draw_rect(t_png_pixel8 rgba, t_rect rectangle, t_img_data *img);
+void	draw_pixel(t_rgba8 rgba, unsigned int x, unsigned int y, t_img_data *img);
+void	draw_rect(t_png_pixel8 rgba, t_rect rectangle, t_img_data *img);
 
 #endif

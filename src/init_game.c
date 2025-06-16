@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/15 19:38:35 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 19:03:42 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ void	init_player(t_player *player)
 	player->jump_force = 0.2f;
 	player->fov_deg = 80;
 	size = PLAYER_SIZE / 2;
+	player->height = player->eye_height + 0.4;
 	min = vec3_new(player->position.x - size, player->position.y - size, 0);
+	min.z = player->eye_height;
 	max = vec3_new(player->position.x + size, player->position.y + size, 0);
+	max.z = 0.1f;
 	player->collision_box = bbox_new(min, max);
-	player->height = player->eye_height;
 	player->is_grounded = true;
 }
 

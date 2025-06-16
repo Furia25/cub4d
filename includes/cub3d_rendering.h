@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/16 14:42:18 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 18:35:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include "cub3d_texture.h"
 
 # define RENDER_DISTANCE	100
-# define MAX_AREAS			256
-
-# define AREA_EMPTY			-1
 
 typedef struct s_render_context
 {
