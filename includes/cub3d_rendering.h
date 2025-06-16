@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/15 23:49:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 01:57:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,6 @@ typedef struct s_raycast_hit
 	t_tile		*tile;
 }	t_raycast_hit;
 
-typedef struct s_span
-{
-	int	start;
-	int	end;
-}	t_span;
-
-typedef struct s_area
-{
-	float			height;
-	t_texture_type	texture;
-	int				min;
-	int				max;
-	t_span			spans[WINDOW_WIDTH + 2];
-}	t_area;
-
 typedef struct s_raycast_context
 {
 	t_render_context	*render_ctx;
@@ -86,9 +71,5 @@ void	render_ray(float base_angle, int column,
 			t_ray2 *ray, t_render_context *render_ctx);
 void	render_draw_ray(t_raycast_hit *actual,
 			t_raycast_context *ctx, t_render_context *render);
-
-/*AREAS for floor and ceil handling*/
-void	areas_add(float height, t_texture_type tex, int column, t_span span);
-void	render_ceil_floor(t_render_context *render);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 19:02:05 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 01:38:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	exit_game(t_game *game)
 	free(game->paths);
 	free(game->colors);
 	free(game->map);
+	
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->img)

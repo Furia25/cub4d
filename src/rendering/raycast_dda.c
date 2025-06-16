@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/15 22:19:11 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 02:11:23 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,5 @@ static inline void	raycast_set_dist(t_raycast_hit *hit,
 	else
 		hit->dist = (ctx->actual_tile.y - ctx->ray->origin.y
 			+ (1 - ctx->step.y) * 0.5) / ctx->ray->dir_normal.y;
+	
 }

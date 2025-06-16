@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/15 23:49:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/16 01:32:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	render(t_game *game)
 
 	render_init(WINDOW_WIDTH, WINDOW_HEIGHT, &context, game);
 	render_rays(0, context.render_width, &context);
-	render_ceil_floor(&context);
 	draw_minimap(game);
 }
 
