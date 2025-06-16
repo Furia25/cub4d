@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 13:46:48 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/16 15:19:48 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init_player(t_player *player)
 
 void	run_game(t_game *game)
 {
+	game->textures[TEXTURE_WALL] = png_open("assets/no-texture.png");
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{

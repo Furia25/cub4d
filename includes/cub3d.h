@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/13 10:16:53 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/16 15:22:13 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "cub3d_structs.h"
 # include "cub3d_drawing.h"
 # include "cub3d_rendering.h"
+# include "cub3d_textures.h"
 
 # define WINDOW_WIDTH		1920
 # define WINDOW_HEIGHT		1080
@@ -71,6 +72,7 @@ typedef struct s_game
 	char		**colors;
 	t_tilemap	*tilemap;
 	t_key		key_buffer[KEY_MAX_COUNT];
+	t_png		*textures[TEXTURE_MAX_COUNT];
 }	t_game;
 
 typedef struct s_tile_context
@@ -171,6 +173,6 @@ void		handle_full_map(t_game *game);
 
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
-void		render_texture(t_raycast_hit *result, t_render_context *context, int collumn, int *row, int wall_end);
+void		render_texture(t_raycast_hit *result, t_render_context *context, int collumn, int *row, int wall_end, int wall_height);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 09:58:46 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/16 15:20:13 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	exit_game(t_game *game)
 		free(game->img);
 	}
 	mlx_destroy_display(game->mlx);
+	png_close(game->textures[TEXTURE_WALL]);
 	free(game->mlx);
 	exit(EXIT_SUCCESS);
 }

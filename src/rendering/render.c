@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 14:33:51 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/16 12:26:56 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static void render_ray(float ray_angle, int collumn,
 	wall_height = WINDOW_HEIGHT / corrected_dist;
 	wall_start = clamp(-wall_height / 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
 	wall_end = clamp(wall_height / 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
+	result->pos.x = result->original_ray.origin.x + result->original_ray.dir_normal.x * corrected_dist;
+	result->pos.y = result->original_ray.origin.y + result->original_ray.dir_normal.y * corrected_dist;
 	y = 0;
 	while (y < WINDOW_HEIGHT)
 	{
@@ -81,10 +83,7 @@ static void render_ray(float ray_angle, int collumn,
 		else if (y > wall_end)
 			img_draw_pixel(rgba8(0, 255, 255, 255), collumn, y, context->frame);
 		else
-			// img_draw_pixel(rgba8(220, 0, 255 - 80 * result->orientation, 255),
-			// 	collumn, y, context->frame);
-			render_texture(result, context, collumn, &y, wall_end);
+			render_texture(result, context, collumn, &y, wall_end, wall_height);
 		y++;
 	}
 }
-	
