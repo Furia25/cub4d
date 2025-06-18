@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/18 11:03:13 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/18 11:40:39 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_texture_context
 	int	wall_start;
 	int	wall_end;
 	int	wall_height;
+	int	tex_x;
 }	t_texture_context;
 
 t_raycast_hit	raycast_tilemap(t_ray2 *ray, t_tilemap *tilemap);
@@ -181,6 +182,6 @@ void		handle_full_map(t_game *game);
 
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
-void		render_texture(t_raycast_hit *result, t_render_context *context, t_texture_context *ctx, int *row);
+void		manage_texture(t_raycast_hit *result, t_render_context *context, t_texture_context *ctx, int *row);
 
 #endif

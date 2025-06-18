@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/18 10:15:47 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/18 15:05:34 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ bool	create_frame_image(t_game *game)
 	return (true);
 }
 
+void	init_textures(t_game *game)
+{
+	game->textures[TEXTURE_NORTH] = png_open("assets/north.png");
+	game->textures[TEXTURE_EAST] = png_open("assets/east.png");
+	game->textures[TEXTURE_WEST] = png_open("assets/west.png");
+	game->textures[TEXTURE_SOUTH] = png_open("assets/south.png");
+}
+
 void	init_player(t_player *player)
 {
 	float	size;
@@ -48,7 +56,7 @@ void	init_player(t_player *player)
 
 void	run_game(t_game *game)
 {
-	game->textures[TEXTURE_WALL] = png_open("assets/cmoore6.png");
+	init_textures(game);
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{

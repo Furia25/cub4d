@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/18 11:10:15 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/18 15:10:04 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,26 @@ void	render_rays(int start_x, int end_x, t_render_context *render)
 	}
 }
 
-static void	init_texture_ctx(t_texture_context *tex_ctx, int corr_dist, int column)
+static void	init_texture_ctx(t_texture_context *tex_ctx, float dist, int column)
 {
-	tex_ctx->wall_height = WINDOW_HEIGHT / corr_dist;
+	tex_ctx->wall_height = WINDOW_HEIGHT / dist;
 	tex_ctx->wall_start = clamp(-tex_ctx->wall_height \
 		/ 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
 	tex_ctx->wall_end = clamp(tex_ctx->wall_height \
 		/ 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
 	tex_ctx->column = column;
+}
+
+static void	set_textures(t_raycast_hit *result)
+{
+	if (result->orientation == 0 && result->original_ray.dir_normal.x < 0)
+		result->tile_info.texture = TEXTURE_WEST;
+	else if (result->orientation == 0 && result->original_ray.dir_normal.x > 0)
+		result->tile_info.texture = TEXTURE_EAST;
+	else if (result->orientation == 1 && result->original_ray.dir_normal.y < 0)
+		result->tile_info.texture = TEXTURE_NORTH;
+	else if (result->orientation == 1 && result->original_ray.dir_normal.y > 0)
+		result->tile_info.texture = TEXTURE_SOUTH;
 }
 
 static void	render_ray(float ray_angle, int column,
@@ -79,6 +91,7 @@ static void	render_ray(float ray_angle, int column,
 
 	corrected_dist = result->dist * cosf(ray_angle - context->direction);
 	init_texture_ctx(&tex_ctx, corrected_dist, column);
+	set_textures(result);
 	result->pos.x = result->original_ray.origin.x \
 				+ result->original_ray.dir_normal.x * result->dist;
 	result->pos.y = result->original_ray.origin.y \
@@ -91,7 +104,7 @@ static void	render_ray(float ray_angle, int column,
 		else if (y > tex_ctx.wall_end)
 			img_draw_pixel(rgba8(0, 255, 255, 255), column, y, context->frame);
 		else
-			render_texture(result, context, &tex_ctx, &y);
+			manage_texture(result, context, &tex_ctx, &y);
 		y++;
 	}
 }
