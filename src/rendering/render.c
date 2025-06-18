@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/16 12:26:56 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/18 11:10:15 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,30 +60,38 @@ void	render_rays(int start_x, int end_x, t_render_context *render)
 	}
 }
 
-static void render_ray(float ray_angle, int collumn,
+static void	init_texture_ctx(t_texture_context *tex_ctx, int corr_dist, int column)
+{
+	tex_ctx->wall_height = WINDOW_HEIGHT / corr_dist;
+	tex_ctx->wall_start = clamp(-tex_ctx->wall_height \
+		/ 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
+	tex_ctx->wall_end = clamp(tex_ctx->wall_height \
+		/ 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
+	tex_ctx->column = column;
+}
+
+static void	render_ray(float ray_angle, int column,
 		t_raycast_hit *result, t_render_context *context)
 {
-	float	corrected_dist;
-	int		wall_height;
-	int		wall_start;
-	int		wall_end;
-	int		y;
+	float				corrected_dist;
+	int					y;
+	t_texture_context	tex_ctx;
 
 	corrected_dist = result->dist * cosf(ray_angle - context->direction);
-	wall_height = WINDOW_HEIGHT / corrected_dist;
-	wall_start = clamp(-wall_height / 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
-	wall_end = clamp(wall_height / 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
-	result->pos.x = result->original_ray.origin.x + result->original_ray.dir_normal.x * corrected_dist;
-	result->pos.y = result->original_ray.origin.y + result->original_ray.dir_normal.y * corrected_dist;
+	init_texture_ctx(&tex_ctx, corrected_dist, column);
+	result->pos.x = result->original_ray.origin.x \
+				+ result->original_ray.dir_normal.x * result->dist;
+	result->pos.y = result->original_ray.origin.y \
+				+ result->original_ray.dir_normal.y * result->dist;
 	y = 0;
 	while (y < WINDOW_HEIGHT)
 	{
-		if (y < wall_start)
-			img_draw_pixel(rgba8(0, 0, 255, 255), collumn, y, context->frame);
-		else if (y > wall_end)
-			img_draw_pixel(rgba8(0, 255, 255, 255), collumn, y, context->frame);
+		if (y < tex_ctx.wall_start)
+			img_draw_pixel(rgba8(0, 0, 255, 255), column, y, context->frame);
+		else if (y > tex_ctx.wall_end)
+			img_draw_pixel(rgba8(0, 255, 255, 255), column, y, context->frame);
 		else
-			render_texture(result, context, collumn, &y, wall_end, wall_height);
+			render_texture(result, context, &tex_ctx, &y);
 		y++;
 	}
 }

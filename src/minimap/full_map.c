@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/13 09:26:50 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/18 09:30:50 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	draw_tiles(t_game *game, int pos_x, int pos_y, t_png_pixel8 color)
 		j = 0;
 		while (j < tile_size)
 		{
-			img_draw_pixel(color, (pos_x * tile_size + i), (pos_y * tile_size + j), game->img);
+			img_draw_pixel(color, (pos_x * tile_size + i), \
+			(pos_y * tile_size + j), game->img);
 			j++;
 		}
 		i++;
@@ -69,6 +70,7 @@ void	handle_full_map(t_game *game)
 			draw_lines(game->map[line], game, line);
 			line++;
 		}
-		draw_tiles(game, game->player.position.x, game->player.position.y, rgba8(255, 0, 10, 200));
+		draw_tiles(game, game->player.position.x, \
+			game->player.position.y, rgba8(255, 0, 10, 200));
 	}
 }

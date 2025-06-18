@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/16 15:29:15 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/18 09:50:03 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_tilemap
 /*[TYPE]      = Type, Solid, Wall, Visible, Blocking*/
 static const t_tile_info	g_base_tile_info[TILE_MAX_COUNT] = {
 [TILE_EMPTY] = {TILE_EMPTY, false, false, false, false, TEXTURE_NAN, "Empty"},
-[TILE_WALL] = {TILE_WALL, false, true, true, true, TEXTURE_WALL, "Wall"},
+[TILE_WALL] = {TILE_WALL, true, true, true, true, TEXTURE_WALL, "Wall"},
 };
 
 t_tilemap	*tilemap_new(size_t width, size_t height, size_t tile_size);

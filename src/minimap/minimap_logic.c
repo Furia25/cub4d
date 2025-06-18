@@ -6,24 +6,24 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/13 10:13:29 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/18 10:50:06 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	calculate_offset(double g_pos)
+int	calculate_offset(double p_pos)
 {
 	int		offset;
 	double	diff;
 
-	diff = g_pos - (int)g_pos;
+	diff = p_pos - (int)p_pos;
 	offset = (int)(MMAP_TILE_SIZE * diff);
 	return (offset);
 }
 
 
-void	draw_empty_tile(t_tile_context *tile, int limit)
+void	draw_empty_tiles(t_tile_context *tile, int limit)
 {
 	while (tile->tile < limit)
 	{
@@ -33,17 +33,19 @@ void	draw_empty_tile(t_tile_context *tile, int limit)
 	}
 }
 
-void	draw_plain_tile(t_tile_context *tile)
+void	draw_plain_tiles(t_tile_context *tile)
 {
 	while (tile->line[tile->tile]
 		&& tile->tile < (int)tile->game->player.position.x + 9)
 	{
-		if (center_tile(tile->line[tile->tile]))
-			draw_tile(tile, rgba8(255, 150, 100, 200));
-		if (tile->line[tile->tile] == '1')
-			draw_tile(tile, rgba8(200, 10, 40, 200));
-		if (tile->line[tile->tile] == ' ' || tile->line[tile->tile] == '\n')
+		if (tile->line[tile->tile] == ' '
+			|| tile->line[tile->tile] == '\n'
+			|| tile->tile > (int)ft_strlen(tile->line))
 			draw_tile(tile, rgba8(0, 0, 0, 200));
+		else if (center_tile(tile->line[tile->tile]))
+			draw_tile(tile, rgba8(255, 150, 100, 200));
+		else if (tile->line[tile->tile] == '1')
+			draw_tile(tile, rgba8(200, 10, 40, 200));
 		tile->tile++;
 		tile->pos_x++;
 	}
@@ -64,12 +66,13 @@ void	draw_line(char *line, t_game *game, double pos_y)
 	tile_info = (t_tile_context){game, line, tile, pos_x, pos_y, off_x, off_y};
 	if (!line)
 	{
-		draw_empty_tile(&tile_info, (int)tile_info.game->player.position.x + 9);
+		draw_empty_tiles(&tile_info, \
+			(int)tile_info.game->player.position.x + 9);
 		return ;
 	}
-	draw_empty_tile(&tile_info, 0);
-	draw_plain_tile(&tile_info);
-	draw_empty_tile(&tile_info, (int)tile_info.game->player.position.x + 9);
+	draw_empty_tiles(&tile_info, 0);
+	draw_plain_tiles(&tile_info);
+	draw_empty_tiles(&tile_info, (int)tile_info.game->player.position.x + 9);
 }
 
 void	draw_minimap(t_game *game)
