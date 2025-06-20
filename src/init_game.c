@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/18 15:05:34 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:04:21 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,38 @@ bool	create_frame_image(t_game *game)
 	return (true);
 }
 
-void	init_textures(t_game *game)
+int	init_sprites(t_game *game)
+{
+	game->sprites[SPRITE_ENEMY] = png_open("assets/enemy.png");
+	if (!game->sprites[SPRITE_ENEMY])
+		return (0);
+	return (1);
+}
+
+int	init_textures(t_game *game)
 {
 	game->textures[TEXTURE_NORTH] = png_open("assets/north.png");
+	if (!game->textures[TEXTURE_NORTH])
+		return (0);
 	game->textures[TEXTURE_EAST] = png_open("assets/east.png");
+	if (!game->textures[TEXTURE_EAST])
+		return (0);
 	game->textures[TEXTURE_WEST] = png_open("assets/west.png");
+	if (!game->textures[TEXTURE_WEST])
+		return (0);
 	game->textures[TEXTURE_SOUTH] = png_open("assets/south.png");
+	if (!game->textures[TEXTURE_SOUTH])
+		return (0);
+	return (1);
+}
+
+int	init_assets(t_game *game)
+{
+	if (!init_textures(game))
+		return (0);
+	if (!init_sprites(game))
+		return (0);
+	return (1);
 }
 
 void	init_player(t_player *player)
@@ -56,7 +82,8 @@ void	init_player(t_player *player)
 
 void	run_game(t_game *game)
 {
-	init_textures(game);
+	if (!init_assets(game))
+		exit_game(game);
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
@@ -71,6 +98,7 @@ void	run_game(t_game *game)
 	}
 	if (!create_frame_image(game))
 		exit_game(game);
+	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);

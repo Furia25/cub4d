@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/18 14:51:10 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/20 11:06:09 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,11 @@ typedef enum e_texture_type
 	TEXTURE_TEST,
 	TEXTURE_MAX_COUNT
 }	t_texture_type;
+
+typedef enum e_sprite_type
+{
+	SPRITE_ENEMY,
+	SPRITE_MAX_COUNT
+}	t_sprite_type;
 
 #endif

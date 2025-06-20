@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/18 11:40:39 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/20 11:23:52 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@
 
 # define PLAYER_SIZE		0.25
 
+# define MAX_ENEMIES		100
+
+typedef enum e_enemy_state
+{
+	ON_ALERT,
+	SLEEPING,
+	DEAD
+}	t_enemy_state;
+
 typedef struct s_player
 {
 	t_bbox	collision_box;
@@ -58,21 +67,33 @@ typedef struct s_player
 	float	fov_deg;
 }	t_player;
 
+typedef struct s_enemy
+{
+	t_vec2			position;
+	int				hp;
+	t_enemy_state	state;
+}	t_enemy;
+
 typedef struct s_game
 {
-	void		*mlx;
-	char		*win;
-	t_img_data	*img;
-	int			width;
-	int			height;
-	t_player	player;
-	char		**file_content;
-	char		**map;
-	char		**paths;
-	char		**colors;
-	t_tilemap	*tilemap;
-	t_key		key_buffer[KEY_MAX_COUNT];
-	t_png		*textures[TEXTURE_MAX_COUNT];
+	void			*mlx;
+	char			*win;
+	t_img_data		*img;
+	int				width;
+	int				height;
+	t_player		player;
+	char			**file_content;
+	char			**map;
+	char			**paths;
+	char			**colors;
+	t_png_pixel8	f_color;
+	t_png_pixel8	c_color;
+	t_tilemap		*tilemap;
+	t_key			key_buffer[KEY_MAX_COUNT];
+	t_png			*textures[TEXTURE_MAX_COUNT];
+	t_png			*sprites[SPRITE_MAX_COUNT];
+	t_enemy			enemies[MAX_ENEMIES];
+	int				enemy_count;
 }	t_game;
 
 typedef struct s_tile_context
@@ -118,6 +139,7 @@ typedef struct s_texture_context
 	int	wall_height;
 	int	tex_x;
 }	t_texture_context;
+
 
 t_raycast_hit	raycast_tilemap(t_ray2 *ray, t_tilemap *tilemap);
 
@@ -183,5 +205,7 @@ void		handle_full_map(t_game *game);
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
 void		manage_texture(t_raycast_hit *result, t_render_context *context, t_texture_context *ctx, int *row);
+void		draw_enemies(t_game *game);
+
 
 #endif

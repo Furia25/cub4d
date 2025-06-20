@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/13 09:34:39 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/20 11:22:48 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@ int	check_tiles_and_borders(t_game *game)
 	int	i;
 	int	j;
 	int	k;
+	int	e;
 	int	player;
 	int	width;
 
 	i = 8;
 	j = 0;
 	k = 0;
+	e = 0;
 	player = 0;
 	game->width = 0;
 	game->map = (char **)malloc(sizeof(char *) * ((game->height -7) + 1));
 	game->height -= 7;
+	game->enemy_count = 0;
 	if (!game->map)
 		return (0);
 	while (game->file_content[i])
@@ -44,13 +47,13 @@ int	check_tiles_and_borders(t_game *game)
 					return (0);
 				game->player.position.x = (double)j + 0.5;
 				game->player.position.y = (double)(i - 8) + 0.5;
-				if (game->file_content[i][j] == 'N')
+				if (game->file_content[i][j] == 'S')
 					game->player.rad_direction = M_PI / 2;
-				else if (game->file_content[i][j] == 'S')
+				else if (game->file_content[i][j] == 'N')
 					game->player.rad_direction = 3 * M_PI / 2;
-				else if (game->file_content[i][j] == 'E')
-					game->player.rad_direction = M_PI;
 				else if (game->file_content[i][j] == 'W')
+					game->player.rad_direction = M_PI;
+				else if (game->file_content[i][j] == 'E')
 					game->player.rad_direction = 0;
 				rad_to_vect(&game->player.direction, game->player.rad_direction);
 				player = 1;
@@ -59,9 +62,17 @@ int	check_tiles_and_borders(t_game *game)
 				return (0);
 			if (center_tile(game->file_content[i][j]) && \
 			!borders_around(game->file_content, i, j))
-			{
-				printf("%d %d\n", i, j);
 				return (0);
+			if (game->file_content[i][j] == 'P')
+			{
+				if (game->enemy_count > MAX_ENEMIES)
+					return (0);
+				game->enemies[e].position.x = (double)j + 0.5;
+				game->enemies[e].position.y = (double)(i - 8) + 0.5;
+				game->enemies[e].hp = 100;
+				game->enemies[e].state = SLEEPING;
+				game->enemy_count++;
+				e++;
 			}
 			j++;
 		}
@@ -145,6 +156,20 @@ int	check_colors(t_game *game)
 				return (0);
 			}
 			j++;
+		}
+		if (i == 5)
+		{
+			game->f_color.a = 255;
+			game->f_color.r = ft_atoi(rgb[0]);
+			game->f_color.g = ft_atoi(rgb[1]);
+			game->f_color.b = ft_atoi(rgb[2]);
+		}
+		else
+		{
+			game->c_color.a = 255;
+			game->c_color.r = ft_atoi(rgb[0]);
+			game->c_color.g = ft_atoi(rgb[1]);
+			game->c_color.b = ft_atoi(rgb[2]);
 		}
 		free_map(rgb);
 		i++;

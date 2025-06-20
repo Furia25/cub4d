@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/18 15:10:04 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/20 11:24:01 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	render(t_game *game)
 	render_init(WINDOW_WIDTH, WINDOW_HEIGHT, &context, game);
 	render_rays(0, context.render_width, &context);
 	draw_minimap(game);
+	draw_enemies(game);
 	handle_full_map(game);
 }
 
@@ -70,7 +71,7 @@ static void	init_texture_ctx(t_texture_context *tex_ctx, float dist, int column)
 	tex_ctx->column = column;
 }
 
-static void	set_textures(t_raycast_hit *result)
+static void	set_texture_orientation(t_raycast_hit *result)
 {
 	if (result->orientation == 0 && result->original_ray.dir_normal.x < 0)
 		result->tile_info.texture = TEXTURE_WEST;
@@ -83,15 +84,15 @@ static void	set_textures(t_raycast_hit *result)
 }
 
 static void	render_ray(float ray_angle, int column,
-		t_raycast_hit *result, t_render_context *context)
+		t_raycast_hit *result, t_render_context *ctx)
 {
 	float				corrected_dist;
 	int					y;
 	t_texture_context	tex_ctx;
 
-	corrected_dist = result->dist * cosf(ray_angle - context->direction);
+	corrected_dist = result->dist * cosf(ray_angle - ctx->direction);
 	init_texture_ctx(&tex_ctx, corrected_dist, column);
-	set_textures(result);
+	set_texture_orientation(result);
 	result->pos.x = result->original_ray.origin.x \
 				+ result->original_ray.dir_normal.x * result->dist;
 	result->pos.y = result->original_ray.origin.y \
@@ -100,11 +101,11 @@ static void	render_ray(float ray_angle, int column,
 	while (y < WINDOW_HEIGHT)
 	{
 		if (y < tex_ctx.wall_start)
-			img_draw_pixel(rgba8(0, 0, 255, 255), column, y, context->frame);
+			img_draw_pixel(ctx->game->c_color, column, y, ctx->frame);
 		else if (y > tex_ctx.wall_end)
-			img_draw_pixel(rgba8(0, 255, 255, 255), column, y, context->frame);
+			img_draw_pixel(ctx->game->f_color, column, y, ctx->frame);
 		else
-			manage_texture(result, context, &tex_ctx, &y);
+			manage_texture(result, ctx, &tex_ctx, &y);
 		y++;
 	}
 }
