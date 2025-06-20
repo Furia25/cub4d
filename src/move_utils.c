@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:30:54 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:31:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,5 @@ int mouse_move(int x, int y, t_game *game)
 	x_dif = (x - width) * MOUSE_SENS;
 	game->player.rad_direction += x_dif;
 	mlx_mouse_move(game->mlx, game->win, width, WINDOW_HEIGHT / 2);
-	return (1);
-}
-
-	if (x != WINDOW_WIDTH / 2 || y != WINDOW_HEIGHT / 2)
-		mlx_mouse_move(game->mlx, game->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	return (1);
 }
