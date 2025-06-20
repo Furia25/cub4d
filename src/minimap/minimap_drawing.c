@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_drawing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/13 13:49:38 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:55:26 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	draw_tile(t_tile_context *tile, t_png_pixel8 color)
 				x < MINIMAP_X_START + MINIMAP_SIZE && \
 				y >= MINIMAP_Y_START + MINIMAP_BORDER && \
 				y < MINIMAP_Y_START + MINIMAP_SIZE)
-				img_draw_pixel(color, x, y, tile->game->img);
+				draw_pixel(color, x, y, tile->game->img);
 			j++;
 		}
 		i++;
@@ -58,7 +58,7 @@ void	draw_border(t_game *game)
 				i < MINIMAP_BORDER || \
 				i > MINIMAP_SIZE - MINIMAP_BORDER)
 			{
-				img_draw_pixel(color, i + MINIMAP_X_START,
+				draw_pixel(color, i + MINIMAP_X_START,
 					j + MINIMAP_Y_START, game->img);
 			}
 			j++;
@@ -78,7 +78,7 @@ void	draw_player(t_game *game)
 		j = 0;
 		while (j < MINIMAP_P_SIZE)
 		{
-			img_draw_pixel(
+			draw_pixel(
 				rgba8(255, 0, 10, 200),
 				((7 * MMAP_TILE_SIZE) + i + MINIMAP_X_START \
 				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),

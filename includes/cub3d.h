@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:35:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:55:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # include "tilemap.h"
 # include "cub3d_structs.h"
 # include "cub3d_drawing.h"
-# include "cub3d_rendering.h"
 # include "cub3d_textures.h"
 
 # define WINDOW_WIDTH		1920
@@ -123,12 +122,7 @@ typedef struct s_texture_context
 	int	tex_x;
 }	t_texture_context;
 
-
-t_raycast_hit	raycast_tilemap(t_ray2 *ray, t_tilemap *tilemap);
-
-void			render_rays(int start_x, int end_x, t_render_context *render);
-void			render(t_game *game);
-
+void		render(t_game *game);
 void		run_game(t_game *game);
 int			exit_game(t_game *game);
 int			game_loop(void *param);
@@ -187,7 +181,6 @@ void		handle_full_map(t_game *game);
 
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
-void		manage_texture(t_raycast_hit *result, t_render_context *context, t_texture_context *ctx, int *row);
 void		draw_enemies(t_game *game);
 
 

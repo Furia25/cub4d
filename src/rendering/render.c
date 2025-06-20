@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/20 15:42:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:50:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,20 @@ static void	render_init(int width, int height, t_render_context *context, t_game
 	context->proj_dist_y = context->halfh / tanf(context->fov_y  * .5f);
 }
 
-static void	init_texture_ctx(t_texture_context *tex_ctx, float dist, int column)
+static inline void	render_rays(int start, int end, t_render_context *render)
 {
-	tex_ctx->wall_height = WINDOW_HEIGHT / dist;
-	tex_ctx->wall_start = clamp(-tex_ctx->wall_height \
-		/ 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
-	tex_ctx->wall_end = clamp(tex_ctx->wall_height \
-		/ 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
-	tex_ctx->column = column;
-}
+	t_ray2			ray;
+	int				x;
+	float			camera_x;
+	float			ray_angle;
 
-static void	set_texture_orientation(t_raycast_hit *result)
-{
-	if (result->orientation == 0 && result->original_ray.dir_normal.x < 0)
-		result->tile_info->texture = TEXTURE_WEST;
-	else if (result->orientation == 0 && result->original_ray.dir_normal.x > 0)
-		result->tile_info->texture = TEXTURE_EAST;
-	else if (result->orientation == 1 && result->original_ray.dir_normal.y < 0)
-		result->tile_info->texture = TEXTURE_NORTH;
-	else if (result->orientation == 1 && result->original_ray.dir_normal.y > 0)
-		result->tile_info->texture = TEXTURE_SOUTH;
+	x = start;
+	while (x < end)
+	{
+		camera_x = 2.0 * x / (float)WINDOW_WIDTH - 1.0;
+		ray_angle = render->direction + atan(camera_x * tan(render->fov / 2));
+		ray = ray2_from_angle(render->position, ray_angle);
+		render_ray(ray_angle, x, &ray, render);
+		x++;
+	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:41:28 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 16:02:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ static void	render_texture(t_png *texture, t_texture_context *tex_ctx, \
 	while (*row < tex_ctx->wall_end)
 	{
 		tex_y = (int)tex_pos;
-		img_draw_pixel(texture->pixels_8bit[tex_y * 498 + tex_ctx->tex_x], \
+		draw_pixel(texture->pixels_8bit[tex_y * 498 + tex_ctx->tex_x], \
 			tex_ctx->column, *row, ctx->frame);
 		tex_pos += step;
-		(*row)++;
 	}
 }
 

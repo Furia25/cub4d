@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   full_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/18 09:30:50 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:55:26 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	draw_tiles(t_game *game, int pos_x, int pos_y, t_png_pixel8 color)
 		j = 0;
 		while (j < tile_size)
 		{
-			img_draw_pixel(color, (pos_x * tile_size + i), \
+			draw_pixel(color, (pos_x * tile_size + i), \
 			(pos_y * tile_size + j), game->img);
 			j++;
 		}

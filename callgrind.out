@@ -16245,7 +16245,7 @@ calls=32640 -75
 80 13115954
 -80 19673931
 cfi=(273) /home/halnuma/Documents/cursus/cub3d/src/drawing/draw_basics.c
-cfn=(2608) img_draw_pixel
+cfn=(2608) draw_pixel
 calls=6557977 40 
 0 196739310
 0 86079669
