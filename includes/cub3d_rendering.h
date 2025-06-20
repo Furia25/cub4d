@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/20 15:27:29 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:40:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_render_context
 
 typedef struct s_raycast_hit
 {
+	t_vec2		pos;
 	t_ray2		original_ray;
 	float		original_angle;
 	int			orientation;

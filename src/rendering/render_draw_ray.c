@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/16 20:51:12 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:43:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static inline void	draw_wall(t_raycast_hit *hit, int wall_start,
 	}
 }
 
-
-
 void	render_draw_ray(t_raycast_hit *hit,
 			t_raycast_context *ctx,
 			t_render_context *render)
@@ -59,3 +57,31 @@ void	render_draw_ray(t_raycast_hit *hit,
 	ctx->last_end = max(ctx->last_end, wall_end);
 }
 
+/*
+static void	render_ray(float ray_angle, int column,
+	t_raycast_hit *result, t_render_context *ctx)
+{
+	float				corrected_dist;
+	int					y;
+	t_texture_context	tex_ctx;
+
+	corrected_dist = result->dist * cosf(ray_angle - ctx->direction);
+	init_texture_ctx(&tex_ctx, corrected_dist, column);
+	set_texture_orientation(result);
+	result->pos.x = result->original_ray.origin.x \
+				+ result->original_ray.dir_normal.x * result->dist;
+	result->pos.y = result->original_ray.origin.y \
+				+ result->original_ray.dir_normal.y * result->dist;
+	y = 0;
+	while (y < WINDOW_HEIGHT)
+	{
+		if (y < tex_ctx.wall_start)
+			img_draw_pixel(ctx->game->c_color, column, y, ctx->frame);
+		else if (y > tex_ctx.wall_end)
+			img_draw_pixel(ctx->game->f_color, column, y, ctx->frame);
+		else
+			manage_texture(result, ctx, &tex_ctx, &y);
+		y++;
+	}
+}
+*/

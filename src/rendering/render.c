@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/20 15:32:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:42:50 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,6 @@ static void	render_init(int width, int height, t_render_context *context, t_game
 	context->proj_dist_y = context->halfh / tanf(context->fov_y  * .5f);
 }
 
-static inline void	render_rays(int start, int end, t_render_context *render)
-{
-	t_ray2			ray;
-	int				x;
-	float			camera_x;
-	float			ray_angle;
-
-	x = start;
-	while (x < end)
-	{
-		camera_x = 2.0 * x / (float)WINDOW_WIDTH - 1.0;
-		ray_angle = render->direction + atan(camera_x * tan(render->fov / 2));
-		ray = ray2_from_angle(render->position, ray_angle);
-		render_ray(ray_angle, x, &ray, render);
-		x++;
-	}
-}
-
 static void	init_texture_ctx(t_texture_context *tex_ctx, float dist, int column)
 {
 	tex_ctx->wall_height = WINDOW_HEIGHT / dist;
@@ -79,38 +61,12 @@ static void	init_texture_ctx(t_texture_context *tex_ctx, float dist, int column)
 static void	set_texture_orientation(t_raycast_hit *result)
 {
 	if (result->orientation == 0 && result->original_ray.dir_normal.x < 0)
-		result->tile_info.texture = TEXTURE_WEST;
+		result->tile_info->texture = TEXTURE_WEST;
 	else if (result->orientation == 0 && result->original_ray.dir_normal.x > 0)
-		result->tile_info.texture = TEXTURE_EAST;
+		result->tile_info->texture = TEXTURE_EAST;
 	else if (result->orientation == 1 && result->original_ray.dir_normal.y < 0)
-		result->tile_info.texture = TEXTURE_NORTH;
+		result->tile_info->texture = TEXTURE_NORTH;
 	else if (result->orientation == 1 && result->original_ray.dir_normal.y > 0)
-		result->tile_info.texture = TEXTURE_SOUTH;
+		result->tile_info->texture = TEXTURE_SOUTH;
 }
 
-static void	render_ray(float ray_angle, int column,
-		t_raycast_hit *result, t_render_context *ctx)
-{
-	float				corrected_dist;
-	int					y;
-	t_texture_context	tex_ctx;
-	
-	corrected_dist = result->dist * cosf(ray_angle - ctx->direction);
-	init_texture_ctx(&tex_ctx, corrected_dist, column);
-	set_texture_orientation(result);
-	result->pos.x = result->original_ray.origin.x \
-				+ result->original_ray.dir_normal.x * result->dist;
-	result->pos.y = result->original_ray.origin.y \
-				+ result->original_ray.dir_normal.y * result->dist;
-	y = 0;
-	while (y < WINDOW_HEIGHT)
-	{
-		if (y < tex_ctx.wall_start)
-			img_draw_pixel(ctx->game->c_color, column, y, ctx->frame);
-		else if (y > tex_ctx.wall_end)
-			img_draw_pixel(ctx->game->f_color, column, y, ctx->frame);
-		else
-			manage_texture(result, ctx, &tex_ctx, &y);
-		y++;
-	}
-}

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:28:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:35:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,30 +113,6 @@ typedef struct s_tile_context
 	int		off_x;
 	int		off_y;
 }	t_tile_context;
-
-typedef struct s_render_context
-{
-	t_game		*game;
-	t_img_data	*frame;
-	t_player	*player;
-	t_vec2		position;
-	int			render_width;
-	int			render_height;
-	float		fov;
-	float		direction;
-}	t_render_context;
-
-typedef struct s_raycast_hit
-{
-	t_ray2		original_ray;
-	bool		hitted;
-	int			orientation;
-	double		dist;
-	t_vec2		pos;
-	t_tile_info	tile_info;
-	t_tile_type	tile_type;
-	t_tilemap	*tilemap;
-}	t_raycast_hit;
 
 typedef struct s_texture_context
 {

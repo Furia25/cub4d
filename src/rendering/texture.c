@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:06:03 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:41:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	manage_texture(t_raycast_hit *result, t_render_context *ctx, \
 	int		tex_x;
 	float	offset;
 
-	texture = ctx->game->textures[result->tile_info.texture];
+	texture = ctx->game->textures[result->tile_info->texture];
 	if (!result->orientation)
 		offset = result->pos.y - (int)result->pos.y;
 	else
