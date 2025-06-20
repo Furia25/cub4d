@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/16 19:00:48 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/20 15:27:15 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,9 +62,17 @@ SRC_FILES = \
 	rendering/raycast_dda.c \
 	rendering/render.c \
 	rendering/raycast_misc.c \
+	rendering/texture.c \
+	rendering/enemies.c \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_populate.c \
+	minimap/minimap_drawing.c \
+	minimap/minimap_logic.c \
+	minimap/full_map.c \
+	parsing/parsing.c \
+	parsing/borders.c \
+	parsing/tile_type.c \
 	player_movement.c \
 	end_game.c \
 	game_loop.c \
@@ -72,9 +80,7 @@ SRC_FILES = \
 	keys_buffer.c \
 	keys_handling.c \
 	map_utils.c \
-	minimap.c \
 	move_utils.c \
-	parsing.c \
 	time_utils.c \
 	drawing/draw_basics.c \
 

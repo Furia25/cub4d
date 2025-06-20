@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/16 15:37:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:28:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,31 @@
 # include "tilemap.h"
 # include "cub3d_structs.h"
 # include "cub3d_drawing.h"
+# include "cub3d_rendering.h"
+# include "cub3d_textures.h"
 
 # define WINDOW_WIDTH		1920
 # define WINDOW_HEIGHT		1080
 
-# define MAP_TILE_SIZE		16
+# define MAP_TILE_SIZE		32
+# define MMAP_TILE_SIZE		16
 # define MINIMAP_SIZE		249
 # define MINIMAP_X_START	40
 # define MINIMAP_Y_START	784
 # define MINIMAP_BORDER		5
-# define MOUSE_SENS			0.001
+# define MOUSE_SENS			0.006
 # define MINIMAP_P_SIZE		8
 
 # define PLAYER_SIZE		0.25
+
+# define MAX_ENEMIES		100
+
+typedef enum e_enemy_state
+{
+	ON_ALERT,
+	SLEEPING,
+	DEAD
+}	t_enemy_state;
 
 typedef struct s_player
 {
@@ -61,22 +73,85 @@ typedef struct s_player
 	bool	is_grounded;
 }	t_player;
 
+typedef struct s_enemy
+{
+	t_vec2			position;
+	int				hp;
+	t_enemy_state	state;
+}	t_enemy;
+
 typedef struct s_game
 {
-	t_xvar		*mlx;
-	t_win_list	*win;
-	t_img_data	*img;
-	int			width;
-	int			height;
-	t_player	player;
-	char		**file_content;
-	char		**map;
-	char		**paths;
-	char		**colors;
-	t_tilemap	*tilemap;
-	t_key		key_buffer[KEY_MAX_COUNT];
-	t_rng_state	rng;
+	void			*mlx;
+	char			*win;
+	t_img_data		*img;
+	int				width;
+	int				height;
+	t_player		player;
+	char			**file_content;
+	char			**map;
+	char			**paths;
+	char			**colors;
+	t_png_pixel8	f_color;
+	t_png_pixel8	c_color;
+	t_tilemap		*tilemap;
+	t_key			key_buffer[KEY_MAX_COUNT];
+	t_png			*textures[TEXTURE_MAX_COUNT];
+	t_png			*sprites[SPRITE_MAX_COUNT];
+	t_enemy			enemies[MAX_ENEMIES];
+	int				enemy_count;
+	t_rng_state		rng;
 }	t_game;
+
+typedef struct s_tile_context
+{
+	t_game	*game;
+	char	*line;
+	int		tile;
+	int		pos_x;
+	int		pos_y;
+	int		off_x;
+	int		off_y;
+}	t_tile_context;
+
+typedef struct s_render_context
+{
+	t_game		*game;
+	t_img_data	*frame;
+	t_player	*player;
+	t_vec2		position;
+	int			render_width;
+	int			render_height;
+	float		fov;
+	float		direction;
+}	t_render_context;
+
+typedef struct s_raycast_hit
+{
+	t_ray2		original_ray;
+	bool		hitted;
+	int			orientation;
+	double		dist;
+	t_vec2		pos;
+	t_tile_info	tile_info;
+	t_tile_type	tile_type;
+	t_tilemap	*tilemap;
+}	t_raycast_hit;
+
+typedef struct s_texture_context
+{
+	int	column;
+	int	wall_start;
+	int	wall_end;
+	int	wall_height;
+	int	tex_x;
+}	t_texture_context;
+
+
+t_raycast_hit	raycast_tilemap(t_ray2 *ray, t_tilemap *tilemap);
+
+void			render_rays(int start_x, int end_x, t_render_context *render);
+void			render(t_game *game);
 
 void		run_game(t_game *game);
 int			exit_game(t_game *game);
@@ -99,7 +174,7 @@ void		free_map(char **map);
 
 // ----- PARSING ----- //
 int			check_colors(t_game *game);
-int			check_tiles_borders(t_game *game);
+int			check_tiles_and_borders(t_game *game);
 int			check_paths(t_game *game);
 int			center_tile(char c);
 
@@ -119,12 +194,25 @@ int			check_colors(t_game *game);
 int			check_tiles_borders(t_game *game);
 int			check_paths(t_game *game);
 int			center_tile(char c);
+int			borders_around(char **map, int i, int j);
+int			check_borders(char *line, int row, int line_nb);
+int			check_tile_validity(char c);
+int			wrapping_tile(char c);
+int			center_tile(char c);
+int			player_tile(char c);
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);
 void 		draw_player(t_game *game);
+void		draw_tile(t_tile_context *tile, t_png_pixel8 color);
+void		draw_border(t_game *game);
+void		draw_player(t_game *game);
+void		handle_full_map(t_game *game);
 
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
+void		manage_texture(t_raycast_hit *result, t_render_context *context, t_texture_context *ctx, int *row);
+void		draw_enemies(t_game *game);
+
 
 #endif

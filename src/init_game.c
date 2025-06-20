@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/16 20:53:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:30:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,40 @@ bool	create_frame_image(t_game *game)
 	return (true);
 }
 
+int	init_sprites(t_game *game)
+{
+	game->sprites[SPRITE_ENEMY] = png_open("assets/enemy.png");
+	if (!game->sprites[SPRITE_ENEMY])
+		return (0);
+	return (1);
+}
+
+int	init_textures(t_game *game)
+{
+	game->textures[TEXTURE_NORTH] = png_open("assets/north.png");
+	if (!game->textures[TEXTURE_NORTH])
+		return (0);
+	game->textures[TEXTURE_EAST] = png_open("assets/east.png");
+	if (!game->textures[TEXTURE_EAST])
+		return (0);
+	game->textures[TEXTURE_WEST] = png_open("assets/west.png");
+	if (!game->textures[TEXTURE_WEST])
+		return (0);
+	game->textures[TEXTURE_SOUTH] = png_open("assets/south.png");
+	if (!game->textures[TEXTURE_SOUTH])
+		return (0);
+	return (1);
+}
+
+int	init_assets(t_game *game)
+{
+	if (!init_textures(game))
+		return (0);
+	if (!init_sprites(game))
+		return (0);
+	return (1);
+}
+
 void	init_player(t_player *player)
 {
 	float	size;
@@ -70,6 +104,8 @@ void	init_player(t_player *player)
 void	run_game(t_game *game)
 {
 	rng_init(&game->rng, 0xCACA);
+	if (!init_assets(game))
+		exit_game(game);
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
@@ -86,7 +122,6 @@ void	run_game(t_game *game)
 		exit_game(game);
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
-	draw_minimap(game);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_mouse_move(game->mlx, game->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);

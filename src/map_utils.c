@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:13:59 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/09 16:43:34 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/13 11:58:21 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	check_map_validity(t_game *game)
 		return (0);
 	if (!check_colors(game))
 		return (0);
-	if (!check_tiles_borders(game))
+	if (!check_tiles_and_borders(game))
 		return (0);
 	return (1);
 }

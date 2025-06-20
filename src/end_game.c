@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/16 01:38:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:30:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	exit_game(t_game *game)
 	free(game->paths);
 	free(game->colors);
 	free(game->map);
-	
+	free_map(game->file_content);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->img)
@@ -29,6 +29,7 @@ int	exit_game(t_game *game)
 	}
 	XSync(game->mlx->display, False);
 	mlx_destroy_display(game->mlx);
+	png_close(game->textures[TEXTURE_WALL]);
 	free(game->mlx);
 	exit(EXIT_SUCCESS);
 }

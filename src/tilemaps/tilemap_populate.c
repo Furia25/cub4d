@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:20:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/16 20:56:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:32:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 t_tilemap	*tilemap_from_tab(char **tab, size_t width,
 				size_t height, size_t tile_size)
 {
-	t_tilemap	*result;
-	size_t		y;
+	t_tilemap		*result;
+	size_t			y;
 
 	result = tilemap_new(width, height, tile_size);
 	if (!result)

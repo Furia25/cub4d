@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/16 19:03:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:27:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <X11/Xlib.h>
 # include <stdint.h>
 # include <crazypng.h>
+# include "cub3d.h"
 
 typedef enum e_key_type
 {
@@ -28,6 +29,7 @@ typedef enum e_key_type
 	KEY_LEFT,
 	KEY_RIGHT,
 	KEY_JUMP,
+	KEY_TAB,
 	KEY_TEST_RIGHT,
 	KEY_TEST_LEFT,
 	KEY_MAX_COUNT
@@ -41,6 +43,7 @@ static const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_LEFT] = XK_a,
 [KEY_RIGHT] = XK_d,
 [KEY_JUMP] = XK_space,
+[KEY_TAB] = XK_Tab,
 [KEY_TEST_LEFT] = XK_Left,
 [KEY_TEST_RIGHT] = XK_Right,
 [KEY_TEST_DOWN] = XK_Down,
@@ -65,6 +68,7 @@ typedef struct s_img_data
     int			size_line;
     int			endian;
 }	t_img_data;
+
 
 typedef t_png_pixel8	t_rgba8;
 

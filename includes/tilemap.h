@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/16 17:00:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/20 15:29:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define TILEMAP_H
 # include <stddef.h>
 # include <stdbool.h>
-# include "cub3d_texture.h"
+# include "crazypng.h"
+# include "cub3d_textures.h"
 
 typedef enum e_tile_type
 {
@@ -44,10 +45,10 @@ typedef struct s_tile
 
 typedef struct s_tilemap
 {
-	t_tile	**tiles;
-	size_t	width;
-	size_t	height;
-	size_t	tile_size;
+	t_tile			**tiles;
+	size_t			width;
+	size_t			height;
+	size_t			tile_size;
 }	t_tilemap;
 
 /*[TYPE]      = Type, Solid, Wall, Visible, Blocking*/
