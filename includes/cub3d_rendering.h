@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/20 15:52:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/22 23:17:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 # include "maths2_vectors.h"
 # include "tilemap.h"
 # include "cub3d.h"
-# include "cub3d_texture.h"
+# include "cub3d_textures.h"
 
 # define RENDER_DISTANCE	100
 
 typedef struct s_render_context
 {
+	float		*z_buffer;
 	t_game		*game;
 	t_img_data	*frame;
 	t_player	*player;
@@ -44,9 +45,10 @@ typedef struct s_raycast_hit
 	t_vec2		pos;
 	t_ray2		original_ray;
 	float		original_angle;
-	int			orientation;
+	short		orientation;
 	double		dist;
-	bool		back_face;
+	int			tile_x;
+	int			tile_y;
 	t_tile_data	*tile_info;
 	t_tile		*tile;
 }	t_raycast_hit;
@@ -62,8 +64,6 @@ typedef struct s_raycast_context
 	t_vec2				step_dist;
 	t_ivec2				step;
 	int					column;
-	int					last_start;
-	int					last_end;
 }	t_raycast_context;
 
 void	render_ray(float base_angle, int column,

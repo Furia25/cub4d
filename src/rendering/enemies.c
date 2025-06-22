@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   enemies.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 11:11:48 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:02:39 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/21 01:03:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static float	calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist)
+/*static float	calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist)
 {
 	float	dist;
 	float	squared;
@@ -49,18 +49,15 @@ static t_vec2	calculate_axis_dist(t_vec2 p_pos, t_vec2 e_pos)
 // 	t_vec2	axis_vect;
 
 	  
-// }
-
 static void	draw_enemy(t_game *game, t_enemy enemy)
 {
 	float	dist;
-	// float	pos;
 	t_vec2	axis_dist;
 
 	axis_dist = calculate_axis_dist(game->player.position, enemy.position);
 	dist = calculate_distance(game->player.position, enemy.position, axis_dist);
 	// pos = calculate_position(game->player.position, game->player.rad_direction, enemy.position);
-}
+}*/
 
 void	draw_enemies(t_game *game)
 {
@@ -69,7 +66,6 @@ void	draw_enemies(t_game *game)
 	i = 0;
 	while (i < game->enemy_count)
 	{
-		draw_enemy(game, game->enemies[i]);
 		i++;
 	}
 }

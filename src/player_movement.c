@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/20 15:31:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/22 20:30:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ void	player_move_collision(t_vec3 move, t_player *player, t_game *game)
 		player->collision_box.min.y += move.y;
 		player->collision_box.max.y += move.y;
 	}
+}
+
+void	player_handle_fly(t_player *plr, float fly)
+{
+	plr->height += fly;
+	plr->collision_box.min.z += fly;
+	plr->collision_box.max.z += fly;
 }
 
 void	player_handle_jump(t_player *plr, t_game *game)
@@ -60,12 +67,17 @@ void	player_handle_jump(t_player *plr, t_game *game)
 
 void	update_player(t_player *player, t_game *game)
 {
+	float	fly;
 	float	forward;
 	float	strafe;
 	t_vec2	dir;
 	t_vec2	move;
 
-	player_handle_jump(player, game);
+	fly = (is_key_pressed(KEY_TEST_UP, game) - is_key_pressed(KEY_TEST_DOWN, game)) * 0.05;
+	if (fly == 0)
+		player_handle_jump(player, game);
+	else
+		player_handle_fly(player, fly);
 	strafe =  is_key_pressed(KEY_RIGHT, game) - is_key_pressed(KEY_LEFT, game);
 	forward =  is_key_pressed(KEY_UP, game) - is_key_pressed(KEY_DOWN, game);
 	player->rad_direction += (M_PI / 100) * (is_key_pressed(KEY_TEST_RIGHT, game) - is_key_pressed(KEY_TEST_LEFT, game));

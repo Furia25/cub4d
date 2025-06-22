@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/13 11:59:57 by halnuma          ###   ########.fr        #
+#    Updated: 2025/06/21 01:33:05 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,8 +101,8 @@ DEP = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.d, $(SRC))
 
 LIBFT_DIR = libft
 
-CC = cc -g3 
-OPTIFLAGS = -Ofast
+CC = cc
+OPTIFLAGS = -O3 -flto
 CFLAGS = $(OPTIFLAGS) -Werror -Wextra -Wall
 LDFLAGS = -$(FTFLAGS)
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)

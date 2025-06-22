@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: val <val@student.42.fr>                    +#+  +:+       +#+         #
+#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 21:41:19 by val               #+#    #+#              #
-#    Updated: 2025/05/17 00:56:53 by val              ###   ########.fr        #
+#    Updated: 2025/06/22 23:06:54 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INCLUDE_DIR = ./
-CFLAGS = -Wall -Wextra -Werror -fPIC -I$(INCLUDE_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE_DIR) -O3 -flto -Wno-unused-result
 CC = cc
 NAME = libft.a
 

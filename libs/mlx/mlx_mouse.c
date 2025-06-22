@@ -9,9 +9,9 @@ int		mlx_mouse_move(t_xvar *xvar, t_win_list *win, int x, int y)
 int		mlx_mouse_hide(t_xvar *xvar, t_win_list *win)
 {
 	static char data[1] = {0};
-	Cursor cursor;
-	Pixmap blank;
-	XColor dummy;
+	Cursor cursor = {0};
+	Pixmap blank = {0};
+	XColor dummy = {0};
 
 	blank = XCreateBitmapFromData(xvar->display, win->window, data, 1, 1);
 	cursor = XCreatePixmapCursor(xvar->display, blank, blank, &dummy, &dummy, 0, 0);

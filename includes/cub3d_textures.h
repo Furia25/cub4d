@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_textures.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 11:06:09 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/22 18:02:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_TEXTURE_H
-# define CUB3D_TEXTURE_H
+#ifndef CUB3D_TEXTURES_H
+# define CUB3D_TEXTURES_H
 
 typedef enum e_texture_type
 {

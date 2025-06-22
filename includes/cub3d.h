@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:55:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/21 02:51:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define MINIMAP_X_START	40
 # define MINIMAP_Y_START	784
 # define MINIMAP_BORDER		5
-# define MOUSE_SENS			0.006
+# define MOUSE_SENS			0.001
 # define MINIMAP_P_SIZE		8
 
 # define PLAYER_SIZE		0.25

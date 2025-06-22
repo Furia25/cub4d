@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:20:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/20 15:32:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/22 20:50:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ void	tilemap_tiles_from_str(char *str, size_t line, t_tilemap *map)
 		tile = &map->tiles[line][index];
 		tile->info = g_base_tile_info[type];
 		tile->type = type;
+		tile->floor = -0.4f;
 		if (type != TILE_EMPTY)
-			tile->ceiling = 2+ rand() % 4 * 0.5f;
+		{
+			tile->floor = (index % 4 == 0) * 4;
+			tile->ceiling = 2 + rand() % 4 * 0.5f + tile->floor;
+		}
 		else
 			tile->ceiling = 0.;
-		tile->floor = -0.4f;
 		index++;
 	}
 }
