@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   png_pixel_unpacking.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 04:03:37 by val               #+#    #+#             */
-/*   Updated: 2025/05/06 17:52:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 00:35:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "crazypng_png.h"
 
-static void	unpack_pixel(t_png_unfilter_context *context, t_png_pixel8 *out, \
-	size_t bitpos, size_t channel_n);
-static bool	unpack_clean(t_png_unfilter_context *context, t_png_pixel8 *out);
+static void	unpack_pixel(t_png_unfilter_context *context,
+				t_png_pixel8 *out, size_t bitpos, size_t channel_n);
+static bool	unpack_clean(t_png_unfilter_context *context,
+				t_png_pixel8 *out);
 
-bool	unpack_scanline_to_pixels(t_png_unfilter_context *context, \
-	t_png *png)
+bool	unpack_scanline_to_pixels(t_png_unfilter_context *context,
+			t_png *png)
 {
 	size_t			x;
 	size_t			channel;
@@ -44,8 +45,8 @@ bool	unpack_scanline_to_pixels(t_png_unfilter_context *context, \
 	return (true);
 }
 
-static void	unpack_pixel(t_png_unfilter_context *context, t_png_pixel8 *out, \
-	size_t bitpos, size_t channel_n)
+static void	unpack_pixel(t_png_unfilter_context *context, t_png_pixel8 *out,
+				size_t bitpos, size_t channel_n)
 {
 	size_t		byte;
 	size_t		offset;
@@ -65,13 +66,13 @@ static void	unpack_pixel(t_png_unfilter_context *context, t_png_pixel8 *out, \
 	if (context->png->palette_size != 0)
 		value = raw;
 	if (channel_n == 0)
-		out->r = value;
+		out->pixel.r = value;
 	else if (channel_n == 1)
-		out->g = value;
+		out->pixel.g = value;
 	else if (channel_n == 2)
-		out->b = value;
+		out->pixel.b = value;
 	else
-		out->a = value;
+		out->pixel.a = value;
 }
 
 static bool	unpack_clean(t_png_unfilter_context *context, t_png_pixel8 *out)
@@ -82,16 +83,17 @@ static bool	unpack_clean(t_png_unfilter_context *context, t_png_pixel8 *out)
 	png = context->png;
 	type = png->header.color_type;
 	if (type == PNG_COLOR_GRAYSCALE)
-		*out = (t_png_pixel8){out->r, out->r, out->r, 255};
+		*out = (t_png_pixel8){{out->pixel.r, out->pixel.r, out->pixel.r, 255}};
 	else if (type == PNG_COLOR_GRAYSCALE_ALPHA)
-		*out = (t_png_pixel8){out->r, out->r, out->r, out->g};
+		*out = (t_png_pixel8){{out->pixel.r, out->pixel.r,
+			out->pixel.r, out->pixel.g}};
 	else if (type == PNG_COLOR_PALETTE)
 	{
-		if (out->r >= png->palette_size)
+		if (out->pixel.r >= png->palette_size)
 			return (false);
-		*out = png->palette[out->r];
+		*out = png->palette[out->pixel.r];
 	}
 	else if (type == PNG_COLOR_RGB)
-		out->a = 255;
+		out->pixel.a = 255;
 	return (true);
 }

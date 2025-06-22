@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   png_chunk_PLTE.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:47:27 by vdurand           #+#    #+#             */
-/*   Updated: 2025/05/28 23:23:30 by val              ###   ########.fr       */
+/*   Updated: 2025/06/23 00:35:26 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static void	parse_palette_entries(t_png *png, t_png_chunk *chunk)
 	while (entry < png->palette_size)
 	{
 		entry_pixel = png->palette + entry;
-		entry_pixel->r = data_byte[0];
-		entry_pixel->g = data_byte[1];
-		entry_pixel->b = data_byte[2];
-		entry_pixel->a = 255;
+		entry_pixel->pixel.r = data_byte[0];
+		entry_pixel->pixel.g = data_byte[1];
+		entry_pixel->pixel.b = data_byte[2];
+		entry_pixel->pixel.a = 255;
 		data_byte += 3;
 		entry++;
 	}

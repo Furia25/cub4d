@@ -1,0 +1,955 @@
+--------------------------------------------------------------------------------
+Profile data file 'callgrind.out' (creator: callgrind-3.22.0)
+--------------------------------------------------------------------------------
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 869078459
+Trigger: Program termination
+Profiled target:  ./cub3d maps/test.cub (PID 124463, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir                     
+--------------------------------------------------------------------------------
+4,253,005,710 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                      file:function
+--------------------------------------------------------------------------------
+2,585,835,971 (60.80%)  src/rendering/render_draw_ray.c:render_draw_ray [/home/val/cub3d/cub3d]
+  504,763,548 (11.87%)  src/drawing/draw_basics.c:draw_pixel [/home/val/cub3d/cub3d]
+  260,807,504 ( 6.13%)  libs/crazypng/src/huffman/huffman_decode.c:huffman_decode [/home/val/cub3d/cub3d]
+  238,957,469 ( 5.62%)  src/rendering/raycast_dda.c:render_ray [/home/val/cub3d/cub3d]
+  229,268,467 ( 5.39%)  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:__memset_avx2_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   69,782,278 ( 1.64%)  libs/crazypng/src/utils/buffer_utils.c:cp_buffer_add.constprop.0 [/home/val/cub3d/cub3d]
+   48,713,135 ( 1.15%)  libs/crazypng/src/png/png_unfilter_algos.c:png_open
+   46,534,408 ( 1.09%)  libs/crazypng/src/bitstream/bitstream_misc.c:huffman_decode
+   39,195,957 ( 0.92%)  src/tilemaps/tilemap_basics.c:tilemap_is_tile_valid [/home/val/cub3d/cub3d]
+   37,327,884 ( 0.88%)  libs/crazypng/src/deflate/inflate_decode.c:inflate_block_huffman
+   36,517,134 ( 0.86%)  libs/crazypng/src/png/png_pixel_unpacking.c:png_open
+   31,550,464 ( 0.74%)  src/minimap/minimap_drawing.c:draw_tile [/home/val/cub3d/cub3d]
+   19,251,999 ( 0.45%)  ???:fmin [/home/val/cub3d/cub3d]
+   15,859,320 ( 0.37%)  libs/crazypng/src/deflate/lz77.c:inflate_block_huffman
+   11,514,498 ( 0.27%)  src/tilemaps/tilemap_basics.c:tilemap_get_tile [/home/val/cub3d/cub3d]
+   10,816,208 ( 0.25%)  src/rendering/render.c:render [/home/val/cub3d/cub3d]
+    9,815,134 ( 0.23%)  ???:clamp [/home/val/cub3d/cub3d]
+    7,735,392 ( 0.18%)  libs/crazypng/libft/memory/ft_memcpy.c:cp_buffer_add.constprop.0
+    6,305,931 ( 0.15%)  ./math/../sysdeps/x86/fpu/sincosf_poly.h:__cosf_fma
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: libs/crazypng/src/deflate/lz77.c
+--------------------------------------------------------------------------------
+Ir                 
+
+-- line 9 ----------------------------------------
+        .           /*   Updated: 2025/06/23 00:28:38 by vdurand          ###   ########.fr       */
+        .           /*                                                                            */
+        .           /* ************************************************************************** */
+        .           
+        .           #include "crazypng_deflate.h"
+        .           
+        .           bool	lz77_window_push(t_lz77_window *win, uint8_t byte)
+        .           {
+6,343,728 ( 0.15%)  	win->buffer[win->pos] = byte;
+9,515,592 ( 0.22%)  	win->pos = (win->pos + 1) % LZ77_WINDOW_SIZE;
+        .           	return (true);
+        .           }
+        .           
+        .           bool	lz77_window_push_bytes(t_lz77_window *win,
+        .           			const uint8_t *src, size_t len)
+        .           {
+        .           	size_t	index;
+        .           
+-- line 26 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: libs/crazypng/src/png/png_unfilter_algos.c
+--------------------------------------------------------------------------------
+Ir                 
+
+-- line 12 ----------------------------------------
+        .           
+        .           #include "crazypng_png.h"
+        .           
+        .           void	png_filter_sub(t_png_unfilter_context *context, uint8_t *raw_line)
+        .           {
+        .           	size_t	i;
+        .           	uint8_t	left;
+        .           
+      120 ( 0.00%)  	i = 0;
+  164,160 ( 0.00%)  	while (i < context->lines_bytes)
+        .           	{
+        .           		if (i < context->bpp)
+        .           			left = 0;
+        .           		else
+   81,350 ( 0.00%)  			left = context->current_line[i - context->bpp];
+  244,070 ( 0.01%)  		context->current_line[i] = raw_line[i] + left;
+   81,420 ( 0.00%)  		i++;
+        .           	}
+        .           }
+        .           
+        .           void	png_filter_up(t_png_unfilter_context *context,
+        .           	uint8_t *raw_line)
+        .           {
+        .           	size_t	i;
+        .           
+        .           	i = 0;
+   33,604 ( 0.00%)  	while (i < context->lines_bytes)
+        .           	{
+  897,104 ( 0.02%)  		context->current_line[i] = raw_line[i] + context->prev_line[i];
+    7,416 ( 0.00%)  		i++;
+        .           	}
+        .           }
+        .           
+        .           void	png_filter_average(t_png_unfilter_context *context, uint8_t *raw_line)
+        .           {
+        .           	size_t	i;
+        .           	uint8_t	left;
+        .           	uint8_t	up;
+-- line 49 ----------------------------------------
+-- line 63 ----------------------------------------
+        .           
+        .           static uint8_t	paeth_predictor(int a, int b, int c)
+        .           {
+        .           	int	p;
+        .           	int	pa;
+        .           	int	pb;
+        .           	int	pc;
+        .           
+2,192,848 ( 0.05%)  	p = a + b - c;
+        .           	pa = p - a;
+        .           	if (pa < 0)
+6,578,544 ( 0.15%)  		pa = -pa;
+        .           	pb = p - b;
+        .           	if (pb < 0)
+6,578,544 ( 0.15%)  		pb = -pb;
+        .           	pc = p - c;
+        .           	if (pc < 0)
+4,385,696 ( 0.10%)  		pc = -pc;
+5,486,904 ( 0.13%)  	if (pa <= pb && pa <= pc)
+1,909,590 ( 0.04%)  		return ((uint8_t)a);
+        .           	if (pb <= pc)
+  283,258 ( 0.01%)  		return ((uint8_t)b);
+        .           	return ((uint8_t)c);
+        .           }
+        .           
+        .           void	png_filter_paeth(t_png_unfilter_context *context, uint8_t *raw_line)
+        .           {
+        .           	size_t	i;
+        .           	uint8_t	left;
+        .           	uint8_t	up_left;
+        .           	uint8_t	up;
+        .           
+        .           	i = 0;
+4,419,808 ( 0.10%)  	while (i < context->lines_bytes)
+        .           	{
+        .           		if (i < context->bpp)
+        .           		{
+        .           			left = 0;
+        .           			up_left = 0;
+        .           		}
+        .           		else
+        .           		{
+3,291,594 ( 0.08%)  			left = context->current_line[i - context->bpp];
+3,294,690 ( 0.08%)  			up_left = context->prev_line[i - context->bpp];
+        .           		}
+2,195,240 ( 0.05%)  		up = context->prev_line[i];
+2,195,240 ( 0.05%)  		context->current_line[i] = raw_line[i]
+2,196,695 ( 0.05%)  			+ paeth_predictor(left, up, up_left);
+2,195,240 ( 0.05%)  		i++;
+        .           	}
+        .           }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: libs/crazypng/libft/memory/ft_memcpy.c
+--------------------------------------------------------------------------------
+Ir                 
+
+-- line 13 ----------------------------------------
+        .           #include "libft.h"
+        .           
+        .           void	*ft_memcpy(void *dest, const void *src, size_t n)
+        .           {
+        .           	unsigned char	*o_dest;
+        .           	unsigned char	*o_src;
+        .           	size_t			index;
+        .           
+      816 ( 0.00%)  	index = 0;
+        .           	o_dest = (unsigned char *) dest;
+        .           	o_src = (unsigned char *) src;
+    2,121 ( 0.00%)  	while (index < n)
+        .           	{
+7,924,827 ( 0.19%)  		o_dest[index] = o_src[index];
+      350 ( 0.00%)  => ???:0x000000000010a970 (2x)
+      536 ( 0.00%)  		index++;
+        .           	}
+        .           	return (dest);
+        .           }
+        .           
+        .           /* int	main(void)
+        .           {
+        .           	char test[50];
+        .           	char *test2 = "TEST";
+-- line 35 ----------------------------------------
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/drawing/draw_basics.c
+--------------------------------------------------------------------------------
+Ir                   
+
+-- line 8 ----------------------------------------
+          .           /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
+          .           /*   Updated: 2025/06/23 00:35:06 by vdurand          ###   ########.fr       */
+          .           /*                                                                            */
+          .           /* ************************************************************************** */
+          .           
+          .           #include "cub3d.h"
+          .           
+          .           void draw_pixel(t_rgba8 src, unsigned int x, unsigned int y, t_img_data *img) 
+ 94,024,146 ( 2.21%)  {
+          .           	uint32_t	*pixel;
+          .           	uint8_t		*bytes;
+          .           	uint32_t	src_alpha;
+          .           	uint32_t	inv_alpha;
+          .           
+184,748,976 ( 4.34%)  	pixel = (uint32_t *)(img->buffer + (y * img->size_line) + (x << 2));
+ 92,374,488 ( 2.17%)  	if (src.pixel.a == 255)
+ 89,075,172 ( 2.09%)  		*pixel = src.value;
+          .           	else
+          .           	{
+          .           		bytes = (uint8_t *)pixel;
+  1,649,658 ( 0.04%)  		src_alpha = src.pixel.a;
+  3,299,316 ( 0.08%)  		inv_alpha = 255 - src_alpha;
+ 11,547,606 ( 0.27%)  		bytes[0] = (src.pixel.b * src_alpha + bytes[0] * inv_alpha + 128) >> 8;
+ 13,197,264 ( 0.31%)  		bytes[1] = (src.pixel.g * src_alpha + bytes[1] * inv_alpha + 128) >> 8;
+  9,897,948 ( 0.23%)  		bytes[2] = (src.pixel.r * src_alpha + bytes[2] * inv_alpha + 128) >> 8;
+  1,649,658 ( 0.04%)  		bytes[3] = 255;
+          .           	}
+  3,299,316 ( 0.08%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/rendering/render_draw_ray.c
+--------------------------------------------------------------------------------
+Ir                     
+
+-- line 37 ----------------------------------------
+            .           
+            .           static inline void	draw_wall(t_raycast_hit *hit, int wall_start,
+            .           			int wall_end, t_raycast_context *ctx)
+            .           {
+            .           	int				y;
+            .           	t_rgba8			color;
+            .           	int				buffer_idx;
+            .           
+    3,505,405 ( 0.08%)  	color = rgba8(0 + 200 * hit->orientation, 255, 255, 255);
+      676,516 ( 0.02%)  	y = wall_start;
+  111,339,517 ( 2.62%)  	while (y < wall_end)
+            .           	{
+  656,592,819 (15.44%)  		buffer_idx = y * WINDOW_WIDTH + ctx->column;
+1,112,260,286 (26.15%)  		if (hit->dist < ctx->render_ctx->z_buffer[buffer_idx])
+            .           		{
+  178,150,344 ( 4.19%)  			draw_pixel(color, ctx->column, y, ctx->render_ctx->frame);
+  445,375,860 (10.47%)  => /home/val/cub3d/src/drawing/draw_basics.c:draw_pixel (44,537,586x)
+  256,072,222 ( 6.02%)  			ctx->render_ctx->z_buffer[buffer_idx] = hit->dist;
+            .           		}
+  218,864,273 ( 5.15%)  		y++;
+            .           	}
+            .           }
+            .           
+            .           static inline void draw_ceiling(t_raycast_hit *hit, int y,
+            .           		t_raycast_context *ctx, t_render_context *r_ctx)
+            .           {
+            .           	float	real_dist;
+            .           	t_rgba8	color;
+-- line 63 ----------------------------------------
+-- line 83 ----------------------------------------
+            .           		}
+            .           		y -= 1;
+            .           	}
+            .           }
+            .           
+            .           void	render_draw_ray(t_raycast_hit *hit,
+            .           			t_raycast_context *ctx,
+            .           			t_render_context *render)
+    7,711,891 ( 0.18%)  {
+            .           	float	corrected_dist;
+            .           	int		wall_start;
+            .           	int		wall_end;
+            .           	float	y_floor;
+            .           	float	y_ceiling;
+            .           
+    2,103,243 ( 0.05%)  	corrected_dist = hit->dist
+    4,206,486 ( 0.10%)  		* cosf(hit->original_angle - render->direction);
+   16,121,487 ( 0.38%)  => ???:0x000000000010a810 (701,081x)
+            .           	/*init_texture_ctx(&tex_ctx, corrected_dist, ctx->column);
+            .           	set_texture_orientation(hit);*/
+    2,804,324 ( 0.07%)  	y_floor = ((hit->tile->floor - render->eye_height)
+    2,103,243 ( 0.05%)  		/ corrected_dist) * render->proj_dist_y;
+    1,402,162 ( 0.03%)  	y_ceiling = ((hit->tile->ceiling - render->eye_height)
+      701,081 ( 0.02%)  		/ corrected_dist) * render->proj_dist_y;
+      701,081 ( 0.02%)  	hit->pos.x = hit->original_ray.origin.x \
+    3,505,405 ( 0.08%)  		+ hit->original_ray.dir_normal.x * hit->dist;
+            .           	hit->pos.y = hit->original_ray.origin.y \
+            .           		+ hit->original_ray.dir_normal.y * hit->dist;
+    6,309,729 ( 0.15%)  	wall_start = clamp(-y_ceiling + render->halfh, 0, WINDOW_HEIGHT - 1);
+    4,907,567 ( 0.12%)  => ???:clamp (701,081x)
+    7,711,891 ( 0.18%)  	wall_end = clamp(-y_floor + render->halfh, 0, WINDOW_HEIGHT - 1);
+    4,907,567 ( 0.12%)  => ???:clamp (701,081x)
+            .           	draw_wall(hit, wall_start, wall_end, ctx);
+    3,505,405 ( 0.08%)  	if (hit->tile->ceiling < render->eye_height)
+            .           		draw_ceiling(hit, wall_start, ctx, render);
+    5,608,648 ( 0.13%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/minimap/minimap_drawing.c
+--------------------------------------------------------------------------------
+Ir                 
+
+-- line 8 ----------------------------------------
+        .           /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
+        .           /*   Updated: 2025/06/20 15:55:26 by vdurand          ###   ########.fr       */
+        .           /*                                                                            */
+        .           /* ************************************************************************** */
+        .           
+        .           #include "cub3d.h"
+        .           
+        .           void	draw_tile(t_tile_context *tile, t_png_pixel8 color)
+   59,904 ( 0.00%)  {
+        .           	int	i;
+        .           	int	j;
+        .           	int	x;
+        .           	int	y;
+        .           
+    6,656 ( 0.00%)  	i = 0;
+  212,992 ( 0.01%)  	while (i < MMAP_TILE_SIZE)
+        .           	{
+        .           		j = 0;
+  705,376 ( 0.02%)  		while (j < MMAP_TILE_SIZE)
+        .           		{
+8,005,632 ( 0.19%)  			x = (tile->pos_x * MMAP_TILE_SIZE + i - tile->off_x \
+        .           				+ MINIMAP_X_START + MINIMAP_BORDER);
+6,672,736 ( 0.16%)  			y = (tile->pos_y * MMAP_TILE_SIZE + j - tile->off_y \
+        .           				+ MINIMAP_Y_START + MINIMAP_BORDER);
+3,236,032 ( 0.08%)  			if (x >= MINIMAP_X_START + MINIMAP_BORDER && \
+        .           				x < MINIMAP_X_START + MINIMAP_SIZE && \
+3,224,576 ( 0.08%)  				y >= MINIMAP_Y_START + MINIMAP_BORDER && \
+        .           				y < MINIMAP_Y_START + MINIMAP_SIZE)
+7,667,840 ( 0.18%)  				draw_pixel(color, x, y, tile->game->img);
+55,208,448 ( 1.30%)  => /home/val/cub3d/src/drawing/draw_basics.c:draw_pixel (1,533,568x)
+1,612,288 ( 0.04%)  			j++;
+        .           		}
+  106,496 ( 0.00%)  		i++;
+        .           	}
+   39,936 ( 0.00%)  }
+        .           
+        .           void	draw_border(t_game *game)
+   12,870 ( 0.00%)  {
+        .           	int				i;
+        .           	int				j;
+        .           	t_png_pixel8	color;
+        .           
+        .           	color = rgba8(25, 255, 25, 200);
+        .           	i = 0;
+   13,182 ( 0.00%)  	while (i < MINIMAP_SIZE)
+        .           	{
+        .           		j = 0;
+1,860,300 ( 0.04%)  		while (j < MINIMAP_SIZE)
+        .           		{
+3,107,520 ( 0.07%)  			if (j < MINIMAP_BORDER || \
+        .           				j > MINIMAP_SIZE - MINIMAP_BORDER || \
+        .           				i < MINIMAP_BORDER || \
+        .           				i > MINIMAP_SIZE - MINIMAP_BORDER)
+        .           			{
+  572,130 ( 0.01%)  				draw_pixel(color, i + MINIMAP_X_START,
+4,119,336 ( 0.10%)  => /home/val/cub3d/src/drawing/draw_basics.c:draw_pixel (114,426x)
+        .           					j + MINIMAP_Y_START, game->img);
+        .           			}
+        .           			j++;
+        .           		}
+        .           		i++;
+        .           	}
+      104 ( 0.00%)  }
+        .           
+        .           void	draw_player(t_game *game)
+      572 ( 0.00%)  {
+        .           	int	i;
+        .           	int	j;
+        .           
+        .           	i = 0;
+      624 ( 0.00%)  	while (i < MINIMAP_P_SIZE)
+        .           	{
+        .           		j = 0;
+    4,992 ( 0.00%)  		while (j < MINIMAP_P_SIZE)
+        .           		{
+    8,320 ( 0.00%)  			draw_pixel(
+   59,904 ( 0.00%)  => /home/val/cub3d/src/drawing/draw_basics.c:draw_pixel (1,664x)
+        .           				rgba8(255, 0, 10, 200),
+        .           				((7 * MMAP_TILE_SIZE) + i + MINIMAP_X_START \
+        .           				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
+        .           				((7 * MMAP_TILE_SIZE) + j + MINIMAP_Y_START \
+        .           				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
+        .           				game->img
+        .           				);
+        .           			j++;
+        .           		}
+        .           		i++;
+        .           	}
+      104 ( 0.00%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/rendering/render.c
+--------------------------------------------------------------------------------
+Ir                 
+
+-- line 14 ----------------------------------------
+        .           #include "cub3d.h"
+        .           #include "cub3d_rendering.h"
+        .           
+        .           static void			render_init(int width, int height,
+        .           		t_render_context *context, t_game *game);
+        .           static inline void	render_rays(int start, int end, t_render_context *render);
+        .           
+        .           void	render(t_game *game)
+      416 ( 0.00%)  {
+        .           	t_render_context	context;
+        .           
+        .           	render_init(WINDOW_WIDTH, WINDOW_HEIGHT, &context, game);
+       26 ( 0.00%)  	render_rays(0, context.render_width, &context);
+       52 ( 0.00%)  	draw_minimap(game);
+96,892,802 ( 2.28%)  => /home/val/cub3d/src/minimap/minimap_logic.c:draw_minimap (26x)
+       52 ( 0.00%)  	draw_enemies(game);
+       52 ( 0.00%)  => /home/val/cub3d/src/rendering/enemies.c:draw_enemies (26x)
+       52 ( 0.00%)  	handle_full_map(game);
+      702 ( 0.00%)  => /home/val/cub3d/src/minimap/full_map.c:handle_full_map (26x)
+      312 ( 0.00%)  }
+        .           
+        .           static void	render_init(int width, int height,
+        .           		t_render_context *context, t_game *game)
+        .           {
+        .           	static float	z_buffer[WINDOW_WIDTH * WINDOW_HEIGHT] = {0};
+        .           	int				i;
+        .           
+        .           	i = 0;
+1,684,852 ( 0.04%)  	while (i < WINDOW_WIDTH * WINDOW_HEIGHT)
+7,581,600 ( 0.18%)  		z_buffer[i++] = INFINITY;
+       26 ( 0.00%)  	context->z_buffer = &z_buffer[0];
+       26 ( 0.00%)  	context->game = game;
+       52 ( 0.00%)  	context->tilemap = game->tilemap;
+       52 ( 0.00%)  	context->frame = game->img;
+       52 ( 0.00%)  	context->player = &game->player;
+       52 ( 0.00%)  	context->position = game->player.position;
+        .           	context->direction = game->player.rad_direction;
+        .           	context->render_height = height;
+       52 ( 0.00%)  	context->render_width = width;
+       78 ( 0.00%)  	context->eye_height = game->player.height;
+      182 ( 0.00%)  	context->fov = deg_to_rad(game->player.fov_deg);
+       78 ( 0.00%)  => ???:deg_to_rad (26x)
+        .           	context->fov_x = context->fov;
+      234 ( 0.00%)  	context->fov_y = deg_to_rad(game->player.fov_deg - 15);
+       78 ( 0.00%)  => ???:deg_to_rad (26x)
+        .           	context->halfw = WINDOW_WIDTH * .5f;
+       52 ( 0.00%)  	context->halfh = WINDOW_HEIGHT * .5f;
+      130 ( 0.00%)  	context->proj_dist_x = context->halfw / tanf(context->fov_x  * .5f);
+    2,392 ( 0.00%)  => ???:0x000000000010a550 (26x)
+      130 ( 0.00%)  	context->proj_dist_y = context->halfh / tanf(context->fov_y  * .5f);
+    1,664 ( 0.00%)  => ???:0x000000000010a550 (26x)
+        .           }
+        .           
+        .           static inline void	render_rays(int start, int end, t_render_context *render)
+        .           {
+        .           	t_ray2			ray;
+        .           	int				x;
+        .           	float			camera_x;
+        .           	float			ray_angle;
+        .           
+      130 ( 0.00%)  	x = start;
+   49,998 ( 0.00%)  	while (x < end)
+        .           	{
+  299,520 ( 0.01%)  		camera_x = 2.0 * x / (float)WINDOW_WIDTH - 1.0;
+  624,000 ( 0.01%)  		ray_angle = render->direction + atan(camera_x * tan(render->fov / 2));
+3,793,920 ( 0.09%)  => ???:0x000000000010a570 (49,920x)
+3,157,570 ( 0.07%)  => ???:0x000000000010a6c0 (49,920x)
+  274,560 ( 0.01%)  		ray = ray2_from_angle(render->position, ray_angle);
+2,553,482 ( 0.06%)  => ???:ray2_from_angle (49,920x)
+  249,600 ( 0.01%)  		render_ray(ray_angle, x, &ray, render);
+3,369,968,738 (79.24%)  => /home/val/cub3d/src/rendering/raycast_dda.c:render_ray (49,920x)
+   49,920 ( 0.00%)  		x++;
+        .           	}
+        .           }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/rendering/raycast_dda.c
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 17 ----------------------------------------
+         .           static inline void	raycast_launch(t_raycast_context *ctx);
+         .           static inline bool	check_wall_tile(t_raycast_hit *hit,
+         .           		t_raycast_context *ctx);
+         .           static inline void	raycast_set_dist(t_raycast_hit *hit,
+         .           		t_raycast_context *ctx);
+         .           
+         .           void	render_ray(float base_angle, int column,
+         .           		t_ray2 *ray, t_render_context *render_ctx)
+   499,200 ( 0.01%)  {
+         .           	t_raycast_context	ctx;
+         .           
+    49,920 ( 0.00%)  	ctx.actual.original_angle = base_angle;
+    99,840 ( 0.00%)  	ctx.actual.original_ray = *ray;
+    49,920 ( 0.00%)  	ctx.column = column;
+   149,760 ( 0.00%)  	ctx.render_ctx = render_ctx;
+         .           	ctx.ray = ray;
+    99,840 ( 0.00%)  	ctx.tilemap = render_ctx->tilemap;
+   199,680 ( 0.00%)  	ctx.step.x = sign(ray->dir_normal.x);
+   499,200 ( 0.01%)  => ???:sign (49,920x)
+   199,680 ( 0.00%)  	ctx.step.y = sign(ray->dir_normal.y);
+   499,200 ( 0.01%)  => ???:sign (49,920x)
+    99,840 ( 0.00%)  	ctx.actual.orientation = 0;
+         .           	raycast_init(&ctx);
+         .           	raycast_launch(&ctx);
+   449,280 ( 0.01%)  }
+         .           
+         .           static inline void	raycast_init(t_raycast_context *ctx)
+         .           {
+         .           	t_ray2	*ray;
+         .           
+    49,920 ( 0.00%)  	ray = ctx->ray;
+   149,760 ( 0.00%)  	ctx->actual_tile.x = (int)(ray->origin.x);
+         .           	ctx->actual_tile.y = (int)(ray->origin.y);
+   249,600 ( 0.01%)  	if (float_equal(ray->dir_normal.x, 0))
+   399,360 ( 0.01%)  => ???:float_equal (49,920x)
+    49,920 ( 0.00%)  		ctx->delta_dist.x = INFINITY;
+         .           	else
+   149,760 ( 0.00%)  		ctx->delta_dist.x = fabs(1 / ray->dir_normal.x);
+   299,520 ( 0.01%)  	if (float_equal(ray->dir_normal.y, 0))
+   399,360 ( 0.01%)  => ???:float_equal (49,920x)
+    49,920 ( 0.00%)  		ctx->delta_dist.y = INFINITY;
+         .           	else
+   149,757 ( 0.00%)  		ctx->delta_dist.y = fabs(1 / ray->dir_normal.y);
+   149,760 ( 0.00%)  	if (ray->dir_normal.x < 0.0)
+         .           		ctx->step_dist.x = 
+   149,760 ( 0.00%)  			(ray->origin.x - ctx->actual_tile.x) * ctx->delta_dist.x;
+         .           	else
+         .           		ctx->step_dist.x = 
+   399,360 ( 0.01%)  			(ctx->actual_tile.x + 1.0 - ray->origin.x) *  ctx->delta_dist.x;
+   149,760 ( 0.00%)  	if (ray->dir_normal.y < 0.0)
+         .           		ctx->step_dist.y = 
+   245,082 ( 0.01%)  			(ray->origin.y - ctx->actual_tile.y) * ctx->delta_dist.y;
+         .           	else
+         .           		ctx->step_dist.y = 
+   305,544 ( 0.01%)  			(ctx->actual_tile.y + 1.0 - ray->origin.y) *  ctx->delta_dist.y;
+         .           }
+         .           
+         .           static inline void	raycast_launch(t_raycast_context *ctx)
+         .           {
+76,908,156 ( 1.81%)  	while (fmin(ctx->step_dist.x, ctx->step_dist.y) < RENDER_DISTANCE)
+19,251,999 ( 0.45%)  => ???:fmin (6,417,333x)
+         .           	{
+12,734,826 ( 0.30%)  		if (ctx->step_dist.x < ctx->step_dist.y)
+         .           		{
+ 8,918,672 ( 0.21%)  			ctx->step_dist.x += ctx->delta_dist.x;
+24,204,757 ( 0.57%)  			ctx->actual_tile.x += ctx->step.x;
+         .           			ctx->actual.orientation = 0;
+         .           		}
+         .           		else
+         .           		{
+ 3,816,154 ( 0.09%)  			ctx->step_dist.y += ctx->delta_dist.y;
+13,999,721 ( 0.33%)  			ctx->actual_tile.y += ctx->step.y;
+ 1,908,077 ( 0.04%)  			ctx->actual.orientation = 1;
+         .           		}
+         .           		if (check_wall_tile(&ctx->actual, ctx))
+         .           		{
+         .           			raycast_set_dist(&ctx->actual, ctx);
+ 4,206,486 ( 0.10%)  			render_draw_ray(&ctx->actual, ctx, ctx->render_ctx);
+3,059,251,695 (71.93%)  => /home/val/cub3d/src/rendering/render_draw_ray.c:render_draw_ray (701,081x)
+         .           		}
+         .           	}
+         .           }
+         .           
+         .           static inline bool	check_wall_tile(t_raycast_hit *hit,
+         .           		t_raycast_context *ctx)
+         .           {
+         .           	t_tile	*tile;
+         .           	int		tile_x;
+         .           	int		tile_y;
+         .           
+         .           	tile_x = ctx->actual_tile.x;
+         .           	tile_y = ctx->actual_tile.y;
+52,858,387 ( 1.24%)  	if (!tilemap_is_tile_valid(tile_x, tile_y, ctx->tilemap))
+39,195,957 ( 0.92%)  => /home/val/cub3d/src/tilemaps/tilemap_basics.c:tilemap_is_tile_valid (6,367,413x)
+         .           		return (false);
+11,514,498 ( 0.27%)  	tile = tilemap_get_tile(tile_x, tile_y, ctx->tilemap);
+11,514,498 ( 0.27%)  => /home/val/cub3d/src/tilemaps/tilemap_basics.c:tilemap_get_tile (1,919,083x)
+ 1,919,083 ( 0.05%)  	hit->tile_x = tile_x;
+         .           	hit->tile_y = tile_y;
+ 7,676,332 ( 0.18%)  	hit->tile_info = &tile->info;
+         .           	hit->tile = tile;
+ 3,838,166 ( 0.09%)  	if (hit->tile_info->wall)
+         .           		return (true);
+         .           	return (false);
+         .           }
+         .           
+         .           static inline void	raycast_set_dist(t_raycast_hit *hit,
+         .           		t_raycast_context *ctx)
+         .           {
+ 1,402,162 ( 0.03%)  	if (hit->orientation == 0)
+ 2,726,857 ( 0.06%)  		hit->dist = (ctx->actual_tile.x - ctx->ray->origin.x
+ 3,739,745 ( 0.09%)  			+ (1 - ctx->step.x) * 0.5) / ctx->ray->dir_normal.x;
+         .           	else
+   778,548 ( 0.02%)  		hit->dist = (ctx->actual_tile.y - ctx->ray->origin.y
+ 1,362,459 ( 0.03%)  			+ (1 - ctx->step.y) * 0.5) / ctx->ray->dir_normal.y;
+         .           	
+         .           }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: libs/crazypng/src/huffman/huffman_decode.c
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 9 ----------------------------------------
+         .           /*   Updated: 2025/05/05 16:54:22 by val              ###   ########.fr       */
+         .           /*                                                                            */
+         .           /* ************************************************************************** */
+         .           
+         .           #include "crazypng_huffman.h"
+         .           #include "crazypng_bitstream.h"
+         .           
+         .           int	huffman_decode(t_bitstream *stream, t_huffman_table *tab)
+   519,171 ( 0.01%)  {
+         .           	uint32_t	buf;
+         .           	uint8_t		len;
+         .           	uint32_t	code;
+         .           	size_t		i;
+         .           
+         .           	i = 0;
+         .           	buf = bs_peek_bits(stream, tab->max_bits);
+61,694,112 ( 1.45%)  	while (i < tab->count)
+         .           	{
+62,040,226 ( 1.46%)  		if (tab->codes[i].bits == 0)
+         .           		{
+         .           			i++;
+         .           			continue ;
+         .           		}
+         .           		len = tab->codes[i].bits;
+86,621,797 ( 2.04%)  		code = buf & ((1 << len) - 1);
+49,413,027 ( 1.16%)  		if (code == tab->codes[i].code)
+         .           		{
+         .           			if (!bs_consume_bits(stream, len))
+         .           				return (-2);
+   173,057 ( 0.00%)  			return (i);
+         .           		}
+         .           		i++;
+         .           	}
+         .           	return (-1);
+   346,114 ( 0.01%)  }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: libs/crazypng/src/deflate/inflate_decode.c
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 39 ----------------------------------------
+         .           
+         .           bool	inflate_copy_reference(t_inflate_context *context,
+         .           			int distance, int length)
+         .           {
+         .           	uint8_t	byte;
+         .           	size_t	temp_pos;
+         .           	int		index;
+         .           
+    36,410 ( 0.00%)  	temp_pos = (context->reference_window.pos
+    72,820 ( 0.00%)  			- distance + LZ77_WINDOW_SIZE) % LZ77_WINDOW_SIZE;
+   145,640 ( 0.00%)  	index = 0;
+ 6,257,724 ( 0.15%)  	while (index < length)
+         .           	{
+ 6,148,494 ( 0.14%)  		byte = context->reference_window.buffer[temp_pos];
+15,444,055 ( 0.36%)  		if (!cp_buffer_add(context->output, &byte, 1))
+75,202,572 ( 1.77%)  => /home/val/cub3d/libs/crazypng/src/utils/buffer_utils.c:cp_buffer_add.constprop.0 (3,074,247x)
+         .           			return (false);
+         .           		lz77_window_push(&context->reference_window, byte);
+ 6,148,494 ( 0.14%)  		temp_pos = (temp_pos + 1) % LZ77_WINDOW_SIZE;
+ 3,074,247 ( 0.07%)  		index++;
+         .           	}
+         .           	return (true);
+         .           }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: libs/crazypng/src/bitstream/bitstream_misc.c
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 14 ----------------------------------------
+         .           
+         .           uint64_t	bs_peek_bits(t_bitstream *bs, int count)
+         .           {
+         .           	uint64_t	n;
+         .           	int			i;
+         .           	size_t		temp_byte_pos;
+         .           	int			temp_bit_pos;
+         .           
+ 1,211,399 ( 0.03%)  	if (count <= 0 || count > 64 || bs->overflowed)
+         .           		return (0);
+   173,057 ( 0.00%)  	n = 0;
+   173,057 ( 0.00%)  	i = 0;
+   346,114 ( 0.01%)  	temp_byte_pos = bs->byte_pos;
+   173,057 ( 0.00%)  	temp_bit_pos = bs->bit_pos;
+ 5,149,982 ( 0.12%)  	while (i < count)
+         .           	{
+ 5,496,096 ( 0.13%)  		if (temp_byte_pos >= bs->size)
+         .           			return (0);
+20,599,928 ( 0.48%)  		n |= (uint64_t)((bs->data[temp_byte_pos] >> temp_bit_pos) & 1) << i;
+ 2,574,991 ( 0.06%)  		temp_bit_pos++;
+ 5,149,982 ( 0.12%)  		if (temp_bit_pos == 8)
+         .           		{
+   321,902 ( 0.01%)  			temp_bit_pos = 0;
+   321,902 ( 0.01%)  			temp_byte_pos++;
+         .           		}
+ 2,574,991 ( 0.06%)  		i++;
+         .           	}
+         .           	return (n);
+         .           }
+         .           
+         .           bool	bs_consume_bits(t_bitstream *stream, size_t n)
+         .           {
+   519,171 ( 0.01%)  	if (!stream || stream->overflowed)
+         .           		return (false);
+   346,114 ( 0.01%)  	stream->bit_pos += n;
+ 1,056,551 ( 0.02%)  	while (stream->bit_pos >= 8)
+         .           	{
+         .           		stream->byte_pos++;
+         .           		stream->bit_pos -= 8;
+         .           	}
+   346,114 ( 0.01%)  	if (stream->byte_pos >= stream->size)
+         .           	{
+         .           		stream->overflowed = true;
+         .           		return (false);
+         .           	}
+         .           	return (true);
+         .           }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: libs/crazypng/src/utils/buffer_utils.c
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 16 ----------------------------------------
+         .            * @brief Ajoute des données à un buffer dynamique
+         .            * 
+         .            * @param buf Buffer à modifier
+         .            * @param to_add Données à ajouter
+         .            * @param len Longueur des données en octets
+         .            * @return true Succès
+         .            * @return false Échec d'allocation mémoire
+         .            */
+22,203,048 ( 0.52%)  bool	cp_buffer_add(t_cp_buffer *buf, void *to_add, size_t len)
+       210 ( 0.00%)  {
+         .           	size_t	new_capacity;
+         .           	uint8_t	*new_data;
+         .           
+ 3,171,885 ( 0.07%)  	new_capacity = buf->capacity;
+12,687,540 ( 0.30%)  	if (buf->size + len > buf->capacity)
+         .           	{
+       210 ( 0.00%)  		if (new_capacity < 1024)
+         .           			new_capacity = 1024;
+       406 ( 0.00%)  		while (new_capacity < buf->capacity + len)
+        74 ( 0.00%)  			new_capacity *= 2;
+       210 ( 0.00%)  		new_data = malloc(new_capacity);
+     3,871 ( 0.00%)  => ???:0x000000000010a630 (17x)
+       140 ( 0.00%)  		if (!new_data)
+         .           			return (false);
+       210 ( 0.00%)  		if (buf->data)
+         .           		{
+         .           			ft_memcpy(new_data, buf->data, buf->size);
+        60 ( 0.00%)  			free(buf->data);
+     2,376 ( 0.00%)  => ???:0x000000000010a6a0 (12x)
+         .           		}
+        70 ( 0.00%)  		buf->data = new_data;
+        70 ( 0.00%)  		buf->capacity = new_capacity;
+         .           	}
+ 6,343,930 ( 0.15%)  	ft_memcpy(buf->data + buf->size, to_add, len);
+ 3,171,927 ( 0.07%)  	buf->size += len;
+ 3,171,885 ( 0.07%)  	return (true);
+19,031,415 ( 0.45%)  }
+         .           
+         .           void	cp_buffer_free(t_cp_buffer *buffer)
+         .           {
+         .           	cp_buffer_reset(buffer);
+         .           	free(buffer);
+         .           }
+         .           
+         .           /**
+         .            * @brief Réinitialise un buffer (libère la mémoire et remet à zéro)
+         .            * 
+         .            * @param buffer Buffer à réinitialiser
+         .            */
+         .           void	cp_buffer_reset(t_cp_buffer *buffer)
+         .           {
+        60 ( 0.00%)  	if (buffer->data)
+         .           	{
+        10 ( 0.00%)  		free(buffer->data);
+     2,586 ( 0.00%)  => ???:0x000000000010a6a0 (10x)
+        20 ( 0.00%)  		buffer->data = NULL;
+         .           	}
+        45 ( 0.00%)  	buffer->size = 0;
+         .           	buffer->capacity = 0;
+         .           }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: libs/crazypng/src/png/png_pixel_unpacking.c
+--------------------------------------------------------------------------------
+Ir                 
+
+-- line 20 ----------------------------------------
+        .           bool	unpack_scanline_to_pixels(t_png_unfilter_context *context,
+        .           			t_png *png)
+        .           {
+        .           	size_t			x;
+        .           	size_t			channel;
+        .           	size_t			bit_pos;
+        .           	t_png_pixel8	*out;
+        .           
+   15,960 ( 0.00%)  	out = png->pixels_8bit + png->header.width * context->y;
+   13,680 ( 0.00%)  	x = 0;
+4,166,160 ( 0.10%)  	while (x < png->header.width)
+        .           	{
+       30 ( 0.00%)  		bit_pos = x * context->channels_number * context->bit_depths;
+        .           		channel = 0;
+6,242,400 ( 0.15%)  		while (channel < context->channels_number)
+        .           		{
+        .           			unpack_pixel(context, out, bit_pos, channel);
+2,080,800 ( 0.05%)  			bit_pos += context->bit_depths;
+        .           			channel++;
+        .           		}
+        .           		if (!unpack_clean(context, out))
+        .           			return (false);
+1,040,400 ( 0.02%)  		out++;
+1,040,400 ( 0.02%)  		x++;
+        .           	}
+        .           	return (true);
+        .           }
+        .           
+        .           static void	unpack_pixel(t_png_unfilter_context *context, t_png_pixel8 *out,
+        .           				size_t bitpos, size_t channel_n)
+        .           {
+        .           	size_t		byte;
+        .           	size_t		offset;
+        .           	uint8_t		value;
+        .           	uint8_t		raw;
+        .           
+5,250,384 ( 0.12%)  	byte = bitpos >> 3;
+        .           	offset = bitpos & 7;
+1,040,400 ( 0.02%)  	value = context->current_line[byte];
+        .           	raw = value;
+        .           	if (context->bit_depths < 8)
+        .           	{
+        .           		raw = ((value >> (8 - context->bit_depths - offset))
+        .           				& context->channel_max);
+        .           		value = raw * 255 / context->channel_max;
+        .           	}
+   20,520 ( 0.00%)  	if (context->png->palette_size != 0)
+        .           		value = raw;
+        .           	if (channel_n == 0)
+1,040,400 ( 0.02%)  		out->pixel.r = value;
+        .           	else if (channel_n == 1)
+2,080,800 ( 0.05%)  		out->pixel.g = value;
+        .           	else if (channel_n == 2)
+2,080,800 ( 0.05%)  		out->pixel.b = value;
+        .           	else
+   96,768 ( 0.00%)  		out->pixel.a = value;
+        .           }
+        .           
+        .           static bool	unpack_clean(t_png_unfilter_context *context, t_png_pixel8 *out)
+        .           {
+        .           	t_png				*png;
+        .           	t_png_color_type	type;
+        .           
+        .           	png = context->png;
+        .           	type = png->header.color_type;
+2,080,800 ( 0.05%)  	if (type == PNG_COLOR_GRAYSCALE)
+        .           		*out = (t_png_pixel8){{out->pixel.r, out->pixel.r, out->pixel.r, 255}};
+2,080,800 ( 0.05%)  	else if (type == PNG_COLOR_GRAYSCALE_ALPHA)
+        .           		*out = (t_png_pixel8){{out->pixel.r, out->pixel.r,
+        .           			out->pixel.r, out->pixel.g}};
+2,080,800 ( 0.05%)  	else if (type == PNG_COLOR_PALETTE)
+        .           	{
+        .           		if (out->pixel.r >= png->palette_size)
+        .           			return (false);
+        .           		*out = png->palette[out->pixel.r];
+        .           	}
+2,080,800 ( 0.05%)  	else if (type == PNG_COLOR_RGB)
+1,984,032 ( 0.05%)  		out->pixel.a = 255;
+        .           	return (true);
+        .           }
+
+--------------------------------------------------------------------------------
+-- Auto-annotated source: src/tilemaps/tilemap_basics.c
+--------------------------------------------------------------------------------
+Ir                  
+
+-- line 9 ----------------------------------------
+         .           /*   Updated: 2025/06/16 16:35:27 by vdurand          ###   ########.fr       */
+         .           /*                                                                            */
+         .           /* ************************************************************************** */
+         .           
+         .           #include "cub3d.h"
+         .           #include "tilemap.h"
+         .           
+         .           bool	tilemap_is_tile_valid(size_t x, size_t y, t_tilemap *map)
+ 6,367,413 ( 0.15%)  {
+26,462,865 ( 0.62%)  	return (x < map->width && y < map->height);
+ 6,367,413 ( 0.15%)  }
+         .           
+         .           t_tile	*tilemap_get_tile(size_t x, size_t y, t_tilemap *map)
+ 1,919,083 ( 0.05%)  {
+ 7,677,866 ( 0.18%)  	return (&map->tiles[y][x]);
+ 1,919,083 ( 0.05%)  }
+         .           
+         .           bool	tilemap_collision(float x, float y, float z, t_tilemap *tilemap)
+         .           {
+         .           	t_tile	*tile;
+         .           
+       936 ( 0.00%)  	if (!tilemap_is_tile_valid(x, y, tilemap))
+         .           		return (true);
+         .           	tile = tilemap_get_tile((size_t) x, (size_t)  y, tilemap);
+     2,579 ( 0.00%)  	return (!tile->info.solid || (tile->ceiling < z || tile->floor > z));
+         .           }
+         .           
+         .           bool tilemap_collision_bbox(t_vec3 axis, t_bbox bbox, t_tilemap *map)
+       468 ( 0.00%)  {
+         .           	bool	collide;
+         .           	float	z_top;
+         .           	float	z_bot;
+         .           
+       234 ( 0.00%)  	z_bot = bbox.min.z + axis.z;
+       156 ( 0.00%)  	z_top = bbox.max.z + axis.z;
+         .           	collide = \
+       156 ( 0.00%)  	tilemap_collision(bbox.min.x + axis.x, bbox.min.y + axis.y, z_bot, map)
+        78 ( 0.00%)  	&& tilemap_collision(bbox.max.x + axis.x, bbox.min.y + axis.y, z_bot, map)
+        78 ( 0.00%)  	&& tilemap_collision(bbox.min.x + axis.x, bbox.max.y + axis.y, z_bot, map)
+         .           	&& tilemap_collision(bbox.max.x + axis.x, bbox.max.y + axis.y, z_bot, map)
+         .           	&& tilemap_collision(bbox.min.x + axis.x, bbox.min.y + axis.y, z_top, map)
+         .           	&& tilemap_collision(bbox.max.x + axis.x, bbox.min.y + axis.y, z_top, map)
+         .           	&& tilemap_collision(bbox.min.x + axis.x, bbox.max.y + axis.y, z_top, map)
+         .           	&& tilemap_collision(bbox.max.x + axis.x, bbox.max.y + axis.y, z_top, map);
+         .           
+         .           	return (!collide);
+       234 ( 0.00%)  }
+
+--------------------------------------------------------------------------------
+The following files chosen for auto-annotation could not be found:
+--------------------------------------------------------------------------------
+  ./math/../sysdeps/x86/fpu/sincosf_poly.h
+  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S
+
+--------------------------------------------------------------------------------
+Ir                     
+--------------------------------------------------------------------------------
+3,951,694,130 (92.92%)  events annotated
+

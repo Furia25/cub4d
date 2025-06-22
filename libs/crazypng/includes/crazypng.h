@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:03:06 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 19:09:22 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 00:17:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 # include <stdint.h>
 # include "crazypng_utils.h"
 
-typedef struct s_png_pixel8
+typedef union u_png_pixel8
 {
-	uint8_t	a;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
+	struct s_png_pixel8
+	{
+		uint8_t	a;
+		uint8_t	r;
+		uint8_t	g;
+		uint8_t	b;
+	}	pixel;
+	uint32_t	value;
 }	t_png_pixel8;
 
 typedef struct s_png_chunk_data_IHDR

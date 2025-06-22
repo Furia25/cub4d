@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/22 23:42:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 00:08:31 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static inline void draw_ceiling(t_raycast_hit *hit, int y,
 	int		buffer_idx;
 
 	color = rgba8(100, 255, 255, 120);
-	while (y > r_ctx->halfh)
+	while (y != r_ctx->halfh)
 	{
 		real_dist = r_ctx->proj_dist_y
 			* ((r_ctx->eye_height - hit->tile->ceiling) / (y - r_ctx->halfh))
