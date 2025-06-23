@@ -6,13 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 01:12:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 17:43:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void draw_pixel(t_rgba8 src, unsigned int x, unsigned int y, t_img_data *img) 
+void draw_pixel(t_rgba8 src, unsigned int x, unsigned int y, t_img_data *img)
 {
 	uint32_t	*pixel;
 	uint8_t		*bytes;
