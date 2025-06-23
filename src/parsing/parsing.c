@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/23 00:34:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 01:12:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,17 +159,17 @@ int	check_colors(t_game *game)
 		}
 		if (i == 5)
 		{
-			game->f_color.pixel.a = 255;
-			game->f_color.pixel.r = ft_atoi(rgb[0]);
-			game->f_color.pixel.g = ft_atoi(rgb[1]);
-			game->f_color.pixel.b = ft_atoi(rgb[2]);
+			game->f_color.a = 255;
+			game->f_color.r = ft_atoi(rgb[0]);
+			game->f_color.g = ft_atoi(rgb[1]);
+			game->f_color.b = ft_atoi(rgb[2]);
 		}
 		else
 		{
-			game->c_color.pixel.a = 255;
-			game->c_color.pixel.r = ft_atoi(rgb[0]);
-			game->c_color.pixel.g = ft_atoi(rgb[1]);
-			game->c_color.pixel.b = ft_atoi(rgb[2]);
+			game->c_color.a = 255;
+			game->c_color.r = ft_atoi(rgb[0]);
+			game->c_color.g = ft_atoi(rgb[1]);
+			game->c_color.b = ft_atoi(rgb[2]);
 		}
 		free_map(rgb);
 		i++;

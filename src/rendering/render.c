@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/22 23:57:12 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 01:35:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,9 @@ void	render(t_game *game)
 static void	render_init(int width, int height,
 		t_render_context *context, t_game *game)
 {
-	static float	z_buffer[WINDOW_WIDTH * WINDOW_HEIGHT] = {0};
-	int				i;
+	static uint8_t	z_buffer[WINDOW_WIDTH * WINDOW_HEIGHT] = {UINT8_MAX};
 
-	i = 0;
-	while (i < WINDOW_WIDTH * WINDOW_HEIGHT)
-		z_buffer[i++] = INFINITY;
+	memset(z_buffer, UINT8_MAX, sizeof(z_buffer));
 	context->z_buffer = &z_buffer[0];
 	context->game = game;
 	context->tilemap = game->tilemap;

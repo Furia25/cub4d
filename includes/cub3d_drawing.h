@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:02:52 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 00:34:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 01:11:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 /*TEMP*/
 static inline t_rgba8	rgba8(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
-	return (t_rgba8){ { a, r, g, b } };
+	return (t_rgba8){a, r, g, b};
 }
 /*TEMP*//*TEMP*//*TEMP*//*TEMP*//*TEMP*//*TEMP*/
 

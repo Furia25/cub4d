@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 04:03:37 by val               #+#    #+#             */
-/*   Updated: 2025/06/23 00:35:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 01:14:08 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ static void	unpack_pixel(t_png_unfilter_context *context, t_png_pixel8 *out,
 	if (context->png->palette_size != 0)
 		value = raw;
 	if (channel_n == 0)
-		out->pixel.r = value;
+		out->r = value;
 	else if (channel_n == 1)
-		out->pixel.g = value;
+		out->g = value;
 	else if (channel_n == 2)
-		out->pixel.b = value;
+		out->b = value;
 	else
-		out->pixel.a = value;
+		out->a = value;
 }
 
 static bool	unpack_clean(t_png_unfilter_context *context, t_png_pixel8 *out)
@@ -83,17 +83,17 @@ static bool	unpack_clean(t_png_unfilter_context *context, t_png_pixel8 *out)
 	png = context->png;
 	type = png->header.color_type;
 	if (type == PNG_COLOR_GRAYSCALE)
-		*out = (t_png_pixel8){{out->pixel.r, out->pixel.r, out->pixel.r, 255}};
+		*out = (t_png_pixel8){out->r, out->r, out->r, 255};
 	else if (type == PNG_COLOR_GRAYSCALE_ALPHA)
-		*out = (t_png_pixel8){{out->pixel.r, out->pixel.r,
-			out->pixel.r, out->pixel.g}};
+		*out = (t_png_pixel8){out->r, out->r,
+			out->r, out->g};
 	else if (type == PNG_COLOR_PALETTE)
 	{
-		if (out->pixel.r >= png->palette_size)
+		if (out->r >= png->palette_size)
 			return (false);
-		*out = png->palette[out->pixel.r];
+		*out = png->palette[out->r];
 	}
 	else if (type == PNG_COLOR_RGB)
-		out->pixel.a = 255;
+		out->a = 255;
 	return (true);
 }

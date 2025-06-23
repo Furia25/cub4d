@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 00:08:31 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 03:17:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,34 @@ static void	set_texture_orientation(t_raycast_hit *result)
 static inline void	draw_wall(t_raycast_hit *hit, int wall_start,
 			int wall_end, t_raycast_context *ctx)
 {
+	uint8_t		*zbuf;
 	int				y;
 	t_rgba8			color;
 	int				buffer_idx;
 
-	color = rgba8(0 + 200 * hit->orientation, 255, 255, 255);
+	zbuf = ctx->render_ctx->z_buffer;
+	color = (t_rgba8){255, 0 + 200 * hit->orientation, 150, 255};
 	y = wall_start;
 	while (y < wall_end)
 	{
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
-		if (hit->dist < ctx->render_ctx->z_buffer[buffer_idx])
+		if (hit->dist < zbuf[buffer_idx])
 		{
 			draw_pixel(color, ctx->column, y, ctx->render_ctx->frame);
-			ctx->render_ctx->z_buffer[buffer_idx] = hit->dist;
+			zbuf[buffer_idx] = hit->dist;
 		}
 		y++;
 	}
 }
 
-static inline void draw_ceiling(t_raycast_hit *hit, int y,
+static inline void draw_top_faces(t_raycast_hit *hit, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
 {
 	float	real_dist;
 	t_rgba8	color;
 	int		buffer_idx;
 
-	color = rgba8(100, 255, 255, 120);
+	color = (t_rgba8){255, 0, 255, 255};
 	while (y != r_ctx->halfh)
 	{
 		real_dist = r_ctx->proj_dist_y
@@ -76,12 +78,35 @@ static inline void draw_ceiling(t_raycast_hit *hit, int y,
 		if (floor(hit->pos.x) != hit->tile_x || floor(hit->pos.y) != hit->tile_y)
 			break;
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
-		if (hit->dist < r_ctx->z_buffer[buffer_idx])
+		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
 			draw_pixel(color, ctx->column, y, r_ctx->frame);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
 		}
-		y -= 1;
+		y--;
+	}
+}
+
+static inline void draw_bot_faces(t_raycast_hit *hit, int y,
+		t_raycast_context *ctx, t_render_context *r_ctx)
+{
+	float	real_dist;
+	t_rgba8	color;
+
+	color = (t_rgba8){255, 0, 255, 255};
+	while (y < r_ctx->halfh)
+	{
+		real_dist = r_ctx->proj_dist_y
+            * ((hit->tile->floor - r_ctx->eye_height) / abs(y - r_ctx->halfh))
+            * (1.0f / cosf(hit->original_angle - r_ctx->direction));
+		hit->pos.x = hit->original_ray.origin.x \
+			+ hit->original_ray.dir_normal.x * fabs(real_dist);
+		hit->pos.y = hit->original_ray.origin.y \
+			+ hit->original_ray.dir_normal.y * fabs(real_dist);
+		if (floor(hit->pos.x) != hit->tile_x || floor(hit->pos.y) != hit->tile_y)
+			break;
+		draw_pixel(color, ctx->column, y, r_ctx->frame);
+		y++;
 	}
 }
 
@@ -109,7 +134,9 @@ void	render_draw_ray(t_raycast_hit *hit,
 		+ hit->original_ray.dir_normal.y * hit->dist;
 	wall_start = clamp(-y_ceiling + render->halfh, 0, WINDOW_HEIGHT - 1);
 	wall_end = clamp(-y_floor + render->halfh, 0, WINDOW_HEIGHT - 1);
-	draw_wall(hit, wall_start, wall_end, ctx);
 	if (hit->tile->ceiling < render->eye_height)
-		draw_ceiling(hit, wall_start, ctx, render);
+		draw_top_faces(hit, wall_start, ctx, render);
+	if (hit->tile->floor > render->eye_height)
+		draw_bot_faces(hit, wall_end, ctx, render);
+	draw_wall(hit, wall_start, wall_end, ctx);
 }
