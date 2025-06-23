@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 15:39:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 11:57:53 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/13 11:59:24 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ size_t			ft_strlcat(char *dest, char *src, size_t size);
 size_t			ft_strlcpy(char *dest, char *src, size_t size);
 long			ft_strchri(char *s, int c);
 //
+int				ft_putnbr_base_fd(long nb, char *base, int fd);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_strcmp(const char *s1, const char *s2);
@@ -56,7 +57,7 @@ int				ft_isdigit(int c);
 int				ft_isprint(int c);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
-int				ft_isspace(char c);
+int				ft_isbigendian(void);
 //
 char			**ft_split(char const *s, char c);
 //
@@ -72,7 +73,6 @@ char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(const char *s);
 t_gnl_result	get_next_line(int fd);
 char			*ft_itoa(int n);
-size_t			ft_count_digits(long long n);
 //
 void			ft_striteri(char *s, void (*f)(size_t, char *));
 void			ft_lstdelone(t_list *lst, void (*del)(void *));

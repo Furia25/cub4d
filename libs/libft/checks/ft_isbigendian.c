@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_digits.c                                  :+:      :+:    :+:   */
+/*   ft_isbigendian.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: val <val@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/17 00:54:45 by val               #+#    #+#             */
-/*   Updated: 2025/05/17 00:55:16 by val              ###   ########.fr       */
+/*   Created: 2025/04/28 23:32:53 by val               #+#    #+#             */
+/*   Updated: 2025/05/05 02:09:26 by val              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdint.h>
 
-size_t	ft_count_digits(long long n)
+int	ft_isbigendian(void)
 {
-	size_t				count;
-	unsigned long long	nb;
+	const uint32_t		x = 1;
+	const unsigned char	*c = (const unsigned char*) &x;
 
-	if (n == 0)
-		return (1);
-	if (n < 0)
-		nb = -n;
-	else
-		nb = n;
-	count = 0;
-	while (nb != 0)
-	{
-		nb /= 10;
-		count++;
-	}
-	return (count);
+	return (((int)(*c)));
 }

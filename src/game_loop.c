@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 01:50:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 16:00:11 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	game_loop(void *param)
 		update_player(&game->player, game);
 		render(game);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-		printf("FPS : %lu\n", get_fps(time));
+		printf("FPS : %lu  SPEED : %f\n\n", get_fps(time), vec2_length(game->player.last_move));
+		
 	}
 	return (1);
 }
