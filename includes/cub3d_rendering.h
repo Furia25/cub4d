@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_rendering.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 01:35:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 12:08:15 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ typedef struct s_raycast_context
 }	t_raycast_context;
 
 void	render_ray(float base_angle, int column,
-			t_ray2 *ray, t_render_context *render_ctx);
+	t_ray2 *ray, t_render_context *render_ctx);
 void	render_draw_ray(t_raycast_hit *actual,
-			t_raycast_context *ctx, t_render_context *render);
-void	manage_texture(t_raycast_hit *result, t_render_context *context, t_texture_context *ctx, int *row);
+	t_raycast_context *ctx, t_render_context *render);
+void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
+	t_render_context *render, t_texture_context	*tex_ctx);
 
 #endif

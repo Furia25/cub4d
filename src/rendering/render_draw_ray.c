@@ -3,60 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   render_draw_ray.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 03:17:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 12:07:04 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_rendering.h"
-
-/*static void	init_texture_ctx(t_texture_context *tex_ctx, float dist, int column)
-{
-	tex_ctx->wall_height = WINDOW_HEIGHT / dist;
-	tex_ctx->wall_start = clamp(-tex_ctx->wall_height \
-		/ 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
-	tex_ctx->wall_end = clamp(tex_ctx->wall_height \
-		/ 2 + WINDOW_HEIGHT / 2, 0, WINDOW_HEIGHT);
-	tex_ctx->column = column;
-}
-
-static void	set_texture_orientation(t_raycast_hit *result)
-{
-	if (result->orientation == 0 && result->original_ray.dir_normal.x < 0)
-		result->tile_info->texture = TEXTURE_WEST;
-	else if (result->orientation == 0 && result->original_ray.dir_normal.x > 0)
-		result->tile_info->texture = TEXTURE_EAST;
-	else if (result->orientation == 1 && result->original_ray.dir_normal.y < 0)
-		result->tile_info->texture = TEXTURE_NORTH;
-	else if (result->orientation == 1 && result->original_ray.dir_normal.y > 0)
-		result->tile_info->texture = TEXTURE_SOUTH;
-}*/
-
-static inline void	draw_wall(t_raycast_hit *hit, int wall_start,
-			int wall_end, t_raycast_context *ctx)
-{
-	uint8_t		*zbuf;
-	int				y;
-	t_rgba8			color;
-	int				buffer_idx;
-
-	zbuf = ctx->render_ctx->z_buffer;
-	color = (t_rgba8){255, 0 + 200 * hit->orientation, 150, 255};
-	y = wall_start;
-	while (y < wall_end)
-	{
-		buffer_idx = y * WINDOW_WIDTH + ctx->column;
-		if (hit->dist < zbuf[buffer_idx])
-		{
-			draw_pixel(color, ctx->column, y, ctx->render_ctx->frame);
-			zbuf[buffer_idx] = hit->dist;
-		}
-		y++;
-	}
-}
 
 static inline void draw_top_faces(t_raycast_hit *hit, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
@@ -110,33 +65,51 @@ static inline void draw_bot_faces(t_raycast_hit *hit, int y,
 	}
 }
 
+static void	set_texture_orientation(t_raycast_hit *result)
+{
+	if (result->orientation == 0 && result->original_ray.dir_normal.x < 0)
+		result->tile_info->texture = TEXTURE_WEST;
+	else if (result->orientation == 0 && result->original_ray.dir_normal.x > 0)
+		result->tile_info->texture = TEXTURE_EAST;
+	else if (result->orientation == 1 && result->original_ray.dir_normal.y < 0)
+		result->tile_info->texture = TEXTURE_NORTH;
+	else if (result->orientation == 1 && result->original_ray.dir_normal.y > 0)
+		result->tile_info->texture = TEXTURE_SOUTH;
+}
+
+static void	init_texture_ctx(t_texture_context *tex_ctx, t_raycast_hit *hit,
+	t_render_context *render, float dist)
+{
+	float				y_floor;
+	float				y_ceiling;
+
+	y_floor = ((hit->tile->floor - render->eye_height)
+		/ dist) * render->proj_dist_y;
+	y_ceiling = ((hit->tile->ceiling - render->eye_height)
+		/ dist) * render->proj_dist_y;
+	tex_ctx->wall_height = WINDOW_HEIGHT / dist;
+	tex_ctx->wall_start = clamp(-y_ceiling + render->halfh, 0, WINDOW_HEIGHT - 1);
+	tex_ctx->wall_end = clamp(-y_floor + render->halfh, 0, WINDOW_HEIGHT - 1);
+}
+
 void	render_draw_ray(t_raycast_hit *hit,
 			t_raycast_context *ctx,
 			t_render_context *render)
 {
-	float	corrected_dist;
-	int		wall_start;
-	int		wall_end;
-	float	y_floor;
-	float	y_ceiling;
+	float				corrected_dist;
+	t_texture_context	tex_ctx;
 
 	corrected_dist = hit->dist
 		* cosf(hit->original_angle - render->direction);
-	/*init_texture_ctx(&tex_ctx, corrected_dist, ctx->column);
-	set_texture_orientation(hit);*/
-	y_floor = ((hit->tile->floor - render->eye_height)
-		/ corrected_dist) * render->proj_dist_y;
-	y_ceiling = ((hit->tile->ceiling - render->eye_height)
-		/ corrected_dist) * render->proj_dist_y;
+	set_texture_orientation(hit);
+	init_texture_ctx(&tex_ctx, hit, render, corrected_dist);
 	hit->pos.x = hit->original_ray.origin.x \
 		+ hit->original_ray.dir_normal.x * hit->dist;
 	hit->pos.y = hit->original_ray.origin.y \
 		+ hit->original_ray.dir_normal.y * hit->dist;
-	wall_start = clamp(-y_ceiling + render->halfh, 0, WINDOW_HEIGHT - 1);
-	wall_end = clamp(-y_floor + render->halfh, 0, WINDOW_HEIGHT - 1);
 	if (hit->tile->ceiling < render->eye_height)
-		draw_top_faces(hit, wall_start, ctx, render);
+		draw_top_faces(hit, tex_ctx.wall_start, ctx, render);
 	if (hit->tile->floor > render->eye_height)
-		draw_bot_faces(hit, wall_end, ctx, render);
-	draw_wall(hit, wall_start, wall_end, ctx);
+		draw_bot_faces(hit, tex_ctx.wall_end, ctx, render);
+	manage_texture(hit, ctx, render, &tex_ctx);
 }

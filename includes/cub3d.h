@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/21 02:51:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 11:56:16 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,12 @@ typedef struct s_tile_context
 
 typedef struct s_texture_context
 {
-	int	column;
-	int	wall_start;
-	int	wall_end;
-	int	wall_height;
-	int	tex_x;
+	t_png	*texture;
+	int		wall_start;
+	int		wall_end;
+	int		wall_height;
+	int		tex_x;
+	int		y;
 }	t_texture_context;
 
 void		render(t_game *game);
