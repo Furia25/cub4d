@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/23 12:08:24 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/23 15:09:31 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static void	render_texture(t_texture_context *tex_ctx,
 		tex_y = (int)tex_pos;
 		if (hit->dist < zbuf[buffer_idx])
 		{
-			draw_pixel(tex_ctx->texture->pixels_8bit[tex_y * 498 + tex_ctx->tex_x], ctx->column, tex_ctx->y, ctx->render_ctx->frame);
+			draw_pixel(tex_ctx->texture->pixels_8bit[tex_y * 498 + tex_ctx->tex_x], \
+				ctx->column, tex_ctx->y, ctx->render_ctx->frame);
 			zbuf[buffer_idx] = hit->dist;
 		}
 		tex_pos += step;
