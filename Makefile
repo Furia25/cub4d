@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/24 01:51:16 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/24 15:51:46 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,8 @@ SRC_FILES = \
 	move_utils.c \
 	time_utils.c \
 	drawing/draw_basics.c \
-	drawing/draw_glyph.c
+	drawing/glyphs.c \
+	drawing/text.c
 
 HEADERS = \
 	cub3d.h

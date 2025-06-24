@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 15:39:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/13 11:59:24 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/24 16:13:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 t_list			*ft_lstnew(void *content);
 t_list			*ft_lstlast(t_list *lst);
 //
+size_t			ft_intlen(int n);
 size_t			ft_strlen(const char *str);
 size_t			ft_strlcat(char *dest, char *src, size_t size);
 size_t			ft_strlcpy(char *dest, char *src, size_t size);
