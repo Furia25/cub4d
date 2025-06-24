@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:31:44 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/24 15:55:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/24 17:09:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ ijklmnopqrstuvwxyz0123456789.,?!:;`'\"*-_~#&|@≈[]<>\
 
 typedef struct s_text_properties
 {
-	unsigned short	x_spacing;
-	unsigned short	y_spacing;
-	unsigned short	nl_spacing_x;
-	unsigned short	nl_spacing_y;
+	float	x_spacing;
+	float	y_spacing;
+	float	nl_spacing_x;
+	float	nl_spacing_y;
 	unsigned short	wrap_max;
 }	t_text_properties;
 
@@ -50,6 +50,7 @@ typedef struct s_text_context
 	ssize_t			actual_glyph;
 	unsigned short	line_n;
 	unsigned short	line_char;
+	t_transform		*tform;
 }	t_text_context;
 
 bool	glyph_init(char *asset);

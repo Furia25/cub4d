@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_glyph.c                                       :+:      :+:    :+:   */
+/*   glyphs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:42:38 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/24 15:34:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/24 17:04:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,13 @@ ssize_t	glyph_get_index(wchar_t glyph)
 
 void	draw_glyph(t_transform *tform, size_t index, t_img_data *img)
 {
-	draw_sprite_sheet(*tform, index, &g_glyphs, img);
+	t_transform temp;
+
+	temp.height = tform->height;
+	temp.width = tform->width;
+	temp.x = tform->x;
+	temp.y = tform->y - (temp.height * 0.75);
+	draw_sprite_sheet(temp, index, &g_glyphs, img);
 }
 
 void	glyph_end(void)

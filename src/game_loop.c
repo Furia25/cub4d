@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/24 15:55:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/24 17:23:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ int	game_loop(void *param)
 		render(game);
 		draw_text(L"Hello world, My name is cub3d this is my glyph feature! Amazing",
 			(t_transform){20, 100, FONT_SIZE3, FONT_SIZE2},
-			(t_text_properties){FONT_SIZE2 - 4, 0, 0, FONT_SIZE2, 16},
+			(t_text_properties){0.7, 0, 0, FONT_SIZE2, 16},
 			frame
 			);
-		draw_text(L"CUB3D",
-			(t_transform){20, 20, FONT_SIZE5, FONT_SIZE5},
-			(t_text_properties){FONT_SIZE5 - 4, 0, 0, FONT_SIZE2, 16},
+		draw_text(L"»4CUB3D",
+			(t_transform){20, 50, FONT_SIZE1, FONT_SIZE1},
+			(t_text_properties){0.8, 0, 0, FONT_SIZE2, 16},
 			frame
 			);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-		printf("FPS : %lu  SPEED : %f\n\n", get_fps(time), vec2_length(game->player.last_move));
+		printf("FPS : %lu\n", get_fps(time));
 		
 	}
 	return (1);
