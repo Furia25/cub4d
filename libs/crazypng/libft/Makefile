@@ -6,12 +6,12 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 21:41:19 by val               #+#    #+#              #
-#    Updated: 2025/06/23 00:12:15 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/23 15:12:51 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INCLUDE_DIR = ./
-CFLAGS = -Wall -Wextra -Werror -fPIC -I$(INCLUDE_DIR)  -O3 -flto -Wno-unused-result
+CFLAGS = -Wall -Wextra -Werror -fPIC -I$(INCLUDE_DIR)  -O3 -Wno-unused-result
 CC = cc
 NAME = libft.a
 

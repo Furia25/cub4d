@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:58:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/24 01:25:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ int	exit_game(t_game *game)
 			mlx_destroy_image(game->mlx, game->img->img_ptr);
 		free(game->img);
 	}
-	mlx_destroy_display(game->mlx);
+	if (game->mlx)
+		mlx_destroy_display(game->mlx);
 	png_close(game->textures[TEXTURE_NORTH]);
 	png_close(game->textures[TEXTURE_WEST]);
 	png_close(game->textures[TEXTURE_EAST]);
 	png_close(game->textures[TEXTURE_SOUTH]);
 	png_close(game->sprites[SPRITE_ENEMY]);
+	glyph_end();
 	free(game->mlx);
 	exit(EXIT_SUCCESS);
 }

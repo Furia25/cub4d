@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/20 15:27:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/23 21:20:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <X11/Xlib.h>
 # include <stdint.h>
 # include <crazypng.h>
-# include "cub3d.h"
 
 typedef enum e_key_type
 {
@@ -69,6 +68,21 @@ typedef struct s_img_data
     int			endian;
 }	t_img_data;
 
+typedef struct s_sprite_sheet
+{
+	t_png	*asset;
+	size_t	width;
+	size_t	height;
+	size_t	sprite_per_line;
+}	t_sprite_sheet;
+
+typedef struct s_transform
+{
+	size_t	x;
+	size_t	y;
+	size_t	width;
+	size_t	height;
+}	t_transform;
 
 typedef t_png_pixel8	t_rgba8;
 

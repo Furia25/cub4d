@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/24 10:14:52 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/24 10:33:33 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,22 @@ typedef enum e_enemy_state
 
 typedef struct s_player
 {
-	float	speed;
+	float	base_speed;
 	float	eye_height;
 	float	jump_force;
 	float	fov_deg;
+	float	accel_speed;
+	float	accel_max;
+	float	friction;
+	float	air_friction;
 	t_bbox	collision_box;
 	t_vec2	position;
 	t_vec2	direction;
 	float	rad_direction;
 	float	height;
+	float	accel;
 	float	jump_velocity;
+	t_vec2	last_move;
 	bool	is_grounded;
 }	t_player;
 

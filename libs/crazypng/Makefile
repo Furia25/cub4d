@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/21 01:33:05 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/23 15:11:08 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,7 @@ DEP = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.d, $(SRC))
 LIBFT_DIR = libft
 
 CC = cc
-OPTIFLAGS = -O3 -flto
+OPTIFLAGS = -O3
 CFLAGS = $(OPTIFLAGS) -Werror -Wextra -Wall
 LDFLAGS = -$(FTFLAGS)
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)

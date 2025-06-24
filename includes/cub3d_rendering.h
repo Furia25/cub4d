@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 12:08:15 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/24 10:32:51 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "cub3d.h"
 # include "cub3d_textures.h"
 
-# define RENDER_DISTANCE	100
+# define RENDER_DISTANCE	200
 
 typedef struct s_render_context
 {

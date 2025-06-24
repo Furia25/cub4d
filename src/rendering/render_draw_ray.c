@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/24 10:15:49 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/24 10:34:07 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,27 @@ static inline void draw_bot_faces(t_raycast_hit *hit, int y,
 {
 	float	real_dist;
 	t_rgba8	color;
+	int		buffer_idx;
 
 	color = (t_rgba8){255, 0, 255, 255};
+	y += 1;
 	while (y < r_ctx->halfh)
 	{
-		real_dist = r_ctx->proj_dist_y
-            * ((hit->tile->floor - r_ctx->eye_height) / abs(y - r_ctx->halfh))
-            * (1.0f / cosf(hit->original_angle - r_ctx->direction));
+		real_dist = fabsf(r_ctx->proj_dist_y
+          * ((r_ctx->eye_height - hit->tile->floor) / (y - r_ctx->halfh))
+          * (1.0f / cosf(hit->original_angle - r_ctx->direction)));
 		hit->pos.x = hit->original_ray.origin.x \
-			+ hit->original_ray.dir_normal.x * fabs(real_dist);
+			+ hit->original_ray.dir_normal.x * real_dist;
 		hit->pos.y = hit->original_ray.origin.y \
-			+ hit->original_ray.dir_normal.y * fabs(real_dist);
+			+ hit->original_ray.dir_normal.y * real_dist;
 		if (floor(hit->pos.x) != hit->tile_x || floor(hit->pos.y) != hit->tile_y)
-			break;
-		draw_pixel(color, ctx->column, y, r_ctx->frame);
+            break;
+		buffer_idx = y * WINDOW_WIDTH + ctx->column;
+		if (real_dist < r_ctx-> z_buffer[buffer_idx])
+		{
+			draw_pixel(color, ctx->column, y, r_ctx->frame);
+			r_ctx->z_buffer[buffer_idx] = real_dist;
+		}
 		y++;
 	}
 }
