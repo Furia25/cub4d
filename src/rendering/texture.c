@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/23 15:09:31 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/24 10:29:23 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@ static void	render_texture(t_texture_context *tex_ctx,
 	float	tex_pos;
 	float	step;
 
-	tex_pos = 0;
-	tex_y = 0;
-	step = 498 / (float)tex_ctx->wall_height;
+	step = tex_ctx->texture->header.height / (float)tex_ctx->wall_height;
+	tex_pos = (tex_ctx->wall_start - tex_ctx->wall_start_actual) * step;
 	while (tex_ctx->y < tex_ctx->wall_end)
 	{
-		if (tex_y > 497)
-			tex_pos = 0;
-		buffer_idx = tex_ctx->y * WINDOW_WIDTH + ctx->column;
-		tex_y = (int)tex_pos;
-		if (hit->dist < zbuf[buffer_idx])
+		if (tex_ctx->y >= 0 && tex_ctx->y < WINDOW_HEIGHT)
 		{
-			draw_pixel(tex_ctx->texture->pixels_8bit[tex_y * 498 + tex_ctx->tex_x], \
-				ctx->column, tex_ctx->y, ctx->render_ctx->frame);
-			zbuf[buffer_idx] = hit->dist;
+			buffer_idx = tex_ctx->y * WINDOW_WIDTH + ctx->column;
+			tex_y = ((int)tex_pos) % tex_ctx->texture->header.height;
+			if (hit->dist < zbuf[buffer_idx])
+			{
+				draw_pixel(tex_ctx->texture->pixels_8bit[tex_y * tex_ctx->texture->header.width + tex_ctx->tex_x], \
+					ctx->column, tex_ctx->y, ctx->render_ctx->frame);
+				zbuf[buffer_idx] = hit->dist;
+			}
 		}
 		tex_pos += step;
 		tex_ctx->y++;
@@ -53,12 +53,10 @@ void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
 		offset = hit->pos.y - (int)hit->pos.y;
 	else
 		offset = hit->pos.x - (int)hit->pos.x;
-	tex_ctx->tex_x = (int)(offset * 498);
+	tex_ctx->tex_x = (int)(offset * tex_ctx->texture->header.width);
 	if ((hit->orientation == 0 && hit->original_ray.dir_normal.x > 0) || 
 		(hit->orientation == 1 && hit->original_ray.dir_normal.y < 0))
-		tex_ctx->tex_x = 498 - tex_ctx->tex_x;
+		tex_ctx->tex_x = tex_ctx->texture->header.width - tex_ctx->tex_x;
 	tex_ctx->y = tex_ctx->wall_start;
-	// if (y < 1)
-	// 	y = (WINDOW_HEIGHT - wall_height) / 2;
 	render_texture(tex_ctx, hit, ctx, zbuf);
 }

@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/23 11:56:16 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/24 10:14:52 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_texture_context
 {
 	t_png	*texture;
 	int		wall_start;
+	int		wall_start_actual;
 	int		wall_end;
 	int		wall_height;
 	int		tex_x;

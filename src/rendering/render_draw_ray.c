@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 12:07:04 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/24 10:15:49 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static void	init_texture_ctx(t_texture_context *tex_ctx, t_raycast_hit *hit,
 		/ dist) * render->proj_dist_y;
 	tex_ctx->wall_height = WINDOW_HEIGHT / dist;
 	tex_ctx->wall_start = clamp(-y_ceiling + render->halfh, 0, WINDOW_HEIGHT - 1);
+	tex_ctx->wall_start_actual = -y_ceiling + render->halfh;
 	tex_ctx->wall_end = clamp(-y_floor + render->halfh, 0, WINDOW_HEIGHT - 1);
 }
 
