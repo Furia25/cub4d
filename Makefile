@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/23 18:06:53 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/24 01:51:16 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,7 @@ SRC_FILES = \
 	move_utils.c \
 	time_utils.c \
 	drawing/draw_basics.c \
+	drawing/draw_glyph.c
 
 HEADERS = \
 	cub3d.h
@@ -99,7 +100,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -O3 -march=native -funroll-loops -g3 -std=c99
+CFLAGS = -Werror -Wextra -Wall -O3 -march=native -funroll-loops -g3 -std=c99 -flto
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 
