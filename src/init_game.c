@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/24 12:53:31 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/25 10:48:13 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ int	init_sprites(t_game *game)
 
 int	init_textures(t_game *game)
 {
-	game->textures[TEXTURE_NORTH] = png_open("assets/cmoore6.png");
+	game->textures[TEXTURE_NORTH] = png_open("assets/textures/north.png");
 	if (!game->textures[TEXTURE_NORTH])
 		return (0);
-	game->textures[TEXTURE_EAST] = png_open("assets/cmoore6.png");
+	game->textures[TEXTURE_EAST] = png_open("assets/textures/east.png");
 	if (!game->textures[TEXTURE_EAST])
 		return (0);
-	game->textures[TEXTURE_WEST] = png_open("assets/cmoore6.png");
+	game->textures[TEXTURE_WEST] = png_open("assets/textures/west.png");
 	if (!game->textures[TEXTURE_WEST])
 		return (0);
-	game->textures[TEXTURE_SOUTH] = png_open("assets/cmoore6.png");
+	game->textures[TEXTURE_SOUTH] = png_open("assets/textures/south.png");
 	if (!game->textures[TEXTURE_SOUTH])
 		return (0);
 	if (!glyph_init("assets/textures/glyph.png"))

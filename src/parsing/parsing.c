@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/23 01:12:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 10:25:07 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	check_tiles_and_borders(t_game *game)
 				return (0);
 			if (game->file_content[i][j] == 'P')
 			{
-				if (game->enemy_count > MAX_ENEMIES)
+				if (game->enemy_count >= MAX_ENEMIES)
 					return (0);
 				game->enemies[e].position.x = (double)j + 0.5;
 				game->enemies[e].position.y = (double)(i - 8) + 0.5;

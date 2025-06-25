@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 01:35:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 10:46:04 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "cub3d.h"
 #include "cub3d_rendering.h"
 
-static void			render_init(int width, int height,
-		t_render_context *context, t_game *game);
 static inline void	render_rays(int start, int end, t_render_context *render);
+static void		render_init(int width, int height, \
+	t_render_context *context, t_game *game);
 
 void	render(t_game *game)
 {
@@ -50,8 +50,8 @@ static void	render_init(int width, int height,
 	context->fov_y = deg_to_rad(game->player.fov_deg - 15);
 	context->halfw = WINDOW_WIDTH * .5f;
 	context->halfh = WINDOW_HEIGHT * .5f;
-	context->proj_dist_x = context->halfw / tanf(context->fov_x  * .5f);
-	context->proj_dist_y = context->halfh / tanf(context->fov_y  * .5f);
+	context->proj_dist_x = context->halfw / tanf(context->fov_x * .5f);
+	context->proj_dist_y = context->halfh / tanf(context->fov_y * .5f);
 }
 
 static inline void	render_rays(int start, int end, t_render_context *render)

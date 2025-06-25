@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_dda.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 14:09:08 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 09:40:13 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 static inline void	raycast_init(t_raycast_context *ctx);
 static inline void	raycast_launch(t_raycast_context *ctx);
-static inline bool	check_wall_tile(t_raycast_hit *hit,
+static inline bool	check_wall_tile(t_raycast_hit *hit, \
 		t_raycast_context *ctx);
-static inline void	raycast_set_dist(t_raycast_hit *hit,
+static inline void	raycast_set_dist(t_raycast_hit *hit, \
 		t_raycast_context *ctx);
 
 void	render_ray(float base_angle, int column,
@@ -116,10 +116,9 @@ static inline void	raycast_set_dist(t_raycast_hit *hit,
 		t_raycast_context *ctx)
 {
 	if (hit->orientation == 0)
-		hit->dist = (ctx->actual_tile.x - ctx->ray->origin.x
+		hit->dist = (ctx->actual_tile.x - ctx->ray->origin.x \
 			+ (1 - ctx->step.x) * 0.5) / ctx->ray->dir_normal.x;
 	else
-		hit->dist = (ctx->actual_tile.y - ctx->ray->origin.y
+		hit->dist = (ctx->actual_tile.y - ctx->ray->origin.y \
 			+ (1 - ctx->step.y) * 0.5) / ctx->ray->dir_normal.y;
-	
 }

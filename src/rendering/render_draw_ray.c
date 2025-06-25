@@ -6,14 +6,14 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/24 12:44:44 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/25 13:41:19 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_rendering.h"
 
-static inline void draw_top_faces(t_raycast_hit *hit, int y,
+static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
 {
 	float	real_dist;
@@ -30,8 +30,9 @@ static inline void draw_top_faces(t_raycast_hit *hit, int y,
 			+ hit->original_ray.dir_normal.x * real_dist;
 		hit->pos.y = hit->original_ray.origin.y \
 			+ hit->original_ray.dir_normal.y * real_dist;
-		if (floor(hit->pos.x) != hit->tile_x || floor(hit->pos.y) != hit->tile_y)
-			break;
+		if (floor(hit->pos.x) != hit->tile_x \
+		|| floor(hit->pos.y) != hit->tile_y)
+			break ;
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
@@ -42,7 +43,7 @@ static inline void draw_top_faces(t_raycast_hit *hit, int y,
 	}
 }
 
-static inline void draw_bot_faces(t_raycast_hit *hit, int y,
+static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
 {
 	float	real_dist;
@@ -53,15 +54,16 @@ static inline void draw_bot_faces(t_raycast_hit *hit, int y,
 	y += 1;
 	while (y < r_ctx->halfh)
 	{
-		real_dist = fabsf(r_ctx->proj_dist_y
-          * ((r_ctx->eye_height - hit->tile->floor) / (y - r_ctx->halfh))
-          * (1.0f / cosf(hit->original_angle - r_ctx->direction)));
+		real_dist = fabsf(r_ctx->proj_dist_y \
+		* ((r_ctx->eye_height - hit->tile->floor) / (y - r_ctx->halfh)) \
+		* (1.0f / cosf(hit->original_angle - r_ctx->direction)));
 		hit->pos.x = hit->original_ray.origin.x \
 			+ hit->original_ray.dir_normal.x * real_dist;
 		hit->pos.y = hit->original_ray.origin.y \
 			+ hit->original_ray.dir_normal.y * real_dist;
-		if (floor(hit->pos.x) != hit->tile_x || floor(hit->pos.y) != hit->tile_y)
-            break;
+		if (floor(hit->pos.x) != hit->tile_x \
+		|| floor(hit->pos.y) != hit->tile_y)
+			break ;
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
@@ -90,12 +92,13 @@ static void	init_texture_ctx(t_texture_context *tex_ctx, t_raycast_hit *hit,
 	float				y_floor;
 	float				y_ceiling;
 
-	y_floor = ((hit->tile->floor - render->eye_height)
+	y_floor = ((hit->tile->floor - render->eye_height) \
 		/ dist) * render->proj_dist_y;
-	y_ceiling = ((hit->tile->ceiling - render->eye_height)
+	y_ceiling = ((hit->tile->ceiling - render->eye_height) \
 		/ dist) * render->proj_dist_y;
 	tex_ctx->wall_height = WINDOW_HEIGHT / dist;
-	tex_ctx->wall_start = clamp(-y_ceiling + render->halfh, 0, WINDOW_HEIGHT - 1);
+	tex_ctx->wall_start = clamp(-y_ceiling + render->halfh, \
+		0, WINDOW_HEIGHT - 1);
 	tex_ctx->wall_start_actual = -y_ceiling + render->halfh;
 	tex_ctx->wall_end = clamp(-y_floor + render->halfh, 0, WINDOW_HEIGHT - 1);
 	tex_ctx->wall_end_actual = -y_floor + render->halfh;
