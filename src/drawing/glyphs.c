@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:42:38 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/24 17:04:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 01:55:41 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ ssize_t	glyph_get_index(wchar_t glyph)
 	return (-1);
 }
 
-void	draw_glyph(t_transform *tform, size_t index, t_img_data *img)
+void	draw_glyph(t_draw_transform *tform, size_t index, t_img_data *img)
 {
-	t_transform temp;
+	t_draw_transform temp;
 
 	temp.height = tform->height;
 	temp.width = tform->width;
 	temp.x = tform->x;
 	temp.y = tform->y - (temp.height * 0.75);
+	temp.color = tform->color;
 	draw_sprite_sheet(temp, index, &g_glyphs, img);
 }
 
