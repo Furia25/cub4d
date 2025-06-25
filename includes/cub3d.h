@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/25 14:24:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/26 00:28:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_game
 	t_enemy			enemies[MAX_ENEMIES];
 	int				enemy_count;
 	t_rng_state		rng;
+	uint64_t		start_time;
 }	t_game;
 
 typedef struct s_tile_context
@@ -137,6 +138,8 @@ void		run_game(t_game *game);
 int			exit_game(t_game *game);
 int			game_loop(void *param);
 uint64_t	get_time_ms(void);
+uint64_t	get_elapsed_ms(void);
+uint64_t	time_init(void);
 
 // ----- KEYS ----- //
 void		show_keys(t_game *game);

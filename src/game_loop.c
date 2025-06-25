@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 17:13:11 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/26 01:39:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int	game_loop(void *param)
 	time = get_time_ms();
 	if (time >= last_time)
 	{
-		last_time = time + 16;
+		last_time = time + 32;
 		memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
 		handle_keys(game);
 		update_player(&game->player, game);
 		render(game);
+		draw_text(L"»2~Th«Tart »4*«macaroon»*2🌈« RAINBOW»🌈« gummies marshmallow muffin jujubes »🌈«RAINBOW»_1« pie tart bear claw. Tootsie roll sesame »🌈«RAINBOW»🌈« snaps bonbon pie toffee ice cream fruitcake danish. Cake chupa chups sweet roll caramels sweet cotton candy sweet. Bear claw croissant tootsie roll shortbread danish candy powder. Cheesecake tart icing biscuit pudding chocolate bar lollipop croissant tart.", (t_text_properties){0, 100, 0.8, 0, 0, 1, 16, game->start_time}, frame);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-		printf("FPS : %lu\n", get_fps(time));
-		
+		printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
 	}
 	return (1);
 }

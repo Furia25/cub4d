@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:42:38 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 01:55:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/26 01:39:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,29 @@ ssize_t	glyph_get_index(wchar_t glyph)
 	return (-1);
 }
 
-void	draw_glyph(t_draw_transform *tform, size_t index, t_img_data *img)
+void	draw_glyph(t_text_context *ctx, size_t glyph, t_img_data *img)
 {
 	t_draw_transform temp;
 
-	temp.height = tform->height;
-	temp.width = tform->width;
-	temp.x = tform->x;
-	temp.y = tform->y - (temp.height * 0.75);
-	temp.color = tform->color;
-	draw_sprite_sheet(temp, index, &g_glyphs, img);
+	temp = ctx->tform;
+	temp.y -= (temp.height * 0.75);
+	temp.color = ctx->tform.color;
+	ctx->tform.x += ctx->prop->x_spacing * ctx->tform.width;
+	ctx->tform.y += ctx->prop->y_spacing * ctx->tform.height;
+	if (ctx->effect & TE_WAVE)
+		geffect_wave(ctx, &temp);
+	if (ctx->effect & TE_RAINBOW)
+		geffect_rainbow(ctx, &temp);
+	if (!(ctx->effect & TE_TYPEWRITER) || geffect_typewrite(ctx))
+	{
+		draw_sprite_sheet(temp, glyph, &g_glyphs, img);
+		if (ctx->effect & TE_BOLD)
+		{
+			temp.x += temp.width * 0.07;
+			temp.y -= temp.height * 0.07;
+			draw_sprite_sheet(temp, glyph, &g_glyphs, img);
+		}
+	}
 }
 
 void	glyph_end(void)

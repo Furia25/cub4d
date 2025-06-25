@@ -6,19 +6,17 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:27:11 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 02:42:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/26 01:33:22 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_colors.h"
+#include "cub3d.h"
 #include "glyphs.h"
 
-static inline bool	char_command(t_text_context *ctx,
-			wchar_t **str, t_text_properties *prop, wchar_t c)
+static inline bool	char_command(t_text_context *ctx, wchar_t c)
 {
 	bool	valid;
 
-	(void)prop;
 	valid = true;
 	if (c >= L'1' && c <= L'9')
 	{
@@ -26,34 +24,36 @@ static inline bool	char_command(t_text_context *ctx,
 		ctx->tform.height = GLYPH_SIZE * (c - L'0');
 	}
 	else if (c >= L'a' && c <= L'z')
-	{
-		ctx->tform.color = g_color_text[c - L'a' + 1];
-	}
+		ctx->tform.color = g_color_text[c - L'a'];
 	else if (c == '#')
 		ctx->true_break = true;
+	else if (c == '~')
+		ctx->effect = ctx->effect ^ TE_WAVE;
+	else if (c == 'T')
+		ctx->effect = ctx->effect ^ TE_TYPEWRITER;
+	else if (c == L'🌈')
+		ctx->effect = ctx->effect ^ TE_RAINBOW;
+	else if (c == L'*')
+		ctx->effect = ctx->effect ^ TE_BOLD;
+	else if (c == L'_')
+		ctx->effect = TE_EMPTY;
 	else
 		valid = false;
-	if (valid)
-		(*str)++;
+	ctx->index += valid;
 	return (valid);
 }
 
-static inline bool	text_command(t_text_context *ctx,
-			wchar_t **str, t_text_properties *prop)
+static inline bool	text_command(t_text_context *ctx, wchar_t *str)
 {
 	wchar_t	c;
 
-	(void)prop;
-	(*str)++;
-	while (*str && **str)
+	ctx->index++;
+	while (str[ctx->index])
 	{
-		c = **str;
+		c = str[ctx->index];
 		if (c == L'«')
-		{
-			(*str)++;
 			return (true);	
-		}
-		if (!char_command(ctx, str, prop, c))
+		if (!char_command(ctx, c))
 			return (true);
 	}
 	return (false);
@@ -63,40 +63,39 @@ void	draw_text(wchar_t *str, t_text_properties prop, t_img_data *img)
 {
 	t_text_context		ctx;
 	t_draw_transform	*tform;
+	wchar_t				c;
 
+	ft_memset(&ctx, 0, sizeof(ctx));
+	ctx.prop = &prop;
+	ctx.start_time = prop.start_time;
+	ctx.length = strlen_wchar(str);
 	tform = &ctx.tform;
 	tform->color = g_colors[C_WHITE];
-	tform->color_tint = 1;
 	tform->width = GLYPH_SIZE;
 	tform->height = GLYPH_SIZE;
+	prop.y += tform->height;
 	tform->x = prop.x;
-	tform->y = prop.y + tform->height;
-	ctx.tform_default = ctx.tform;
-	ctx.origin_x = tform->x;
-	ctx.origin_y = tform->y;
-	ctx.line_char = 0;
-	ctx.line_n = 0;
-	ctx.true_break = false;
-	while (str && *str)
+	tform->y = prop.y;
+	while (str[ctx.index])
 	{
-		if (*str == L'»' && !text_command(&ctx, &str, &prop))
+		c = str[ctx.index];
+		if (c == L'»' && !text_command(&ctx, str))
 			continue ;
-		if (*str == '\n' || (ctx.line_char >= prop.wrap_max && (*str == ' ' || ctx.true_break)))
+		if (c == '\n' || (ctx.line_char >= prop.wrap_max && (c == ' ' || ctx.true_break)))
 		{
 			ctx.line_char = 0;
 			ctx.line_n++;
-			tform->x = ctx.origin_x + (ctx.line_n * prop.nl_spacing_x * tform->width);
-			tform->y = ctx.origin_y + (ctx.line_n * prop.nl_spacing_y * tform->height);
-			str++;
+			ctx.nl_x += prop.nl_spacing_x * tform->width;
+			ctx.nl_y += prop.nl_spacing_y * tform->height;
+			tform->x = prop.x + ctx.nl_x;
+			tform->y = prop.y + ctx.nl_y;
+			ctx.index++;
+			continue;
 		}
-		ctx.actual_glyph = glyph_get_index(*str);
+		ctx.actual_glyph = glyph_get_index(c);
 		if (ctx.actual_glyph != -1)
-		{
-			draw_glyph(&ctx.tform, ctx.actual_glyph, img);
-			tform->x += prop.x_spacing * tform->width;
-			tform->y += prop.y_spacing * tform->height;
-		}
+			draw_glyph(&ctx, ctx.actual_glyph, img);
 		ctx.line_char++;
-		str++;
+		ctx.index++;
 	}
 }

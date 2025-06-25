@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 14:23:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 18:39:35 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ static inline void	transformed_draw(t_rgba8 color, t_draw_transform *tform,
 						t_vec2 *pos, t_img_data *img)
 {
 	t_rgba8		*dest;
-	float		amount;
 
-	amount = tform->color_tint;
 	dest = &tform->color;
 	if (dest->r != 255)
 		color.r = dest->r;

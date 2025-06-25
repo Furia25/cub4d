@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 01:57:54 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 19:29:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_draw_transform
 	size_t	width;
 	size_t	height;
 	t_rgba8	color;
-	float	color_tint;
 }	t_draw_transform;
 
 #endif
