@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/24 12:44:21 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/25 14:24:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include "cub3d_structs.h"
 # include "cub3d_drawing.h"
 # include "cub3d_textures.h"
+# include "cub3d_colors.h"
 
 # define WINDOW_WIDTH		1920
 # define WINDOW_HEIGHT		1080

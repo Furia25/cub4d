@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 21:20:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 01:57:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <X11/Xlib.h>
 # include <stdint.h>
 # include <crazypng.h>
+
+typedef t_png_pixel8	t_rgba8;
 
 typedef enum e_key_type
 {
@@ -76,14 +78,14 @@ typedef struct s_sprite_sheet
 	size_t	sprite_per_line;
 }	t_sprite_sheet;
 
-typedef struct s_transform
+typedef struct s_draw_transform
 {
 	size_t	x;
 	size_t	y;
 	size_t	width;
 	size_t	height;
-}	t_transform;
-
-typedef t_png_pixel8	t_rgba8;
+	t_rgba8	color;
+	float	color_tint;
+}	t_draw_transform;
 
 #endif

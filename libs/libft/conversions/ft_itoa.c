@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 18:32:30 by vdurand           #+#    #+#             */
-/*   Updated: 2024/11/22 15:44:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/24 16:11:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,6 @@ static long	ft_abs(int n)
 	if (nb < 0)
 		return (-nb);
 	return (nb);
-}
-
-static size_t	ft_intlen(int n)
-{
-	size_t	length;
-
-	length = 1;
-	while (n > 9 || n < -9)
-	{
-		n = n / 10;
-		length++;
-	}
-	return (length);
 }
 
 char	*ft_itoa(int n)
@@ -62,9 +49,3 @@ char	*ft_itoa(int n)
 		result[--index] = '-';
 	return (result);
 }
-/*  int	main(void)
-{
-	char	*test = ft_itoa(1000034);
-	printf(test);
-	free(test);
-}  */

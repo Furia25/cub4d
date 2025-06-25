@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 21:41:19 by val               #+#    #+#              #
-#    Updated: 2025/06/23 15:12:58 by vdurand          ###   ########.fr        #
+#    Updated: 2025/06/24 16:17:19 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,8 @@ BASE_SRC = checks/ft_isalpha.c \
 		strings/ft_strend.c \
 		conversions/ft_atoi.c \
 		conversions/ft_itoa.c \
+		conversions/ft_intlen.c \
+		conversions/ft_itoab.c \
 		files_managing/ft_putchar_fd.c \
 		files_managing/ft_putstr_fd.c \
 		files_managing/ft_putendl_fd.c \
