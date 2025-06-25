@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:27:11 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 02:15:35 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 02:42:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@ static inline bool	char_command(t_text_context *ctx,
 	bool	valid;
 
 	(void)prop;
-	valid = false;
+	valid = true;
 	if (c >= L'1' && c <= L'9')
 	{
 		ctx->tform.width = GLYPH_SIZE * (c - L'0');
 		ctx->tform.height = GLYPH_SIZE * (c - L'0');
-		valid = true;
 	}
 	else if (c >= L'a' && c <= L'z')
 	{
 		ctx->tform.color = g_color_text[c - L'a' + 1];
-		valid = true;
 	}
+	else if (c == '#')
+		ctx->true_break = true;
+	else
+		valid = false;
 	if (valid)
 		(*str)++;
 	return (valid);
@@ -47,7 +49,10 @@ static inline bool	text_command(t_text_context *ctx,
 	{
 		c = **str;
 		if (c == L'«')
-			return (true);
+		{
+			(*str)++;
+			return (true);	
+		}
 		if (!char_command(ctx, str, prop, c))
 			return (true);
 	}
@@ -71,11 +76,12 @@ void	draw_text(wchar_t *str, t_text_properties prop, t_img_data *img)
 	ctx.origin_y = tform->y;
 	ctx.line_char = 0;
 	ctx.line_n = 0;
+	ctx.true_break = false;
 	while (str && *str)
 	{
 		if (*str == L'»' && !text_command(&ctx, &str, &prop))
 			continue ;
-		if (*str == '\n' || (*str == ' ' && ctx.line_char >= prop.wrap_max))
+		if (*str == '\n' || (ctx.line_char >= prop.wrap_max && (*str == ' ' || ctx.true_break)))
 		{
 			ctx.line_char = 0;
 			ctx.line_n++;

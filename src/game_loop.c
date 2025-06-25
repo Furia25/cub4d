@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 02:15:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 02:47:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,15 @@ int	game_loop(void *param)
 		handle_keys(game);
 		update_player(&game->player, game);
 		render(game);
-		draw_text(L"»3u«Hello world, My name is cub3d this is my glyph feature! Amazing",
-			(t_text_properties){20, 80, 0.7, 0, 0, 0.7, 35}, frame);
+		draw_text(L"»3u«Hello »h«world, »y«My »t«name »s1«is cub3d»4« this »b«is my glyph »a«f»b«e»c«a»d«t»e«u»f«r»g«e»h«! Amazing »9v«☻",
+			(t_text_properties){20, 80, 0.7, 0, 0, 0.8, 35}, frame);
 		draw_text(L"»5r«CUB3D",
-			(t_text_properties){20, 40, 0.8, 0, 0, 0.7, 16}, frame);
+			(t_text_properties){20, 40, 0.8, 0, 0, 0.8, 16}, frame);
+		draw_text(L"»#«ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefgh\
+ijklmnopqrstuvwxyz0123456789.,?!:;`'\"*-_~#&|@≈[]<>\
+{}()/\\+=^÷٪ $°·˗■□☰√ⁿ²∓≥≤⌈⌋▸☺☻♥♦♣♠◦◘○◙♂♀♪♫¤➜◂‼¶§\
+▂↕↗↑↓→←↔★▴▾🔍❌☐☑ ",
+			(t_text_properties){WINDOW_WIDTH - 20, WINDOW_HEIGHT - 50, -1.5, 0, 0, -1.5, 16}, frame);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
 		printf("FPS : %lu\n", get_fps(time));
 		
