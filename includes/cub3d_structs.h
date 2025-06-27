@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_structs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 19:29:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/27 11:11:38 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ typedef enum e_key_type
 	KEY_TAB,
 	KEY_TEST_RIGHT,
 	KEY_TEST_LEFT,
+	KEY_INTERACT,
 	KEY_MAX_COUNT
 }	t_key_type;
 
 static const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_QUIT] = XK_Escape,
-[KEY_TEST] = XK_e,
+[KEY_TEST] = XK_r,
 [KEY_UP] = XK_w,
 [KEY_DOWN] = XK_s,
 [KEY_LEFT] = XK_a,
@@ -49,6 +50,7 @@ static const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_TEST_RIGHT] = XK_Right,
 [KEY_TEST_DOWN] = XK_Down,
 [KEY_TEST_UP] = XK_Up,
+[KEY_INTERACT] = XK_e,
 };
 
 typedef struct s_key

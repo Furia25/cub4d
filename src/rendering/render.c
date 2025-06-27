@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 15:06:32 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/27 11:58:10 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	render(t_game *game)
 	render_rays(0, context.render_width, &context);
 	draw_minimap(game);
 	draw_enemies(game);
+	manage_pnjs(game);
 	handle_full_map(game);
 }
 

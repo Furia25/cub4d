@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/26 00:28:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/27 12:53:18 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@
 # define PLAYER_SIZE		0.25
 
 # define MAX_ENEMIES		100
+
+# define S_BUTTON_INTERACT	100
+# define S_BUTTON_OUTL		4
+# define S_BUTTON_SHADOW	15
+# define INTERACTION_RANGE	2
+# define TXTBOX_X_START		350
 
 typedef enum e_enemy_state
 {
@@ -106,6 +112,7 @@ typedef struct s_game
 	t_png			*sprites[SPRITE_MAX_COUNT];
 	t_enemy			enemies[MAX_ENEMIES];
 	int				enemy_count;
+	bool			interacting;
 	t_rng_state		rng;
 	uint64_t		start_time;
 }	t_game;
@@ -132,6 +139,17 @@ typedef struct s_texture_context
 	int		tex_x;
 	int		y;
 }	t_texture_context;
+
+typedef struct s_button
+{
+	t_png_pixel8	color_light;
+	t_png_pixel8	color_dark;
+	t_png_pixel8	color_out;
+	int				width;
+	int				height;
+	int				x;
+	int				y;
+}	t_button;
 
 void		render(t_game *game);
 void		run_game(t_game *game);
@@ -195,6 +213,9 @@ void		handle_full_map(t_game *game);
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
 void		draw_enemies(t_game *game);
-
+void		draw_button(t_game *game, t_button *btn);
+void		manage_pnjs(t_game *game);
+t_vec2		calculate_axis_dist(t_vec2 p_pos, t_vec2 e_pos);
+float		calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist);
 
 #endif

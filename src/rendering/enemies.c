@@ -6,13 +6,13 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 11:11:48 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/25 11:41:22 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/27 10:48:57 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static float	calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist)
+float	calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist)
 {
 	float	dist;
 	float	squared;
@@ -29,7 +29,7 @@ static float	calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist)
 	}
 }
 
-static t_vec2	calculate_axis_dist(t_vec2 p_pos, t_vec2 e_pos)
+t_vec2	calculate_axis_dist(t_vec2 p_pos, t_vec2 e_pos)
 {
 	t_vec2	axis_dist;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   glyphs_effects.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:08:25 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/26 01:02:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/27 13:40:34 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	geffect_typewrite(t_text_context *ctx)
 {
 	size_t	end_index;
 
-	end_index = (get_time_ms() - ctx->start_time) / 100;
+	end_index = (get_time_ms() - ctx->start_time) / 50;
 	return (ctx->index < end_index);
 }
 
