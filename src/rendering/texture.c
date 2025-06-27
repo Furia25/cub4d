@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/25 09:33:19 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/25 14:29:08 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ WORKING BUT LAGGY
 /*
 TEST
 */
+
+
+
 static void	render_texture(t_texture_context *tex_ctx,
 	t_raycast_hit *hit, t_raycast_context *ctx, uint8_t *zbuf)
 {

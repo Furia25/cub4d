@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/25 15:00:34 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:27:02 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,10 @@
 #include "mlx_int.h"
 
 #include <X11/Xlib.h>
-#include <X11/cursorfont.h>
 #include <stdlib.h>
 #include <string.h>
 #include <mlx.h>
-
-#include <X11/Xlib.h>
-#include <X11/cursorfont.h>
-#include <stdlib.h>
-#include <string.h>
-#include <mlx.h>
-
-#include <X11/Xlib.h>
-#include <X11/cursorfont.h>
+#include "glyphs.h"
 
 bool	create_frame_image(t_game *game)
 {
@@ -127,6 +118,7 @@ void	run_game(t_game *game)
 	}
 	if (!create_frame_image(game))
 		exit_game(game);
+	game->start_time = time_init();
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);

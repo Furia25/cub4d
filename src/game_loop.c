@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 15:03:25 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:27:17 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "cub3d_rendering.h"
 #include "mlx.h"
 #include "mlx_int.h"
-
+#include "glyphs.h"
 
 uint64_t	get_fps(uint64_t start_time);
 
@@ -35,19 +35,9 @@ int	game_loop(void *param)
 		handle_keys(game);
 		update_player(&game->player, game);
 		render(game);
-		glyph_draw_text(L"Hello world, My name is cub3d this is my glyph feature! Amazing",
-			(t_transform){20, 100, FONT_SIZE3, FONT_SIZE2},
-			(t_text_properties){FONT_SIZE2 - 4, 0, 0, FONT_SIZE2, 16},
-			frame
-			);
-		glyph_draw_text(L"CUB3D",
-			(t_transform){20, 20, FONT_SIZE5, FONT_SIZE5},
-			(t_text_properties){FONT_SIZE5 - 4, 0, 0, FONT_SIZE2, 16},
-			frame
-			);
+		draw_text(L"»2~Th«Tart »4*«macaroon»*2🌈« RAINBOW»🌈« gummies marshmallow muffin jujubes »🌈«RAINBOW»_1« pie tart bear claw. Tootsie roll sesame »🌈«RAINBOW»🌈« snaps bonbon pie toffee ice cream fruitcake danish. Cake chupa chups sweet roll caramels sweet cotton candy sweet. Bear claw croissant tootsie roll shortbread danish candy powder. Cheesecake tart icing biscuit pudding chocolate bar lollipop croissant tart.", (t_text_properties){0, 100, 0.8, 0, 0, 1, 16, game->start_time}, frame);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-		printf("FPS : %lu  SPEED : %f\n\n", get_fps(time), vec2_length(game->player.last_move));
-		
+		printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
 	}
 	return (1);
 }

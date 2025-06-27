@@ -6,11 +6,12 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/24 01:25:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/24 15:34:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "glyphs.h"
 
 int	exit_game(t_game *game)
 {

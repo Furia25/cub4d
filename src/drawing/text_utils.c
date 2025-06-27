@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_utils.c                                       :+:      :+:    :+:   */
+/*   text_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 18:21:27 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/26 00:27:05 by vdurand          ###   ########.fr       */
+/*   Created: 2025/06/25 19:24:41 by vdurand           #+#    #+#             */
+/*   Updated: 2025/06/25 19:25:50 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "glyphs.h"
 
-static uint64_t	g_start = 0;
-
-uint64_t	get_time_ms(void)
+size_t	strlen_wchar(wchar_t *str)
 {
-	struct timeval	tv;
+	size_t	index;
 
-	gettimeofday(&tv, NULL);
-	return ((uint64_t)(tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-uint64_t	time_init(void)
-{
-	uint64_t	time;
-
-	time = get_time_ms();
-	g_start = time;
-	return (time);
-}
-
-uint64_t	get_elapsed_ms(void)
-{
-	return (get_time_ms() - g_start);
+	index = 0;
+	while (str[index])
+		index++;
+	return (index);
 }
