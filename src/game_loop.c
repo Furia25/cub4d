@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/24 03:57:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/25 15:03:25 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	game_loop(void *param)
 	if (time >= last_time)
 	{
 		last_time = time + 16;
-		memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
+		ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
 		handle_keys(game);
 		update_player(&game->player, game);
 		render(game);

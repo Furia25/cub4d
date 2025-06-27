@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 10:46:04 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/25 15:06:32 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	render_init(int width, int height,
 {
 	static uint8_t	z_buffer[WINDOW_WIDTH * WINDOW_HEIGHT] = {UINT8_MAX};
 
-	memset(z_buffer, UINT8_MAX, sizeof(z_buffer));
+	ft_memset(z_buffer, UINT8_MAX, sizeof(z_buffer));
 	context->z_buffer = &z_buffer[0];
 	context->game = game;
 	context->tilemap = game->tilemap;
