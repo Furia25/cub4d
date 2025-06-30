@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:50:02 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/27 13:24:44 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/30 11:02:21 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static int	is_corner(int i, int j, t_button *btn)
 
 static int	is_shadow(int i, int j, t_button *btn)
 {
-	return (i < S_BUTTON_SHADOW + S_BUTTON_OUTL || \
-	(j > btn->height - (S_BUTTON_SHADOW + S_BUTTON_OUTL)));
+	return (i < btn->shadow_size + S_BUTTON_OUTL || \
+	(j > btn->height - (btn->shadow_size + S_BUTTON_OUTL)));
 }
 
 void	draw_button(t_game *game, t_button *btn)

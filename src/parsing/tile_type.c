@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:55:18 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 10:47:26 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:10:49 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	player_tile(char c)
 int	center_tile(char c)
 {
 	if (c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W' && \
-		c != 'P')
+		c != 'M' && c != 'P')
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/27 11:57:44 by halnuma          ###   ########.fr        #
+#    Updated: 2025/06/30 14:39:56 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,7 +105,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -O3 -march=native -funroll-loops -g3 -std=c99 -flto
+CFLAGS = -Werror -Wextra -Wall -O3 -march=native -funroll-loops -g3 -flto
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 

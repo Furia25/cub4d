@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/27 11:20:24 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:32:50 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ int	init_sprites(t_game *game)
 
 int	init_textures(t_game *game)
 {
-	game->textures[TEXTURE_NORTH] = png_open("assets/textures/north.png");
+	game->textures[TEXTURE_NORTH] = png_open(game->paths[0]);
 	if (!game->textures[TEXTURE_NORTH])
 		return (0);
-	game->textures[TEXTURE_EAST] = png_open("assets/textures/east.png");
+	game->textures[TEXTURE_EAST] = png_open(game->paths[3]);
 	if (!game->textures[TEXTURE_EAST])
 		return (0);
-	game->textures[TEXTURE_WEST] = png_open("assets/textures/west.png");
+	game->textures[TEXTURE_WEST] = png_open(game->paths[2]);
 	if (!game->textures[TEXTURE_WEST])
 		return (0);
-	game->textures[TEXTURE_SOUTH] = png_open("assets/textures/south.png");
+	game->textures[TEXTURE_SOUTH] = png_open(game->paths[1]);
 	if (!game->textures[TEXTURE_SOUTH])
 		return (0);
 	if (!glyph_init("assets/textures/glyph.png"))
@@ -119,6 +119,7 @@ void	run_game(t_game *game)
 	if (!create_frame_image(game))
 		exit_game(game);
 	game->start_time = time_init();
+	game->interaction = 0;
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);

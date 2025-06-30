@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   full_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:55:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:01:09 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ void	draw_lines(char *line, t_game *game, int pos_y)
 	{
 		if (center_tile(line[tile]))
 			draw_tiles(game, pos_x, pos_y, rgba8(0, 150, 255, 200));
-		if (line[tile] == '1')
+		else if (line[tile] == '1')
 			draw_tiles(game, pos_x, pos_y, rgba8(200, 10, 200, 200));
+		else if (line[tile] == 'P')
+			draw_tiles(game, pos_x, pos_y, rgba8(0, 0, 255, 200));
 		tile++;
 		pos_x++;
 	}

@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/27 12:53:18 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:13:27 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <X11/Xlib.h>
 # include <stdint.h>
 # include <stdlib.h>
+#include <unistd.h>
 
 # include "libft.h"
 # include "mlx.h"
@@ -50,12 +51,157 @@
 # define PLAYER_SIZE		0.25
 
 # define MAX_ENEMIES		100
+# define MAX_PNJ			10
 
 # define S_BUTTON_INTERACT	100
 # define S_BUTTON_OUTL		4
-# define S_BUTTON_SHADOW	15
 # define INTERACTION_RANGE	2
 # define TXTBOX_X_START		350
+
+# define INTERACT_DELAY		200000 
+
+static wchar_t *g_pnj_text_0[] = {
+	L"»2T«PNJ 1 : texte 1",
+	L"»2T«PNJ 1 : texte 2",
+	L"»2T«PNJ 1 : texte 3",
+	L"»2T«PNJ 1 : texte 4",
+	L"»2T«PNJ 1 : texte 5",
+	L"»2T«PNJ 1 : texte 6",
+	L"»2T«PNJ 1 : texte 7",
+	L"»2T«PNJ 1 : texte 8",
+	L"»2T«PNJ 1 : texte 9",
+	NULL
+};
+
+static wchar_t *g_pnj_text_1[] = {
+	L"»2T«PNJ 2 : texte 1",
+	L"»2T«PNJ 2 : texte 2",
+	L"»2T«PNJ 2 : texte 3",
+	L"»2T«PNJ 2 : texte 4",
+	L"»2T«PNJ 2 : texte 5",
+	L"»2T«PNJ 2 : texte 6",
+	L"»2T«PNJ 2 : texte 7",
+	L"»2T«PNJ 2 : texte 8",
+	L"»2T«PNJ 2 : texte 9",
+	NULL
+};
+
+static wchar_t *g_pnj_text_2[] = {
+	L"»2T«PNJ 3 : texte 1",
+	L"»2T«PNJ 3 : texte 2",
+	L"»2T«PNJ 3 : texte 3",
+	L"»2T«PNJ 3 : texte 4",
+	L"»2T«PNJ 3 : texte 5",
+	L"»2T«PNJ 3 : texte 6",
+	L"»2T«PNJ 3 : texte 7",
+	L"»2T«PNJ 3 : texte 8",
+	L"»2T«PNJ 3 : texte 9",
+	NULL
+};
+
+static wchar_t *g_pnj_text_3[] = {
+	L"»2T«PNJ 4 : texte 1",
+	L"»2T«PNJ 4 : texte 2",
+	L"»2T«PNJ 4 : texte 3",
+	L"»2T«PNJ 4 : texte 4",
+	L"»2T«PNJ 4 : texte 5",
+	L"»2T«PNJ 4 : texte 6",
+	L"»2T«PNJ 4 : texte 7",
+	L"»2T«PNJ 4 : texte 8",
+	L"»2T«PNJ 4 : texte 9",
+	NULL
+};
+
+static wchar_t *g_pnj_text_4[] = {
+	L"»2T«PNJ 5 : texte 1",
+	L"»2T«PNJ 5 : texte 2",
+	L"»2T«PNJ 5 : texte 3",
+	L"»2T«PNJ 5 : texte 4",
+	L"»2T«PNJ 5 : texte 5",
+	L"»2T«PNJ 5 : texte 6",
+	L"»2T«PNJ 5 : texte 7",
+	L"»2T«PNJ 5 : texte 8",
+	L"»2T«PNJ 5 : texte 9",
+	NULL
+};
+
+static wchar_t *g_pnj_text_5[] = {
+	L"»2T«PNJ 6 : texte 1",
+	L"»2T«PNJ 6 : texte 2",
+	L"»2T«PNJ 6 : texte 3",
+	L"»2T«PNJ 6 : texte 4",
+	L"»2T«PNJ 6 : texte 5",
+	L"»2T«PNJ 6 : texte 6",
+	L"»2T«PNJ 6 : texte 7",
+	L"»2T«PNJ 6 : texte 8",
+	L"»2T«PNJ 6 : texte 9",
+	NULL
+};
+
+static wchar_t *g_pnj_text_6[] = {
+	L"»2T«PNJ 7 : texte 1",
+	L"»2T«PNJ 7 : texte 2",
+	L"»2T«PNJ 7 : texte 3",
+	L"»2T«PNJ 7 : texte 4",
+	L"»2T«PNJ 7 : texte 5",
+	L"»2T«PNJ 7 : texte 6",
+	L"»2T«PNJ 7 : texte 7",
+	L"»2T«PNJ 7 : texte 8",
+	L"»2T«PNJ 7 : texte 9",
+	NULL
+};
+
+static wchar_t *g_pnj_text_7[] = {
+	L"»2T«PNJ 8 : texte 1",
+	L"»2T«PNJ 8 : texte 2",
+	L"»2T«PNJ 8 : texte 3",
+	L"»2T«PNJ 8 : texte 4",
+	L"»2T«PNJ 8 : texte 5",
+	L"»2T«PNJ 8 : texte 6",
+	L"»2T«PNJ 8 : texte 7",
+	L"»2T«PNJ 8 : texte 8",
+	L"»2T«PNJ 8 : texte 9",
+	NULL
+};
+
+static wchar_t *g_pnj_text_8[] = {
+	L"»2T«PNJ 9 : texte 1",
+	L"»2T«PNJ 9 : texte 2",
+	L"»2T«PNJ 9 : texte 3",
+	L"»2T«PNJ 9 : texte 4",
+	L"»2T«PNJ 9 : texte 5",
+	L"»2T«PNJ 9 : texte 6",
+	L"»2T«PNJ 9 : texte 7",
+	L"»2T«PNJ 9 : texte 8",
+	L"»2T«PNJ 9 : texte 9",
+	NULL
+};
+
+static wchar_t *g_pnj_text_9[] = {
+	L"»2T«PNJ 10 : texte 1",
+	L"»2T«PNJ 10 : texte 2",
+	L"»2T«PNJ 10 : texte 3",
+	L"»2T«PNJ 10 : texte 4",
+	L"»2T«PNJ 10 : texte 5",
+	L"»2T«PNJ 10 : texte 6",
+	L"»2T«PNJ 10 : texte 7",
+	L"»2T«PNJ 10 : texte 8",
+	L"»2T«PNJ 10 : texte 9",
+	NULL
+};
+
+static wchar_t **g_pnj_text[MAX_PNJ] = {
+	g_pnj_text_0,
+	g_pnj_text_1,
+	g_pnj_text_2,
+	g_pnj_text_3,
+	g_pnj_text_4,
+	g_pnj_text_5,
+	g_pnj_text_6,
+	g_pnj_text_7,
+	g_pnj_text_8,
+	g_pnj_text_9
+};
 
 typedef enum e_enemy_state
 {
@@ -85,10 +231,17 @@ typedef struct s_player
 	bool	is_grounded;
 }	t_player;
 
+typedef struct s_pnj
+{
+	t_vec2			position;
+	wchar_t			**text;
+}	t_pnj;
+
 typedef struct s_enemy
 {
 	t_vec2			position;
 	int				hp;
+	wchar_t			**text;
 	t_enemy_state	state;
 }	t_enemy;
 
@@ -112,7 +265,9 @@ typedef struct s_game
 	t_png			*sprites[SPRITE_MAX_COUNT];
 	t_enemy			enemies[MAX_ENEMIES];
 	int				enemy_count;
-	bool			interacting;
+	t_enemy			pnjs[MAX_PNJ];
+	int				pnj_count;
+	int				interaction;
 	t_rng_state		rng;
 	uint64_t		start_time;
 }	t_game;
@@ -137,7 +292,6 @@ typedef struct s_texture_context
 	int		wall_end_actual;
 	int		wall_height;
 	int		tex_x;
-	int		y;
 }	t_texture_context;
 
 typedef struct s_button
@@ -149,6 +303,7 @@ typedef struct s_button
 	int				height;
 	int				x;
 	int				y;
+	int				shadow_size;
 }	t_button;
 
 void		render(t_game *game);
@@ -205,7 +360,8 @@ int			player_tile(char c);
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);
 void 		draw_player(t_game *game);
-void		draw_tile(t_tile_context *tile, t_png_pixel8 color);
+void		draw_tile(t_tile_context *tile, t_png_pixel8 color, int mid_off);
+void		draw_pnj(t_tile_context *tile, t_png_pixel8 color);
 void		draw_border(t_game *game);
 void		draw_player(t_game *game);
 void		handle_full_map(t_game *game);

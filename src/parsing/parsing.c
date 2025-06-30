@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/25 10:25:07 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/30 14:48:36 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	check_tiles_and_borders(t_game *game)
 	int	j;
 	int	k;
 	int	e;
+	int	p;
 	int	player;
 	int	width;
 
@@ -25,11 +26,13 @@ int	check_tiles_and_borders(t_game *game)
 	j = 0;
 	k = 0;
 	e = 0;
+	p = 0;
 	player = 0;
 	game->width = 0;
 	game->map = (char **)malloc(sizeof(char *) * ((game->height -7) + 1));
 	game->height -= 7;
 	game->enemy_count = 0;
+	game->pnj_count = 0;
 	if (!game->map)
 		return (0);
 	while (game->file_content[i])
@@ -63,7 +66,7 @@ int	check_tiles_and_borders(t_game *game)
 			if (center_tile(game->file_content[i][j]) && \
 			!borders_around(game->file_content, i, j))
 				return (0);
-			if (game->file_content[i][j] == 'P')
+			if (game->file_content[i][j] == 'M')
 			{
 				if (game->enemy_count >= MAX_ENEMIES)
 					return (0);
@@ -73,6 +76,16 @@ int	check_tiles_and_borders(t_game *game)
 				game->enemies[e].state = SLEEPING;
 				game->enemy_count++;
 				e++;
+			}
+			if (game->file_content[i][j] == 'P')
+			{
+				if (game->pnj_count >= MAX_PNJ)
+					return (0);
+				game->pnjs[p].position.x = (double)j + 0.5;
+				game->pnjs[p].position.y = (double)(i - 8) + 0.5;
+				game->pnjs[p].text = g_pnj_text[p];
+				game->pnj_count++;
+				p++;
 			}
 			j++;
 		}
@@ -104,6 +117,7 @@ int	check_paths(t_game *game)
 	{
 		line = game->file_content[i];
 		game->paths[i] = game->file_content[i];
+		game->paths[i] += sizeof(char) * 3;
 		if (ft_strncmp(line, identifiers[i], 3))
 			return (0);
 		line += (sizeof(char) * 3);

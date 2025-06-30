@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/18 10:50:06 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:15:47 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	draw_empty_tiles(t_tile_context *tile, int limit)
 {
 	while (tile->tile < limit)
 	{
-		draw_tile(tile, rgba8(0, 0, 0, 200));
+		draw_tile(tile, rgba8(0, 0, 0, 200), 0);
 		tile->tile++;
 		tile->pos_x++;
 	}
@@ -41,11 +41,13 @@ void	draw_plain_tiles(t_tile_context *tile)
 		if (tile->line[tile->tile] == ' '
 			|| tile->line[tile->tile] == '\n'
 			|| tile->tile > (int)ft_strlen(tile->line))
-			draw_tile(tile, rgba8(0, 0, 0, 200));
+			draw_tile(tile, rgba8(0, 0, 0, 200), 0);
 		else if (center_tile(tile->line[tile->tile]))
-			draw_tile(tile, rgba8(255, 150, 100, 200));
+			draw_tile(tile, rgba8(255, 150, 100, 200), 0);
 		else if (tile->line[tile->tile] == '1')
-			draw_tile(tile, rgba8(200, 10, 40, 200));
+			draw_tile(tile, rgba8(200, 10, 40, 200), 0);
+		if (tile->line[tile->tile] == 'P')
+			draw_tile(tile, rgba8(0, 0, 255, 200), MMAP_TILE_SIZE / 2);
 		tile->tile++;
 		tile->pos_x++;
 	}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_drawing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:55:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:12:22 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_tile(t_tile_context *tile, t_png_pixel8 color)
+void	draw_tile(t_tile_context *tile, t_png_pixel8 color, int mid_off)
 {
 	int	i;
 	int	j;
@@ -20,15 +20,15 @@ void	draw_tile(t_tile_context *tile, t_png_pixel8 color)
 	int	y;
 
 	i = 0;
-	while (i < MMAP_TILE_SIZE)
+	while (i < MMAP_TILE_SIZE - mid_off)
 	{
 		j = 0;
-		while (j < MMAP_TILE_SIZE)
+		while (j < MMAP_TILE_SIZE - mid_off)
 		{
 			x = (tile->pos_x * MMAP_TILE_SIZE + i - tile->off_x \
-				+ MINIMAP_X_START + MINIMAP_BORDER);
+				+ MINIMAP_X_START + MINIMAP_BORDER) + (mid_off / 2);
 			y = (tile->pos_y * MMAP_TILE_SIZE + j - tile->off_y \
-				+ MINIMAP_Y_START + MINIMAP_BORDER);
+				+ MINIMAP_Y_START + MINIMAP_BORDER) + (mid_off / 2);
 			if (x >= MINIMAP_X_START + MINIMAP_BORDER && \
 				x < MINIMAP_X_START + MINIMAP_SIZE && \
 				y >= MINIMAP_Y_START + MINIMAP_BORDER && \
@@ -86,6 +86,34 @@ void	draw_player(t_game *game)
 				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
 				game->img
 				);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_pnj(t_tile_context *tile, t_png_pixel8 color)
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+
+	i = 0;
+	while (i < MINIMAP_P_SIZE)
+	{
+		j = 0;
+		while (j < MINIMAP_P_SIZE)
+		{
+			x = (tile->pos_x * MMAP_TILE_SIZE + i - tile->off_x \
+				+ MINIMAP_X_START + MINIMAP_BORDER) + (MMAP_TILE_SIZE / 4);
+			y = (tile->pos_y * MMAP_TILE_SIZE + j - tile->off_y \
+				+ MINIMAP_Y_START + MINIMAP_BORDER) + (MMAP_TILE_SIZE / 4);
+			if (x >= MINIMAP_X_START + MINIMAP_BORDER && \
+				x < MINIMAP_X_START + MINIMAP_SIZE && \
+				y >= MINIMAP_Y_START + MINIMAP_BORDER && \
+				y < MINIMAP_Y_START + MINIMAP_SIZE)
+				draw_pixel(color, x, y, tile->game->img);
 			j++;
 		}
 		i++;

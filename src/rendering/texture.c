@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/25 14:29:08 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/06/30 13:59:53 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,15 @@ static void	render_texture(t_texture_context *tex_ctx,
 	int		tex_y;
 	float	tex_pos;
 	float	step;
+	int		y;
 
 	step = tex_ctx->texture->header.height / (float)tex_ctx->wall_height;
 	tex_pos = tex_ctx->texture->header.height \
 	- ((tex_ctx->wall_end_actual - tex_ctx->wall_end) * step);
-	tex_ctx->y = tex_ctx->wall_end;
-	while (tex_ctx->y > tex_ctx->wall_start)
+	y = tex_ctx->wall_end + 1;
+	while (--y > tex_ctx->wall_start)
 	{
-		buffer_idx = tex_ctx->y * WINDOW_WIDTH + ctx->column;
+		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		tex_y = (int)(tex_pos - (tex_ctx->texture->header.height \
 			* floorf(tex_pos / tex_ctx->texture->header.height)));
 		if (hit->dist < zbuf[buffer_idx])
@@ -137,11 +138,10 @@ static void	render_texture(t_texture_context *tex_ctx,
 			draw_pixel(
 				tex_ctx->texture->pixels_8bit[tex_y \
 				* tex_ctx->texture->header.width + tex_ctx->tex_x],
-				ctx->column, tex_ctx->y, ctx->render_ctx->frame);
+				ctx->column, y, ctx->render_ctx->frame);
 			zbuf[buffer_idx] = hit->dist;
 		}
 		tex_pos -= step;
-		tex_ctx->y--;
 	}
 }
 
