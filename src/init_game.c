@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 14:32:50 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/02 13:48:14 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,21 @@ int	init_assets(t_game *game)
 	return (1);
 }
 
+int	init_menu(t_game *game)
+{
+	game->menu.assets[ASSET_BG_START] = png_open("assets/menu/bg_start.png");
+	if (!game->menu.assets[ASSET_BG_START])
+		return (0);
+	game->menu.assets[ASSET_BG_PAUSE] = png_open("assets/menu/bg_pause.png");
+	if (!game->menu.assets[ASSET_BG_PAUSE])
+		return (0);
+	game->menu.assets[ASSET_SELECTOR] = png_open("assets/menu/selector.png");
+	if (!game->menu.assets[ASSET_SELECTOR])
+		return (0);
+	game->menu.action = true;
+	return (1);
+}
+
 void	init_player(t_player *player)
 {
 	float	size;
@@ -104,6 +119,8 @@ void	run_game(t_game *game)
 	rng_init(&game->rng, 0xCACA);
 	if (!init_assets(game))
 		exit_game(game);
+	if (!init_menu(game))
+		exit_game(game);
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
@@ -120,6 +137,7 @@ void	run_game(t_game *game)
 		exit_game(game);
 	game->start_time = time_init();
 	game->interaction = 0;
+	game->state = MENU;
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);

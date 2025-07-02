@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 15:17:23 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/02 14:21:35 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	draw_textbox(t_game *game, wchar_t *text)
 	int				y;
 	int				i;
 	int				j;
+	uint64_t		time;
 
 	btn.color_light = rgba8(207, 185, 151, 255);
 	btn.color_dark = rgba8(157, 113, 83, 255);
@@ -62,8 +63,9 @@ void	draw_textbox(t_game *game, wchar_t *text)
 	y = MINIMAP_Y_START + 40;
 	i = 0;
 	j = 0;
+	// time = get_time_ms();
 	draw_text(text, (t_text_properties){x, y, 0.8, 0, 0, 1, 75, \
-		game->start_time}, game->img);
+		time}, game->img);
 	btn.x = 1775;
 	btn.y = 950;
 	btn.width = 60;
@@ -86,10 +88,7 @@ void	manage_interaction(t_game *game, wchar_t **text)
 	t_button		btn;
 
 	if (is_key_pressed(KEY_INTERACT, game))
-	{
 		game->interaction++;
-		usleep(INTERACT_DELAY);
-	}
 	if (!game->interaction)
 	{
 		btn.x = ((WINDOW_WIDTH / 2) - (S_BUTTON_INTERACT / 2));
@@ -99,9 +98,9 @@ void	manage_interaction(t_game *game, wchar_t **text)
 		draw_interact_button(game, &btn, 0);
 	}
 	else if (game->interaction - 1 < tablen(text))
-	{
 		draw_textbox(game, text[game->interaction - 1]);
-	}
+	else if (game->interaction - 1 >= tablen(text))
+		game->interaction = 0;
 }
 
 void	manage_pnjs(t_game *game)

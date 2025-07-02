@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 15:01:09 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/02 13:52:23 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,23 @@ void	draw_lines(char *line, t_game *game, int pos_y)
 			draw_tiles(game, pos_x, pos_y, rgba8(0, 150, 255, 200));
 		else if (line[tile] == '1')
 			draw_tiles(game, pos_x, pos_y, rgba8(200, 10, 200, 200));
-		else if (line[tile] == 'P')
+		if (line[tile] == 'P')
 			draw_tiles(game, pos_x, pos_y, rgba8(0, 0, 255, 200));
 		tile++;
 		pos_x++;
 	}
 }
 
-void	handle_full_map(t_game *game)
+void	draw_full_map(t_game *game)
 {
 	int	line;
 
-	if (is_key_pressed(KEY_TAB, game))
+	line = 0;
+	while (game->map[line])
 	{
-		line = 0;
-		while (game->map[line])
-		{
-			draw_lines(game->map[line], game, line);
-			line++;
-		}
-		draw_tiles(game, game->player.position.x, \
-			game->player.position.y, rgba8(255, 0, 10, 200));
+		draw_lines(game->map[line], game, line);
+		line++;
 	}
+	draw_tiles(game, game->player.position.x, \
+		game->player.position.y, rgba8(255, 0, 10, 200));
 }

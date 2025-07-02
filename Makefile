@@ -6,7 +6,7 @@
 #    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/30 14:39:56 by halnuma          ###   ########.fr        #
+#    Updated: 2025/07/02 13:12:54 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRC_FILES = \
 	rendering/enemies.c \
 	rendering/pnj.c \
 	rendering/button.c \
+	rendering/menu.c \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_populate.c \

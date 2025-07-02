@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 15:13:27 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/02 13:52:35 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <X11/Xlib.h>
 # include <stdint.h>
 # include <stdlib.h>
-#include <unistd.h>
+# include <unistd.h>
 
 # include "libft.h"
 # include "mlx.h"
@@ -58,7 +58,7 @@
 # define INTERACTION_RANGE	2
 # define TXTBOX_X_START		350
 
-# define INTERACT_DELAY		200000 
+# define INTERACT_DELAY		150000 
 
 static wchar_t *g_pnj_text_0[] = {
 	L"»2T«PNJ 1 : texte 1",
@@ -203,6 +203,13 @@ static wchar_t **g_pnj_text[MAX_PNJ] = {
 	g_pnj_text_9
 };
 
+typedef enum e_game_state
+{
+	MENU,
+	PLAYING,
+	PAUSED
+}	t_game_state;
+
 typedef enum e_enemy_state
 {
 	ON_ALERT,
@@ -245,6 +252,12 @@ typedef struct s_enemy
 	t_enemy_state	state;
 }	t_enemy;
 
+typedef struct s_menu
+{
+	t_png	*assets[ASSET_MAX_COUNT];
+	bool	action;
+}	t_menu;
+
 typedef struct s_game
 {
 	void			*mlx;
@@ -268,6 +281,8 @@ typedef struct s_game
 	t_enemy			pnjs[MAX_PNJ];
 	int				pnj_count;
 	int				interaction;
+	t_game_state	state;
+	t_menu			menu;
 	t_rng_state		rng;
 	uint64_t		start_time;
 }	t_game;
@@ -364,7 +379,7 @@ void		draw_tile(t_tile_context *tile, t_png_pixel8 color, int mid_off);
 void		draw_pnj(t_tile_context *tile, t_png_pixel8 color);
 void		draw_border(t_game *game);
 void		draw_player(t_game *game);
-void		handle_full_map(t_game *game);
+void		draw_full_map(t_game *game);
 
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
@@ -373,5 +388,7 @@ void		draw_button(t_game *game, t_button *btn);
 void		manage_pnjs(t_game *game);
 t_vec2		calculate_axis_dist(t_vec2 p_pos, t_vec2 e_pos);
 float		calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist);
+void		render_start_menu(t_game *game);
+void		render_pause_menu(t_game *game);
 
 #endif

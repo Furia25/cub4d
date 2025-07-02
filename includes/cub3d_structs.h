@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/27 11:11:38 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/02 13:24:13 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef enum e_key_type
 	KEY_TEST_RIGHT,
 	KEY_TEST_LEFT,
 	KEY_INTERACT,
+	KEY_ENTER,
+	KEY_PAUSE,
 	KEY_MAX_COUNT
 }	t_key_type;
 
@@ -51,6 +53,8 @@ static const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_TEST_DOWN] = XK_Down,
 [KEY_TEST_UP] = XK_Up,
 [KEY_INTERACT] = XK_e,
+[KEY_PAUSE] = XK_p,
+[KEY_ENTER] = XK_Return
 };
 
 typedef struct s_key
