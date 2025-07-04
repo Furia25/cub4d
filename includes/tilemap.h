@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 18:16:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 19:36:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void		tilemap_free_tiles(t_tilemap *map);
 
 bool		tilemap_is_tile_valid(size_t x, size_t y, t_tilemap *map);
 t_tile		*tilemap_get_tile(size_t x, size_t y, t_tilemap *map);
-bool		tilemap_collision(float x, float y, float z, t_tilemap *tilemap);
-bool		tilemap_collision_bbox(t_vec3 axis, t_bbox bbox, t_tilemap *map);
+bool		tilemap_collision(float x, float y, t_vec2 z, t_tilemap *tilemap);
+bool		tilemap_collide_bbox(t_vec3 axis, t_bbox bbox, t_tilemap *map);
 
 t_tilemap	*tilemap_from_tab(char **tab, size_t width,
 				size_t height, size_t tile_size);

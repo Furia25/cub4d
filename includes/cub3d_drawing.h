@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:02:52 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 14:23:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:48:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static inline t_rgba8	rgba8(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
 	return (t_rgba8){a, r, g, b};
 }
-/*TEMP*//*TEMP*//*TEMP*//*TEMP*//*TEMP*//*TEMP*/
 
 void	draw_pixel(t_rgba8 rgba, unsigned int x, unsigned int y, t_img_data *img);
 void	draw_rect(t_png_pixel8 rgba, t_rect rectangle, t_img_data *img);

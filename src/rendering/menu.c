@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 18:08:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:35:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void	draw_text_menu(t_game *game, wchar_t *text, int x, int y)
 		game->start_time}, game->img);
 }
 
+//TEMP C'est vraiment les deux mêmes fonctions
+
 void	render_start_menu(t_game *game)
 {
 	t_png_pixel8	*background;
@@ -73,6 +75,30 @@ void	render_start_menu(t_game *game)
 	input = (key_is_pressed(KEY_DOWN, game) - key_is_pressed(KEY_UP, game));
 	input += (key_is_pressed(KEY_TEST_DOWN, game) - key_is_pressed(KEY_TEST_UP, game));
 	game->menu.action = clamp(game->menu.action + input, 0, MENU_ACTIONS);
+	if (key_is_released(KEY_ENTER, game))
+	{
+		if (game->menu.action == 0)
+			game->state = PLAYING;
+		else
+			exit_game(game);
+	}
+	if (key_is_pressed(KEY_PAUSE, game))
+		exit_game(game);
+}
+
+void	render_pause_menu(t_game *game)
+{
+	t_png_pixel8	*background;
+	int				input;
+
+	background = game->menu.assets[ASSET_BG_PAUSE]->pixels_8bit;
+	draw_backround(game, background);
+	draw_full_map(game);
+	draw_text_menu(game, L"»5«Resume", 850, 550);
+	draw_selector(game, 750, 525);
+	input = (key_is_pressed(KEY_DOWN, game) - key_is_pressed(KEY_UP, game));
+	input += (key_is_pressed(KEY_TEST_DOWN, game) - key_is_pressed(KEY_TEST_UP, game));
+	game->menu.action = clamp(game->menu.action + input, 0, MENU_ACTIONS);
 	if (key_check(KEY_ENTER, game))
 	{
 		if (game->menu.action == 0)
@@ -80,26 +106,6 @@ void	render_start_menu(t_game *game)
 		else
 			exit_game(game);
 	}
-}
-
-void	render_pause_menu(t_game *game)
-{
-	t_png_pixel8	*background;
-
-	background = game->menu.assets[ASSET_BG_PAUSE]->pixels_8bit;
-	draw_backround(game, background);
-	draw_full_map(game);
-	draw_text_menu(game, L"»5«Resume", 850, 550);
-	draw_selector(game, 750, 525);
-	if (key_check(KEY_TEST_DOWN, game) || key_check(KEY_DOWN, game))
-		game->menu.action = false;
-	if (key_check(KEY_TEST_UP, game) || key_check(KEY_UP, game))
-		game->menu.action = true;
-	if (key_check(KEY_ENTER, game))
-	{
-		if (game->menu.action)
-			game->state = PLAYING;
-		else
-			exit_game(game);
-	}
+	if (key_is_pressed(KEY_PAUSE, game))
+		game->state = PLAYING;
 }

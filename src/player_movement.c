@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/04 17:57:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 19:54:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,52 +18,37 @@ void	player_move_collision(t_vec3 move, t_player *player, t_game *game)
 	t_vec3	temp_v;
 
 	temp_v = vec3_new(move.x, 0, 0);
-	if (!tilemap_collision_bbox(temp_v, player->collision_box, game->tilemap))
-	{
-		player->position.x += move.x;
-		player->collision_box.min.x += move.x;
-		player->collision_box.max.x += move.x;
-	}
+	if (!tilemap_collide_bbox(temp_v, player->bbox, game->tilemap))
+		player_add_x(move.x, player);
 	temp_v = vec3_new(0, move.y, 0);
-	if (!tilemap_collision_bbox(temp_v, player->collision_box, game->tilemap))
-	{
-		player->position.y += move.y;
-		player->collision_box.min.y += move.y;
-		player->collision_box.max.y += move.y;
-	}
-}
-
-void	player_handle_fly(t_player *plr, float fly)
-{
-	plr->height += fly;
-	plr->collision_box.min.z += fly;
-	plr->collision_box.max.z += fly;
+	if (!tilemap_collide_bbox(temp_v, player->bbox, game->tilemap))
+		player_add_y(move.y, player);
 }
 
 void	player_handle_jump(t_player *plr, t_game *game)
 {
-	const float	gravity = -0.015f;
+	const float	gravity = -0.013f;
 	bool		jumping;
+	bool		on_ground;
 
 	jumping = key_check(KEY_JUMP, game);
 	if (jumping && plr->is_grounded)
 	{
-		plr->jump_velocity = plr->jump_force;
 		plr->is_grounded = false;
+		plr->jump_velocity = plr->jump_force;
 	}
-	// if (plr->eye_height > 0.3f)
-		plr->jump_velocity += gravity;
-	if (!tilemap_collision_bbox((t_vec3){0, 0, plr->jump_velocity}, plr->collision_box, game->tilemap))
+	plr->jump_velocity += gravity;
+	if (!(plr->jump_velocity < 0 && plr->bbox.min.z <= plr->eye_height)
+		&& !tilemap_collide_bbox((t_vec3){0, 0, plr->jump_velocity},
+			plr->bbox, game->tilemap))
 	{
-		plr->height += plr->jump_velocity;
-		plr->collision_box.min.z += plr->jump_velocity;
-		plr->collision_box.max.z += plr->jump_velocity;
+		player_add_z(plr->jump_velocity, plr);
 	}
 	else
-	{
 		plr->jump_velocity = 0.0f;
+	if (plr->bbox.min.z <= plr->eye_height
+		|| tilemap_collide_bbox((t_vec3){0, 0, -0.1}, plr->bbox, game->tilemap))
 		plr->is_grounded = true;
-	}
 }
 
 void	update_player(t_player *player, t_game *game)
@@ -79,7 +64,6 @@ void	update_player(t_player *player, t_game *game)
 	player->rad_direction += (M_PI / 100) * (key_check(KEY_TEST_RIGHT, game) - key_check(KEY_TEST_LEFT, game));
 	dir = vec2_from_angle(player->rad_direction);
 	move = vec2_add(vec2_scale(dir, forward), vec2_scale(vec2_new(-dir.y, dir.x), strafe));
-	
 	if (strafe == 0 && forward == 0)
 	{
 		move = player->last_move;
@@ -95,5 +79,5 @@ void	update_player(t_player *player, t_game *game)
 	if (fly == 0)
 		player_handle_jump(player, game);
 	else
-		player_handle_fly(player, fly);
+		player_add_z(fly, player);
 }

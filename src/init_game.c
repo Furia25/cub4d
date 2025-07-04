@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 17:44:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 20:11:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	init_textures(t_game *game)
 	game->textures[TEXTURE_SOUTH] = png_open(game->paths[1]);
 	if (!game->textures[TEXTURE_SOUTH])
 		return (0);
-	game->textures[TEXTURE_TOP] = png_open("assets/textures/wall_top.png");
+	game->textures[TEXTURE_TOP] = png_open("assets/textures/4k.png");
 	if (!game->textures[TEXTURE_TOP])
 		return (0);
 	game->textures[TEXTURE_BOT] = png_open("assets/textures/wall_bot.png");
@@ -100,13 +100,13 @@ void	init_player(t_player *player)
 	player->jump_force = 0.3f;
 	player->fov_deg = 80;
 	size = PLAYER_SIZE / 2;
-	player->height = player->eye_height + 0.4;
-	min = vec3_new(player->position.x - size, player->position.y - size, 0);
-	min.z = player->eye_height;
-	max = vec3_new(player->position.x + size, player->position.y + size, 0);
-	max.z = 0.1f;
+	player->position.z = player->eye_height + 0.5;
+	min = vec3_new(player->position.x - size,
+		player->position.y - size, player->position.z + 0.4);
+	max = vec3_new(player->position.x + size,
+		player->position.y + size, player->position.z - 0.4);
 	player->accel = 0;
-	player->collision_box = bbox_new(min, max);
+	player->bbox = bbox_new(min, max);
 	player->is_grounded = true;
 }
 

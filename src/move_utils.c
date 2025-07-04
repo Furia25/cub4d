@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/20 15:31:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 19:48:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,25 @@ int mouse_move(int x, int y, t_game *game)
 	game->player.rad_direction += x_dif;
 	mlx_mouse_move(game->mlx, game->win, width, WINDOW_HEIGHT / 2);
 	return (1);
+}
+
+void	player_add_x(float value, t_player *player)
+{
+	player->position.x += value;
+	player->bbox.min.x += value;
+	player->bbox.max.x += value;
+}
+
+void	player_add_y(float value, t_player *player)
+{
+	player->position.y += value;
+	player->bbox.min.y += value;
+	player->bbox.max.y += value;
+}
+
+void	player_add_z(float value, t_player *player)
+{
+	player->position.z += value;
+	player->bbox.min.z += value;
+	player->bbox.max.z += value;
 }

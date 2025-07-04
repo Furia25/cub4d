@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 17:57:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 19:39:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	manage_pnjs(t_game *game)
 	pnj_in_range = 0;
 	while (i < game->pnj_count)
 	{
-		dist = vec2_distance(game->player.position, game->pnjs[i].position);
+		dist = vec3_distance(game->player.position, game->pnjs[i].position);
 		if (dist < INTERACTION_RANGE)
 		{
 			pnj_in_range = 1;

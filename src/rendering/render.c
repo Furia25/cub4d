@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/04 18:00:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 19:39:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static void	render_init(int width, int height,
 	context->tilemap = game->tilemap;
 	context->frame = game->img;
 	context->player = &game->player;
-	context->position = game->player.position;
+	context->position = vec3_to_vec2(game->player.position);
 	context->direction = game->player.rad_direction;
 	context->render_height = height;
 	context->render_width = width;
-	context->eye_height = game->player.height;
+	context->eye_height = game->player.position.z;
 	context->fov = deg_to_rad(game->player.fov_deg);
 	context->fov_x = context->fov;
 	context->fov_y = deg_to_rad(game->player.fov_deg - 15);
