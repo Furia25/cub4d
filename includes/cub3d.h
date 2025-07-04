@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 11:26:08 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:08:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,8 +255,10 @@ typedef struct s_enemy
 typedef struct s_menu
 {
 	t_png	*assets[ASSET_MAX_COUNT];
-	bool	action;
+	int		action;
 }	t_menu;
+
+# define MENU_ACTIONS	1
 
 typedef struct s_game
 {
@@ -275,7 +277,6 @@ typedef struct s_game
 	t_tilemap		*tilemap;
 	t_key			key_buffer[KEY_MAX_COUNT];
 	t_png			*textures[TEXTURE_MAX_COUNT];
-	t_png			*sprites[SPRITE_MAX_COUNT];
 	t_enemy			enemies[MAX_ENEMIES];
 	int				enemy_count;
 	t_enemy			pnjs[MAX_PNJ];
@@ -297,27 +298,6 @@ typedef struct s_tile_context
 	int		off_x;
 	int		off_y;
 }	t_tile_context;
-
-typedef struct s_texture_context
-{
-	int		x;
-	int		y;
-	int		side;
-	t_png	*texture;
-	int		wall_start;
-	int		wall_start_actual;
-	int		wall_end;
-	int		wall_end_actual;
-	int		wall_height;
-	int		tex_x;
-}	t_texture_context;
-
-typedef struct s_horizontal_tex
-{
-	int		x;
-	int		y;
-	int		side;
-}	t_horizontal_tex;
 
 typedef struct s_button
 {
@@ -341,11 +321,13 @@ uint64_t	time_init(void);
 
 // ----- KEYS ----- //
 void		show_keys(t_game *game);
-bool		is_key_pressed(t_key_type type, t_game *game);
 int			key_released(int key_pressed, void *param);
 int			key_pressed(int key_pressed, void *param);
 void		handle_keys(t_game *game);
 void		handle_key(t_key key, t_game *game);
+bool		key_check(t_key_type type, t_game *game);
+bool		key_is_released(t_key_type type, t_game *game);
+bool		key_is_pressed(t_key_type type, t_game *game);
 
 // ----- MAP_UTILS ----- //
 int			check_file_extension(char *filename);

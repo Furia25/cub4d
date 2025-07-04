@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/24 15:34:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 17:31:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	exit_game(t_game *game)
 	png_close(game->textures[TEXTURE_WEST]);
 	png_close(game->textures[TEXTURE_EAST]);
 	png_close(game->textures[TEXTURE_SOUTH]);
-	png_close(game->sprites[SPRITE_ENEMY]);
 	glyph_end();
 	free(game->mlx);
 	exit(EXIT_SUCCESS);

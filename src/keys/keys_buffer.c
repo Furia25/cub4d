@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys_buffer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:10:34 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 14:23:05 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 17:56:00 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	key_pressed(int key_pressed, void *param)
 			game->key_buffer[index].type = index;
 			game->key_buffer[index].pressed = true;
 			game->key_buffer[index].time = get_time_ms();
+			game->key_buffer[index].pressed_once = true;
+			game->key_buffer[index].released_once = false;
 			return (true);
 		}
 		index++;
@@ -46,6 +48,8 @@ int	key_released(int key_pressed, void *param)
 		{
 			game->key_buffer[index].pressed = false;
 			game->key_buffer[index].time = 0;
+			game->key_buffer[index].pressed_once = false;
+			game->key_buffer[index].released_once = true;
 			return (true);
 		}
 		index++;

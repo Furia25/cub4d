@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/04 11:56:33 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 17:57:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	player_handle_jump(t_player *plr, t_game *game)
 	const float	gravity = -0.015f;
 	bool		jumping;
 
-	jumping = is_key_pressed(KEY_JUMP, game);
+	jumping = key_check(KEY_JUMP, game);
 	if (jumping && plr->is_grounded)
 	{
 		plr->jump_velocity = plr->jump_force;
@@ -74,9 +74,9 @@ void	update_player(t_player *player, t_game *game)
 	t_vec2	dir;
 	t_vec2	move;
 
-	strafe =  is_key_pressed(KEY_RIGHT, game) - is_key_pressed(KEY_LEFT, game);
-	forward =  is_key_pressed(KEY_UP, game) - is_key_pressed(KEY_DOWN, game);
-	player->rad_direction += (M_PI / 100) * (is_key_pressed(KEY_TEST_RIGHT, game) - is_key_pressed(KEY_TEST_LEFT, game));
+	strafe =  key_check(KEY_RIGHT, game) - key_check(KEY_LEFT, game);
+	forward =  key_check(KEY_UP, game) - key_check(KEY_DOWN, game);
+	player->rad_direction += (M_PI / 100) * (key_check(KEY_TEST_RIGHT, game) - key_check(KEY_TEST_LEFT, game));
 	dir = vec2_from_angle(player->rad_direction);
 	move = vec2_add(vec2_scale(dir, forward), vec2_scale(vec2_new(-dir.y, dir.x), strafe));
 	
@@ -91,7 +91,7 @@ void	update_player(t_player *player, t_game *game)
 		move = vec2_scale(vec2_normalize(move), player->accel);
 	player->last_move = move;
 	player_move_collision((t_vec3){move.x, move.y, 0}, player, game);
-	fly = (is_key_pressed(KEY_TEST_UP, game) - is_key_pressed(KEY_TEST_DOWN, game)) * 0.05;
+	fly = (key_check(KEY_TEST_UP, game) - key_check(KEY_TEST_DOWN, game)) * 0.05;
 	if (fly == 0)
 		player_handle_jump(player, game);
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pnj.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/02 14:31:42 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 17:57:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	manage_interaction(t_game *game, wchar_t **text)
 {
 	t_button		btn;
 
-	if (is_key_pressed(KEY_INTERACT, game))
+	if (key_check(KEY_INTERACT, game))
 		game->interaction++;
 	if (!game->interaction)
 	{
@@ -104,7 +104,6 @@ void	manage_interaction(t_game *game, wchar_t **text)
 void	manage_pnjs(t_game *game)
 {
 	int		i;
-	t_vec2	axis_dist;
 	float	dist;
 	int		pnj_in_range;
 
@@ -112,10 +111,7 @@ void	manage_pnjs(t_game *game)
 	pnj_in_range = 0;
 	while (i < game->pnj_count)
 	{
-		axis_dist = calculate_axis_dist(game->player.position, \
-			game->pnjs[i].position);
-		dist = calculate_distance(game->player.position, \
-			game->pnjs[i].position, axis_dist);
+		dist = vec2_distance(game->player.position, game->pnjs[i].position);
 		if (dist < INTERACTION_RANGE)
 		{
 			pnj_in_range = 1;

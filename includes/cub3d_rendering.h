@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_rendering.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/04 11:26:53 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:08:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,27 @@ typedef struct s_raycast_context
 	t_ivec2				step;
 	int					column;
 }	t_raycast_context;
+
+typedef struct s_texture_context
+{
+	int		x;
+	int		y;
+	int		side;
+	t_png	*texture;
+	int		wall_start;
+	int		wall_start_actual;
+	int		wall_end;
+	int		wall_end_actual;
+	int		wall_height;
+	int		tex_x;
+}	t_texture_context;
+
+typedef struct s_horizontal_tex
+{
+	int		x;
+	int		y;
+	int		side;
+}	t_horizontal_tex;
 
 void	render_ray(float base_angle, int column, \
 	t_ray2 *ray, t_render_context *render_ctx);

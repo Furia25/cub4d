@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/02 13:55:14 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:08:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ static void	draw_selector(t_game *game, int x, int y)
 	t_png		*selector;
 
 	selector = game->menu.assets[ASSET_SELECTOR];
-	if (!game->menu.action)
-		y += 125;
+	y += game->menu.action * 125;
 	i = 0;
 	while (i < selector->header.height)
 	{
@@ -65,18 +64,18 @@ static void	draw_text_menu(t_game *game, wchar_t *text, int x, int y)
 void	render_start_menu(t_game *game)
 {
 	t_png_pixel8	*background;
+	int				input;
 
 	background = game->menu.assets[ASSET_BG_START]->pixels_8bit;
 	draw_backround(game, background);
 	draw_text_menu(game, L"»5«Play", 850, 550);
 	draw_selector(game, 750, 525);
-	if (is_key_pressed(KEY_TEST_DOWN, game) || is_key_pressed(KEY_DOWN, game))
-		game->menu.action = false;
-	if (is_key_pressed(KEY_TEST_UP, game) || is_key_pressed(KEY_UP, game))
-		game->menu.action = true;
-	if (is_key_pressed(KEY_ENTER, game))
+	input = (key_is_pressed(KEY_DOWN, game) - key_is_pressed(KEY_UP, game));
+	input += (key_is_pressed(KEY_TEST_DOWN, game) - key_is_pressed(KEY_TEST_UP, game));
+	game->menu.action = clamp(game->menu.action + input, 0, MENU_ACTIONS);
+	if (key_check(KEY_ENTER, game))
 	{
-		if (game->menu.action)
+		if (game->menu.action == 0)
 			game->state = PLAYING;
 		else
 			exit_game(game);
@@ -92,11 +91,11 @@ void	render_pause_menu(t_game *game)
 	draw_full_map(game);
 	draw_text_menu(game, L"»5«Resume", 850, 550);
 	draw_selector(game, 750, 525);
-	if (is_key_pressed(KEY_TEST_DOWN, game) || is_key_pressed(KEY_DOWN, game))
+	if (key_check(KEY_TEST_DOWN, game) || key_check(KEY_DOWN, game))
 		game->menu.action = false;
-	if (is_key_pressed(KEY_TEST_UP, game) || is_key_pressed(KEY_UP, game))
+	if (key_check(KEY_TEST_UP, game) || key_check(KEY_UP, game))
 		game->menu.action = true;
-	if (is_key_pressed(KEY_ENTER, game))
+	if (key_check(KEY_ENTER, game))
 	{
 		if (game->menu.action)
 			game->state = PLAYING;

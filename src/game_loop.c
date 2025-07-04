@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/02 13:46:58 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 17:57:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	game_loop(void *param)
 		last_time = time + 16;
 		ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
 		handle_keys(game);
-		if (is_key_pressed(KEY_PAUSE, game))
+		if (key_check(KEY_PAUSE, game))
 			game->state = PAUSED;
 		if (game->state == MENU)
 			render_start_menu(game);

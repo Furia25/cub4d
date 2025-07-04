@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 11:29:28 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 17:44:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,6 @@ bool	create_frame_image(t_game *game)
 	return (true);
 }
 
-int	init_sprites(t_game *game)
-{
-	game->sprites[SPRITE_ENEMY] = png_open("assets/textures/enemy.png");
-	if (!game->sprites[SPRITE_ENEMY])
-		return (0);
-	return (1);
-}
-
 int	init_textures(t_game *game)
 {
 	game->textures[TEXTURE_NORTH] = png_open(game->paths[0]);
@@ -75,8 +67,6 @@ int	init_assets(t_game *game)
 {
 	if (!init_textures(game))
 		return (0);
-	if (!init_sprites(game))
-		return (0);
 	return (1);
 }
 
@@ -91,7 +81,7 @@ int	init_menu(t_game *game)
 	game->menu.assets[ASSET_SELECTOR] = png_open("assets/menu/selector.png");
 	if (!game->menu.assets[ASSET_SELECTOR])
 		return (0);
-	game->menu.action = true;
+	game->menu.action = 0;
 	return (1);
 }
 

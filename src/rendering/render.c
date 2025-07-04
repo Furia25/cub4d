@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/02 13:52:18 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:00:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ void	render(t_game *game)
 	render_init(WINDOW_WIDTH, WINDOW_HEIGHT, &context, game);
 	render_rays(0, context.render_width, &context);
 	draw_minimap(game);
-	draw_enemies(game);
 	manage_pnjs(game);
-	if (is_key_pressed(KEY_TAB, game))
+	if (key_check(KEY_TAB, game))
 		draw_full_map(game);
 }
-
 static void	render_init(int width, int height,
 		t_render_context *context, t_game *game)
 {
