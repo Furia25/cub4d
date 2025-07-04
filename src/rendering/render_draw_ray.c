@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 13:41:19 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 11:27:42 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
 {
-	float	real_dist;
-	t_rgba8	color;
-	int		buffer_idx;
+	float				real_dist;
+	t_rgba8				color;
+	int					buffer_idx;
+	t_horizontal_tex	t_ctx;
 
 	color = (t_rgba8){255, 0, 255, 255};
 	while (y != r_ctx->halfh)
@@ -36,7 +37,8 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
-			draw_pixel(color, ctx->column, y, r_ctx->frame);
+			t_ctx = (t_horizontal_tex){ctx->column, y, 1};
+			render_horizontal_texture(&t_ctx, hit, r_ctx);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
 		}
 		y--;
@@ -46,9 +48,10 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
 {
-	float	real_dist;
-	t_rgba8	color;
-	int		buffer_idx;
+	float				real_dist;
+	t_rgba8				color;
+	int					buffer_idx;
+	t_horizontal_tex	t_ctx;
 
 	color = (t_rgba8){255, 0, 255, 255};
 	y += 1;
@@ -67,7 +70,8 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
-			draw_pixel(color, ctx->column, y, r_ctx->frame);
+			t_ctx = (t_horizontal_tex){ctx->column, y, 0};
+			render_horizontal_texture(&t_ctx, hit, r_ctx);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
 		}
 		y++;

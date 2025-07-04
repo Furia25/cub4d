@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/24 10:32:51 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 11:26:53 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,13 @@ typedef struct s_raycast_context
 	int					column;
 }	t_raycast_context;
 
-void	render_ray(float base_angle, int column,
+void	render_ray(float base_angle, int column, \
 	t_ray2 *ray, t_render_context *render_ctx);
-void	render_draw_ray(t_raycast_hit *actual,
+void	render_draw_ray(t_raycast_hit *actual, \
 	t_raycast_context *ctx, t_render_context *render);
-void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
+void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx, \
 	t_render_context *render, t_texture_context	*tex_ctx);
+void	render_horizontal_texture(t_horizontal_tex *t_ctx, t_raycast_hit *hit, \
+	t_render_context *r_ctx);
 
 #endif

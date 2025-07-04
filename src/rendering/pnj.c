@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/02 14:21:35 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/02 14:31:42 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	draw_textbox(t_game *game, wchar_t *text)
 	int				y;
 	int				i;
 	int				j;
-	uint64_t		time;
 
 	btn.color_light = rgba8(207, 185, 151, 255);
 	btn.color_dark = rgba8(157, 113, 83, 255);
@@ -63,9 +62,8 @@ void	draw_textbox(t_game *game, wchar_t *text)
 	y = MINIMAP_Y_START + 40;
 	i = 0;
 	j = 0;
-	// time = get_time_ms();
 	draw_text(text, (t_text_properties){x, y, 0.8, 0, 0, 1, 75, \
-		time}, game->img);
+		game->start_time}, game->img);
 	btn.x = 1775;
 	btn.y = 950;
 	btn.width = 60;

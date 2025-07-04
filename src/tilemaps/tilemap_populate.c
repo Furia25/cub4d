@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilemap_populate.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:20:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 16:51:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 13:20:08 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	tilemap_tiles_from_str(char *str, size_t line, t_tilemap *map)
 		tile->floor = -0.4f;
 		if (type != TILE_EMPTY)
 		{
+			tile->floor = (index % 4 == 0) * 4;
 			tile->ceiling = 2 + rand() % 4 * 0.5f + tile->floor;
 		}
 		else

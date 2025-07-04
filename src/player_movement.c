@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 16:42:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 11:56:33 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	player_handle_jump(t_player *plr, t_game *game)
 		plr->jump_velocity = plr->jump_force;
 		plr->is_grounded = false;
 	}
-	plr->jump_velocity += gravity;
+	// if (plr->eye_height > 0.3f)
+		plr->jump_velocity += gravity;
 	if (!tilemap_collision_bbox((t_vec3){0, 0, plr->jump_velocity}, plr->collision_box, game->tilemap))
 	{
 		plr->height += plr->jump_velocity;

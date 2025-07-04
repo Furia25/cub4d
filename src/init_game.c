@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/02 13:48:14 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 11:29:28 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ int	init_textures(t_game *game)
 		return (0);
 	game->textures[TEXTURE_SOUTH] = png_open(game->paths[1]);
 	if (!game->textures[TEXTURE_SOUTH])
+		return (0);
+	game->textures[TEXTURE_TOP] = png_open("assets/textures/wall_top.png");
+	if (!game->textures[TEXTURE_TOP])
+		return (0);
+	game->textures[TEXTURE_BOT] = png_open("assets/textures/wall_bot.png");
+	if (!game->textures[TEXTURE_BOT])
 		return (0);
 	if (!glyph_init("assets/textures/glyph.png"))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 13:59:53 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 11:32:05 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,4 +162,25 @@ void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
 		(hit->orientation == 1 && hit->original_ray.dir_normal.y < 0))
 		tex_ctx->tex_x = tex_ctx->texture->header.width - tex_ctx->tex_x - 1;
 	render_texture(tex_ctx, hit, ctx, zbuf);
+}
+
+void	render_horizontal_texture(t_horizontal_tex *t_ctx, t_raycast_hit *hit, \
+	t_render_context *r_ctx)
+{
+	t_png	*texture;
+	float	off_x;
+	float	off_y;
+	int		tex_x;
+	int		tex_y;
+
+	if (t_ctx->side)
+		texture = r_ctx->game->textures[TEXTURE_TOP];
+	else
+		texture = r_ctx->game->textures[TEXTURE_BOT];
+	off_x = hit->pos.x - (int)hit->pos.x;
+	off_y = hit->pos.y - (int)hit->pos.y;
+	tex_x = (int)(off_x * texture->header.width);
+	tex_y = (int)(off_y * texture->header.height);
+	draw_pixel(texture->pixels_8bit[tex_y * texture->header.width + tex_x], \
+		t_ctx->x, t_ctx->y, r_ctx->frame);
 }

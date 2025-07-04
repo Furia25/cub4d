@@ -1,7 +1,7 @@
-NO assets/textures/north.png
-SO assets/textures/south.png
-WE assets/textures/west.png
-EA assets/textures/east.png
+NO assets/textures/wall_north.png
+SO assets/textures/wall_south.png
+WE assets/textures/wall_west.png
+EA assets/textures/wall_east.png
 
 F 0,255,0
 C 0,255,255

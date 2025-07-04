@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/02 13:52:35 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 11:26:08 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,9 @@ typedef struct s_tile_context
 
 typedef struct s_texture_context
 {
+	int		x;
+	int		y;
+	int		side;
 	t_png	*texture;
 	int		wall_start;
 	int		wall_start_actual;
@@ -308,6 +311,13 @@ typedef struct s_texture_context
 	int		wall_height;
 	int		tex_x;
 }	t_texture_context;
+
+typedef struct s_horizontal_tex
+{
+	int		x;
+	int		y;
+	int		side;
+}	t_horizontal_tex;
 
 typedef struct s_button
 {
