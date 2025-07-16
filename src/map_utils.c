@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:13:59 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/13 11:58:21 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 13:31:54 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,35 @@ int	determine_line_nb(char *map_file)
 	return (line_nb);
 }
 
+char	**read_pnj_text(t_game *game)
+{
+	int		line_nb;
+	int		fd;
+	int		i;
+
+	fd = open("assets/text/pnj.txt", O_RDONLY);
+	if (!fd || fd == -1)
+	{
+		ft_putstr_fd("Error while openning the pnj text file", 2);
+		exit (EXIT_FAILURE);
+	}
+	line_nb = determine_line_nb("assets/text/pnj.txt");
+	game->pnj_text = (char **)malloc(sizeof(char *) * (line_nb + 1));
+	if (!(game->pnj_text))
+		return (NULL);
+	game->pnj_text[0] = get_next_line(fd).line;
+	i = 0;
+	while (++i < line_nb)
+	{
+		game->pnj_text[i] = get_next_line(fd).line;
+		if (!game->pnj_text[i])
+			return (NULL);
+	}
+	game->pnj_text[i] = NULL;
+	close(fd);
+	return (game->pnj_text);
+}
+
 char	**read_map(char *map_file, t_game *game)
 {
 	int		fd;
@@ -93,6 +122,12 @@ int	check_map_validity(t_game *game)
 
 void	parsing(t_game *game, char *map_file)
 {
+	if (!read_pnj_text(game))
+	{
+		free_map(game->file_content);
+		ft_putstr_fd("Error: Reading pnj text file failed", 2);
+		exit(EXIT_FAILURE);
+	}
 	if (!read_map(map_file, game))
 	{
 		ft_putstr_fd("Error: Malloc failed", 2);

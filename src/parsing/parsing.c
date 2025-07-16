@@ -6,11 +6,47 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 14:48:36 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:34:40 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	assign_pnj_text(t_game *game, t_pnj *pnj, int index)
+{
+	int		i;
+	int		line_count;
+	int		tmp_count;
+	int		size;
+	char	**pnj_text;
+
+	(void)pnj;
+	line_count = 0;
+	i = 0;
+	while (i < index)
+	{
+		while (game->pnj_text[line_count] && ft_strcmp(game->pnj_text[line_count], "\n"))
+			line_count++;
+		line_count++;
+		i++;
+	}
+	tmp_count = line_count;
+	size = 0;
+	while (game->pnj_text[tmp_count] && ft_strcmp(game->pnj_text[tmp_count], "\n"))
+	{
+		size++;
+		tmp_count++;
+	}
+	pnj_text = (char **)malloc(sizeof(char *) * size);
+	i = 0;
+	while (i < size - 1)
+	{
+		pnj_text[i] = ft_strdup(game->pnj_text[i + line_count + 1]);
+		i++;
+	}
+	pnj_text[size - 1] = NULL;
+	pnj->text = pnj_text;
+}
 
 int	check_tiles_and_borders(t_game *game)
 {
@@ -83,8 +119,9 @@ int	check_tiles_and_borders(t_game *game)
 					return (0);
 				game->pnjs[p].position.x = (double)j + 0.5;
 				game->pnjs[p].position.y = (double)(i - 8) + 0.5;
-				game->pnjs[p].text = g_pnj_text[p];
+				// game->pnjs[p].text = g_pnj_text[p];
 				game->pnj_count++;
+				assign_pnj_text(game, &game->pnjs[p], p);
 				p++;
 			}
 			j++;

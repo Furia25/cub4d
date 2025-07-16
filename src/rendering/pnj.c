@@ -6,12 +6,13 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/02 14:31:42 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:29:27 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "glyphs.h"
+#include <locale.h>
 
 void	draw_interact_button(t_game *game, t_button *btn, int text_box)
 {
@@ -41,14 +42,17 @@ void	draw_interact_button(t_game *game, t_button *btn, int text_box)
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->img);
 }
 
-void	draw_textbox(t_game *game, wchar_t *text)
+void	draw_textbox(t_game *game, char *text)
 {
 	t_button		btn;
 	int				x;
 	int				y;
 	int				i;
 	int				j;
+	wchar_t			w_text[TEXT_MAX_SIZE];
 
+	setlocale(LC_ALL, "" );
+	mbstowcs(w_text, text, TEXT_MAX_SIZE);
 	btn.color_light = rgba8(207, 185, 151, 255);
 	btn.color_dark = rgba8(157, 113, 83, 255);
 	btn.color_out = rgba8(255, 255, 255, 255);
@@ -62,7 +66,7 @@ void	draw_textbox(t_game *game, wchar_t *text)
 	y = MINIMAP_Y_START + 40;
 	i = 0;
 	j = 0;
-	draw_text(text, (t_text_properties){x, y, 0.8, 0, 0, 1, 75, \
+	draw_text(w_text, (t_text_properties){x, y, 0.8, 0, 0, 1, 75, \
 		game->start_time}, game->img);
 	btn.x = 1775;
 	btn.y = 950;
@@ -71,7 +75,7 @@ void	draw_textbox(t_game *game, wchar_t *text)
 	draw_interact_button(game, &btn, 1);
 }
 
-int	tablen(wchar_t **text)
+int	tablen(char **text)
 {
 	int	i;
 
@@ -81,12 +85,15 @@ int	tablen(wchar_t **text)
 	return (i);
 }
 
-void	manage_interaction(t_game *game, wchar_t **text)
+void	manage_interaction(t_game *game, char **text)
 {
 	t_button		btn;
 
 	if (is_key_pressed(KEY_INTERACT, game))
+	{
 		game->interaction++;
+		usleep(100000);
+	}
 	if (!game->interaction)
 	{
 		btn.x = ((WINDOW_WIDTH / 2) - (S_BUTTON_INTERACT / 2));
@@ -119,7 +126,7 @@ void	manage_pnjs(t_game *game)
 		if (dist < INTERACTION_RANGE)
 		{
 			pnj_in_range = 1;
-			manage_interaction(game, g_pnj_text[i]);
+			manage_interaction(game, game->pnjs[i].text);
 		}
 		i++;
 	}

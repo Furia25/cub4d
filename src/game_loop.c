@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/02 13:46:58 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 10:14:38 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	game_loop(void *param)
 			render_pause_menu(game);
 		// draw_text(L"»2~Th«Tart »4*«macaroon»*2🌈« RAINBOW»🌈« gummies marshmallow muffin jujubes »🌈«RAINBOW»_1« pie tart bear claw. Tootsie roll sesame »🌈«RAINBOW»🌈« snaps bonbon pie toffee ice cream fruitcake danish. Cake chupa chups sweet roll caramels sweet cotton candy sweet. Bear claw croissant tootsie roll shortbread danish candy powder. Cheesecake tart icing biscuit pudding chocolate bar lollipop croissant tart.", (t_text_properties){0, 100, 0.8, 0, 0, 1, 16, game->start_time}, frame);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-		printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
+		// printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
 	}
 	return (1);
 }

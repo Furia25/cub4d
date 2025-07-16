@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/24 15:34:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:33:10 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,20 @@
 
 int	exit_game(t_game *game)
 {
+	int i;
+
+	i = 0;
+	while (i < game->pnj_count)
+	{
+		free_map(game->pnjs[i].text);
+		i++;
+	}
 	tilemap_free(game->tilemap);
 	free(game->paths);
 	free(game->colors);
 	free(game->map);
 	free_map(game->file_content);
+	free_map(game->pnj_text);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->img)

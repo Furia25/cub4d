@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 11:26:08 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:30:10 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,156 +52,14 @@
 
 # define MAX_ENEMIES		100
 # define MAX_PNJ			10
+# define TEXT_MAX_SIZE		1000
 
 # define S_BUTTON_INTERACT	100
 # define S_BUTTON_OUTL		4
 # define INTERACTION_RANGE	2
 # define TXTBOX_X_START		350
 
-# define INTERACT_DELAY		150000 
-
-static wchar_t *g_pnj_text_0[] = {
-	L"»2T«PNJ 1 : texte 1",
-	L"»2T«PNJ 1 : texte 2",
-	L"»2T«PNJ 1 : texte 3",
-	L"»2T«PNJ 1 : texte 4",
-	L"»2T«PNJ 1 : texte 5",
-	L"»2T«PNJ 1 : texte 6",
-	L"»2T«PNJ 1 : texte 7",
-	L"»2T«PNJ 1 : texte 8",
-	L"»2T«PNJ 1 : texte 9",
-	NULL
-};
-
-static wchar_t *g_pnj_text_1[] = {
-	L"»2T«PNJ 2 : texte 1",
-	L"»2T«PNJ 2 : texte 2",
-	L"»2T«PNJ 2 : texte 3",
-	L"»2T«PNJ 2 : texte 4",
-	L"»2T«PNJ 2 : texte 5",
-	L"»2T«PNJ 2 : texte 6",
-	L"»2T«PNJ 2 : texte 7",
-	L"»2T«PNJ 2 : texte 8",
-	L"»2T«PNJ 2 : texte 9",
-	NULL
-};
-
-static wchar_t *g_pnj_text_2[] = {
-	L"»2T«PNJ 3 : texte 1",
-	L"»2T«PNJ 3 : texte 2",
-	L"»2T«PNJ 3 : texte 3",
-	L"»2T«PNJ 3 : texte 4",
-	L"»2T«PNJ 3 : texte 5",
-	L"»2T«PNJ 3 : texte 6",
-	L"»2T«PNJ 3 : texte 7",
-	L"»2T«PNJ 3 : texte 8",
-	L"»2T«PNJ 3 : texte 9",
-	NULL
-};
-
-static wchar_t *g_pnj_text_3[] = {
-	L"»2T«PNJ 4 : texte 1",
-	L"»2T«PNJ 4 : texte 2",
-	L"»2T«PNJ 4 : texte 3",
-	L"»2T«PNJ 4 : texte 4",
-	L"»2T«PNJ 4 : texte 5",
-	L"»2T«PNJ 4 : texte 6",
-	L"»2T«PNJ 4 : texte 7",
-	L"»2T«PNJ 4 : texte 8",
-	L"»2T«PNJ 4 : texte 9",
-	NULL
-};
-
-static wchar_t *g_pnj_text_4[] = {
-	L"»2T«PNJ 5 : texte 1",
-	L"»2T«PNJ 5 : texte 2",
-	L"»2T«PNJ 5 : texte 3",
-	L"»2T«PNJ 5 : texte 4",
-	L"»2T«PNJ 5 : texte 5",
-	L"»2T«PNJ 5 : texte 6",
-	L"»2T«PNJ 5 : texte 7",
-	L"»2T«PNJ 5 : texte 8",
-	L"»2T«PNJ 5 : texte 9",
-	NULL
-};
-
-static wchar_t *g_pnj_text_5[] = {
-	L"»2T«PNJ 6 : texte 1",
-	L"»2T«PNJ 6 : texte 2",
-	L"»2T«PNJ 6 : texte 3",
-	L"»2T«PNJ 6 : texte 4",
-	L"»2T«PNJ 6 : texte 5",
-	L"»2T«PNJ 6 : texte 6",
-	L"»2T«PNJ 6 : texte 7",
-	L"»2T«PNJ 6 : texte 8",
-	L"»2T«PNJ 6 : texte 9",
-	NULL
-};
-
-static wchar_t *g_pnj_text_6[] = {
-	L"»2T«PNJ 7 : texte 1",
-	L"»2T«PNJ 7 : texte 2",
-	L"»2T«PNJ 7 : texte 3",
-	L"»2T«PNJ 7 : texte 4",
-	L"»2T«PNJ 7 : texte 5",
-	L"»2T«PNJ 7 : texte 6",
-	L"»2T«PNJ 7 : texte 7",
-	L"»2T«PNJ 7 : texte 8",
-	L"»2T«PNJ 7 : texte 9",
-	NULL
-};
-
-static wchar_t *g_pnj_text_7[] = {
-	L"»2T«PNJ 8 : texte 1",
-	L"»2T«PNJ 8 : texte 2",
-	L"»2T«PNJ 8 : texte 3",
-	L"»2T«PNJ 8 : texte 4",
-	L"»2T«PNJ 8 : texte 5",
-	L"»2T«PNJ 8 : texte 6",
-	L"»2T«PNJ 8 : texte 7",
-	L"»2T«PNJ 8 : texte 8",
-	L"»2T«PNJ 8 : texte 9",
-	NULL
-};
-
-static wchar_t *g_pnj_text_8[] = {
-	L"»2T«PNJ 9 : texte 1",
-	L"»2T«PNJ 9 : texte 2",
-	L"»2T«PNJ 9 : texte 3",
-	L"»2T«PNJ 9 : texte 4",
-	L"»2T«PNJ 9 : texte 5",
-	L"»2T«PNJ 9 : texte 6",
-	L"»2T«PNJ 9 : texte 7",
-	L"»2T«PNJ 9 : texte 8",
-	L"»2T«PNJ 9 : texte 9",
-	NULL
-};
-
-static wchar_t *g_pnj_text_9[] = {
-	L"»2T«PNJ 10 : texte 1",
-	L"»2T«PNJ 10 : texte 2",
-	L"»2T«PNJ 10 : texte 3",
-	L"»2T«PNJ 10 : texte 4",
-	L"»2T«PNJ 10 : texte 5",
-	L"»2T«PNJ 10 : texte 6",
-	L"»2T«PNJ 10 : texte 7",
-	L"»2T«PNJ 10 : texte 8",
-	L"»2T«PNJ 10 : texte 9",
-	NULL
-};
-
-static wchar_t **g_pnj_text[MAX_PNJ] = {
-	g_pnj_text_0,
-	g_pnj_text_1,
-	g_pnj_text_2,
-	g_pnj_text_3,
-	g_pnj_text_4,
-	g_pnj_text_5,
-	g_pnj_text_6,
-	g_pnj_text_7,
-	g_pnj_text_8,
-	g_pnj_text_9
-};
+# define INTERACT_DELAY		150000
 
 typedef enum e_game_state
 {
@@ -241,14 +99,14 @@ typedef struct s_player
 typedef struct s_pnj
 {
 	t_vec2			position;
-	wchar_t			**text;
+	char			**text;
 }	t_pnj;
 
 typedef struct s_enemy
 {
 	t_vec2			position;
 	int				hp;
-	wchar_t			**text;
+	char			**text;
 	t_enemy_state	state;
 }	t_enemy;
 
@@ -270,6 +128,7 @@ typedef struct s_game
 	char			**map;
 	char			**paths;
 	char			**colors;
+	char			**pnj_text;
 	t_png_pixel8	f_color;
 	t_png_pixel8	c_color;
 	t_tilemap		*tilemap;
@@ -278,7 +137,7 @@ typedef struct s_game
 	t_png			*sprites[SPRITE_MAX_COUNT];
 	t_enemy			enemies[MAX_ENEMIES];
 	int				enemy_count;
-	t_enemy			pnjs[MAX_PNJ];
+	t_pnj			pnjs[MAX_PNJ];
 	int				pnj_count;
 	int				interaction;
 	t_game_state	state;
