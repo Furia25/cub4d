@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/16 14:34:40 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:47:49 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	check_tiles_and_borders(t_game *game)
 					return (0);
 				game->pnjs[p].position.x = (double)j + 0.5;
 				game->pnjs[p].position.y = (double)(i - 8) + 0.5;
+				game->pnjs[p].position.z = 0.3f + 0.5;
 				// game->pnjs[p].text = g_pnj_text[p];
 				game->pnj_count++;
 				assign_pnj_text(game, &game->pnjs[p], p);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 00:44:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/25 01:49:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:48:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_COLORS_H
 # include "cub3d_structs.h"
 
-/*TEMP TEMP je sais pas si on le garde ou pas ça peut être utile*/
+/*TEMP je sais pas si on le garde ou pas ça peut être utile*/
 
 typedef enum e_color
 {

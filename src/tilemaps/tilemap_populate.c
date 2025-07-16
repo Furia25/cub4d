@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:20:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/16 09:44:40 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:42:44 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	tilemap_tiles_from_str(char *str, size_t line, t_tilemap *map)
 		tile = &map->tiles[line][index];
 		tile->info = g_base_tile_info[type];
 		tile->type = type;
-		tile->floor = -0.4f;
+		tile->floor = 0.f;
 		if (type != TILE_EMPTY)
 		{
 			tile->floor = 0;

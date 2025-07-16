@@ -23,33 +23,30 @@ t_tile	*tilemap_get_tile(size_t x, size_t y, t_tilemap *map)
 	return (&map->tiles[y][x]);
 }
 
-bool	tilemap_collision(float x, float y, float z, t_tilemap *tilemap)
+bool	tilemap_collision(float x, float y, t_vec2 z, t_tilemap *tilemap)
 {
 	t_tile	*tile;
 
 	if (!tilemap_is_tile_valid(x, y, tilemap))
-		return (true);
+		return (false);
 	tile = tilemap_get_tile((size_t) x, (size_t)  y, tilemap);
-	return (!tile->info.solid || (tile->ceiling < z || tile->floor > z));
+	if (!tile->info.solid)
+		return (false);
+	return (!(z.x >= tile->ceiling || z.y <= tile->floor));
 }
 
-bool tilemap_collision_bbox(t_vec3 axis, t_bbox bbox, t_tilemap *map)
+bool tilemap_collide_bbox(t_vec3 axis, t_bbox bbox, t_tilemap *map)
 {
 	bool	collide;
-	float	z_top;
-	float	z_bot;
+	t_vec2	z;
 
-	z_bot = bbox.min.z + axis.z;
-	z_top = bbox.max.z + axis.z;
+	z.x = bbox.max.z + axis.z;
+	z.y = bbox.min.z + axis.z;
 	collide = \
-	tilemap_collision(bbox.min.x + axis.x, bbox.min.y + axis.y, z_bot, map)
-	&& tilemap_collision(bbox.max.x + axis.x, bbox.min.y + axis.y, z_bot, map)
-	&& tilemap_collision(bbox.min.x + axis.x, bbox.max.y + axis.y, z_bot, map)
-	&& tilemap_collision(bbox.max.x + axis.x, bbox.max.y + axis.y, z_bot, map)
-	&& tilemap_collision(bbox.min.x + axis.x, bbox.min.y + axis.y, z_top, map)
-	&& tilemap_collision(bbox.max.x + axis.x, bbox.min.y + axis.y, z_top, map)
-	&& tilemap_collision(bbox.min.x + axis.x, bbox.max.y + axis.y, z_top, map)
-	&& tilemap_collision(bbox.max.x + axis.x, bbox.max.y + axis.y, z_top, map);
+		tilemap_collision(bbox.min.x + axis.x, bbox.min.y + axis.y, z, map)
+		|| tilemap_collision(bbox.max.x + axis.x, bbox.min.y + axis.y, z, map)
+		|| tilemap_collision(bbox.min.x + axis.x, bbox.max.y + axis.y, z, map)
+		|| tilemap_collision(bbox.max.x + axis.x, bbox.max.y + axis.y, z, map);
 
-	return (!collide);
+	return (collide);
 }

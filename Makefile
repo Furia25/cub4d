@@ -6,7 +6,7 @@
 #    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/16 12:14:12 by halnuma          ###   ########.fr        #
+#    Updated: 2025/07/16 14:40:43 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,6 @@ SRC_FILES = \
 	rendering/render.c \
 	rendering/raycast_misc.c \
 	rendering/texture.c \
-	rendering/enemies.c \
 	rendering/pnj.c \
 	rendering/button.c \
 	rendering/menu.c \
@@ -80,8 +79,9 @@ SRC_FILES = \
 	end_game.c \
 	game_loop.c \
 	init_game.c \
-	keys_buffer.c \
-	keys_handling.c \
+	keys/keys_buffer.c \
+	keys/keys_handling.c \
+	keys/keys.c \
 	map_utils.c \
 	move_utils.c \
 	time_utils.c \
@@ -106,7 +106,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -O3 -march=native -funroll-loops -g3 -flto
+CFLAGS = -O3 -march=native -funroll-loops -g3 -flto
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 

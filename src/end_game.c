@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/16 14:33:10 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:41:15 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	exit_game(t_game *game)
 	png_close(game->textures[TEXTURE_WEST]);
 	png_close(game->textures[TEXTURE_EAST]);
 	png_close(game->textures[TEXTURE_SOUTH]);
-	png_close(game->sprites[SPRITE_ENEMY]);
 	glyph_end();
 	free(game->mlx);
 	exit(EXIT_SUCCESS);

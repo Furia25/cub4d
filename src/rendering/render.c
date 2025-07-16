@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/02 13:52:18 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 19:39:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ void	render(t_game *game)
 	render_init(WINDOW_WIDTH, WINDOW_HEIGHT, &context, game);
 	render_rays(0, context.render_width, &context);
 	draw_minimap(game);
-	draw_enemies(game);
 	manage_pnjs(game);
-	if (is_key_pressed(KEY_TAB, game))
+	if (key_check(KEY_TAB, game))
 		draw_full_map(game);
 }
-
 static void	render_init(int width, int height,
 		t_render_context *context, t_game *game)
 {
@@ -42,11 +40,11 @@ static void	render_init(int width, int height,
 	context->tilemap = game->tilemap;
 	context->frame = game->img;
 	context->player = &game->player;
-	context->position = game->player.position;
+	context->position = vec3_to_vec2(game->player.position);
 	context->direction = game->player.rad_direction;
 	context->render_height = height;
 	context->render_width = width;
-	context->eye_height = game->player.height;
+	context->eye_height = game->player.position.z;
 	context->fov = deg_to_rad(game->player.fov_deg);
 	context->fov_x = context->fov;
 	context->fov_y = deg_to_rad(game->player.fov_deg - 15);

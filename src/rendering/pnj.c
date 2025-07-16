@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/16 14:29:27 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:46:11 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	manage_interaction(t_game *game, char **text)
 {
 	t_button		btn;
 
-	if (is_key_pressed(KEY_INTERACT, game))
+	if (key_check(KEY_INTERACT, game))
 	{
 		game->interaction++;
 		usleep(100000);
@@ -111,7 +111,6 @@ void	manage_interaction(t_game *game, char **text)
 void	manage_pnjs(t_game *game)
 {
 	int		i;
-	t_vec2	axis_dist;
 	float	dist;
 	int		pnj_in_range;
 
@@ -119,10 +118,7 @@ void	manage_pnjs(t_game *game)
 	pnj_in_range = 0;
 	while (i < game->pnj_count)
 	{
-		axis_dist = calculate_axis_dist(game->player.position, \
-			game->pnjs[i].position);
-		dist = calculate_distance(game->player.position, \
-			game->pnjs[i].position, axis_dist);
+		dist = vec3_distance(game->player.position, game->pnjs[i].position);
 		if (dist < INTERACTION_RANGE)
 		{
 			pnj_in_range = 1;

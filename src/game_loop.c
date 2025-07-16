@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/16 10:14:38 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:41:49 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 #include "glyphs.h"
 
 uint64_t	get_fps(uint64_t start_time);
+
+inline void	play_loop(t_game *game, t_img_data *frame)
+{
+	ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
+	update_player(&game->player, game);
+	render(game);
+}
 
 int	game_loop(void *param)
 {
@@ -30,23 +37,20 @@ int	game_loop(void *param)
 	time = get_time_ms();
 	if (time >= last_time)
 	{
-		last_time = time + 16;
-		ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
-		handle_keys(game);
-		if (is_key_pressed(KEY_PAUSE, game))
-			game->state = PAUSED;
+		last_time = time + 32;
+		if (key_check(KEY_QUIT, game))
+			exit_game(game);
 		if (game->state == MENU)
 			render_start_menu(game);
-		else if (game->state == PLAYING)
-		{
-			update_player(&game->player, game);
-			render(game);
-		}
+		if (game->state == PLAYING && key_is_pressed(KEY_PAUSE, game))
+			game->state = PAUSED;
+		if (game->state == PLAYING)
+			play_loop(game, frame);
 		else if (game->state == PAUSED)
 			render_pause_menu(game);
-		// draw_text(L"»2~Th«Tart »4*«macaroon»*2🌈« RAINBOW»🌈« gummies marshmallow muffin jujubes »🌈«RAINBOW»_1« pie tart bear claw. Tootsie roll sesame »🌈«RAINBOW»🌈« snaps bonbon pie toffee ice cream fruitcake danish. Cake chupa chups sweet roll caramels sweet cotton candy sweet. Bear claw croissant tootsie roll shortbread danish candy powder. Cheesecake tart icing biscuit pudding chocolate bar lollipop croissant tart.", (t_text_properties){0, 100, 0.8, 0, 0, 1, 16, game->start_time}, frame);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-		// printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
+		//printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
+		printf("%f , %f, %f\n", game->player.position.z, game->player.bbox.max.z, game->player.bbox.min.z);
 	}
 	return (1);
 }

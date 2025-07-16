@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_textures.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 11:16:12 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:08:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ typedef enum e_texture_type
 	TEXTURE_TEST,
 	TEXTURE_MAX_COUNT
 }	t_texture_type;
-
-typedef enum e_sprite_type
-{
-	SPRITE_ENEMY,
-	SPRITE_MAX_COUNT
-}	t_sprite_type;
 
 typedef enum e_asset_type
 {

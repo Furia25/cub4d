@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   glyphs.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:31:44 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/30 10:02:48 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 18:48:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define FONT_SIZE9		108
 # define FONT_SIZE10	120
 
-/*TEMP TEMP Super long en runtime ça doit
+/*TEMP Super long en runtime ça doit
  check pour chaque char : faire une lookup table ?*/
 # define GLYPHS	L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefgh\
 ijklmnopqrstuvwxyz0123456789.,?!:;`'\"*-_~#&|@≈[]<>\

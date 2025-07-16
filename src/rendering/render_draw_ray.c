@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_draw_ray.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/04 11:27:42 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/04 17:38:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
 {
 	float				real_dist;
-	t_rgba8				color;
 	int					buffer_idx;
 	t_horizontal_tex	t_ctx;
 
-	color = (t_rgba8){255, 0, 255, 255};
 	while (y != r_ctx->halfh)
 	{
 		real_dist = r_ctx->proj_dist_y
@@ -49,11 +47,9 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
 {
 	float				real_dist;
-	t_rgba8				color;
 	int					buffer_idx;
 	t_horizontal_tex	t_ctx;
 
-	color = (t_rgba8){255, 0, 255, 255};
 	y += 1;
 	while (y < r_ctx->halfh)
 	{
@@ -64,8 +60,7 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 			+ hit->original_ray.dir_normal.x * real_dist;
 		hit->pos.y = hit->original_ray.origin.y \
 			+ hit->original_ray.dir_normal.y * real_dist;
-		if (floor(hit->pos.x) != hit->tile_x \
-		|| floor(hit->pos.y) != hit->tile_y)
+		if (floor(hit->pos.x) != hit->tile_x || floor(hit->pos.y) != hit->tile_y)
 			break ;
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])

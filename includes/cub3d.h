@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/16 14:30:10 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 14:46:43 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,10 @@ typedef struct s_player
 	float	accel_max;
 	float	friction;
 	float	air_friction;
-	t_bbox	collision_box;
-	t_vec2	position;
+	t_bbox	bbox;
+	t_vec3	position;
 	t_vec2	direction;
 	float	rad_direction;
-	float	height;
 	float	accel;
 	float	jump_velocity;
 	t_vec2	last_move;
@@ -98,13 +97,13 @@ typedef struct s_player
 
 typedef struct s_pnj
 {
-	t_vec2			position;
+	t_vec3			position;
 	char			**text;
 }	t_pnj;
 
 typedef struct s_enemy
 {
-	t_vec2			position;
+	t_vec3			position;
 	int				hp;
 	char			**text;
 	t_enemy_state	state;
@@ -113,8 +112,10 @@ typedef struct s_enemy
 typedef struct s_menu
 {
 	t_png	*assets[ASSET_MAX_COUNT];
-	bool	action;
+	int		action;
 }	t_menu;
+
+# define MENU_ACTIONS	1
 
 typedef struct s_game
 {
@@ -134,7 +135,6 @@ typedef struct s_game
 	t_tilemap		*tilemap;
 	t_key			key_buffer[KEY_MAX_COUNT];
 	t_png			*textures[TEXTURE_MAX_COUNT];
-	t_png			*sprites[SPRITE_MAX_COUNT];
 	t_enemy			enemies[MAX_ENEMIES];
 	int				enemy_count;
 	t_pnj			pnjs[MAX_PNJ];
@@ -156,27 +156,6 @@ typedef struct s_tile_context
 	int		off_x;
 	int		off_y;
 }	t_tile_context;
-
-typedef struct s_texture_context
-{
-	int		x;
-	int		y;
-	int		side;
-	t_png	*texture;
-	int		wall_start;
-	int		wall_start_actual;
-	int		wall_end;
-	int		wall_end_actual;
-	int		wall_height;
-	int		tex_x;
-}	t_texture_context;
-
-typedef struct s_horizontal_tex
-{
-	int		x;
-	int		y;
-	int		side;
-}	t_horizontal_tex;
 
 typedef struct s_button
 {
@@ -200,11 +179,11 @@ uint64_t	time_init(void);
 
 // ----- KEYS ----- //
 void		show_keys(t_game *game);
-bool		is_key_pressed(t_key_type type, t_game *game);
 int			key_released(int key_pressed, void *param);
 int			key_pressed(int key_pressed, void *param);
-void		handle_keys(t_game *game);
-void		handle_key(t_key key, t_game *game);
+bool		key_check(t_key_type type, t_game *game);
+bool		key_is_released(t_key_type type, t_game *game);
+bool		key_is_pressed(t_key_type type, t_game *game);
 
 // ----- MAP_UTILS ----- //
 int			check_file_extension(char *filename);
@@ -252,6 +231,10 @@ void		draw_full_map(t_game *game);
 
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
+void		player_add_x(float value, t_player *player);
+void		player_add_y(float value, t_player *player);
+void		player_add_z(float value, t_player *player);
+
 void		draw_enemies(t_game *game);
 void		draw_button(t_game *game, t_button *btn);
 void		manage_pnjs(t_game *game);
