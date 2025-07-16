@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pnj.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/16 14:46:11 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/16 16:57:33 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	draw_interact_button(t_game *game, t_button *btn, int text_box)
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->img);
 }
 
-void	draw_textbox(t_game *game, char *text)
+void	draw_textbox(t_game *game, char *text, uint64_t time)
 {
 	t_button		btn;
 	int				x;
@@ -67,7 +67,7 @@ void	draw_textbox(t_game *game, char *text)
 	i = 0;
 	j = 0;
 	draw_text(w_text, (t_text_properties){x, y, 0.8, 0, 0, 1, 75, \
-		game->start_time}, game->img);
+		time}, game->img);
 	btn.x = 1775;
 	btn.y = 950;
 	btn.width = 60;
@@ -87,12 +87,13 @@ int	tablen(char **text)
 
 void	manage_interaction(t_game *game, char **text)
 {
+	static uint64_t	time;
 	t_button		btn;
 
-	if (key_check(KEY_INTERACT, game))
+	if (key_is_released(KEY_INTERACT, game))
 	{
 		game->interaction++;
-		usleep(100000);
+		time = get_time_ms();
 	}
 	if (!game->interaction)
 	{
@@ -103,7 +104,7 @@ void	manage_interaction(t_game *game, char **text)
 		draw_interact_button(game, &btn, 0);
 	}
 	else if (game->interaction - 1 < tablen(text))
-		draw_textbox(game, text[game->interaction - 1]);
+		draw_textbox(game, text[game->interaction - 1], time);
 	else if (game->interaction - 1 >= tablen(text))
 		game->interaction = 0;
 }
