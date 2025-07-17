@@ -6,7 +6,7 @@
 #    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/16 14:40:43 by halnuma          ###   ########.fr        #
+#    Updated: 2025/07/17 14:36:51 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,8 @@ SRC_FILES = \
 	parsing/parsing.c \
 	parsing/borders.c \
 	parsing/tile_type.c \
+	parsing/parse_map.c \
+	parsing/check_tiles.c \
 	player_movement.c \
 	end_game.c \
 	game_loop.c \

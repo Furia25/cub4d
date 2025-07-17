@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 20:11:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/17 14:04:26 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	init_textures(t_game *game)
 	game->textures[TEXTURE_SOUTH] = png_open(game->paths[1]);
 	if (!game->textures[TEXTURE_SOUTH])
 		return (0);
-	game->textures[TEXTURE_TOP] = png_open("assets/textures/4k.png");
+	game->textures[TEXTURE_TOP] = png_open("assets/textures/wall_top.png");
 	if (!game->textures[TEXTURE_TOP])
 		return (0);
 	game->textures[TEXTURE_BOT] = png_open("assets/textures/wall_bot.png");

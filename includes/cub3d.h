@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/16 14:46:43 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/17 14:36:17 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,11 @@ int			check_tile_validity(char c);
 int			wrapping_tile(char c);
 int			center_tile(char c);
 int			player_tile(char c);
+int			check_player(t_game *game, int i, int j, int *player);
+int			check_enemies(t_game *game, int i, int j, int *e);
+int			check_pnjs(t_game *game, int i, int j, int *p);
+
+
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);

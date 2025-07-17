@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/16 14:41:49 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/17 14:16:03 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	game_loop(void *param)
 			render_pause_menu(game);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
 		//printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
-		printf("%f , %f, %f\n", game->player.position.z, game->player.bbox.max.z, game->player.bbox.min.z);
+		// printf("%f , %f, %f\n", game->player.position.z, game->player.bbox.max.z, game->player.bbox.min.z);
 	}
 	return (1);
 }
