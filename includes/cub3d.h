@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 10:41:39 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 11:27:40 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,6 @@ void		draw_enemies(t_game *game);
 void		draw_button(t_game *game, t_button *btn);
 t_vec2		calculate_axis_dist(t_vec2 p_pos, t_vec2 e_pos);
 float		calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist);
-void		render_start_menu(t_game *game);
-void		render_pause_menu(t_game *game);
+void		render_menu(t_game *game, int start);
 
 #endif

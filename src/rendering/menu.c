@@ -6,25 +6,33 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/16 14:42:04 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 11:26:08 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "glyphs.h"
 
-static void	draw_backround(t_game *game, t_png_pixel8 *background)
+static void	draw_background(t_game *game, t_png_pixel8 *background)
 {
-	int				i;
-	int				j;
+	int		i;
+	int		j;
+	t_rgba8	black;
 
 	i = 0;
+	black.r = 0;
+	black.g = 0;
+	black.b = 0;
+	black.a = 255;
 	while (i < WINDOW_HEIGHT)
 	{
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
-			draw_pixel(background[(i * WINDOW_WIDTH) + j], j, i, game->img);
+			if (!background)
+				draw_pixel(black, j, i, game->img);
+			else
+				draw_pixel(background[(i * WINDOW_WIDTH) + j], j, i, game->img);
 			j++;
 		}
 		i++;
@@ -61,19 +69,13 @@ static void	draw_text_menu(t_game *game, wchar_t *text, int x, int y)
 		game->start_time}, game->img);
 }
 
-//TEMP C'est vraiment les deux mêmes fonctions
-
-void	render_start_menu(t_game *game)
+void	handle_input(t_game *game, int start)
 {
-	t_png_pixel8	*background;
-	int				input;
+	int	input;
 
-	background = game->menu.assets[ASSET_BG_START]->pixels_8bit;
-	draw_backround(game, background);
-	draw_text_menu(game, L"»5«Play", 850, 550);
-	draw_selector(game, 750, 525);
 	input = (key_is_pressed(KEY_DOWN, game) - key_is_pressed(KEY_UP, game));
-	input += (key_is_pressed(KEY_TEST_DOWN, game) - key_is_pressed(KEY_TEST_UP, game));
+	input += (key_is_pressed(KEY_TEST_DOWN, game) - \
+	key_is_pressed(KEY_TEST_UP, game));
 	game->menu.action = clamp(game->menu.action + input, 0, MENU_ACTIONS);
 	if (key_is_released(KEY_ENTER, game))
 	{
@@ -83,29 +85,33 @@ void	render_start_menu(t_game *game)
 			exit_game(game);
 	}
 	if (key_is_pressed(KEY_PAUSE, game))
-		exit_game(game);
+	{
+		if (start)
+			exit_game(game);
+		else
+			game->state = PLAYING;
+	}
 }
 
-void	render_pause_menu(t_game *game)
+void	render_menu(t_game *game, int start)
 {
 	t_png_pixel8	*background;
-	int				input;
 
-	background = game->menu.assets[ASSET_BG_PAUSE]->pixels_8bit;
-	draw_backround(game, background);
-	draw_full_map(game);
-	draw_text_menu(game, L"»5«Resume", 850, 550);
-	draw_selector(game, 750, 525);
-	input = (key_is_pressed(KEY_DOWN, game) - key_is_pressed(KEY_UP, game));
-	input += (key_is_pressed(KEY_TEST_DOWN, game) - key_is_pressed(KEY_TEST_UP, game));
-	game->menu.action = clamp(game->menu.action + input, 0, MENU_ACTIONS);
-	if (key_check(KEY_ENTER, game))
+	if (start)
+		background = game->menu.assets[ASSET_BG_START]->pixels_8bit;
+	else
+		background = NULL;
+	draw_background(game, background);
+	if (start)
 	{
-		if (game->menu.action == 0)
-			game->state = PLAYING;
-		else
-			exit_game(game);
+		draw_text_menu(game, L"»5«Play", 850, 550);
+		draw_selector(game, 750, 525);
 	}
-	if (key_is_pressed(KEY_PAUSE, game))
-		game->state = PLAYING;
+	else
+	{
+		draw_full_map(game);
+		draw_text_menu(game, L"»5«Resume", 1600, 100);
+		draw_selector(game, 1500, 75);
+	}
+	handle_input(game, start);
 }

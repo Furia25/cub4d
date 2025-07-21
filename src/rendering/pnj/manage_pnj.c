@@ -6,13 +6,13 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 10:39:50 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 10:47:14 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	tablen(char **text)
+static int	tablen(char **text)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int	tablen(char **text)
 	return (i);
 }
 
-void	display_interaction(t_game *game, char **text)
+static void	display_interaction(t_game *game, char **text)
 {
 	static uint64_t	time;
 	t_button		btn;
@@ -46,7 +46,7 @@ void	display_interaction(t_game *game, char **text)
 		game->interaction.count = 0;
 }
 
-int	is_pnj_in_range(t_vec3 player_pos, t_vec3 pnj_pos)
+static int	is_pnj_in_range(t_vec3 player_pos, t_vec3 pnj_pos)
 {
 	float	dist;
 
@@ -56,7 +56,7 @@ int	is_pnj_in_range(t_vec3 player_pos, t_vec3 pnj_pos)
 	return (0);
 }
 
-void	manage_interaction(t_game *game, int i, int *pnj_in_range)
+static void	manage_interaction(t_game *game, int i, int *pnj_in_range)
 {
 	if (is_pnj_in_range(game->player.position, \
 		game->pnjs[game->interaction.pnj_id].position))

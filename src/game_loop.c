@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/17 14:16:03 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 11:18:19 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ int	game_loop(void *param)
 		if (key_check(KEY_QUIT, game))
 			exit_game(game);
 		if (game->state == MENU)
-			render_start_menu(game);
+			render_menu(game, 1);
 		if (game->state == PLAYING && key_is_pressed(KEY_PAUSE, game))
 			game->state = PAUSED;
 		if (game->state == PLAYING)
 			play_loop(game, frame);
 		else if (game->state == PAUSED)
-			render_pause_menu(game);
+			render_menu(game, 0);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
-		//printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
+		printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
 		// printf("%f , %f, %f\n", game->player.position.z, game->player.bbox.max.z, game->player.bbox.min.z);
 	}
 	return (1);
