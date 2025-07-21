@@ -6,125 +6,124 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/17 14:54:33 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:19:40 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	assign_path(t_game *game, int i, char **identifiers)
+int	determine_line_nb(char *map_file)
 {
-	char	*line;
+	int		line_nb;
 	int		fd;
+	char	*line;
 
-	line = game->file_content[i];
-	game->paths[i] = game->file_content[i];
-	game->paths[i] += sizeof(char) * 3;
-	if (ft_strncmp(line, identifiers[i], 3))
+	line_nb = 0;
+	fd = open(map_file, O_RDONLY);
+	if (!fd)
+	{
+		ft_putstr_fd("Map error", 2);
 		return (0);
-	line += (sizeof(char) * 3);
+	}
+	line = get_next_line(fd).line;
 	if (line)
-		line[ft_strlen(line) - 1] = '\0';
-	else
-		return (0);
-	fd = open(line, O_RDONLY);
-	if (!fd || fd == -1)
-		return (0);
+		line_nb++;
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd).line;
+		if (line)
+			line_nb++;
+	}
 	close(fd);
-	return (1);
+	return (line_nb);
 }
 
-int	check_paths(t_game *game)
+char	**read_pnj_text(t_game *game)
 {
+	int		line_nb;
+	int		fd;
 	int		i;
-	char	*identifiers[4];
 
+	fd = open("assets/text/pnj.txt", O_RDONLY);
+	if (!fd || fd == -1)
+	{
+		ft_putstr_fd("Error while openning the pnj text file", 2);
+		exit (EXIT_FAILURE);
+	}
+	line_nb = determine_line_nb("assets/text/pnj.txt");
+	game->pnj_text = (char **)malloc(sizeof(char *) * (line_nb + 1));
+	if (!(game->pnj_text))
+		return (NULL);
+	game->pnj_text[0] = get_next_line(fd).line;
 	i = 0;
-	identifiers[0] = "NO ";
-	identifiers[1] = "SO ";
-	identifiers[2] = "WE ";
-	identifiers[3] = "EA ";
-	game->paths = (char **)malloc(sizeof(char *) * 5);
-	if (!game->paths)
-		return (0);
-	while (i < 4)
+	while (++i < line_nb)
 	{
-		if (!assign_path(game, i, identifiers))
-			return (0);
-		i++;
+		game->pnj_text[i] = get_next_line(fd).line;
+		if (!game->pnj_text[i])
+			return (NULL);
 	}
-	game->paths[i] = NULL;
-	return (1);
+	game->pnj_text[i] = NULL;
+	close(fd);
+	return (game->pnj_text);
 }
 
-void	assign_color(t_game *game, int i, char **rgb)
+char	**read_map(char *map_file, t_game *game)
 {
-	if (i == 5)
-	{
-		game->f_color.a = 255;
-		game->f_color.r = ft_atoi(rgb[0]);
-		game->f_color.g = ft_atoi(rgb[1]);
-		game->f_color.b = ft_atoi(rgb[2]);
-	}
-	else
-	{
-		game->c_color.a = 255;
-		game->c_color.r = ft_atoi(rgb[0]);
-		game->c_color.g = ft_atoi(rgb[1]);
-		game->c_color.b = ft_atoi(rgb[2]);
-	}
-}
-
-int	parse_color(t_game *game, int i, int k, char **identifiers)
-{
-	char	*line;
-	char	**rgb;
-	int		j;
-
-	line = game->file_content[i];
-	game->colors[k] = game->file_content[i];
-	if (ft_strncmp(line, identifiers[i - 5], 2))
-		return (0);
-	line += (sizeof(char) * 2);
-	rgb = ft_split(line, ',');
-	if (!rgb)
-		return (0);
-	j = 0;
-	while (rgb[j])
-	{
-		if (ft_atoi(rgb[j]) < 0 || ft_atoi(rgb[j]) > 255)
-		{
-			free_map(rgb);
-			return (0);
-		}
-		j++;
-	}
-	assign_color(game, i, rgb);
-	free_map(rgb);
-	return (1);
-}
-
-int	check_colors(t_game *game)
-{
-	char	*line;
+	int		fd;
 	int		i;
-	int		k;
-	char	*identifiers[2];
 
-	i = 5;
-	k = 0;
-	identifiers[0] = "F ";
-	identifiers[1] = "C ";
-	game->colors = (char **)malloc(sizeof(char *) * 3);
-	if (!game->colors)
-		return (0);
-	while (i < 7)
+	fd = open(map_file, O_RDONLY);
+	if (!fd || fd == -1)
 	{
-		if (!parse_color(game, i, k, identifiers))
-			return (0);
-		i++;
-		k++;
+		ft_putstr_fd("Error while openning the map", 2);
+		exit (EXIT_FAILURE);
 	}
-	game->colors[k] = NULL;
+	game->height = determine_line_nb(map_file);
+	game->file_content = (char **)malloc(sizeof(char *) * (game->height + 1));
+	if (!(game->file_content))
+		return (NULL);
+	game->file_content[0] = get_next_line(fd).line;
+	i = 0;
+	while (++i < game->height)
+	{
+		game->file_content[i] = get_next_line(fd).line;
+		if (!game->file_content[i])
+			return (NULL);
+	}
+	game->file_content[i] = NULL;
+	close(fd);
+	return (game->file_content);
+}
+
+int	check_map_validity(t_game *game)
+{
+	if (!check_paths(game))
+		return (0);
+	if (!check_colors(game))
+		return (0);
+	if (!check_tiles_and_borders(game))
+		return (0);
 	return (1);
+}
+
+void	parsing(t_game *game, char *map_file)
+{
+	if (!read_pnj_text(game))
+	{
+		free_map(game->file_content);
+		ft_putstr_fd("Error: Reading pnj text file failed", 2);
+		exit(EXIT_FAILURE);
+	}
+	if (!read_map(map_file, game))
+	{
+		ft_putstr_fd("Error: Malloc failed", 2);
+		exit(EXIT_FAILURE);
+	}
+	if (!check_map_validity(game))
+	{
+		free_map(game->file_content);
+		ft_putstr_fd("Error: The map is not valid", 2);
+		exit(EXIT_FAILURE);
+	}
 }

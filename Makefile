@@ -6,7 +6,7 @@
 #    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/21 10:40:18 by halnuma          ###   ########.fr        #
+#    Updated: 2025/07/21 14:02:16 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,12 @@ SRC_FILES = \
 	parsing/borders.c \
 	parsing/tile_type.c \
 	parsing/parse_map.c \
-	parsing/check_tiles.c \
+	parsing/check_characters.c \
+	parsing/check_colors.c \
+	parsing/check_paths.c \
+	utils/map_utils.c \
+	utils/move_utils.c \
+	utils/time_utils.c \
 	player_movement.c \
 	end_game.c \
 	game_loop.c \
@@ -85,9 +90,6 @@ SRC_FILES = \
 	keys/keys_buffer.c \
 	keys/keys_handling.c \
 	keys/keys.c \
-	map_utils.c \
-	move_utils.c \
-	time_utils.c \
 	drawing/draw_basics.c \
 	drawing/glyphs_effects.c \
 	drawing/glyphs.c \
@@ -113,7 +115,7 @@ CFLAGS = -O3 -march=native -funroll-loops -g3 -flto
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 
-all: $(NAME)
+all: $(NAME) 
 
 $(NAME): $(OBJ) $(LIBS)
 	$(SILENT) $(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)

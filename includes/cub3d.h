@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 11:27:40 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 13:09:17 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ int			check_pnjs(t_game *game, int i, int j, int *p);
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);
-void 		draw_player(t_game *game);
+void		draw_player(t_game *game);
 void		draw_tile(t_tile_context *tile, t_png_pixel8 color, int mid_off);
 void		draw_pnj(t_tile_context *tile, t_png_pixel8 color);
 void		draw_border(t_game *game);
