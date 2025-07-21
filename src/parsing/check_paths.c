@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_paths.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:16:07 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 13:17:05 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 19:19:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,17 @@
 int	assign_path(t_game *game, int i, char **identifiers)
 {
 	char	*line;
-	int		fd;
 
 	line = game->file_content[i];
 	game->paths[i] = game->file_content[i];
-	game->paths[i] += sizeof(char) * 3;
+	game->paths[i] += 3;
 	if (ft_strncmp(line, identifiers[i], 3))
 		return (0);
-	line += (sizeof(char) * 3);
+	line += 3;
 	if (line)
 		line[ft_strlen(line) - 1] = '\0';
 	else
 		return (0);
-	fd = open(line, O_RDONLY);
-	if (!fd || fd == -1)
-		return (0);
-	close(fd);
 	return (1);
 }
 

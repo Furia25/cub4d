@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 17:52:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 19:59:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,16 +168,14 @@ void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
 			t_render_context *r_ctx, t_texture_type texture_type)
 {
 	t_png	*texture;
-	float	off_x;
-	float	off_y;
-	int		tex_x;
-	int		tex_y;
-
+	t_vec2	off;
+	t_ivec2	tex;
+	
 	texture = r_ctx->textures[texture_type];
-	off_x = real_pos.x - (int)real_pos.x;
-	off_y = real_pos.y - (int)real_pos.y;
-	tex_x = (int)(off_x * texture->header.width);
-	tex_y = (int)(off_y * texture->header.height);
-	draw_pixel(texture->pixels_8bit[tex_y * texture->header.width + tex_x], \
+	off.x = real_pos.x - (int)real_pos.x;
+	off.y = real_pos.y - (int)real_pos.y;
+	tex.x = (int)(off.x * texture->header.width) % texture->header.width;
+	tex.y = (int)(off.y * texture->header.height) % texture->header.height;
+	draw_pixel(texture->pixels_8bit[tex.y * texture->header.width + tex.x], \
 		pixel.x, pixel.y, r_ctx->frame);
 }

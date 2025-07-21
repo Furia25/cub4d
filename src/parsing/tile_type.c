@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tile_type.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:55:18 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 15:10:49 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 20:57:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int	center_tile(char c)
 int	wrapping_tile(char c)
 {
 	if (c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W' && \
-		c != '1' && c != 'P')
+		c != '1' && c != '2' && c != 'P')
 		return (0);
 	return (1);
 }
 
 int	check_tile_validity(char c)
 {
-	if (c != '1' && c != '0' && c != 'N' && c != 'E' && \
+	if (c != '1' && c != '2' && c != '0' && c != 'N' && c != 'E' && \
 		c != 'S' && c != 'W' && c != 'P' && c != ' ' && c != '\n')
 		return (0);
 	return (1);

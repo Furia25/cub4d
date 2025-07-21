@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 17:41:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 20:46:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
 			render_horizontal_texture((t_ivec2){ctx->column, y},
-				hit->pos, r_ctx, TEXTURE_TOP);
+				hit->pos, r_ctx, hit->tile_info->texture_topbot);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
 		}
 		y--;
@@ -60,7 +60,7 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
 			render_horizontal_texture((t_ivec2){ctx->column, y},
-				hit->pos, r_ctx, TEXTURE_BOT);
+				hit->pos, r_ctx, hit->tile_info->texture_topbot);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 18:23:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 21:54:18 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,21 @@ typedef enum e_tile_type
 {
 	TILE_EMPTY,
 	TILE_WALL,
+	TILE_WATER,
 	TILE_MAX_COUNT
 }	t_tile_type;
 
 typedef struct t_tile_data
 {
 	t_tile_type		type;
+	t_texture_type	texture;
+	t_texture_type	texture_topbot;
 	bool			solid;
 	bool			wall;
 	bool			visible;
 	bool			blocking;
-	t_texture_type	texture;
+	float			ceil_offset;
+	float			floor_offset;
 	const char		*name;
 }	t_tile_data;
 
@@ -51,10 +55,23 @@ typedef struct s_tilemap
 	size_t			tile_size;
 }	t_tilemap;
 
-/*[TYPE]      = Type, Solid, Wall, Visible, Blocking*/
+/*[TYPE] = 
+type, 
+texture, 
+texture_topbot, 
+solid,
+wall,
+visible,
+blocking,
+ceil_offset,
+floor_offset,
+name
+*/
+
 static const t_tile_data	g_base_tile_info[TILE_MAX_COUNT] = {
-[TILE_EMPTY] = {TILE_EMPTY, true, false, false, false, TEXTURE_MISSING, "Empty"},
-[TILE_WALL] = {TILE_WALL, true, true, true, true, TEXTURE_WALL, "Wall"},
+[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_GRASS, TEXTURE_ERROR, true, false, false, false, 0, 0, "Empty"},
+[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, true, true, true, true, 0, 0, "Wall"},
+[TILE_WATER] = {TILE_WALL, TEXTURE_WATER, TEXTURE_WATER, false, false, true, true, -0.50, 0, "Water"},
 };
 
 t_tilemap	*tilemap_new(size_t width, size_t height, size_t tile_size);

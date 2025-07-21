@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 18:22:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 20:41:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	free_textures(t_game *game)
 	int		index;
 
 	index = 1;
-	missing_ptr = game->textures[TEXTURE_MISSING];
+	missing_ptr = game->textures[TEXTURE_ERROR];
 	while (index < TEXTURE_MAX_COUNT)
 	{
 		ptr = game->textures[index];

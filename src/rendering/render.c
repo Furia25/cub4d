@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 17:42:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 19:48:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static inline void	render_rays(int start, int end, t_render_context *render)
 		camera_x = 2.0 * x / (float)WINDOW_WIDTH - 1.0;
 		ray_angle = render->direction + atan(camera_x * tan(render->fov / 2));
 		ray = ray2_from_angle(render->position, ray_angle);
+		render_floor(render, ray, ray_angle, x);
 		render_ray(ray_angle, x, &ray, render);
 		x++;
 	}

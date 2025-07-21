@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 17:40:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 19:23:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,7 @@ void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
 			t_render_context *render, t_vertical_tex	*tex_ctx);
 void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
 			t_render_context *r_ctx, t_texture_type texture_type);
+void	render_floor(t_render_context *r_ctx, t_ray2 ray,
+			float angle, int column);
 
 #endif

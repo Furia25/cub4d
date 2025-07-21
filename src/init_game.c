@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 18:47:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 20:41:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	init_textures(t_game *game)
 	int			index;
 	int			parsed_index;
 
-	game->textures[TEXTURE_MISSING] = png_open(textures_files[TEXTURE_MISSING]);
-	if (!game->textures[TEXTURE_MISSING])
+	game->textures[TEXTURE_ERROR] = png_open(textures_files[TEXTURE_ERROR]);
+	if (!game->textures[TEXTURE_ERROR])
 		return (0);
 	index = 1;
 	while (index < TEXTURE_MAX_COUNT)
@@ -57,7 +57,7 @@ int	init_textures(t_game *game)
 		if (!is_file_valid(path))
 		{
 			printf("WARNING : Texture at path \"%s\" is missing\n", path);
-			game->textures[index] = game->textures[TEXTURE_MISSING];
+			game->textures[index] = game->textures[TEXTURE_ERROR];
 			index++;
 			continue ;
 		}
