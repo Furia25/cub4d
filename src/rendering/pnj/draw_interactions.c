@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pnj.c                                              :+:      :+:    :+:   */
+/*   draw_interactions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/16 16:57:33 by vdurand          ###   ########.fr       */
+/*   Created: 2025/07/21 10:38:25 by halnuma           #+#    #+#             */
+/*   Updated: 2025/07/21 10:40:30 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,60 +73,4 @@ void	draw_textbox(t_game *game, char *text, uint64_t time)
 	btn.width = 60;
 	btn.height = 60;
 	draw_interact_button(game, &btn, 1);
-}
-
-int	tablen(char **text)
-{
-	int	i;
-
-	i = 0;
-	while (text[i])
-		i++;
-	return (i);
-}
-
-void	manage_interaction(t_game *game, char **text)
-{
-	static uint64_t	time;
-	t_button		btn;
-
-	if (key_is_released(KEY_INTERACT, game))
-	{
-		game->interaction++;
-		time = get_time_ms();
-	}
-	if (!game->interaction)
-	{
-		btn.x = ((WINDOW_WIDTH / 2) - (S_BUTTON_INTERACT / 2));
-		btn.y = ((WINDOW_HEIGHT / 2) - (S_BUTTON_INTERACT / 2));
-		btn.width = S_BUTTON_INTERACT;
-		btn.height = S_BUTTON_INTERACT;
-		draw_interact_button(game, &btn, 0);
-	}
-	else if (game->interaction - 1 < tablen(text))
-		draw_textbox(game, text[game->interaction - 1], time);
-	else if (game->interaction - 1 >= tablen(text))
-		game->interaction = 0;
-}
-
-void	manage_pnjs(t_game *game)
-{
-	int		i;
-	float	dist;
-	int		pnj_in_range;
-
-	i = 0;
-	pnj_in_range = 0;
-	while (i < game->pnj_count)
-	{
-		dist = vec3_distance(game->player.position, game->pnjs[i].position);
-		if (dist < INTERACTION_RANGE)
-		{
-			pnj_in_range = 1;
-			manage_interaction(game, game->pnjs[i].text);
-		}
-		i++;
-	}
-	if (!pnj_in_range)
-		game->interaction = 0;
 }

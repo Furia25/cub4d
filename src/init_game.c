@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/17 14:04:26 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 10:06:01 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ void	run_game(t_game *game)
 	if (!create_frame_image(game))
 		exit_game(game);
 	game->start_time = time_init();
-	game->interaction = 0;
+	game->interaction.count = 0;
+	game->interaction.pnj_id = -1;
 	game->state = MENU;
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);

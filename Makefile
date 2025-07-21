@@ -6,7 +6,7 @@
 #    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/17 14:36:51 by halnuma          ###   ########.fr        #
+#    Updated: 2025/07/21 10:40:18 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,9 +63,10 @@ SRC_FILES = \
 	rendering/render.c \
 	rendering/raycast_misc.c \
 	rendering/texture.c \
-	rendering/pnj.c \
 	rendering/button.c \
 	rendering/menu.c \
+	rendering/pnj/manage_pnj.c \
+	rendering/pnj/draw_interactions.c \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_populate.c \

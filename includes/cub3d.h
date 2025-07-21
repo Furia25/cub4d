@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 09:55:20 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 10:41:39 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,12 @@ typedef struct s_menu
 	int		action;
 }	t_menu;
 
+typedef struct s_interaction
+{
+	int	pnj_id;
+	int	count;
+}	t_interaction;
+
 # define MENU_ACTIONS	1
 
 typedef struct s_game
@@ -146,7 +152,7 @@ typedef struct s_game
 	int				enemy_count;
 	t_pnj			pnjs[MAX_PNJ];
 	int				pnj_count;
-	int				interaction;
+	t_interaction	interaction;
 	t_game_state	state;
 	t_menu			menu;
 	t_rng_state		rng;
@@ -241,6 +247,12 @@ void		draw_border(t_game *game);
 void		draw_player(t_game *game);
 void		draw_full_map(t_game *game);
 
+
+// ----- PNJ ----- //
+void		manage_pnjs(t_game *game);
+void		draw_interact_button(t_game *game, t_button *btn, int text_box);
+void		draw_textbox(t_game *game, char *text, uint64_t time);
+
 int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
 void		player_add_x(float value, t_player *player);
@@ -249,7 +261,6 @@ void		player_add_z(float value, t_player *player);
 
 void		draw_enemies(t_game *game);
 void		draw_button(t_game *game, t_button *btn);
-void		manage_pnjs(t_game *game);
 t_vec2		calculate_axis_dist(t_vec2 p_pos, t_vec2 e_pos);
 float		calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist);
 void		render_start_menu(t_game *game);
