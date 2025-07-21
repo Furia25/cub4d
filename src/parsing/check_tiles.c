@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:33:46 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/17 15:04:50 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 09:57:43 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	assign_pnj_text(t_game *game, t_pnj *pnj, int index)
 {
 	int		i;
 	int		line_count;
-	int		tmp_count;
+	int		temp;
 	int		size;
 	char	**pnj_text;
 
@@ -29,11 +29,10 @@ void	assign_pnj_text(t_game *game, t_pnj *pnj, int index)
 			line_count++;
 		line_count++;
 	}
-	tmp_count = line_count;
-	while (game->pnj_text[tmp_count] && \
-   		ft_strcmp(game->pnj_text[tmp_count], "\n"))
-		tmp_count++;
-	size = tmp_count - line_count;
+	temp = line_count;
+	while (game->pnj_text[temp] && ft_strcmp(game->pnj_text[temp], "\n"))
+		temp++;
+	size = temp - line_count;
 	pnj_text = (char **)malloc(sizeof(char *) * size);
 	i = -1;
 	while (++i < size - 1)

@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/17 14:36:17 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 09:55:20 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,13 @@ typedef struct s_player
 	t_vec2	last_move;
 	bool	is_grounded;
 }	t_player;
+
+typedef struct s_parsing_content
+{
+	int	player;
+	int	pnjs;
+	int	enemies;
+}	t_parsing_content;
 
 typedef struct s_pnj
 {
