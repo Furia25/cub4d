@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/04 17:38:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:41:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,22 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 {
 	float				real_dist;
 	int					buffer_idx;
-	t_horizontal_tex	t_ctx;
 
 	while (y != r_ctx->halfh)
 	{
 		real_dist = r_ctx->proj_dist_y
 			* ((r_ctx->eye_height - hit->tile->ceiling) / (y - r_ctx->halfh))
 			* (1.0f / cosf(hit->original_angle - r_ctx->direction));
-		hit->pos.x = hit->original_ray.origin.x \
-			+ hit->original_ray.dir_normal.x * real_dist;
-		hit->pos.y = hit->original_ray.origin.y \
-			+ hit->original_ray.dir_normal.y * real_dist;
-		if (floor(hit->pos.x) != hit->tile_x \
-		|| floor(hit->pos.y) != hit->tile_y)
+		hit->pos.x = hit->o_ray.origin.x + hit->o_ray.dir_normal.x * real_dist;
+		hit->pos.y = hit->o_ray.origin.y + hit->o_ray.dir_normal.y * real_dist;
+		if (floor(hit->pos.x) != hit->tile_x
+			|| floor(hit->pos.y) != hit->tile_y)
 			break ;
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
-			t_ctx = (t_horizontal_tex){ctx->column, y, 1};
-			render_horizontal_texture(&t_ctx, hit, r_ctx);
+			render_horizontal_texture((t_ivec2){ctx->column, y},
+				hit->pos, r_ctx, TEXTURE_TOP);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
 		}
 		y--;
@@ -48,7 +45,6 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 {
 	float				real_dist;
 	int					buffer_idx;
-	t_horizontal_tex	t_ctx;
 
 	y += 1;
 	while (y < r_ctx->halfh)
@@ -56,17 +52,15 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 		real_dist = fabsf(r_ctx->proj_dist_y \
 		* ((r_ctx->eye_height - hit->tile->floor) / (y - r_ctx->halfh)) \
 		* (1.0f / cosf(hit->original_angle - r_ctx->direction)));
-		hit->pos.x = hit->original_ray.origin.x \
-			+ hit->original_ray.dir_normal.x * real_dist;
-		hit->pos.y = hit->original_ray.origin.y \
-			+ hit->original_ray.dir_normal.y * real_dist;
+		hit->pos.x = hit->o_ray.origin.x + hit->o_ray.dir_normal.x * real_dist;
+		hit->pos.y = hit->o_ray.origin.y + hit->o_ray.dir_normal.y * real_dist;
 		if (floor(hit->pos.x) != hit->tile_x || floor(hit->pos.y) != hit->tile_y)
 			break ;
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
-			t_ctx = (t_horizontal_tex){ctx->column, y, 0};
-			render_horizontal_texture(&t_ctx, hit, r_ctx);
+			render_horizontal_texture((t_ivec2){ctx->column, y},
+				hit->pos, r_ctx, TEXTURE_BOT);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
 		}
 		y++;
@@ -75,17 +69,19 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 
 static void	set_texture_orientation(t_raycast_hit *result)
 {
-	if (result->orientation == 0 && result->original_ray.dir_normal.x < 0)
+	if (result->tile_info->type != TILE_WALL)
+		return ;
+	if (result->orientation == 0 && result->o_ray.dir_normal.x < 0)
 		result->tile_info->texture = TEXTURE_WEST;
-	else if (result->orientation == 0 && result->original_ray.dir_normal.x > 0)
+	else if (result->orientation == 0 && result->o_ray.dir_normal.x > 0)
 		result->tile_info->texture = TEXTURE_EAST;
-	else if (result->orientation == 1 && result->original_ray.dir_normal.y < 0)
+	else if (result->orientation == 1 && result->o_ray.dir_normal.y < 0)
 		result->tile_info->texture = TEXTURE_NORTH;
-	else if (result->orientation == 1 && result->original_ray.dir_normal.y > 0)
+	else if (result->orientation == 1 && result->o_ray.dir_normal.y > 0)
 		result->tile_info->texture = TEXTURE_SOUTH;
 }
 
-static void	init_texture_ctx(t_texture_context *tex_ctx, t_raycast_hit *hit,
+static void	init_texture_ctx(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 	t_render_context *render, float dist)
 {
 	float				y_floor;
@@ -108,7 +104,7 @@ void	render_draw_ray(t_raycast_hit *hit,
 			t_render_context *render)
 {
 	float				corrected_dist;
-	t_texture_context	tex_ctx;
+	t_vertical_tex	tex_ctx;
 
 	corrected_dist = hit->dist
 		* cosf(hit->original_angle - render->direction);
@@ -118,9 +114,9 @@ void	render_draw_ray(t_raycast_hit *hit,
 		draw_top_faces(hit, tex_ctx.wall_start, ctx, render);
 	if (hit->tile->floor > render->eye_height)
 		draw_bot_faces(hit, tex_ctx.wall_end, ctx, render);
-	hit->pos.x = hit->original_ray.origin.x \
-		+ hit->original_ray.dir_normal.x * hit->dist;
-	hit->pos.y = hit->original_ray.origin.y \
-		+ hit->original_ray.dir_normal.y * hit->dist;
+	hit->pos.x = hit->o_ray.origin.x \
+		+ hit->o_ray.dir_normal.x * hit->dist;
+	hit->pos.y = hit->o_ray.origin.y \
+		+ hit->o_ray.dir_normal.y * hit->dist;
 	manage_texture(hit, ctx, render, &tex_ctx);
 }

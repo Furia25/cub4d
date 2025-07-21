@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 11:32:05 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:52:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ TEST
 
 
 
-static void	render_texture(t_texture_context *tex_ctx,
-	t_raycast_hit *hit, t_raycast_context *ctx, uint8_t *zbuf)
+static void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
+				t_raycast_context *ctx, uint8_t *zbuf)
 {
 	int		buffer_idx;
 	int		tex_y;
@@ -146,7 +146,7 @@ static void	render_texture(t_texture_context *tex_ctx,
 }
 
 void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
-	t_render_context *render, t_texture_context	*tex_ctx)
+			t_render_context *render, t_vertical_tex *tex_ctx)
 {
 	uint8_t		*zbuf;
 	float		offset;
@@ -158,14 +158,14 @@ void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
 	else
 		offset = hit->pos.x - (int)hit->pos.x;
 	tex_ctx->tex_x = (int)(offset * tex_ctx->texture->header.width);
-	if ((hit->orientation == 0 && hit->original_ray.dir_normal.x > 0) || \
-		(hit->orientation == 1 && hit->original_ray.dir_normal.y < 0))
+	if ((hit->orientation == 0 && hit->o_ray.dir_normal.x > 0) || \
+		(hit->orientation == 1 && hit->o_ray.dir_normal.y < 0))
 		tex_ctx->tex_x = tex_ctx->texture->header.width - tex_ctx->tex_x - 1;
 	render_texture(tex_ctx, hit, ctx, zbuf);
 }
 
-void	render_horizontal_texture(t_horizontal_tex *t_ctx, t_raycast_hit *hit, \
-	t_render_context *r_ctx)
+void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
+			t_render_context *r_ctx, t_texture_type texture_type)
 {
 	t_png	*texture;
 	float	off_x;
@@ -173,14 +173,11 @@ void	render_horizontal_texture(t_horizontal_tex *t_ctx, t_raycast_hit *hit, \
 	int		tex_x;
 	int		tex_y;
 
-	if (t_ctx->side)
-		texture = r_ctx->game->textures[TEXTURE_TOP];
-	else
-		texture = r_ctx->game->textures[TEXTURE_BOT];
-	off_x = hit->pos.x - (int)hit->pos.x;
-	off_y = hit->pos.y - (int)hit->pos.y;
+	texture = r_ctx->textures[texture_type];
+	off_x = real_pos.x - (int)real_pos.x;
+	off_y = real_pos.y - (int)real_pos.y;
 	tex_x = (int)(off_x * texture->header.width);
 	tex_y = (int)(off_y * texture->header.height);
 	draw_pixel(texture->pixels_8bit[tex_y * texture->header.width + tex_x], \
-		t_ctx->x, t_ctx->y, r_ctx->frame);
+		pixel.x, pixel.y, r_ctx->frame);
 }

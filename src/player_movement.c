@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/04 19:54:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:25:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	player_handle_jump(t_player *plr, t_game *game)
 {
 	const float	gravity = -0.013f;
 	bool		jumping;
-	bool		on_ground;
 
 	jumping = key_check(KEY_JUMP, game);
 	if (jumping && plr->is_grounded)

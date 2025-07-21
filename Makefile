@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/21 14:02:16 by halnuma          ###   ########.fr        #
+#    Updated: 2025/07/21 18:26:31 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,6 @@ SRC_FILES = \
 	rendering/render_draw_ray.c \
 	rendering/raycast_dda.c \
 	rendering/render.c \
-	rendering/raycast_misc.c \
 	rendering/texture.c \
 	rendering/button.c \
 	rendering/menu.c \
@@ -80,6 +79,7 @@ SRC_FILES = \
 	parsing/check_characters.c \
 	parsing/check_colors.c \
 	parsing/check_paths.c \
+	utils/misc_utils.c \
 	utils/map_utils.c \
 	utils/move_utils.c \
 	utils/time_utils.c \
@@ -111,7 +111,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -O3 -march=native -funroll-loops -g3 -flto
+CFLAGS = -Wall -Werror -Wextra -O3 -march=native -funroll-loops -g3
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 

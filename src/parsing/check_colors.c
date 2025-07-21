@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:16:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 14:10:19 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:25:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	parse_color(t_game *game, int i, int k, char **identifiers)
 
 int	check_colors(t_game *game)
 {
-	char	*line;
 	int		i;
 	int		k;
 	char	*identifiers[2];

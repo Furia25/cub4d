@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 11:18:19 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:13:11 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ uint64_t	get_fps(uint64_t start_time)
 	uint64_t		actual;
 	uint64_t		delta;
 
-	if (fps_time == 10)
+	if (fps_time == 70)
 	{
 		fps_total = 0;
 		fps_time = 0;

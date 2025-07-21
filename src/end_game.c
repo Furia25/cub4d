@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   end_game.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 13:32:19 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:22:33 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "glyphs.h"
+
+static void	free_textures(t_game *game);
 
 int	exit_game(t_game *game)
 {
@@ -39,16 +41,26 @@ int	exit_game(t_game *game)
 	}
 	if (game->mlx)
 		mlx_destroy_display(game->mlx);
-	png_close(game->textures[TEXTURE_NORTH]);
-	png_close(game->textures[TEXTURE_WEST]);
-	png_close(game->textures[TEXTURE_EAST]);
-	png_close(game->textures[TEXTURE_SOUTH]);
-	png_close(game->textures[TEXTURE_TOP]);
-	png_close(game->textures[TEXTURE_BOT]);
-	png_close(game->menu.assets[ASSET_SELECTOR]);
-	png_close(game->menu.assets[ASSET_BG_PAUSE]);
-	png_close(game->menu.assets[ASSET_BG_START]);
+	free_textures(game);
 	glyph_end();
 	free(game->mlx);
 	exit(EXIT_SUCCESS);
+}
+
+static void	free_textures(t_game *game)
+{
+	t_png	*ptr;
+	t_png	*missing_ptr;
+	int		index;
+
+	index = 1;
+	missing_ptr = game->textures[TEXTURE_MISSING];
+	while (index < TEXTURE_MAX_COUNT)
+	{
+		ptr = game->textures[index];
+		if (ptr != missing_ptr)
+			png_close(ptr);
+		index++;
+	}
+	png_close(missing_ptr);
 }

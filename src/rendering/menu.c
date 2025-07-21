@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 13:12:58 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:23:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	draw_selector(t_game *game, int x, int y)
 	uint32_t	j;
 	t_png		*selector;
 
-	selector = game->menu.assets[ASSET_SELECTOR];
+	selector = game->textures[ASSET_SELECTOR];
 	y += game->menu.action * 125;
 	i = 0;
 	while (i < selector->header.height)
@@ -98,7 +98,7 @@ void	render_menu(t_game *game, int start)
 	t_png_pixel8	*background;
 
 	if (start)
-		background = game->menu.assets[ASSET_BG_START]->pixels_8bit;
+		background = game->textures[ASSET_BG_START]->pixels_8bit;
 	else
 		background = NULL;
 	draw_background(game, background);

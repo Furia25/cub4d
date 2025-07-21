@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 13:09:17 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:13:29 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ typedef struct s_enemy
 
 typedef struct s_menu
 {
-	t_png	*assets[ASSET_MAX_COUNT];
 	int		action;
 }	t_menu;
 
@@ -215,11 +214,12 @@ void		draw_minimap(t_game *game);
 void		rad_to_vect(t_vec2 *direction, float rad);
 int			check_corners(t_game *game, double pos_x, double pos_y);
 
-// ----- MAP_UTILS ----- //
+// ----- UTILS ----- //
 int			check_file_extension(char *filename);
 char		**read_map(char *map_file, t_game *game);
 void		parsing(t_game *game, char *map_file);
 void		free_map(char **map);
+bool		is_file_valid(char *path);
 
 // ----- PARSING ----- //
 int			check_colors(t_game *game);

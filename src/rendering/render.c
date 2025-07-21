@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/04 19:39:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 17:42:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	render_init(int width, int height,
 	ft_memset(z_buffer, UINT8_MAX, sizeof(z_buffer));
 	context->z_buffer = &z_buffer[0];
 	context->game = game;
+	context->textures = game->textures;
 	context->tilemap = game->tilemap;
 	context->frame = game->img;
 	context->player = &game->player;

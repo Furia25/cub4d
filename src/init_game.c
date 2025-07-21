@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 13:37:08 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:47:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,32 @@ bool	create_frame_image(t_game *game)
 
 int	init_textures(t_game *game)
 {
-	game->textures[TEXTURE_NORTH] = png_open(game->paths[0]);
-	if (!game->textures[TEXTURE_NORTH])
+	char		*path;
+	int			index;
+	int			parsed_index;
+
+	game->textures[TEXTURE_MISSING] = png_open(textures_files[TEXTURE_MISSING]);
+	if (!game->textures[TEXTURE_MISSING])
 		return (0);
-	game->textures[TEXTURE_EAST] = png_open(game->paths[3]);
-	if (!game->textures[TEXTURE_EAST])
-		return (0);
-	game->textures[TEXTURE_WEST] = png_open(game->paths[2]);
-	if (!game->textures[TEXTURE_WEST])
-		return (0);
-	game->textures[TEXTURE_SOUTH] = png_open(game->paths[1]);
-	if (!game->textures[TEXTURE_SOUTH])
-		return (0);
-	game->textures[TEXTURE_TOP] = png_open("assets/textures/wall_top.png");
-	if (!game->textures[TEXTURE_TOP])
-		return (0);
-	game->textures[TEXTURE_BOT] = png_open("assets/textures/wall_bot.png");
-	if (!game->textures[TEXTURE_BOT])
-		return (0);
-	if (!glyph_init("assets/textures/glyph.png"))
-		return (0);
+	index = 1;
+	while (index < TEXTURE_MAX_COUNT)
+	{
+		path = textures_files[index];
+		parsed_index = ft_atoi(path);
+		if (parsed_index != 0)
+			path = game->paths[parsed_index - 1];
+		if (!is_file_valid(path))
+		{
+			printf("WARNING : Texture at path \"%s\" is missing\n", path);
+			game->textures[index] = game->textures[TEXTURE_MISSING];
+			index++;
+			continue ;
+		}
+		game->textures[index] = png_open(path);
+		if (!game->textures[index])
+			return (0);
+		index++;
+	}
 	return (1);
 }
 
@@ -67,21 +73,8 @@ int	init_assets(t_game *game)
 {
 	if (!init_textures(game))
 		return (0);
-	return (1);
-}
-
-int	init_menu(t_game *game)
-{
-	game->menu.assets[ASSET_BG_START] = png_open("assets/menu/bg_start.png");
-	if (!game->menu.assets[ASSET_BG_START])
+	if (!glyph_init(GLYPH_PATH))
 		return (0);
-	game->menu.assets[ASSET_BG_PAUSE] = png_open("assets/menu/bg_pause.png");
-	if (!game->menu.assets[ASSET_BG_PAUSE])
-		return (0);
-	game->menu.assets[ASSET_SELECTOR] = png_open("assets/menu/selector.png");
-	if (!game->menu.assets[ASSET_SELECTOR])
-		return (0);
-	game->menu.action = 0;
 	return (1);
 }
 
@@ -114,8 +107,6 @@ void	run_game(t_game *game)
 {
 	rng_init(&game->rng, 0xCACA);
 	if (!init_assets(game))
-		exit_game(game);
-	if (!init_menu(game))
 		exit_game(game);
 	game->mlx = mlx_init();
 	if (!game->mlx)

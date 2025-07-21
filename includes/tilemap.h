@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/04 19:36:12 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/21 18:23:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_tilemap
 
 /*[TYPE]      = Type, Solid, Wall, Visible, Blocking*/
 static const t_tile_data	g_base_tile_info[TILE_MAX_COUNT] = {
-[TILE_EMPTY] = {TILE_EMPTY, true, false, false, false, TEXTURE_NAN, "Empty"},
+[TILE_EMPTY] = {TILE_EMPTY, true, false, false, false, TEXTURE_MISSING, "Empty"},
 [TILE_WALL] = {TILE_WALL, true, true, true, true, TEXTURE_WALL, "Wall"},
 };
 
