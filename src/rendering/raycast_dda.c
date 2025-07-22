@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 16:36:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/22 18:35:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static inline void	raycast_init(t_raycast_context *ctx);
 static inline void	raycast_launch(t_raycast_context *ctx);
-static inline bool	check_wall_tile(t_raycast_hit *hit, \
+static inline char	check_tile(t_raycast_hit *hit, \
 		t_raycast_context *ctx);
 static inline void	raycast_set_dist(t_raycast_hit *hit, \
 		t_raycast_context *ctx);
@@ -35,6 +35,11 @@ void	render_ray(float base_angle, int column,
 	ctx.step.y = sign(ray->dir_normal.y);
 	ctx.actual.orientation = 0;
 	raycast_init(&ctx);
+	if (check_tile(&ctx.actual, &ctx) != 0)
+	{
+		raycast_set_dist(&ctx.actual, &ctx);
+		render_draw_ray(&ctx.actual, &ctx, ctx.render_ctx, 2);
+	}
 	raycast_launch(&ctx);
 }
 
@@ -43,8 +48,8 @@ static inline void	raycast_init(t_raycast_context *ctx)
 	t_ray2	*ray;
 
 	ray = ctx->ray;
-	ctx->actual_tile.x = (int)(ray->origin.x);
-	ctx->actual_tile.y = (int)(ray->origin.y);
+	ctx->actual_tile.x = floorf(ray->origin.x);
+	ctx->actual_tile.y = floorf(ray->origin.y);
 	if (float_equal(ray->dir_normal.x, 0))
 		ctx->delta_dist.x = INFINITY;
 	else
@@ -69,7 +74,9 @@ static inline void	raycast_init(t_raycast_context *ctx)
 
 static inline void	raycast_launch(t_raycast_context *ctx)
 {
-	while (fmin(ctx->step_dist.x, ctx->step_dist.y) < RENDER_DISTANCE)
+	char	is_wall;
+
+	while (fminf(ctx->step_dist.x, ctx->step_dist.y) < RENDER_DISTANCE)
 	{
 		if (ctx->step_dist.x < ctx->step_dist.y)
 		{
@@ -83,15 +90,16 @@ static inline void	raycast_launch(t_raycast_context *ctx)
 			ctx->actual_tile.y += ctx->step.y;
 			ctx->actual.orientation = 1;
 		}
-		if (check_wall_tile(&ctx->actual, ctx))
+		is_wall = check_tile(&ctx->actual, ctx);
+		if (is_wall != 0)
 		{
 			raycast_set_dist(&ctx->actual, ctx);
-			render_draw_ray(&ctx->actual, ctx, ctx->render_ctx);
+			render_draw_ray(&ctx->actual, ctx, ctx->render_ctx, is_wall);
 		}
 	}
 }
 
-static inline bool	check_wall_tile(t_raycast_hit *hit,
+static inline char	check_tile(t_raycast_hit *hit,
 		t_raycast_context *ctx)
 {
 	t_tile	*tile;
@@ -101,15 +109,17 @@ static inline bool	check_wall_tile(t_raycast_hit *hit,
 	tile_x = ctx->actual_tile.x;
 	tile_y = ctx->actual_tile.y;
 	if (!tilemap_is_tile_valid(tile_x, tile_y, ctx->tilemap))
-		return (false);
-	tile = tilemap_get_tile(tile_x, tile_y, ctx->tilemap);
+		return (0);
+	tile = &ctx->tilemap->tiles[tile_y][tile_x];
 	hit->tile_x = tile_x;
 	hit->tile_y = tile_y;
 	hit->tile_info = &tile->info;
 	hit->tile = tile;
 	if (hit->tile_info->wall)
-		return (true);
-	return (false);
+		return (1);
+	else
+		return (2);
+	return (0);
 }
 
 static inline void	raycast_set_dist(t_raycast_hit *hit,

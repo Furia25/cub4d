@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 21:54:18 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/22 18:42:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ name
 */
 
 static const t_tile_data	g_base_tile_info[TILE_MAX_COUNT] = {
-[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_GRASS, TEXTURE_ERROR, true, false, false, false, 0, 0, "Empty"},
+[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_GRASS, TEXTURE_GRASS, true, false, false, false, 0, 0, "Empty"},
 [TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, true, true, true, true, 0, 0, "Wall"},
-[TILE_WATER] = {TILE_WALL, TEXTURE_WATER, TEXTURE_WATER, false, false, true, true, -0.50, 0, "Water"},
+[TILE_WATER] = {TILE_WALL, TEXTURE_WATER, TEXTURE_WATER, false, false, true, true, 0.25, -0.25, "Water"},
 };
 
 t_tilemap	*tilemap_new(size_t width, size_t height, size_t tile_size);
