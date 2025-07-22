@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/22 18:41:18 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/22 18:47:44 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ static void	init_texture_ctx(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 
 	dist_inv = 1 / dist;
 	y_floor = ((hit->tile->floor - render->eye_height) \
-		*dist_inv) * render->proj_dist_y;
+		* dist_inv) * render->proj_dist_y;
 	y_ceiling = ((hit->tile->ceiling - render->eye_height) \
-		*dist_inv) * render->proj_dist_y;
+		* dist_inv) * render->proj_dist_y;
 	tex_ctx->wall_height = WINDOW_HEIGHT * dist_inv;
 	tex_ctx->wall_start = clamp(-y_ceiling + render->halfh, \
 		0, WINDOW_HEIGHT - 1);
@@ -114,6 +114,7 @@ void	render_draw_ray(
 	float				corrected_dist;
 	t_vertical_tex	tex_ctx;
 
+	(void)(is_wall);
 	corrected_dist = hit->dist
 		* cosf(hit->original_angle - render->direction);
 	set_texture_orientation(hit);
@@ -122,12 +123,9 @@ void	render_draw_ray(
 		draw_top_faces(hit, tex_ctx.wall_start, ctx, render);
 	if (hit->tile->floor > render->eye_height)
 		draw_bot_faces(hit, tex_ctx.wall_end, ctx, render);
-	if (is_wall == 1)
-	{
-		hit->pos.x = hit->o_ray.origin.x \
-			+ hit->o_ray.dir_normal.x * hit->dist;
-		hit->pos.y = hit->o_ray.origin.y \
-			+ hit->o_ray.dir_normal.y * hit->dist;
-		manage_texture(hit, ctx, render, &tex_ctx);
-	}
+	hit->pos.x = hit->o_ray.origin.x \
+		+ hit->o_ray.dir_normal.x * hit->dist;
+	hit->pos.y = hit->o_ray.origin.y \
+		+ hit->o_ray.dir_normal.y * hit->dist;
+	manage_texture(hit, ctx, render, &tex_ctx);
 }

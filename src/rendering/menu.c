@@ -6,60 +6,12 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 18:23:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/22 19:21:40 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "glyphs.h"
-
-static void	draw_background(t_game *game, t_png_pixel8 *background)
-{
-	int		i;
-	int		j;
-	t_rgba8	black;
-
-	i = 0;
-	black.r = 0;
-	black.g = 0;
-	black.b = 0;
-	black.a = 255;
-	while (i < WINDOW_HEIGHT)
-	{
-		j = 0;
-		while (j < WINDOW_WIDTH)
-		{
-			if (!background)
-				draw_pixel(black, j, i, game->img);
-			else
-				draw_pixel(background[(i * WINDOW_WIDTH) + j], j, i, game->img);
-			j++;
-		}
-		i++;
-	}
-}
-
-static void	draw_selector(t_game *game, int x, int y)
-{
-	uint32_t	i;
-	uint32_t	j;
-	t_png		*selector;
-
-	selector = game->textures[ASSET_SELECTOR];
-	y += game->menu.action * 125;
-	i = 0;
-	while (i < selector->header.height)
-	{
-		j = 0;
-		while (j < selector->header.width)
-		{
-			draw_pixel(selector->pixels_8bit \
-				[(i * selector->header.width) + j], x + j, y + i, game->img);
-			j++;
-		}
-		i++;
-	}
-}
 
 static void	draw_text_menu(t_game *game, wchar_t *text, int x, int y)
 {
@@ -101,7 +53,7 @@ void	render_menu(t_game *game, int start)
 		background = game->textures[ASSET_BG_START]->pixels_8bit;
 	else
 		background = NULL;
-	draw_background(game, background);
+	draw_sprite_sheet((t_draw_transform){});
 	if (start)
 	{
 		draw_text_menu(game, L"»5«Play", 850, 550);

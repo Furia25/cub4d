@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:20:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 21:49:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/22 19:09:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	tilemap_tiles_from_str(char *str, size_t line, t_tilemap *map)
 			tile->ceiling = 2 + rand() % 4 * 0.5f + tile->floor;
 		}
 		else
-			tile->ceiling = 0.;
+			tile->ceiling = 0.25;
 		tile->floor += tile->info.floor_offset;
-		tile->ceiling -= tile->info.ceil_offset;
+		tile->ceiling += tile->info.ceil_offset;
 		index++;
 	}
 }

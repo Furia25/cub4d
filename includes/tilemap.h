@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/22 18:42:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/22 19:08:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 # include "crazypng.h"
 # include "cub3d_textures.h"
 
+typedef enum e_tile_solid_mode
+{
+	SOLID_NONE = 0,
+	SOLID_CEIL = 1,
+	SOLID_FLOOR = 1 << 1,
+	SOLID_WALL = 1 << 2,
+	SOLID_ALL = SOLID_CEIL | SOLID_FLOOR | SOLID_WALL
+}	t_tile_solid_mode;
+
 typedef enum e_tile_type
 {
 	TILE_EMPTY,
@@ -25,12 +34,13 @@ typedef enum e_tile_type
 	TILE_MAX_COUNT
 }	t_tile_type;
 
+
 typedef struct t_tile_data
 {
 	t_tile_type		type;
 	t_texture_type	texture;
 	t_texture_type	texture_topbot;
-	bool			solid;
+	int				solid;
 	bool			wall;
 	bool			visible;
 	bool			blocking;
@@ -69,9 +79,9 @@ name
 */
 
 static const t_tile_data	g_base_tile_info[TILE_MAX_COUNT] = {
-[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_GRASS, TEXTURE_GRASS, true, false, false, false, 0, 0, "Empty"},
-[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, true, true, true, true, 0, 0, "Wall"},
-[TILE_WATER] = {TILE_WALL, TEXTURE_WATER, TEXTURE_WATER, false, false, true, true, 0.25, -0.25, "Water"},
+[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_GRASS, TEXTURE_GRASS, 1, false, false, false, 0, 0, "Empty"},
+[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, 1, true, true, true, 0, 0, "Wall"},
+[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER, 0, false, true, true, -0.1, -0.25, "Water"},
 };
 
 t_tilemap	*tilemap_new(size_t width, size_t height, size_t tile_size);

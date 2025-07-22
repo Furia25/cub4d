@@ -32,7 +32,7 @@ bool	tilemap_collision(float x, float y, t_vec2 z, t_tilemap *tilemap)
 	tile = tilemap_get_tile((size_t) x, (size_t)  y, tilemap);
 	if (!tile->info.solid)
 		return (false);
-	return (!(z.x >= tile->ceiling || z.y <= tile->floor));
+	return (!((z.x >= tile->ceiling && tile->type != TILE_WATER) || z.y <= tile->floor));
 }
 
 bool tilemap_collide_bbox(t_vec3 axis, t_bbox bbox, t_tilemap *map)

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 20:43:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/22 19:18:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_WEST] = "3",
 [TEXTURE_EAST] = "4",
 [ASSET_BG_PAUSE] = "assets/textures/gui/bg_pause.png",
-[ASSET_BG_START] = "assets/textures/gui/bg_start.png",
+[ASSET_BG_START] = "assets/textures/gui/test.png",
 [ASSET_SELECTOR] = "assets/textures/gui/selector.png"
 };
 
