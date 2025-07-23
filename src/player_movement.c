@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 18:25:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/23 15:57:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	update_player(t_player *player, t_game *game)
 		move = vec2_scale(vec2_normalize(move), player->accel);
 	player->last_move = move;
 	player_move_collision((t_vec3){move.x, move.y, 0}, player, game);
-	fly = (key_check(KEY_TEST_UP, game) - key_check(KEY_TEST_DOWN, game)) * 0.05;
+	fly = (key_check(KEY_TEST_UP, game) - key_check(KEY_TEST_DOWN, game)) * 0.025;
 	if (fly == 0)
 		player_handle_jump(player, game);
 	else

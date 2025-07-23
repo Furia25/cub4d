@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/23 15:35:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/23 16:29:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 	{
 		real_dist = r_ctx->proj_dist_y * ((r_ctx->eye_height
 			- hit->tile->ceiling) / (y - r_ctx->halfh)) * inv_cos;
-		real_dist += 0.001;
 		hit->pos.x = hit->o_ray.origin.x + hit->o_ray.dir_normal.x * real_dist;
 		hit->pos.y = hit->o_ray.origin.y + hit->o_ray.dir_normal.y * real_dist;
-		if (floorf(hit->pos.x) != hit->tile_x
-			|| floorf(hit->pos.y) != hit->tile_y)
+		if (floor(hit->pos.x) != hit->tile_x
+			|| floor(hit->pos.y) != hit->tile_y)
 			break ;
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
@@ -51,7 +50,7 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 	int					buffer_idx;
 	float				inv_cos;
 
-	inv_cos = (1.0f / cosf(hit->original_angle - r_ctx->direction));
+	inv_cos = (1.0f / cosf(fabsf(hit->original_angle - r_ctx->direction)));
 	if (ctx->actual.dist <= 0.1)
 		y = 1;
 	while (y < r_ctx->halfh)
@@ -61,7 +60,7 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 		hit->pos.x = hit->o_ray.origin.x + hit->o_ray.dir_normal.x * real_dist;
 		hit->pos.y = hit->o_ray.origin.y + hit->o_ray.dir_normal.y * real_dist;
 		if (floor(hit->pos.x) != hit->tile_x
-			|| (floor)(hit->pos.y) != hit->tile_y)
+			|| floor(hit->pos.y) != hit->tile_y)
 			break ;
 		buffer_idx = y * WINDOW_WIDTH + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
