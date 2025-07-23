@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/22 18:50:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/23 15:13:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static inline void	raycast_init(t_raycast_context *ctx);
 static inline void	raycast_launch(t_raycast_context *ctx);
-static inline char	check_tile(t_raycast_hit *hit, \
+static inline bool	check_tile(t_raycast_hit *hit, \
 		t_raycast_context *ctx);
 static inline void	raycast_set_dist(t_raycast_hit *hit, \
 		t_raycast_context *ctx);
@@ -38,7 +38,7 @@ void	render_ray(float base_angle, int column,
 	if (check_tile(&ctx.actual, &ctx) != 0)
 	{
 		raycast_set_dist(&ctx.actual, &ctx);
-		render_draw_ray(&ctx.actual, &ctx, ctx.render_ctx, 2);
+		render_draw_ray(&ctx.actual, &ctx, ctx.render_ctx);
 	}
 	raycast_launch(&ctx);
 }
@@ -94,12 +94,12 @@ static inline void	raycast_launch(t_raycast_context *ctx)
 		if (is_wall != 0)
 		{
 			raycast_set_dist(&ctx->actual, ctx);
-			render_draw_ray(&ctx->actual, ctx, ctx->render_ctx, is_wall);
+			render_draw_ray(&ctx->actual, ctx, ctx->render_ctx);
 		}
 	}
 }
 
-static inline char	check_tile(t_raycast_hit *hit,
+static inline bool	check_tile(t_raycast_hit *hit,
 		t_raycast_context *ctx)
 {
 	t_tile	*tile;
@@ -115,11 +115,7 @@ static inline char	check_tile(t_raycast_hit *hit,
 	hit->tile_y = tile_y;
 	hit->tile_info = &tile->info;
 	hit->tile = tile;
-	if (hit->tile_info->wall)
-		return (1);
-	else
-		return (2);
-	return (0);
+	return (1);
 }
 
 static inline void	raycast_set_dist(t_raycast_hit *hit,

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/22 16:44:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/23 15:12:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,8 @@ typedef struct s_vertical_tex
 
 void	render_ray(float base_angle, int column,
 			t_ray2 *ray, t_render_context *render_ctx);
-void	render_draw_ray(
-			t_raycast_hit *hit,
-			t_raycast_context *ctx,
-			t_render_context *render,
-			char is_wall);
+void	render_draw_ray(t_raycast_hit *hit, t_raycast_context *ctx,
+			t_render_context *render);
 void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
 			t_render_context *render, t_vertical_tex	*tex_ctx);
 void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
