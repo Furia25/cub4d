@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/22 19:08:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/23 00:28:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,7 @@ typedef struct s_tilemap
 	size_t			tile_size;
 }	t_tilemap;
 
-/*[TYPE] = 
-type, 
-texture, 
-texture_topbot, 
-solid,
-wall,
-visible,
-blocking,
-ceil_offset,
-floor_offset,
-name
-*/
-
-static const t_tile_data	g_base_tile_info[TILE_MAX_COUNT] = {
-[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_GRASS, TEXTURE_GRASS, 1, false, false, false, 0, 0, "Empty"},
-[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, 1, true, true, true, 0, 0, "Wall"},
-[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER, 0, false, true, true, -0.1, -0.25, "Water"},
-};
+extern const t_tile_data	g_base_tile_info[TILE_MAX_COUNT];
 
 t_tilemap	*tilemap_new(size_t width, size_t height, size_t tile_size);
 void		tilemap_free(t_tilemap *map);

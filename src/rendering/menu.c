@@ -6,19 +6,39 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/22 19:21:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/23 02:41:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "glyphs.h"
 
-static void	draw_text_menu(t_game *game, wchar_t *text, int x, int y)
+static wchar_t	*g_menu_options[] = {
+	MENU_OPTION_RESUME,
+	MENU_OPTION_CONFIG,
+	MENU_OPTION_QUIT,
+	NULL
+};
+
+static void	handle_menu_options(t_game *game, bool start, int x, int y)
 {
-	draw_text(text, (t_text_properties){x, y, 0.8, 0, 0, 1, 75, \
-		game->start_time}, game->img);
-	draw_text(L"»5«Quit", (t_text_properties){x, (y + 125), 0.8, 0, 0, 1, 75, \
-		game->start_time}, game->img);
+	int				index;
+	wchar_t			*temp;
+
+	index = 0;
+	while (index <= MENU_ACTIONS)
+	{
+		temp = g_menu_options[index];
+		if (start && index == 0)
+			temp = MENU_OPTION_PLAY;
+		draw_text(temp, (t_text_properties){x, y + (125 * index),
+			0.8, 0, 0, 1, 75, game->start_time}, game->img);
+		index++;
+	}
+	draw_text(L"»5«>", (t_text_properties){x - 50, y + (125 * game->menu.action),
+			0.8, 0, 0, 1, 75, game->start_time}, game->img);
+	draw_text(GAME_NAME_F, (t_text_properties){game->img->width * 0.38, game->img->height * 0.25,
+			0.8, 0, 0, 1, 75, game->start_time}, game->img);
 }
 
 void	handle_input(t_game *game, int start)
@@ -26,14 +46,14 @@ void	handle_input(t_game *game, int start)
 	int	input;
 
 	input = (key_is_pressed(KEY_DOWN, game) - key_is_pressed(KEY_UP, game));
-	input += (key_is_pressed(KEY_TEST_DOWN, game) - \
-	key_is_pressed(KEY_TEST_UP, game));
+	input += (key_is_pressed(KEY_TEST_DOWN, game)
+		- key_is_pressed(KEY_TEST_UP, game));
 	game->menu.action = clamp(game->menu.action + input, 0, MENU_ACTIONS);
 	if (key_is_released(KEY_ENTER, game))
 	{
 		if (game->menu.action == 0)
 			game->state = PLAYING;
-		else
+		if (game->menu.action == 2)
 			exit_game(game);
 	}
 	if (key_is_pressed(KEY_PAUSE, game))
@@ -47,23 +67,23 @@ void	handle_input(t_game *game, int start)
 
 void	render_menu(t_game *game, int start)
 {
-	t_png_pixel8	*background;
+	t_sprite_sheet	background;
 
+	background.asset = game->textures[ASSET_BG_PAUSE];
 	if (start)
-		background = game->textures[ASSET_BG_START]->pixels_8bit;
-	else
-		background = NULL;
-	draw_sprite_sheet((t_draw_transform){});
+		background.asset = game->textures[ASSET_BG_START];
+	background.width = background.asset->header.width;
+	background.height = background.asset->header.height;
+	background.sprite_per_line = 1;
+	draw_sprite_sheet(
+		(t_draw_transform){0, 0, game->img->width, game->img->height, g_colors[C_WHITE]},
+		0, &background, game->img);
 	if (start)
-	{
-		draw_text_menu(game, L"»5«Play", 850, 550);
-		draw_selector(game, 750, 525);
-	}
+		handle_menu_options(game, L"»5«Play", 850, 550);
 	else
 	{
 		draw_full_map(game);
-		draw_text_menu(game, L"»5«Resume", 1600, 100);
-		draw_selector(game, 1500, 75);
+		handle_menu_options(game, L"»5«Resume", 1600, 100);
 	}
 	handle_input(game, start);
 }

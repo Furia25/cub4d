@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 18:13:29 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/23 02:42:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 # include "cub3d_textures.h"
 # include "cub3d_colors.h"
 
+# define GAME_NAME	L"CUB3D"
+# define GAME_NAME_F	L"»9t~*«CUB3D"
+
 # define WINDOW_WIDTH		1920
 # define WINDOW_HEIGHT		1080
 
@@ -59,7 +62,12 @@
 # define INTERACTION_RANGE	2
 # define TXTBOX_X_START		350
 
-# define INTERACT_DELAY		150000
+# define MENU_ACTIONS	2
+# define MENU_OPTION_PLAY	L"»5«PLAY"
+# define MENU_OPTION_RESUME	L"»5«RESUME"
+# define MENU_OPTION_CONFIG	L"»4«Config"
+# define MENU_OPTION_QUIT	L"»4«Quit"
+
 
 typedef enum e_game_state
 {
@@ -126,8 +134,6 @@ typedef struct s_interaction
 	int	pnj_id;
 	int	count;
 }	t_interaction;
-
-# define MENU_ACTIONS	1
 
 typedef struct s_game
 {

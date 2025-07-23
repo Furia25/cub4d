@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_interactions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:38:25 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 14:19:52 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/22 23:51:08 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	draw_textbox(t_game *game, char *text, uint64_t time)
 	t_button		btn;
 	int				x;
 	int				y;
-	int				i;
-	int				j;
 	wchar_t			w_text[TEXT_MAX_SIZE];
 
 	setlocale(LC_ALL, "" );
@@ -64,8 +62,6 @@ void	draw_textbox(t_game *game, char *text, uint64_t time)
 	draw_button(game, &btn);
 	x = TXTBOX_X_START + 40;
 	y = MINIMAP_Y_START + 40;
-	i = 0;
-	j = 0;
 	draw_text(w_text, (t_text_properties){x, y, 0.8, 0, 0, 1, 75, \
 		time}, game->img);
 	btn.x = 1775;

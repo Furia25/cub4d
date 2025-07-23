@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/21 20:55:02 by vdurand          ###   ########.fr        #
+#    Updated: 2025/07/23 00:29:02 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,8 @@ SRC_FILES = \
 	drawing/glyphs.c \
 	drawing/text.c \
 	drawing/text_utils.c \
+	constants/constants.c \
+	constants/colors.c
 
 HEADERS = \
 	cub3d.h
@@ -111,8 +113,8 @@ LIBS_NO_LIB = $(foreach dir, $(LIBS_DIRS), $(patsubst lib%, %, $(notdir $(dir)))
 LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -O3 -march=native -funroll-loops -g3
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra -O3 -march=native -funroll-loops -g3 -std=c99
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 
@@ -120,52 +122,52 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBS)
 	$(SILENT) $(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	@echo "$(BG_GREEN)>>> Program $(NAME) compiled!$(RESET)"
+	@echo -e "$(BG_GREEN)>>> Program $(NAME) compiled!$(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
 	$(SILENT) mkdir -p $(dir $@)
-	@echo "$(BLUE)>>> Compiling $<...$(RESET)"
+	@echo -e "$(BLUE)>>> Compiling $<...$(RESET)"
 	$(SILENT) $(CC) $(CFLAGS) -MMD -MP $(INC_FLAGS) -c $< -o $@
 
 $(LIBS): %.a:
 	$(SILENT) \
 	if [ -f "$(@D)/configure" ]; then \
-		echo "$(CYAN)>>> Found configure in $(notdir $(@D)), running it...$(RESET)"; \
+		echo -e "$(CYAN)>>> Found configure in $(notdir $(@D)), running it...$(RESET)"; \
 		cd "$(@D)" && ./configure $(DUMP_OUT); \
 		if [ $$? -ne 0 ]; then \
-			echo "$(RED)>>> ./configure failed in $(notdir $(@D)) – aborting.$(RESET)"; \
+			echo -e "$(RED)>>> ./configure failed in $(notdir $(@D)) – aborting.$(RESET)"; \
 			exit 1; \
 		else \
 			exit 0; \
 		fi; \
 	fi; \
-	echo "$(MAGENTA)>>> Compiling library $(notdir $@)...$(RESET)"; \
+	echo -e "$(MAGENTA)>>> Compiling library $(notdir $@)...$(RESET)"; \
 	$(MAKE) -C $(dir $@) > /dev/null 2> make_errors.log || { \
-		echo "$(RED)>>> Error compiling $(notdir $@):$(RESET)"; \
+		echo -e "$(RED)>>> Error compiling $(notdir $@):$(RESET)"; \
 		cat make_errors.log; rm -f make_errors.log; exit 1; }; \
 	rm -f make_errors.log; \
 	if $(MAKE) -C $(dir $@) -n bonus $(DUMP_OUT); then \
-		echo "$(DIM)$(MAGENTA)>>> Bonus rule exists, compiling...$(RESET)"; \
+		echo -e "$(DIM)$(MAGENTA)>>> Bonus rule exists, compiling...$(RESET)"; \
 		$(MAKE) -C $(dir $@) bonus > /dev/null 2> make_errors.log || { \
-			echo "$(RED)>>> Error compiling bonus for $(notdir $@):$(RESET)"; \
+			echo -e "$(RED)>>> Error compiling bonus for $(notdir $@):$(RESET)"; \
 			cat make_errors.log; rm -f make_errors.log; exit 1; }; \
 		rm -f make_errors.log; \
 	fi; \
-	echo "$(BG_BLUE)$(GREEN)>>> Compilation of $(notdir $@) completed!$(RESET)"
+	echo -e "$(BG_BLUE)$(GREEN)>>> Compilation of $(notdir $@) completed!$(RESET)"
 
 clean:
-	@echo "$(YELLOW)>>> Cleaning objects$(RESET)"
+	@echo -e "$(YELLOW)>>> Cleaning objects$(RESET)"
 	$(SILENT) rm -rf $(OBJ_DIR)
 
 fcleanlibs:
 	$(SILENT) for dir in $(LIBS_DIRS); do \
 		$(MAKE) -C $$dir clean $(DUMP_OUT); \
 		$(MAKE) -C $$dir fclean $(DUMP_OUT); \
-		echo "$(GREEN)>>> Cleaned all in $$dir$(RESET)"; \
+		echo -e "$(GREEN)>>> Cleaned all in $$dir$(RESET)"; \
 	done
 
 fclean: clean fcleanlibs
-	@echo "$(YELLOW)>>> Cleaning executable...$(RESET)"
+	@echo -e "$(YELLOW)>>> Cleaning executable...$(RESET)"
 	$(SILENT) rm -f $(NAME)
 
 re: fclean all

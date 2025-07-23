@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/22 19:28:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/22 23:46:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,25 @@ void	draw_sprite_sheet(t_draw_transform tform, size_t index,
 			pos.x++;
 		}
 		pos.y++;
+	}
+}
+
+void	draw_texture(int x, int y, t_png *texture, t_img_data *img)
+{
+	int	xx;
+	int	max_x;
+	int	max_y;
+
+	max_x = texture->header.width + x;
+	max_y = texture->header.height + y;
+	while (y < max_y)
+	{
+		xx = x;
+		while (xx < max_x)
+		{
+			draw_pixel(texture->pixels_8bit[xx + y * texture->header.width], xx, y, img);
+			xx++;
+		}
+		y++;
 	}
 }
