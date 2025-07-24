@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/21 20:17:12 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:23:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	game_loop(void *param)
 	t_img_data		*frame;
 
 	game = param;
-	frame = game->img;
+	frame = game->frame;
 	time = get_time_ms();
 	if (time >= last_time)
 	{

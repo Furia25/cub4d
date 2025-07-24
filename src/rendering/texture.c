@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/23 16:19:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:31:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ inline static void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 	y = tex_ctx->wall_end + 1;
 	while (--y > tex_ctx->wall_start)
 	{
-		buffer_idx = y * WINDOW_WIDTH + ctx->column;
+		buffer_idx = y * ctx->render_ctx->render_width + ctx->column;
 		tex_y = (int)(tex_pos - (tex_ctx->texture->header.height \
 			* floorf(tex_pos / tex_ctx->texture->header.height)));
 		if (hit->dist < zbuf[buffer_idx])

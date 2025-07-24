@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_pnj.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 10:47:14 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:30:42 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	display_interaction(t_game *game, char **text)
 	}
 	if (!game->interaction.count)
 	{
-		btn.x = ((WINDOW_WIDTH / 2) - (S_BUTTON_INTERACT / 2));
-		btn.y = ((WINDOW_HEIGHT / 2) - (S_BUTTON_INTERACT / 2));
+		btn.x = (game->w_halfwidth - (S_BUTTON_INTERACT / 2));
+		btn.y = (game->w_halfheight - (S_BUTTON_INTERACT / 2));
 		btn.width = S_BUTTON_INTERACT;
 		btn.height = S_BUTTON_INTERACT;
 		draw_interact_button(game, &btn, 0);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:38:25 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/22 23:51:08 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:31:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ void	draw_interact_button(t_game *game, t_button *btn, int text_box)
 	y = btn->y + (btn->height / 2);
 	if (!text_box)
 		draw_text(L"»5~«E", (t_text_properties) \
-		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->img);
+		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
 	else
 		draw_text(L"»3~«E", (t_text_properties) \
-		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->img);
-	x = (WINDOW_WIDTH / 2) - 120;
-	y = (WINDOW_HEIGHT / 2) + 80;
+		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
+	x = game->w_halfwidth - 120;
+	y = game->w_halfheight + 80;
 	if (!text_box)
 		draw_text(L"»3*«interact", (t_text_properties) \
-		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->img);
+		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
 }
 
 void	draw_textbox(t_game *game, char *text, uint64_t time)
@@ -63,7 +63,7 @@ void	draw_textbox(t_game *game, char *text, uint64_t time)
 	x = TXTBOX_X_START + 40;
 	y = MINIMAP_Y_START + 40;
 	draw_text(w_text, (t_text_properties){x, y, 0.8, 0, 0, 1, 75, \
-		time}, game->img);
+		time}, game->frame);
 	btn.x = 1775;
 	btn.y = 950;
 	btn.width = 60;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/23 18:31:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:24:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
 # define GAME_NAME	L"CUB3D"
 # define GAME_NAME_F	L"»9t~*«CUB3D"
 
-# define WINDOW_WIDTH		1920
-# define WINDOW_HEIGHT		1080
+# define WINDOW_WIDTH		1024
+# define WINDOW_HEIGHT		768
 
 # define MAP_TILE_SIZE		32
 # define MMAP_TILE_SIZE		16
@@ -139,9 +139,13 @@ typedef struct s_game
 {
 	void			*mlx;
 	char			*win;
-	t_img_data		*img;
-	int				width;
-	int				height;
+	t_img_data		*frame;
+	int				map_width;
+	int				map_height;
+	int				w_width;
+	int				w_height;
+	int				w_halfwidth;
+	int				w_halfheight;
 	t_player		player;
 	char			**file_content;
 	char			**map;
@@ -151,6 +155,7 @@ typedef struct s_game
 	t_png_pixel8	f_color;
 	t_png_pixel8	c_color;
 	t_tilemap		*tilemap;
+	uint8_t			*z_buffer;
 	t_key			key_buffer[KEY_MAX_COUNT];
 	t_png			*textures[TEXTURE_MAX_COUNT];
 	t_enemy			enemies[MAX_ENEMIES];

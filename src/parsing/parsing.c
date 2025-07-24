@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 20:55:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 19:28:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ char	**read_map(char *map_file, t_game *game)
 		ft_putstr_fd("Error while openning the map", 2);
 		exit (EXIT_FAILURE);
 	}
-	game->height = determine_line_nb(map_file);
-	game->file_content = (char **)malloc(sizeof(char *) * (game->height + 1));
+	game->map_height = determine_line_nb(map_file);
+	game->file_content = (char **)malloc(sizeof(char *) * (game->map_height + 1));
 	if (!(game->file_content))
 		return (NULL);
 	game->file_content[0] = get_next_line(fd).line;
 	i = 0;
-	while (++i < game->height)
+	while (++i < game->map_height)
 	{
 		game->file_content[i] = get_next_line(fd).line;
 		if (!game->file_content[i])

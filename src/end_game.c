@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 20:41:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:29:22 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ int	exit_game(t_game *game)
 	free_map(game->pnj_text);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	if (game->img)
+	if (game->frame)
 	{
-		if (game->img->img_ptr)
-			mlx_destroy_image(game->mlx, game->img->img_ptr);
-		free(game->img);
+		if (game->frame->img_ptr)
+			mlx_destroy_image(game->mlx, game->frame->img_ptr);
+		free(game->frame);
 	}
+	free(game->z_buffer);
 	if (game->mlx)
 		mlx_destroy_display(game->mlx);
 	free_textures(game);
@@ -58,7 +59,7 @@ static void	free_textures(t_game *game)
 	while (index < TEXTURE_MAX_COUNT)
 	{
 		ptr = game->textures[index];
-		if (ptr != missing_ptr)
+		if (ptr != missing_ptr && ptr)
 			png_close(ptr);
 		index++;
 	}

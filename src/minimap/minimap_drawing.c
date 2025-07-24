@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_drawing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 15:12:22 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:23:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	draw_tile(t_tile_context *tile, t_png_pixel8 color, int mid_off)
 				x < MINIMAP_X_START + MINIMAP_SIZE && \
 				y >= MINIMAP_Y_START + MINIMAP_BORDER && \
 				y < MINIMAP_Y_START + MINIMAP_SIZE)
-				draw_pixel(color, x, y, tile->game->img);
+				draw_pixel(color, x, y, tile->game->frame);
 			j++;
 		}
 		i++;
@@ -59,7 +59,7 @@ void	draw_border(t_game *game)
 				i > MINIMAP_SIZE - MINIMAP_BORDER)
 			{
 				draw_pixel(color, i + MINIMAP_X_START,
-					j + MINIMAP_Y_START, game->img);
+					j + MINIMAP_Y_START, game->frame);
 			}
 			j++;
 		}
@@ -84,7 +84,7 @@ void	draw_player(t_game *game)
 				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
 				((7 * MMAP_TILE_SIZE) + j + MINIMAP_Y_START \
 				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
-				game->img
+				game->frame
 				);
 			j++;
 		}
@@ -113,7 +113,7 @@ void	draw_pnj(t_tile_context *tile, t_png_pixel8 color)
 				x < MINIMAP_X_START + MINIMAP_SIZE && \
 				y >= MINIMAP_Y_START + MINIMAP_BORDER && \
 				y < MINIMAP_Y_START + MINIMAP_SIZE)
-				draw_pixel(color, x, y, tile->game->img);
+				draw_pixel(color, x, y, tile->game->frame);
 			j++;
 		}
 		i++;

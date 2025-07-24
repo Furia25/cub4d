@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   full_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/02 13:52:23 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:33:33 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	draw_tiles(t_game *game, int pos_x, int pos_y, t_png_pixel8 color)
 	int	h_tile_size;
 	int	tile_size;
 
-	w_tile_size = WINDOW_WIDTH / game->width;
-	h_tile_size = WINDOW_HEIGHT / game->height;
+	w_tile_size = game->w_width / game->map_width;
+	h_tile_size = game->w_height / game->map_height;
 	if (w_tile_size > h_tile_size)
 		tile_size = h_tile_size;
 	else
@@ -33,7 +33,7 @@ void	draw_tiles(t_game *game, int pos_x, int pos_y, t_png_pixel8 color)
 		while (j < tile_size)
 		{
 			draw_pixel(color, (pos_x * tile_size + i), \
-			(pos_y * tile_size + j), game->img);
+			(pos_y * tile_size + j), game->frame);
 			j++;
 		}
 		i++;

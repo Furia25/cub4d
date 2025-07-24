@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:21:21 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/11 17:58:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 19:29:11 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 	parsing(&game, av[1]);
-	game.tilemap = tilemap_from_tab(game.map, game.width, game.height, 1);
+	game.tilemap = tilemap_from_tab(game.map, game.map_width, game.map_height, 1);
 	if (!game.colors)
 		exit_game(&game);
 	run_game(&game);

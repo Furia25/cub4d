@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/04 19:48:53 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:35:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,6 @@ void	rad_to_vect(t_vec2 *direction, float rad)
 	direction->y = sin(rad);
 }
 
-/* int	mouse_move(int x, int y, t_game *game)
-{
-	(void)y;
-	if (x > WINDOW_WIDTH / 2)
-	{
-		game->player.rad_direction -= MOUSE_SENS * M_PI;
-		if (game->player.rad_direction > 2 * M_PI)
-			game->player.rad_direction -= 2 * M_PI;
-	}
-	if (x < WINDOW_WIDTH / 2)
-	{
-		game->player.rad_direction += MOUSE_SENS * M_PI;
-		if (game->player.rad_direction < -2 * M_PI)
-			game->player.rad_direction += 2 * M_PI;
-	}
-	mlx_put_image_to_window(game->mlx, game->win, game->img->img_ptr, 0, 0);
-	return (0);
-} */
-
 int mouse_move(int x, int y, t_game *game)
 {
 	double		width;
@@ -47,10 +28,10 @@ int mouse_move(int x, int y, t_game *game)
 	if (last_x == x)
 		return (1);
 	last_x = x;
-	width = WINDOW_WIDTH * 0.5;
+	width = game->w_halfwidth;
 	x_dif = (x - width) * MOUSE_SENS;
 	game->player.rad_direction += x_dif;
-	mlx_mouse_move(game->mlx, game->win, width, WINDOW_HEIGHT / 2);
+	mlx_mouse_move(game->mlx, game->win, width, game->w_halfheight);
 	return (1);
 }
 

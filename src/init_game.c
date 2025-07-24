@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/23 16:10:11 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:36:30 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,22 @@ bool	create_frame_image(t_game *game)
 {
 	t_img_data	*img;
 
-	game->img = ft_calloc(1, sizeof(t_img_data));
-	if (!game->img)
+	game->frame = ft_calloc(1, sizeof(t_img_data));
+	if (!game->frame)
 		return (false);
-	game->img->img_ptr = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!game->img->img_ptr)
+	game->frame->img_ptr = mlx_new_image(game->mlx,
+		game->w_width, game->w_height);
+	if (!game->frame->img_ptr)
 		return (false);
-	img = game->img;
+	img = game->frame;
 	img->width = WINDOW_WIDTH + 2;
 	img->height = WINDOW_HEIGHT + 2;
 	img->connection = game->mlx;
-	img->buffer = mlx_get_data_addr(img->img_ptr, &img->pbits, &img->size_line, &img->endian);
+	img->buffer = mlx_get_data_addr(img->img_ptr, &img->pbits,
+		&img->size_line, &img->endian);
+	game->z_buffer = malloc(game->w_width * game->w_height);
+	if (!game->z_buffer)
+		return (false);
 	return (true);
 }
 
@@ -44,9 +49,6 @@ int	init_textures(t_game *game)
 	int			index;
 	int			parsed_index;
 
-	game->textures[TEXTURE_ERROR] = png_open((char *)g_textures_files[TEXTURE_ERROR]);
-	if (!game->textures[TEXTURE_ERROR])
-		return (0);
 	index = 1;
 	while (index < TEXTURE_MAX_COUNT)
 	{
@@ -70,6 +72,10 @@ int	init_textures(t_game *game)
 
 int	init_assets(t_game *game)
 {
+	game->textures[TEXTURE_ERROR]
+		= png_open((char *)g_textures_files[TEXTURE_ERROR]);
+	if (!game->textures[TEXTURE_ERROR])
+		return (0);
 	if (!init_textures(game))
 		return (0);
 	if (!glyph_init(GLYPH_PATH))
@@ -104,6 +110,10 @@ void	init_player(t_player *player)
 
 void	run_game(t_game *game)
 {
+	game->w_width = WINDOW_WIDTH;
+	game->w_height = WINDOW_HEIGHT;
+	game->w_halfwidth = WINDOW_WIDTH / 2;
+	game->w_halfheight = WINDOW_HEIGHT / 2;
 	rng_init(&game->rng, 0xCACA);
 	if (!init_assets(game))
 		exit_game(game);
@@ -125,11 +135,12 @@ void	run_game(t_game *game)
 	game->interaction.count = 0;
 	game->interaction.pnj_id = -1;
 	game->state = MENU;
+	
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
-	mlx_mouse_move(game->mlx, game->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
 	mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
 	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
 	mlx_loop_hook(game->mlx, game_loop, game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_logic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 15:15:47 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/24 19:28:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	draw_minimap(t_game *game)
 		draw_line(NULL, game, i);
 		i++;
 	}
-	while (line < game->height \
+	while (line < game->map_height \
 		&& game->map[line] && line < (int)game->player.position.y + 9)
 	{
 		draw_line(game->map[line], game, i);

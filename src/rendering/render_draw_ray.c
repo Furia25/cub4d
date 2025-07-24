@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/23 16:29:05 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:35:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 		if (floor(hit->pos.x) != hit->tile_x
 			|| floor(hit->pos.y) != hit->tile_y)
 			break ;
-		buffer_idx = y * WINDOW_WIDTH + ctx->column;
+		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
 			render_horizontal_texture((t_ivec2){ctx->column, y},
@@ -62,7 +62,7 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 		if (floor(hit->pos.x) != hit->tile_x
 			|| floor(hit->pos.y) != hit->tile_y)
 			break ;
-		buffer_idx = y * WINDOW_WIDTH + ctx->column;
+		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
 			render_horizontal_texture((t_ivec2){ctx->column, y},
@@ -99,11 +99,12 @@ static void	init_texture_ctx(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 		* dist_inv) * render->proj_dist_y;
 	y_ceiling = ((hit->tile->ceiling - render->eye_height) \
 		* dist_inv) * render->proj_dist_y;
-	tex_ctx->wall_height = WINDOW_HEIGHT * dist_inv;
+	tex_ctx->wall_height = render->render_height * dist_inv;
 	tex_ctx->wall_start = clamp(-y_ceiling + render->halfh, \
-		0, WINDOW_HEIGHT - 1);
+		0, render->render_height - 1);
 	tex_ctx->wall_start_actual = -y_ceiling + render->halfh;
-	tex_ctx->wall_end = clamp(-y_floor + render->halfh, 0, WINDOW_HEIGHT - 1);
+	tex_ctx->wall_end = clamp(-y_floor + render->halfh,
+		0, render->render_height - 1);
 	tex_ctx->wall_end_actual = -y_floor + render->halfh;
 }
 

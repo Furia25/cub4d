@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:34:48 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 09:56:33 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/24 19:29:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	loop_through_map(t_game *game, t_parsing_content *map_content)
 	{
 		game->map[++k] = game->file_content[i];
 		width = ft_strlen(game->file_content[i]);
-		if (width > game->width)
-			game->width = width;
+		if (width > game->map_width)
+			game->map_width = width;
 		if (!loop_through_line(game, map_content, i))
 			return (0);
 	}
@@ -62,9 +62,9 @@ int	check_tiles_and_borders(t_game *game)
 	t_parsing_content	map_content;
 
 	map_content.player = 0;
-	game->width = 0;
-	game->map = (char **)malloc(sizeof(char *) * ((game->height -7) + 1));
-	game->height -= 7;
+	game->map_width = 0;
+	game->map = (char **)malloc(sizeof(char *) * ((game->map_height -7) + 1));
+	game->map_height -= 7;
 	game->enemy_count = 0;
 	game->pnj_count = 0;
 	if (!game->map)

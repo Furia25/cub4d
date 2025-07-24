@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   button.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:50:02 by halnuma           #+#    #+#             */
-/*   Updated: 2025/06/30 11:02:21 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/24 20:23:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	draw_button(t_game *game, t_button *btn)
 				continue ;
 			}
 			if (is_border(i, j, btn))
-				draw_pixel(btn->color_out, i + btn->x, j + btn->y, game->img);
+				draw_pixel(btn->color_out, i + btn->x, j + btn->y, game->frame);
 			else if (is_shadow(i, j, btn))
-				draw_pixel(btn->color_dark, i + btn->x, j + btn->y, game->img);
+				draw_pixel(btn->color_dark, i + btn->x, j + btn->y, game->frame);
 			else
-				draw_pixel(btn->color_light, i + btn->x, j + btn->y, game->img);
+				draw_pixel(btn->color_light, i + btn->x, j + btn->y, game->frame);
 			j++;
 		}
 		i++;
