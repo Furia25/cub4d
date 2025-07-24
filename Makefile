@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/24 10:45:58 by vdurand          ###   ########.fr        #
+#    Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,8 @@ SRC_FILES = \
 	rendering/texture.c \
 	rendering/button.c \
 	rendering/menu.c \
-	rendering/pnj/manage_pnj.c \
-	rendering/pnj/draw_interactions.c \
+	rendering/npc/manage_npc.c \
+	rendering/npc/draw_interactions.c \
 	rendering/raycast_floorcast.c \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \

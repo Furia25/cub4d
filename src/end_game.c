@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 20:29:22 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	exit_game(t_game *game)
 	int i;
 
 	i = 0;
-	while (i < game->pnj_count)
+	while (i < game->npc_count)
 	{
-		free_map(game->pnjs[i].text);
+		free_map(game->npcs[i].text);
 		i++;
 	}
 	tilemap_free(game->tilemap);
@@ -30,7 +30,7 @@ int	exit_game(t_game *game)
 	free(game->colors);
 	free(game->map);
 	free_map(game->file_content);
-	free_map(game->pnj_text);
+	free_map(game->npc_text);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->frame)

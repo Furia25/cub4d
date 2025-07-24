@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 19:28:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,33 @@ int	determine_line_nb(char *map_file)
 	return (line_nb);
 }
 
-char	**read_pnj_text(t_game *game)
+char	**read_npc_text(t_game *game)
 {
 	int		line_nb;
 	int		fd;
 	int		i;
 
-	fd = open("assets/text/pnj.txt", O_RDONLY);
+	fd = open("assets/text/npc.txt", O_RDONLY);
 	if (!fd || fd == -1)
 	{
-		ft_putstr_fd("Error while openning the pnj text file", 2);
+		ft_putstr_fd("Error while openning the npc text file", 2);
 		exit (EXIT_FAILURE);
 	}
-	line_nb = determine_line_nb("assets/text/pnj.txt");
-	game->pnj_text = (char **)malloc(sizeof(char *) * (line_nb + 1));
-	if (!(game->pnj_text))
+	line_nb = determine_line_nb("assets/text/npc.txt");
+	game->npc_text = (char **)malloc(sizeof(char *) * (line_nb + 1));
+	if (!(game->npc_text))
 		return (NULL);
-	game->pnj_text[0] = get_next_line(fd).line;
+	game->npc_text[0] = get_next_line(fd).line;
 	i = 0;
 	while (++i < line_nb)
 	{
-		game->pnj_text[i] = get_next_line(fd).line;
-		if (!game->pnj_text[i])
+		game->npc_text[i] = get_next_line(fd).line;
+		if (!game->npc_text[i])
 			return (NULL);
 	}
-	game->pnj_text[i] = NULL;
+	game->npc_text[i] = NULL;
 	close(fd);
-	return (game->pnj_text);
+	return (game->npc_text);
 }
 
 char	**read_map(char *map_file, t_game *game)
@@ -109,10 +109,10 @@ int	check_map_validity(t_game *game)
 
 void	parsing(t_game *game, char *map_file)
 {
-	if (!read_pnj_text(game))
+	if (!read_npc_text(game))
 	{
 		free_map(game->file_content);
-		ft_putstr_fd("Error: Reading pnj text file failed", 2);
+		ft_putstr_fd("Error: Reading npc text file failed", 2);
 		exit(EXIT_FAILURE);
 	}
 	if (!read_map(map_file, game))

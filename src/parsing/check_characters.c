@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_tiles.c                                      :+:      :+:    :+:   */
+/*   check_characters.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:33:46 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 09:57:43 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	assign_pnj_text(t_game *game, t_pnj *pnj, int index)
+void	assign_npc_text(t_game *game, t_npc *npc, int index)
 {
 	int		i;
 	int		line_count;
 	int		temp;
 	int		size;
-	char	**pnj_text;
+	char	**npc_text;
 
 	line_count = 0;
 	i = -1;
 	while (++i < index)
 	{
-		while (game->pnj_text[line_count] && \
-			ft_strcmp(game->pnj_text[line_count], "\n"))
+		while (game->npc_text[line_count] && \
+			ft_strcmp(game->npc_text[line_count], "\n"))
 			line_count++;
 		line_count++;
 	}
 	temp = line_count;
-	while (game->pnj_text[temp] && ft_strcmp(game->pnj_text[temp], "\n"))
+	while (game->npc_text[temp] && ft_strcmp(game->npc_text[temp], "\n"))
 		temp++;
 	size = temp - line_count;
-	pnj_text = (char **)malloc(sizeof(char *) * size);
+	npc_text = (char **)malloc(sizeof(char *) * size);
 	i = -1;
 	while (++i < size - 1)
-		pnj_text[i] = ft_strdup(game->pnj_text[i + line_count + 1]);
-	pnj_text[size - 1] = NULL;
-	pnj->text = pnj_text;
+		npc_text[i] = ft_strdup(game->npc_text[i + line_count + 1]);
+	npc_text[size - 1] = NULL;
+	npc->text = npc_text;
 }
 
 int	check_player(t_game *game, int i, int j, int *player)
@@ -79,17 +79,17 @@ int	check_enemies(t_game *game, int i, int j, int *e)
 	return (1);
 }
 
-int	check_pnjs(t_game *game, int i, int j, int *p)
+int	check_npcs(t_game *game, int i, int j, int *p)
 {
 	if (game->file_content[i][j] == 'P')
 	{
-		if (game->pnj_count >= MAX_PNJ)
+		if (game->npc_count >= MAX_PNJ)
 			return (0);
-		game->pnjs[*p].position.x = (double)j + 0.5;
-		game->pnjs[*p].position.y = (double)(i - 8) + 0.5;
-		game->pnjs[*p].position.z = 0.3f + 0.5;
-		game->pnj_count++;
-		assign_pnj_text(game, &game->pnjs[*p], *p);
+		game->npcs[*p].position.x = (double)j + 0.5;
+		game->npcs[*p].position.y = (double)(i - 8) + 0.5;
+		game->npcs[*p].position.z = 0.3f + 0.5;
+		game->npc_count++;
+		assign_npc_text(game, &game->npcs[*p], *p);
 		(*p)++;
 	}
 	return (1);

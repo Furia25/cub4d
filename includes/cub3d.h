@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 20:24:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,15 @@ typedef struct s_player
 typedef struct s_parsing_content
 {
 	int	player;
-	int	pnjs;
+	int	npcs;
 	int	enemies;
 }	t_parsing_content;
 
-typedef struct s_pnj
+typedef struct s_npc
 {
 	t_vec3			position;
 	char			**text;
-}	t_pnj;
+}	t_npc;
 
 typedef struct s_enemy
 {
@@ -131,7 +131,7 @@ typedef struct s_menu
 
 typedef struct s_interaction
 {
-	int	pnj_id;
+	int	npc_id;
 	int	count;
 }	t_interaction;
 
@@ -151,7 +151,7 @@ typedef struct s_game
 	char			**map;
 	char			**paths;
 	char			**colors;
-	char			**pnj_text;
+	char			**npc_text;
 	t_png_pixel8	f_color;
 	t_png_pixel8	c_color;
 	t_tilemap		*tilemap;
@@ -160,8 +160,8 @@ typedef struct s_game
 	t_png			*textures[TEXTURE_MAX_COUNT];
 	t_enemy			enemies[MAX_ENEMIES];
 	int				enemy_count;
-	t_pnj			pnjs[MAX_PNJ];
-	int				pnj_count;
+	t_npc			npcs[MAX_PNJ];
+	int				npc_count;
 	t_interaction	interaction;
 	t_game_state	state;
 	t_menu			menu;
@@ -245,7 +245,7 @@ int			center_tile(char c);
 int			player_tile(char c);
 int			check_player(t_game *game, int i, int j, int *player);
 int			check_enemies(t_game *game, int i, int j, int *e);
-int			check_pnjs(t_game *game, int i, int j, int *p);
+int			check_npcs(t_game *game, int i, int j, int *p);
 
 
 
@@ -253,14 +253,14 @@ int			check_pnjs(t_game *game, int i, int j, int *p);
 void		draw_minimap(t_game *game);
 void		draw_player(t_game *game);
 void		draw_tile(t_tile_context *tile, t_png_pixel8 color, int mid_off);
-void		draw_pnj(t_tile_context *tile, t_png_pixel8 color);
+void		draw_npc(t_tile_context *tile, t_png_pixel8 color);
 void		draw_border(t_game *game);
 void		draw_player(t_game *game);
 void		draw_full_map(t_game *game);
 
 
 // ----- PNJ ----- //
-void		manage_pnjs(t_game *game);
+void		manage_npcs(t_game *game);
 void		draw_interact_button(t_game *game, t_button *btn, int text_box);
 void		draw_textbox(t_game *game, char *text, uint64_t time);
 

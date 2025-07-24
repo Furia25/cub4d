@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 20:23:54 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	draw_player(t_game *game)
 	}
 }
 
-void	draw_pnj(t_tile_context *tile, t_png_pixel8 color)
+void	draw_npc(t_tile_context *tile, t_png_pixel8 color)
 {
 	int	i;
 	int	j;

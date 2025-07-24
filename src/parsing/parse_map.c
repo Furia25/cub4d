@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:34:48 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 19:29:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	loop_through_line(t_game *game, t_parsing_content *map_content, int i)
 			return (0);
 		if (!check_enemies(game, i, j, &map_content->enemies))
 			return (0);
-		if (!check_pnjs(game, i, j, &map_content->pnjs))
+		if (!check_npcs(game, i, j, &map_content->npcs))
 			return (0);
 	}
 	return (1);
@@ -43,7 +43,7 @@ int	loop_through_map(t_game *game, t_parsing_content *map_content)
 	i = 7;
 	k = -1;
 	map_content->enemies = 0;
-	map_content->pnjs = 0;
+	map_content->npcs = 0;
 	while (game->file_content[++i])
 	{
 		game->map[++k] = game->file_content[i];
@@ -66,7 +66,7 @@ int	check_tiles_and_borders(t_game *game)
 	game->map = (char **)malloc(sizeof(char *) * ((game->map_height -7) + 1));
 	game->map_height -= 7;
 	game->enemy_count = 0;
-	game->pnj_count = 0;
+	game->npc_count = 0;
 	if (!game->map)
 		return (0);
 	if (!loop_through_map(game, &map_content))

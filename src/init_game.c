@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 20:36:30 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	run_game(t_game *game)
 		exit_game(game);
 	game->start_time = time_init();
 	game->interaction.count = 0;
-	game->interaction.pnj_id = -1;
+	game->interaction.npc_id = -1;
 	game->state = MENU;
 	
 	mlx_mouse_hide(game->mlx, game->win);
