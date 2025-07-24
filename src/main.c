@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:21:21 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 19:29:11 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 00:46:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	main(int ac, char **av)
 	memset(&game, 0, sizeof(t_game));
 	if (ac != 2)
 	{
-		ft_putstr_fd("Error: One argument needed", 2);
+		ft_putstr_fd("Error: One argument needed\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	if (!check_file_extension(av[1]))
 	{
-		ft_putstr_fd("Error: Wrong file extension (.cub needed)", 2);
+		ft_putstr_fd("Error: Wrong file extension (.cub needed)\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	parsing(&game, av[1]);
