@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/23 15:47:35 by vdurand          ###   ########.fr        #
+#    Updated: 2025/07/24 10:45:58 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,6 +115,14 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 # Compiler & flags
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -O3 -march=native -funroll-loops -g3 -flto
+
+# GCC control
+GCC = 0
+ifeq ($(GCC),1)
+	CC = gcc
+	CFLAGS += -std=gnu99
+endif
+
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
 LDFLAGS = $(addprefix -L,$(LIBS_DIRS)) $(addprefix -l,$(LIBS_NO_LIB)) -lmlx -lXext -lX11 -lm -lbsd
 
