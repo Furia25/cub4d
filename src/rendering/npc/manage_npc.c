@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 13:19:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	display_interaction(t_game *game, char **text)
 	if (!game->interaction.count)
 	{
 		btn.x = (game->w_halfwidth - (S_BUTTON_INTERACT / 2));
-		btn.y = (game->w_halfheight - (S_BUTTON_INTERACT / 2));
+		btn.y = (game->w_height * 0.90 - (S_BUTTON_INTERACT / 2));
 		btn.width = S_BUTTON_INTERACT;
 		btn.height = S_BUTTON_INTERACT;
 		draw_interact_button(game, &btn, 0);

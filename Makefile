@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr        #
+#    Updated: 2025/07/25 01:01:13 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,6 @@ SRC_FILES = \
 	rendering/menu.c \
 	rendering/npc/manage_npc.c \
 	rendering/npc/draw_interactions.c \
-	rendering/raycast_floorcast.c \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_populate.c \

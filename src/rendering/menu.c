@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 20:23:54 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 00:58:41 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void	handle_menu_options(t_game *game, bool start, int x, int y)
 	}
 	draw_text(L"»5«>", (t_text_properties){x - 50, y + (125 * game->menu.action),
 			0.8, 0, 0, 1, 75, game->start_time}, game->frame);
-	draw_text(GAME_NAME_F, (t_text_properties){game->frame->width * 0.38, game->frame->height * 0.25,
+	if (start)
+		draw_text(GAME_NAME_F, (t_text_properties){game->frame->width * 0.38, game->frame->height * 0.25,
 			0.8, 0, 0, 1, 75, game->start_time}, game->frame);
 }
 
@@ -79,11 +80,11 @@ void	render_menu(t_game *game, int start)
 		(t_draw_transform){0, 0, game->frame->width, game->frame->height, g_colors[C_WHITE]},
 		0, &background, game->frame);
 	if (start)
-		handle_menu_options(game, L"»5«Play", 850, 550);
+		handle_menu_options(game, true, 850, 550);
 	else
 	{
 		draw_full_map(game);
-		handle_menu_options(game, L"»5«Resume", 1600, 100);
+		handle_menu_options(game, false, 1600, 100);
 	}
 	handle_input(game, start);
 }

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/24 20:35:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 01:26:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 	float				inv_cos;
 
 	inv_cos = (1.0f / cos(hit->original_angle - r_ctx->direction));
-	if (ctx->actual.dist <= 0.1)
+	if (ctx->actual.dist <= 0.01)
 		y = r_ctx->render_height - 1;
 	while (y != r_ctx->halfh && y > 0)
 	{
@@ -51,7 +51,7 @@ static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
 	float				inv_cos;
 
 	inv_cos = (1.0f / cosf(fabsf(hit->original_angle - r_ctx->direction)));
-	if (ctx->actual.dist <= 0.1)
+	if (ctx->actual.dist <= 0.01)
 		y = 1;
 	while (y < r_ctx->halfh)
 	{
