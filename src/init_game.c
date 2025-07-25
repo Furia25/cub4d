@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 20:10:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	init_player(t_player *player)
 	size = PLAYER_SIZE / 2;
 	player->position.z = player->eye_height + 0.5;
 	min = vec3_new(player->position.x - size,
-		player->position.y - size, player->position.z + 0.4);
+		player->position.y - size, player->position.z);
 	max = vec3_new(player->position.x + size,
 		player->position.y + size, player->position.z - 0.4);
 	player->accel = 0;

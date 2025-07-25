@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/23 00:28:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 20:11:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ name
 */
 
 const t_tile_data	g_base_tile_info[TILE_MAX_COUNT] = {
-[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_GRASS, TEXTURE_GRASS, 1, false, false, false, 0, 0, "Empty"},
-[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, 1, true, true, true, 0, 0, "Wall"},
-[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER, 0, false, true, true, -0.1, -0.25, "Water"},
+[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_GRASS, TEXTURE_GRASS, SOLID_ALL, false, false, false, 0, 0, "Empty"},
+[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, SOLID_ALL, true, true, true, 0, 0, "Wall"},
+[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER, SOLID_FLOOR, false, true, true, -0.1, -0.15, "Water"},
 };
