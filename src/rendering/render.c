@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/26 15:44:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static inline void	render_rays(int start, int end, t_render_context *render);
 static void		render_init(int width, int height, \
 	t_render_context *context, t_game *game);
+static inline void	render_fog(t_render_context *render);
 
 void	render(t_game *game)
 {
@@ -24,6 +25,7 @@ void	render(t_game *game)
 
 	render_init(game->w_width, game->w_height, &context, game);
 	render_rays(0, context.render_width, &context);
+	render_fog(&context);
 	draw_minimap(game);
 	manage_npcs(game);
 	if (key_check(KEY_TAB, game))
@@ -33,7 +35,7 @@ static void	render_init(int width, int height,
 		t_render_context *context, t_game *game)
 {
 	context->z_buffer = game->z_buffer;
-	ft_memset(context->z_buffer, UINT8_MAX, game->w_width * game->w_height);
+	ft_memset(context->z_buffer, UINT8_MAX, width * height);
 	context->game = game;
 	context->textures = game->textures;
 	context->tilemap = game->tilemap;
@@ -68,5 +70,29 @@ static inline void	render_rays(int start, int end, t_render_context *render)
 		ray = ray2_from_angle(render->position, ray_angle);
 		render_ray(ray_angle, x, &ray, render);
 		x++;
+	}
+}
+
+static inline void	render_fog(t_render_context *render)
+{
+	uint16_t	fog;
+	uint8_t		*zbuffer;
+	int			x;
+	int			y;
+
+	y = 0;
+	zbuffer = render->z_buffer;
+	while (y < render->render_height)
+	{
+		x = 0;
+		while (x < render->render_width)
+		{
+			fog = zbuffer[x + y * render->render_width] << 3;
+			if (fog > 255)
+				fog = 255;
+			draw_pixel((t_rgba8){fog, 0, 0, 0}, x, y, render->frame);
+			x++;
+		}
+		y++;
 	}
 }

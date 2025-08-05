@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 13:57:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/26 15:28:30 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,11 @@ void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
 	t_png	*texture;
 	t_vec2	off;
 	t_ivec2	tex;
-
+	
 	texture = r_ctx->textures[texture_type];
 	off.x = real_pos.x - floor(real_pos.x);
 	off.y = real_pos.y - floor(real_pos.y);
 	tex.x = (int)(off.x * texture->header.width) % texture->header.width;
 	tex.y = (int)(off.y * texture->header.height) % texture->header.height;
-	draw_pixel(texture->pixels_8bit[tex.y * texture->header.width + tex.x], 
-	   pixel.x, pixel.y, r_ctx->frame);
+	draw_pixel(texture->pixels_8bit[tex.y * texture->header.width + tex.x], pixel.x, pixel.y, r_ctx->frame);
 }

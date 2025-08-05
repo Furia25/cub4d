@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/24 20:23:54 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 22:35:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ uint64_t	get_fps(uint64_t start_time)
 	uint64_t		actual;
 	uint64_t		delta;
 
-	if (fps_time == 70)
+	if (fps_time == 700)
 	{
 		fps_total = 0;
 		fps_time = 0;

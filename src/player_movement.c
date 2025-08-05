@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/25 15:52:31 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/07/25 21:35:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ void	player_handle_jump(t_player *plr, t_game *game)
 	if (!(plr->jump_velocity < 0 && plr->bbox.min.z <= plr->eye_height)
 		&& !tilemap_collide_bbox((t_vec3){0, 0, plr->jump_velocity},
 			plr->bbox, game->tilemap))
-	{
 		player_add_z(plr->jump_velocity, plr);
-	}
 	else
 		plr->jump_velocity = 0.0f;
 	if (plr->bbox.min.z <= plr->eye_height
