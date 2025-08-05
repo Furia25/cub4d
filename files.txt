@@ -1,0 +1,16 @@
+assets/textures/enemy.png
+assets/textures/gui/bg_pause.png
+assets/textures/gui/bg_start.png
+assets/textures/gui/selector.png
+assets/textures/gui/test.png
+assets/textures/missing.png
+assets/textures/tiles/4k.png
+assets/textures/tiles/grass.png
+assets/textures/tiles/wall_bot.png
+assets/textures/tiles/wall_east.png
+assets/textures/tiles/wall_north.png
+assets/textures/tiles/wall_south.png
+assets/textures/tiles/wall_top.png
+assets/textures/tiles/wall_west.png
+assets/textures/tiles/water.png
+libs/maths2/tests/ressources/image.png
