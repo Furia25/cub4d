@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:33:46 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/14 15:13:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ int	check_player(t_game *game, int i, int j, int *player)
 		game->player.position.x = (double)j + 0.5;
 		game->player.position.y = (double)(i - 8) + 0.5;
 		if (game->file_content[i][j] == 'S')
-			game->player.rad_direction = M_PI / 2;
+			game->player.yaw_rad = M_PI / 2;
 		else if (game->file_content[i][j] == 'N')
-			game->player.rad_direction = 3 * M_PI / 2;
+			game->player.yaw_rad = 3 * M_PI / 2;
 		else if (game->file_content[i][j] == 'W')
-			game->player.rad_direction = M_PI;
+			game->player.yaw_rad = M_PI;
 		else if (game->file_content[i][j] == 'E')
-			game->player.rad_direction = 0;
-		rad_to_vect(&game->player.direction, game->player.rad_direction);
+			game->player.yaw_rad = 0;
+		rad_to_vect(&game->player.direction, game->player.yaw_rad);
 		*player = 1;
 	}
 	return (1);

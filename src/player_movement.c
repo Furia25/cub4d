@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/25 21:35:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/14 15:13:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	update_player(t_player *player, t_game *game)
 
 	strafe =  key_check(KEY_RIGHT, game) - key_check(KEY_LEFT, game);
 	forward =  key_check(KEY_UP, game) - key_check(KEY_DOWN, game);
-	player->rad_direction += (M_PI / 100) * (key_check(KEY_TEST_RIGHT, game) - key_check(KEY_TEST_LEFT, game));
-	dir = vec2_from_angle(player->rad_direction);
+	player->yaw_rad += (M_PI / 100) * (key_check(KEY_TEST_RIGHT, game) - key_check(KEY_TEST_LEFT, game));
+	dir = vec2_from_angle(player->yaw_rad);
 	move = vec2_add(vec2_scale(dir, forward), vec2_scale(vec2_new(-dir.y, dir.x), strafe));
 	if (strafe == 0 && forward == 0)
 	{

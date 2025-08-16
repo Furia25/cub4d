@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/25 22:35:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/16 19:08:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	game_loop(void *param)
 	time = get_time_ms();
 	if (time >= last_time)
 	{
-		last_time = time + 32;
+		last_time = time + 40;
 		if (key_check(KEY_QUIT, game))
 			exit_game(game);
 		if (game->state == MENU)
@@ -48,7 +48,7 @@ int	game_loop(void *param)
 			play_loop(game, frame);
 		else if (game->state == PAUSED)
 			render_menu(game, 0);
-		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, 0, 0);
+		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, -2, -2);
 		printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
 	}
 	return (1);
@@ -62,7 +62,7 @@ uint64_t	get_fps(uint64_t start_time)
 	uint64_t		actual;
 	uint64_t		delta;
 
-	if (fps_time == 700)
+	if (fps_time == 70)
 	{
 		fps_total = 0;
 		fps_time = 0;

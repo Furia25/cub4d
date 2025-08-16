@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:37:16 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 00:31:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/13 19:20:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static bool	inflate_read_blocks(t_inflate_context *context)
 			return (false);
 		finished = bfinal;
 		if (!handle_block_decompression(context, btype))
-			return (false);
+			return (false);	
 	}
 	return (true);
 }

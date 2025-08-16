@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/26 15:44:12 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/16 19:38:44 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	render(t_game *game)
 	render_init(game->w_width, game->w_height, &context, game);
 	render_rays(0, context.render_width, &context);
 	render_fog(&context);
+	//render_sky(&context);
 	draw_minimap(game);
 	manage_npcs(game);
 	if (key_check(KEY_TAB, game))
@@ -42,7 +43,7 @@ static void	render_init(int width, int height,
 	context->frame = game->frame;
 	context->player = &game->player;
 	context->position = vec3_to_vec2(game->player.position);
-	context->direction = game->player.rad_direction;
+	context->direction = game->player.yaw_rad;
 	context->render_height = height;
 	context->render_width = width;
 	context->eye_height = game->player.position.z;
@@ -53,6 +54,8 @@ static void	render_init(int width, int height,
 	context->halfh = game->w_halfheight;
 	context->proj_dist_x = context->halfw / tanf(context->fov_x * .5f);
 	context->proj_dist_y = context->halfh / tanf(context->fov_y * .5f);
+	context->halfh = game->w_halfheight + game->player.pitch_offset;
+	context->halfh = clamp(context->halfh, 0, game->w_height);
 }
 
 static inline void	render_rays(int start, int end, t_render_context *render)

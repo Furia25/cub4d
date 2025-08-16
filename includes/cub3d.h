@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:57:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/14 15:22:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ typedef struct s_player
 	t_bbox	bbox;
 	t_vec3	position;
 	t_vec2	direction;
-	float	rad_direction;
+	float	yaw_rad;
+	int		pitch_offset;
 	float	accel;
 	float	jump_velocity;
 	t_vec2	last_move;
@@ -246,8 +247,6 @@ int			player_tile(char c);
 int			check_player(t_game *game, int i, int j, int *player);
 int			check_enemies(t_game *game, int i, int j, int *e);
 int			check_npcs(t_game *game, int i, int j, int *p);
-
-
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);

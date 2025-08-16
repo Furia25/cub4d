@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 20:10:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/16 19:07:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include "mlx.h"
 #include "mlx_int.h"
 
-#include <string.h>
 #include <mlx.h>
 #include "glyphs.h"
+#include <errno.h>
 
 bool	create_frame_image(t_game *game)
 {
@@ -37,7 +37,7 @@ bool	create_frame_image(t_game *game)
 	img->connection = game->mlx;
 	img->buffer = mlx_get_data_addr(img->img_ptr, &img->pbits,
 		&img->size_line, &img->endian);
-	game->z_buffer = malloc(game->w_width * game->w_height);
+	game->z_buffer = malloc(game->w_width * game->w_height + 8);
 	if (!game->z_buffer)
 		return (false);
 	return (true);
@@ -56,16 +56,14 @@ int	init_textures(t_game *game)
 		parsed_index = ft_atoi(path);
 		if (parsed_index != 0)
 			path = game->paths[parsed_index - 1];
-		if (!is_file_valid(path))
-		{
-			if (path)
-				printf("WARNING : Texture at path \"%s\" is missing\n", path);
-			game->textures[index++] = game->textures[TEXTURE_ERROR];
-			continue ;
-		}
+		errno = 0;
 		game->textures[index] = png_open(path);
-		if (!game->textures[index++])
-			return (0);
+		if (!game->textures[index])
+		{
+			game->textures[index] = game->textures[TEXTURE_ERROR];
+			printf("WARNING : Texture at path \"%s\" can't be opened\n", path);
+		}
+		index++;
 	}
 	return (1);
 }
@@ -135,7 +133,6 @@ void	run_game(t_game *game)
 	game->interaction.count = 0;
 	game->interaction.npc_id = -1;
 	game->state = MENU;
-	
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);

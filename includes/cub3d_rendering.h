@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/25 01:26:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:20:44 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "cub3d.h"
 # include "cub3d_textures.h"
 
-# define RENDER_DISTANCE	200
+# define RENDER_DISTANCE	50
 
 typedef struct s_render_context
 {
@@ -43,6 +43,7 @@ typedef struct s_render_context
 
 typedef struct s_raycast_hit
 {
+	bool		draw_walls;
 	t_vec2		pos;
 	t_ray2		o_ray;
 	float		original_angle;
@@ -65,6 +66,8 @@ typedef struct s_raycast_context
 	t_vec2				step_dist;
 	t_ivec2				step;
 	int					column;
+	float				last_floor;
+	float				last_ceil;
 }	t_raycast_context;
 
 typedef struct s_vertical_tex

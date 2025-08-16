@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/25 01:26:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:21:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 	int					buffer_idx;
 	float				inv_cos;
 
-	inv_cos = (1.0f / cos(hit->original_angle - r_ctx->direction));
+	inv_cos = (1.0f / cos(hit->original_angle - r_ctx->direction)) * r_ctx->proj_dist_y + 0.005;
+	float test = (r_ctx->eye_height - hit->tile->ceiling);
 	if (ctx->actual.dist <= 0.01)
 		y = r_ctx->render_height - 1;
 	while (y != r_ctx->halfh && y > 0)
 	{
-		real_dist = r_ctx->proj_dist_y * ((r_ctx->eye_height
-			- hit->tile->ceiling) / (y - r_ctx->halfh)) * inv_cos;
+		real_dist = (test / (y - r_ctx->halfh)) * inv_cos ;
 		hit->pos.x = hit->o_ray.origin.x + hit->o_ray.dir_normal.x * real_dist;
 		hit->pos.y = hit->o_ray.origin.y + hit->o_ray.dir_normal.y * real_dist;
 		if (floor(hit->pos.x) != hit->tile_x
@@ -43,30 +43,31 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 	}
 }
 
-static inline void	draw_bot_faces(t_raycast_hit *hit, int y,
+static inline void	draw_bot_faces(t_raycast_hit *h, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
 {
 	float				real_dist;
 	int					buffer_idx;
 	float				inv_cos;
+	float				z;
 
-	inv_cos = (1.0f / cosf(fabsf(hit->original_angle - r_ctx->direction)));
+	inv_cos = (1.0f / cosf(fabsf(h->original_angle - r_ctx->direction)))
+		* r_ctx->proj_dist_y;
+	z = (r_ctx->eye_height - h->tile->floor);
 	if (ctx->actual.dist <= 0.01)
 		y = 1;
-	while (y < r_ctx->halfh)
+	while (y <= r_ctx->halfh)
 	{
-		real_dist = r_ctx->proj_dist_y * ((r_ctx->eye_height
-			- hit->tile->floor) / (y - r_ctx->halfh)) * inv_cos;
-		hit->pos.x = hit->o_ray.origin.x + hit->o_ray.dir_normal.x * real_dist;
-		hit->pos.y = hit->o_ray.origin.y + hit->o_ray.dir_normal.y * real_dist;
-		if (floor(hit->pos.x) != hit->tile_x
-			|| floor(hit->pos.y) != hit->tile_y)
+		real_dist = (z / (y - r_ctx->halfh)) * inv_cos;
+		h->pos.x = h->o_ray.origin.x + h->o_ray.dir_normal.x * real_dist;
+		h->pos.y = h->o_ray.origin.y + h->o_ray.dir_normal.y * real_dist;
+		if (floor(h->pos.x) != h->tile_x || floor(h->pos.y) != h->tile_y)
 			break ;
 		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
 			render_horizontal_texture((t_ivec2){ctx->column, y},
-				hit->pos, r_ctx, hit->tile_info->texture_topbot);
+				h->pos, r_ctx, h->tile_info->texture_topbot);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
 		}
 		y++;
@@ -111,7 +112,7 @@ static void	init_texture_ctx(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 void	render_draw_ray(t_raycast_hit *hit, t_raycast_context *ctx,
 			t_render_context *render)
 {
-	float				corrected_dist;
+	float			corrected_dist;
 	t_vertical_tex	tex_ctx;
 
 	corrected_dist = hit->dist
@@ -120,11 +121,14 @@ void	render_draw_ray(t_raycast_hit *hit, t_raycast_context *ctx,
 	init_texture_ctx(&tex_ctx, hit, render, corrected_dist);
 	if (hit->tile->ceiling < render->eye_height)
 		draw_top_faces(hit, tex_ctx.wall_start, ctx, render);
-	if (hit->tile->floor > render->eye_height)
+	else if (hit->tile->floor > render->eye_height)
 		draw_bot_faces(hit, tex_ctx.wall_end + 1, ctx, render);
-	hit->pos.x = hit->o_ray.origin.x \
-		+ hit->o_ray.dir_normal.x * hit->dist;
-	hit->pos.y = hit->o_ray.origin.y \
-		+ hit->o_ray.dir_normal.y * hit->dist;
-	manage_texture(hit, ctx, render, &tex_ctx);
+	if (hit->draw_walls)
+	{
+		hit->pos.x = hit->o_ray.origin.x 
+			+ hit->o_ray.dir_normal.x * hit->dist;
+		hit->pos.y = hit->o_ray.origin.y 
+			+ hit->o_ray.dir_normal.y * hit->dist;
+		manage_texture(hit, ctx, render, &tex_ctx);
+	}
 }

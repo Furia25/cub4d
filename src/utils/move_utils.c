@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 20:35:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/16 02:43:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,23 @@ void	rad_to_vect(t_vec2 *direction, float rad)
 
 int mouse_move(int x, int y, t_game *game)
 {
-	double		width;
 	double		x_dif;
+	double		y_dif;
 	static int	last_x = 0;
+	static int	last_y = 0;
 
-	(void) y;
 	if (last_x == x)
 		return (1);
+	if (last_y == y)
+		return (1);
 	last_x = x;
-	width = game->w_halfwidth;
-	x_dif = (x - width) * MOUSE_SENS;
-	game->player.rad_direction += x_dif;
-	mlx_mouse_move(game->mlx, game->win, width, game->w_halfheight);
+	x_dif = (x - game->w_halfwidth) * MOUSE_SENS;
+	last_y = y;
+	y_dif = -(y - game->w_halfheight);
+	game->player.yaw_rad += x_dif;
+	game->player.pitch_offset += y_dif;
+	game->player.pitch_offset = clamp(game->player.pitch_offset, -600, 600);
+	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
 	return (1);
 }
 

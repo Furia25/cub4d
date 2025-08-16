@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/07/25 01:01:13 by vdurand          ###   ########.fr        #
+#    Updated: 2025/08/16 19:24:35 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,7 +113,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -O3 -march=native -funroll-loops -g3 -flto
+CFLAGS = -O3 -march=native -g3 -flto
 
 # GCC control
 GCC = 0

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:58:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/06 16:31:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ void	render_menu(t_game *game, int start)
 		(t_draw_transform){0, 0, game->frame->width, game->frame->height, g_colors[C_WHITE]},
 		0, &background, game->frame);
 	if (start)
-		handle_menu_options(game, true, 850, 550);
+		handle_menu_options(game, true, game->w_width * 0.43, game->w_halfheight);
 	else
 	{
 		draw_full_map(game);
-		handle_menu_options(game, false, 1600, 100);
+		handle_menu_options(game, false, game->w_halfwidth, game->w_halfheight);
 	}
 	handle_input(game, start);
 }
