@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/16 19:38:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/18 17:13:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	render(t_game *game)
 
 	render_init(game->w_width, game->w_height, &context, game);
 	render_rays(0, context.render_width, &context);
-	render_fog(&context);
+	//render_fog(&context);
 	//render_sky(&context);
 	draw_minimap(game);
 	manage_npcs(game);

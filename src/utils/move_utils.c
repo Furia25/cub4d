@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/16 02:43:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/18 15:48:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ int mouse_move(int x, int y, t_game *game)
 	static int	last_x = 0;
 	static int	last_y = 0;
 
-	if (last_x == x)
-		return (1);
-	if (last_y == y)
+	if (last_x == x && last_y == y)
 		return (1);
 	last_x = x;
 	x_dif = (x - game->w_halfwidth) * MOUSE_SENS;

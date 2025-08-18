@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/14 15:22:53 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/18 17:23:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,6 @@ typedef struct s_npc
 	char			**text;
 }	t_npc;
 
-typedef struct s_enemy
-{
-	t_vec3			position;
-	int				hp;
-	char			**text;
-	t_enemy_state	state;
-}	t_enemy;
-
 typedef struct s_menu
 {
 	int		action;
@@ -159,8 +151,6 @@ typedef struct s_game
 	uint8_t			*z_buffer;
 	t_key			key_buffer[KEY_MAX_COUNT];
 	t_png			*textures[TEXTURE_MAX_COUNT];
-	t_enemy			enemies[MAX_ENEMIES];
-	int				enemy_count;
 	t_npc			npcs[MAX_PNJ];
 	int				npc_count;
 	t_interaction	interaction;

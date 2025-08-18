@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/16 20:21:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/18 17:11:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static inline void	draw_top_faces(t_raycast_hit *hit, int y,
 	int					buffer_idx;
 	float				inv_cos;
 
-	inv_cos = (1.0f / cos(hit->original_angle - r_ctx->direction)) * r_ctx->proj_dist_y + 0.005;
+	inv_cos = (1.0f / cos(hit->original_angle - r_ctx->direction)) * r_ctx->proj_dist_y + 0.006;
 	float test = (r_ctx->eye_height - hit->tile->ceiling);
 	if (ctx->actual.dist <= 0.01)
 		y = r_ctx->render_height - 1;
@@ -74,7 +74,7 @@ static inline void	draw_bot_faces(t_raycast_hit *h, int y,
 	}
 }
 
-static void	set_texture_orientation(t_raycast_hit *result)
+static inline void	set_texture_orientation(t_raycast_hit *result)
 {
 	if (result->tile_info->type != TILE_WALL)
 		return ;
@@ -88,7 +88,7 @@ static void	set_texture_orientation(t_raycast_hit *result)
 		result->tile_info->texture = TEXTURE_SOUTH;
 }
 
-static void	init_texture_ctx(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
+static inline void	init_texture_ctx(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 	t_render_context *render, float dist)
 {
 	float				dist_inv;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:33:46 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/14 15:13:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/18 17:19:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,21 @@ int	check_player(t_game *game, int i, int j, int *player)
 	return (1);
 }
 
-int	check_enemies(t_game *game, int i, int j, int *e)
-{
-	if (game->file_content[i][j] == 'M')
-	{
-		if (game->enemy_count >= MAX_ENEMIES)
-			return (0);
-		game->enemies[*e].position.x = (double)j + 0.5;
-		game->enemies[*e].position.y = (double)(i - 8) + 0.5;
-		game->enemies[*e].hp = 100;
-		game->enemies[*e].state = SLEEPING;
-		game->enemy_count++;
-		(*e)++;
-	}
-	return (1);
-}
+// int	check_enemies(t_game *game, int i, int j, int *e)
+// {
+// 	if (game->file_content[i][j] == 'M')
+// 	{
+// 		if (game->enemy_count >= MAX_ENEMIES)
+// 			return (0);
+// 		game->enemies[*e].position.x = (double)j + 0.5;
+// 		game->enemies[*e].position.y = (double)(i - 8) + 0.5;
+// 		game->enemies[*e].hp = 100;
+// 		game->enemies[*e].state = SLEEPING;
+// 		game->enemy_count++;
+// 		(*e)++;
+// 	}
+// 	return (1);
+// }
 
 int	check_npcs(t_game *game, int i, int j, int *p)
 {

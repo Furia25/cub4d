@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/16 19:08:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/18 15:49:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	game_loop(void *param)
 	time = get_time_ms();
 	if (time >= last_time)
 	{
-		last_time = time + 40;
+		last_time = time + 32;
 		if (key_check(KEY_QUIT, game))
 			exit_game(game);
 		if (game->state == MENU)

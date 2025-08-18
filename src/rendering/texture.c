@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/13 18:55:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/18 15:34:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,16 @@ inline static void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 	float	step;
 	int		y;
 
-	step = tex_ctx->texture->header.height / (float)tex_ctx->wall_height;
-	tex_pos = tex_ctx->texture->header.height \
-	- ((tex_ctx->wall_end_actual - tex_ctx->wall_end) * step);
+	step = (float)tex_ctx->texture->header.height / (float)tex_ctx->wall_height;
+	tex_pos = tex_ctx->texture->header.height - ((tex_ctx->wall_end_actual - tex_ctx->wall_end) * step);
 	y = tex_ctx->wall_end + 1;
 	while (--y > tex_ctx->wall_start)
 	{
 		buffer_idx = y * ctx->render_ctx->render_width + ctx->column;
-		tex_y = (int)(tex_pos - (tex_ctx->texture->header.height \
-			* floorf(tex_pos / tex_ctx->texture->header.height)));
 		if (hit->dist < zbuf[buffer_idx])
 		{
-			draw_pixel(
-				tex_ctx->texture->pixels_8bit[tex_y \
-				* tex_ctx->texture->header.width + tex_ctx->tex_x],
-				ctx->column, y, ctx->render_ctx->frame);
+			tex_y = ((int)tex_pos) % tex_ctx->texture->header.height;
+			draw_pixel(tex_ctx->texture->pixels_8bit[tex_y * tex_ctx->texture->header.width + tex_ctx->tex_x], ctx->column, y, ctx->render_ctx->frame);
 			zbuf[buffer_idx] = hit->dist;
 		}
 		tex_pos -= step;

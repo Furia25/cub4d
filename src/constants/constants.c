@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/14 15:01:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/18 14:53:23 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_ERROR] = "assets/textures/missing.png",
 [TEXTURE_WALL] = NULL,
-[TEXTURE_GRASS] = "assets/textures/tiles/water.png",
+[TEXTURE_GRASS] = "assets/textures/tiles/grass.png",
 [TEXTURE_WATER] = "assets/textures/tiles/water.png",
 [TEXTURE_TEST] = "assets/textures/tiles/4fdsfk.png",
 [TEXTURE_TOP] = "assets/textures/tiles/wall_top.png",

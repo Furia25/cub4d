@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/13 18:27:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/18 17:21:29 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_entity
 	void			(*draw)(t_entity*, t_render_context*);
 	void			(*destroy)(t_entity*, t_game*);
 	void			*data;
+	t_rgba8			map_color;
 }	t_entity;
 
 #endif
