@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/20 18:44:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 18:53:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ struct s_entity
 	void			*data;
 	t_rgba8			map_color;
 };
+
+typedef struct s_data_example
+{
+	
+}	t_data_example;
 
 void	entity_free(t_entity *entity);
 bool	entity_add(t_entity *entity, t_game *game);
