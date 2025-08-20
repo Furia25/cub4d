@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:03:06 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/23 01:13:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:08:22 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 typedef struct u_png_pixel8
 {
-	uint8_t	a;
-	uint8_t	r;
-	uint8_t	g;
 	uint8_t	b;
+	uint8_t	g;
+	uint8_t	r;
+	uint8_t	a;
 }	t_png_pixel8;
 
 typedef struct s_png_chunk_data_IHDR

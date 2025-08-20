@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/08/18 22:27:43 by vdurand          ###   ########.fr        #
+#    Updated: 2025/08/20 18:43:35 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ SRC_FILES = \
 	utils/time_utils.c \
 	utils/vector_managing.c \
 	utils/vector_methods.c \
+	utils/vector_methods2.c \
 	player_movement.c \
 	end_game.c \
 	game_loop.c \
@@ -98,7 +99,11 @@ SRC_FILES = \
 	drawing/text.c \
 	drawing/text_utils.c \
 	constants/constants.c \
-	constants/colors.c
+	constants/colors.c \
+	entities/entity_test.c \
+	entities/entity_updates.c \
+	entities/entity_utils.c \
+	entities/manager.c
 
 HEADERS = \
 	cub3d.h

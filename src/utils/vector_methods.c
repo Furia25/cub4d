@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 18:28:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/18 19:32:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 18:21:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ bool	vector_remove(t_vector *vec, unsigned int index)
 {
 	void	*value;
 
+	if (!vec)
+		return (false);
 	value = vec->get(vec, index);
 	if (value == NULL)
 		return (false);

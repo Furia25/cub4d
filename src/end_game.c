@@ -6,24 +6,29 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 03:08:54 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 18:39:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "glyphs.h"
+#include "cub3d_errors.h"
 
-static const char	*g_errors[ERROR_MAX] = {"Couldn't load assets.",
-	"Couldn't load textures.",
-	"Initilization of the game failed.",
-	"Unable to create Window and/or Frame buffer."
+static const char	*g_errors[ERROR_MAX] = {
+[ERROR_LOADING_ASSETS] = "Couldn't load assets.",
+[ERROR_LOADING_GRAPHICS] = "Couldn't load textures.",
+[ERROR_LOADING] = "Initilization of the game failed.",
+[ERROR_WINDOW] = "Unable to create Window and/or Frame buffer."
 };
 
 void	trow_error(t_game *game, t_error error)
 {
 	ft_putstr_fd(GAME_NAME, 2);
 	ft_putstr_fd(" : ", 2);
-	ft_putstr_fd((char *)g_errors[error], 2);
+	if (error < ERROR_MAX)
+		ft_putstr_fd((char *)g_errors[error], 2);
+	else
+		ft_putstr_fd(ERROR_BASIC, 2);
 	ft_putstr_fd("\n", 2);
 	exit_game(game);
 }
@@ -32,14 +37,6 @@ static void	free_textures(t_game *game);
 
 int	exit_game(t_game *game)
 {
-	int i;
-
-	i = 0;
-	while (i < game->npc_count)
-	{
-		free_map(game->npcs[i].text);
-		i++;
-	}
 	tilemap_free(game->tilemap);
 	free(game->paths);
 	free(game->colors);

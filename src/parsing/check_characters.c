@@ -6,13 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:33:46 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/18 17:19:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:44:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	assign_npc_text(t_game *game, t_npc *npc, int index)
+/*void	assign_npc_text(t_game *game, t_npc *npc, int index)
 {
 	int		i;
 	int		line_count;
@@ -39,7 +39,7 @@ void	assign_npc_text(t_game *game, t_npc *npc, int index)
 		npc_text[i] = ft_strdup(game->npc_text[i + line_count + 1]);
 	npc_text[size - 1] = NULL;
 	npc->text = npc_text;
-}
+}*/
 
 int	check_player(t_game *game, int i, int j, int *player)
 {
@@ -79,7 +79,7 @@ int	check_player(t_game *game, int i, int j, int *player)
 // 	return (1);
 // }
 
-int	check_npcs(t_game *game, int i, int j, int *p)
+/*int	check_npcs(t_game *game, int i, int j, int *p)
 {
 	if (game->file_content[i][j] == 'P')
 	{
@@ -93,4 +93,4 @@ int	check_npcs(t_game *game, int i, int j, int *p)
 		(*p)++;
 	}
 	return (1);
-}
+}*/

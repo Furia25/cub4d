@@ -6,13 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 14:55:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_tile(t_tile_context *tile, t_png_pixel8 color, int mid_off)
+void	draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off)
 {
 	int	i;
 	int	j;
@@ -44,7 +44,7 @@ void	draw_border(t_game *game)
 {
 	int				i;
 	int				j;
-	t_png_pixel8	color;
+	t_rgba8			color;
 
 	color = rgba8(25, 255, 25, 200);
 	i = 0;
@@ -92,7 +92,7 @@ void	draw_player(t_game *game)
 	}
 }
 
-void	draw_npc(t_tile_context *tile, t_png_pixel8 color)
+void	draw_npc(t_tile_context *tile, t_rgba8 color)
 {
 	int	i;
 	int	j;

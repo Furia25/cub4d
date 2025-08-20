@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/18 15:34:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:47:23 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ inline static void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 	int		y;
 
 	step = (float)tex_ctx->texture->header.height / (float)tex_ctx->wall_height;
-	tex_pos = tex_ctx->texture->header.height - ((tex_ctx->wall_end_actual - tex_ctx->wall_end) * step);
+	tex_pos = tex_ctx->texture->header.height
+		- ((tex_ctx->wall_end_actual - tex_ctx->wall_end) * step);
 	y = tex_ctx->wall_end + 1;
 	while (--y > tex_ctx->wall_start)
 	{
@@ -31,7 +32,10 @@ inline static void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 		if (hit->dist < zbuf[buffer_idx])
 		{
 			tex_y = ((int)tex_pos) % tex_ctx->texture->header.height;
-			draw_pixel(tex_ctx->texture->pixels_8bit[tex_y * tex_ctx->texture->header.width + tex_ctx->tex_x], ctx->column, y, ctx->render_ctx->frame);
+			draw_pixel(
+				(t_rgba8)tex_ctx->texture->pixels_8bit[
+					tex_y * tex_ctx->texture->header.width + tex_ctx->tex_x],
+				ctx->column, y, ctx->render_ctx->frame);
 			zbuf[buffer_idx] = hit->dist;
 		}
 		tex_pos -= step;
@@ -69,5 +73,7 @@ void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
 	off.y = real_pos.y - floor(real_pos.y);
 	tex.x = (int)(off.x * texture->header.width) % texture->header.width;
 	tex.y = (int)(off.y * texture->header.height) % texture->header.height;
-	draw_pixel(texture->pixels_8bit[tex.y * texture->header.width + tex.x], pixel.x, pixel.y, r_ctx->frame);
+	draw_pixel(
+		(t_rgba8)texture->pixels_8bit[tex.y * texture->header.width + tex.x],
+		pixel.x, pixel.y, r_ctx->frame);
 }

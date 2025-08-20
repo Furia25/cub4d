@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:27:40 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/18 19:36:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 18:18:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_vector	*vector_init(t_vector *vector)
 	vector->append = vector_append;
 	vector->remove = vector_remove;
 	vector->insert = vector_insert;
+	vector->get_index = vector_get_index;
 	return (vector);
 }
 

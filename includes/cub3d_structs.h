@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/23 00:26:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:05:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@
 # include <stdint.h>
 # include <crazypng.h>
 
-typedef t_png_pixel8	t_rgba8;
+typedef union	u_rgba8
+{
+	t_png_pixel8	channels;
+	uint32_t		integer;
+}	t_rgba8;
 
 typedef enum e_key_type
 {

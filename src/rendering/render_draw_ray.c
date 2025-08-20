@@ -6,37 +6,38 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/18 17:11:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:49:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_rendering.h"
 
-static inline void	draw_top_faces(t_raycast_hit *hit, int y,
+static inline void	draw_top_faces(t_raycast_hit *h, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
 {
 	float				real_dist;
 	int					buffer_idx;
 	float				inv_cos;
+	float				z;
 
-	inv_cos = (1.0f / cos(hit->original_angle - r_ctx->direction)) * r_ctx->proj_dist_y + 0.006;
-	float test = (r_ctx->eye_height - hit->tile->ceiling);
+	inv_cos = (1.0f / cos(h->original_angle - r_ctx->direction))
+		* r_ctx->proj_dist_y + 0.006;
+	z = (r_ctx->eye_height - h->tile->ceiling);
 	if (ctx->actual.dist <= 0.01)
 		y = r_ctx->render_height - 1;
 	while (y != r_ctx->halfh && y > 0)
 	{
-		real_dist = (test / (y - r_ctx->halfh)) * inv_cos ;
-		hit->pos.x = hit->o_ray.origin.x + hit->o_ray.dir_normal.x * real_dist;
-		hit->pos.y = hit->o_ray.origin.y + hit->o_ray.dir_normal.y * real_dist;
-		if (floor(hit->pos.x) != hit->tile_x
-			|| floor(hit->pos.y) != hit->tile_y)
+		real_dist = (z / (y - r_ctx->halfh)) * inv_cos ;
+		h->pos.x = h->o_ray.origin.x + h->o_ray.dir_normal.x * real_dist;
+		h->pos.y = h->o_ray.origin.y + h->o_ray.dir_normal.y * real_dist;
+		if (floor(h->pos.x) != h->tile_x || floor(h->pos.y) != h->tile_y)
 			break ;
 		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
 			render_horizontal_texture((t_ivec2){ctx->column, y},
-				hit->pos, r_ctx, hit->tile_info->texture_topbot);
+				h->pos, r_ctx, h->tile_info->texture_topbot);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
 		}
 		y--;

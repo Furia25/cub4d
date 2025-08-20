@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 03:08:12 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 18:37:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@
 # include "maths2.h"
 # include "maths2_rng.h"
 # include "maths2_geometry.h"
+# include "vector.h"
 
 # include "tilemap.h"
 # include "cub3d_structs.h"
 # include "cub3d_drawing.h"
 # include "cub3d_textures.h"
 # include "cub3d_colors.h"
-# include "vector.h"
+# include "cub3d_errors.h"
 
 # define GAME_NAME	"CUB3D"
 # define GAME_NAME_F	L"»9t~*«CUB3D"
@@ -69,15 +70,6 @@
 # define MENU_OPTION_CONFIG	L"»4«Config"
 # define MENU_OPTION_QUIT	L"»4«Quit"
 
-typedef enum e_error
-{
-	ERROR_LOADING_ASSETS,
-	ERROR_LOADING_GRAPHICS,
-	ERROR_LOADING,
-	ERROR_WINDOW,
-	ERROR_MAX
-}	t_error;
-
 typedef enum e_game_state
 {
 	MENU,
@@ -91,12 +83,6 @@ typedef struct s_parsing_content
 	int	npcs;
 	int	enemies;
 }	t_parsing_content;
-
-typedef struct s_npc
-{
-	t_vec3			position;
-	char			**text;
-}	t_npc;
 
 typedef struct s_menu
 {
@@ -158,9 +144,6 @@ typedef struct s_game
 	uint8_t				*z_buffer;
 	t_key				key_buffer[KEY_MAX_COUNT];
 	t_png				*textures[TEXTURE_MAX_COUNT];
-	t_npc				npcs[MAX_PNJ];
-	int					npc_count;
-	t_interaction		interaction;
 	t_game_state		state;
 	t_menu				menu;
 	t_rng_state			rng;
@@ -181,9 +164,9 @@ typedef struct s_tile_context
 
 typedef struct s_button
 {
-	t_png_pixel8	color_light;
-	t_png_pixel8	color_dark;
-	t_png_pixel8	color_out;
+	t_rgba8			color_light;
+	t_rgba8			color_dark;
+	t_rgba8			color_out;
 	int				width;
 	int				height;
 	int				x;
@@ -251,12 +234,11 @@ int			check_npcs(t_game *game, int i, int j, int *p);
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);
 void		draw_player(t_game *game);
-void		draw_tile(t_tile_context *tile, t_png_pixel8 color, int mid_off);
-void		draw_npc(t_tile_context *tile, t_png_pixel8 color);
+void		draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off);
+void		draw_npc(t_tile_context *tile, t_rgba8 color);
 void		draw_border(t_game *game);
 void		draw_player(t_game *game);
 void		draw_full_map(t_game *game);
-
 
 // ----- PNJ ----- //
 void		manage_npcs(t_game *game);
@@ -269,7 +251,6 @@ void		player_add_x(float value, t_player *player);
 void		player_add_y(float value, t_player *player);
 void		player_add_z(float value, t_player *player);
 
-void		draw_enemies(t_game *game);
 void		draw_button(t_game *game, t_button *btn);
 t_vec2		calculate_axis_dist(t_vec2 p_pos, t_vec2 e_pos);
 float		calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist);

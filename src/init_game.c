@@ -6,15 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 02:04:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 18:40:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_textures.h"
-
-#include "mlx.h"
-#include "mlx_int.h"
+#include "cub3d_entities.h"
 
 #include <mlx.h>
 #include "glyphs.h"
@@ -116,6 +114,7 @@ void	run_game(t_game *game)
 	rng_init(&game->rng, 0xCACA);
 	init_assets(game);
 	game->entity_manager.entities = vector_new();
+	game->entity_manager.entities->val_free = (void (*)(void *))entity_free;
 	if (!game->entity_manager.entities)
 		trow_error(game, ERROR_LOADING);
 	game->mlx = mlx_init();
@@ -127,8 +126,6 @@ void	run_game(t_game *game)
 	if (!create_frame_image(game))
 		trow_error(game, ERROR_WINDOW);
 	game->start_time = time_init();
-	game->interaction.count = 0;
-	game->interaction.npc_id = -1;
 	game->state = MENU;
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);

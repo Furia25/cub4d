@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/22 23:46:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:09:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void	draw_pixel(t_rgba8 src, unsigned int x, unsigned int y, t_img_data *img)
 	uint8_t		inv_alpha;
 
 	pixel = (uint32_t *)(img->buffer + (y * img->size_line) + (x << 2));
-	if (src.a == 255)
-		*pixel = (src.a << 24) | (src.r << 16) | (src.g << 8) | src.b;
+	if (src.channels.a == 255)
+		*pixel = src.integer;
 	else
 	{
 		bytes = (uint8_t *)pixel;
-		src_alpha = src.a;
+		src_alpha = src.channels.a;
 		inv_alpha = 255 - src_alpha;
-		bytes[0] = (src.b * src_alpha + bytes[0] * inv_alpha) >> 8;
-		bytes[1] = (src.g * src_alpha + bytes[1] * inv_alpha) >> 8;
-		bytes[2] = (src.r * src_alpha + bytes[2] * inv_alpha) >> 8;
+		bytes[0] = (src.channels.b * src_alpha + bytes[0] * inv_alpha) >> 8;
+		bytes[1] = (src.channels.g * src_alpha + bytes[1] * inv_alpha) >> 8;
+		bytes[2] = (src.channels.r * src_alpha + bytes[2] * inv_alpha) >> 8;
 		bytes[3] = 255;
 	}
 }
@@ -40,12 +40,12 @@ static inline void	transformed_draw(t_rgba8 color, t_draw_transform *tform,
 	t_rgba8		*dest;
 
 	dest = &tform->color;
-	if (dest->r != 255)
-		color.r = dest->r;
-	if (dest->g != 255)
-		color.g = dest->g;
-	if (dest->b != 255)
-		color.b = dest->b;
+	if (dest->channels.r != 255)
+		color.channels.r = dest->channels.r;
+	if (dest->channels.g != 255)
+		color.channels.g = dest->channels.g;
+	if (dest->channels.b != 255)
+		color.channels.b = dest->channels.b;
 	draw_pixel(color, tform->x + pos->x, tform->y + pos->y, img);
 }
 
@@ -69,7 +69,7 @@ void	draw_sprite_sheet(t_draw_transform tform, size_t index,
 		{
 			uv = (uv_start.x + (int)(pos.x * step.x)) + (uv_start.y
 					+ (int)(pos.y * step.y)) * spr->asset->header.width;
-			transformed_draw(spr->asset->pixels_8bit[uv], &tform, &pos, img);
+			transformed_draw((t_rgba8)spr->asset->pixels_8bit[uv], &tform, &pos, img);
 			pos.x++;
 		}
 		pos.y++;
@@ -89,7 +89,7 @@ void	draw_texture(int x, int y, t_png *texture, t_img_data *img)
 		xx = x;
 		while (xx < max_x)
 		{
-			draw_pixel(texture->pixels_8bit[xx + y * texture->header.width], xx, y, img);
+			draw_pixel((t_rgba8)texture->pixels_8bit[xx + y * texture->header.width], xx, y, img);
 			xx++;
 		}
 		y++;

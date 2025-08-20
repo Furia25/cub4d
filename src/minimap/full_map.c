@@ -6,13 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/24 20:33:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 14:55:41 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_tiles(t_game *game, int pos_x, int pos_y, t_png_pixel8 color)
+void	draw_tiles(t_game *game, int pos_x, int pos_y, t_rgba8 color)
 {
 	int	i;
 	int	j;

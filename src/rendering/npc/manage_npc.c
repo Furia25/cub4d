@@ -6,23 +6,14 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 13:19:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:43:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	tablen(char **text)
-{
-	int	i;
 
-	i = 0;
-	while (text[i])
-		i++;
-	return (i);
-}
-
-static void	display_interaction(t_game *game, char **text)
+/*static void	display_interaction(t_game *game, char **text)
 {
 	static uint64_t	time;
 	t_button		btn;
@@ -44,9 +35,9 @@ static void	display_interaction(t_game *game, char **text)
 		draw_textbox(game, text[game->interaction.count - 1], time);
 	else if (game->interaction.count - 1 >= tablen(text))
 		game->interaction.count = 0;
-}
+}*/
 
-static int	is_npc_in_range(t_vec3 player_pos, t_vec3 npc_pos)
+/*static int	is_npc_in_range(t_vec3 player_pos, t_vec3 npc_pos)
 {
 	float	dist;
 
@@ -54,9 +45,9 @@ static int	is_npc_in_range(t_vec3 player_pos, t_vec3 npc_pos)
 	if (dist < INTERACTION_RANGE)
 		return (1);
 	return (0);
-}
+}*/
 
-static void	manage_interaction(t_game *game, int i, int *npc_in_range)
+/*static void	manage_interaction(t_game *game, int i, int *npc_in_range)
 {
 	if (is_npc_in_range(game->player.position, \
 		game->npcs[game->interaction.npc_id].position))
@@ -69,9 +60,9 @@ static void	manage_interaction(t_game *game, int i, int *npc_in_range)
 		display_interaction(game, game->npcs[i].text);
 	}
 	*npc_in_range = 1;
-}
+}*/
 
-void	manage_npcs(t_game *game)
+/*void	manage_npcs(t_game *game)
 {
 	int		i;
 	float	dist;
@@ -91,4 +82,4 @@ void	manage_npcs(t_game *game)
 		game->interaction.npc_id = -1;
 		game->interaction.count = 0;
 	}
-}
+}*/

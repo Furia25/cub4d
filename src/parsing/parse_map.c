@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:34:48 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/18 17:19:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:43:40 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	check_tiles_and_borders(t_game *game)
 	game->map_width = 0;
 	game->map = (char **)malloc(sizeof(char *) * ((game->map_height -7) + 1));
 	game->map_height -= 7;
-	game->npc_count = 0;
 	if (!game->map)
 		return (0);
 	if (!loop_through_map(game, &map_content))

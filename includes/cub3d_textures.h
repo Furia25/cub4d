@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/23 00:24:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:52:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "cub3d_structs.h"
 
-/* TEXTURE_MISSING and TEXTURE_MAX_COUNT need to be first and last respectively to assure correct behavior*/
+/* TEXTURE_MISSING and TEXTURE_MAX_COUNT need to be first
+and last respectively to assure correct behavior*/
 typedef enum e_texture_type
 {
 	TEXTURE_ERROR,

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/18 17:13:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 17:44:32 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	render(t_game *game)
 
 	render_init(game->w_width, game->w_height, &context, game);
 	render_rays(0, context.render_width, &context);
-	//render_fog(&context);
+	render_fog(&context);
 	//render_sky(&context);
 	draw_minimap(game);
-	manage_npcs(game);
+	//manage_npcs(game);
 	if (key_check(KEY_TAB, game))
 		draw_full_map(game);
 }
@@ -93,7 +93,7 @@ static inline void	render_fog(t_render_context *render)
 			fog = zbuffer[x + y * render->render_width] << 3;
 			if (fog > 255)
 				fog = 255;
-			draw_pixel((t_rgba8){fog, 0, 0, 0}, x, y, render->frame);
+			draw_pixel((t_rgba8){{0, 0, 0, fog}}, x, y, render->frame);
 			x++;
 		}
 		y++;
