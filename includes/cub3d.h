@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/18 17:23:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 03:08:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@
 # include "cub3d_drawing.h"
 # include "cub3d_textures.h"
 # include "cub3d_colors.h"
+# include "vector.h"
 
-# define GAME_NAME	L"CUB3D"
+# define GAME_NAME	"CUB3D"
 # define GAME_NAME_F	L"»9t~*«CUB3D"
 
 # define WINDOW_WIDTH		1920
@@ -68,6 +69,14 @@
 # define MENU_OPTION_CONFIG	L"»4«Config"
 # define MENU_OPTION_QUIT	L"»4«Quit"
 
+typedef enum e_error
+{
+	ERROR_LOADING_ASSETS,
+	ERROR_LOADING_GRAPHICS,
+	ERROR_LOADING,
+	ERROR_WINDOW,
+	ERROR_MAX
+}	t_error;
 
 typedef enum e_game_state
 {
@@ -75,34 +84,6 @@ typedef enum e_game_state
 	PLAYING,
 	PAUSED
 }	t_game_state;
-
-typedef enum e_enemy_state
-{
-	ON_ALERT,
-	SLEEPING,
-	DEAD
-}	t_enemy_state;
-
-typedef struct s_player
-{
-	float	base_speed;
-	float	eye_height;
-	float	jump_force;
-	float	fov_deg;
-	float	accel_speed;
-	float	accel_max;
-	float	friction;
-	float	air_friction;
-	t_bbox	bbox;
-	t_vec3	position;
-	t_vec2	direction;
-	float	yaw_rad;
-	int		pitch_offset;
-	float	accel;
-	float	jump_velocity;
-	t_vec2	last_move;
-	bool	is_grounded;
-}	t_player;
 
 typedef struct s_parsing_content
 {
@@ -128,36 +109,63 @@ typedef struct s_interaction
 	int	count;
 }	t_interaction;
 
+typedef struct s_player
+{
+	float	base_speed;
+	float	eye_height;
+	float	jump_force;
+	float	fov_deg;
+	float	accel_speed;
+	float	accel_max;
+	float	friction;
+	float	air_friction;
+	t_bbox	bbox;
+	t_vec3	position;
+	t_vec2	direction;
+	float	yaw_rad;
+	int		pitch_offset;
+	float	accel;
+	float	jump_velocity;
+	t_vec2	last_move;
+	bool	is_grounded;
+}	t_player;
+
+typedef struct s_entity_manager
+{
+	t_vector	*entities;
+}	t_entity_manager;
+
 typedef struct s_game
 {
-	void			*mlx;
-	char			*win;
-	t_img_data		*frame;
-	int				map_width;
-	int				map_height;
-	int				w_width;
-	int				w_height;
-	int				w_halfwidth;
-	int				w_halfheight;
-	t_player		player;
-	char			**file_content;
-	char			**map;
-	char			**paths;
-	char			**colors;
-	char			**npc_text;
-	t_png_pixel8	f_color;
-	t_png_pixel8	c_color;
-	t_tilemap		*tilemap;
-	uint8_t			*z_buffer;
-	t_key			key_buffer[KEY_MAX_COUNT];
-	t_png			*textures[TEXTURE_MAX_COUNT];
-	t_npc			npcs[MAX_PNJ];
-	int				npc_count;
-	t_interaction	interaction;
-	t_game_state	state;
-	t_menu			menu;
-	t_rng_state		rng;
-	uint64_t		start_time;
+	void				*mlx;
+	char				*win;
+	t_img_data			*frame;
+	int					map_width;
+	int					map_height;
+	int					w_width;
+	int					w_height;
+	int					w_halfwidth;
+	int					w_halfheight;
+	t_player			player;
+	char				**file_content;
+	char				**map;
+	char				**paths;
+	char				**colors;
+	char				**npc_text;
+	t_png_pixel8		f_color;
+	t_png_pixel8		c_color;
+	t_tilemap			*tilemap;
+	uint8_t				*z_buffer;
+	t_key				key_buffer[KEY_MAX_COUNT];
+	t_png				*textures[TEXTURE_MAX_COUNT];
+	t_npc				npcs[MAX_PNJ];
+	int					npc_count;
+	t_interaction		interaction;
+	t_game_state		state;
+	t_menu				menu;
+	t_rng_state			rng;
+	t_entity_manager	entity_manager;
+	uint64_t			start_time;
 }	t_game;
 
 typedef struct s_tile_context
@@ -182,6 +190,8 @@ typedef struct s_button
 	int				y;
 	int				shadow_size;
 }	t_button;
+
+void		trow_error(t_game *game, t_error error);
 
 void		render(t_game *game);
 void		run_game(t_game *game);

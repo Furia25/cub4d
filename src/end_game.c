@@ -6,12 +6,27 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 03:08:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "glyphs.h"
+
+static const char	*g_errors[ERROR_MAX] = {"Couldn't load assets.",
+	"Couldn't load textures.",
+	"Initilization of the game failed.",
+	"Unable to create Window and/or Frame buffer."
+};
+
+void	trow_error(t_game *game, t_error error)
+{
+	ft_putstr_fd(GAME_NAME, 2);
+	ft_putstr_fd(" : ", 2);
+	ft_putstr_fd((char *)g_errors[error], 2);
+	ft_putstr_fd("\n", 2);
+	exit_game(game);
+}
 
 static void	free_textures(t_game *game);
 
@@ -45,6 +60,7 @@ int	exit_game(t_game *game)
 	free_textures(game);
 	glyph_end();
 	free(game->mlx);
+	vector_free(game->entity_manager.entities, true);
 	exit(EXIT_SUCCESS);
 }
 

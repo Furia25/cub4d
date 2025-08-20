@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/16 19:07:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/20 02:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	init_textures(t_game *game)
 		if (parsed_index != 0)
 			path = game->paths[parsed_index - 1];
 		errno = 0;
-		game->textures[index] = png_open(path);
+		if (path != NULL)
+			game->textures[index] = png_open(path);
 		if (!game->textures[index])
 		{
 			game->textures[index] = game->textures[TEXTURE_ERROR];
@@ -73,11 +74,11 @@ int	init_assets(t_game *game)
 	game->textures[TEXTURE_ERROR]
 		= png_open((char *)g_textures_files[TEXTURE_ERROR]);
 	if (!game->textures[TEXTURE_ERROR])
-		return (0);
+		trow_error(game, ERROR_LOADING_ASSETS);
 	if (!init_textures(game))
-		return (0);
+		trow_error(game, ERROR_LOADING_ASSETS);
 	if (!glyph_init(GLYPH_PATH))
-		return (0);
+		trow_error(game, ERROR_LOADING_ASSETS);
 	return (1);
 }
 
@@ -113,22 +114,18 @@ void	run_game(t_game *game)
 	game->w_halfwidth = WINDOW_WIDTH / 2;
 	game->w_halfheight = WINDOW_HEIGHT / 2;
 	rng_init(&game->rng, 0xCACA);
-	if (!init_assets(game))
-		exit_game(game);
+	init_assets(game);
+	game->entity_manager.entities = vector_new();
+	if (!game->entity_manager.entities)
+		trow_error(game, ERROR_LOADING);
 	game->mlx = mlx_init();
 	if (!game->mlx)
-	{
-		ft_putstr_fd("Error while loading mlx", 2);
-		exit_game(game);
-	}
+		trow_error(game, ERROR_LOADING_GRAPHICS);
 	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
 	if (!game->win)
-	{
-		ft_putstr_fd("Error while loading window", 2);
-		exit_game(game);
-	}
+		trow_error(game, ERROR_WINDOW);
 	if (!create_frame_image(game))
-		exit_game(game);
+		trow_error(game, ERROR_WINDOW);
 	game->start_time = time_init();
 	game->interaction.count = 0;
 	game->interaction.npc_id = -1;

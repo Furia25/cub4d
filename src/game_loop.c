@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/18 15:49:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/19 20:11:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ uint64_t	get_fps(uint64_t start_time);
 
 inline void	play_loop(t_game *game, t_img_data *frame)
 {
+	if (key_is_pressed(KEY_PAUSE, game))
+		game->state = PAUSED;
 	ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
 	update_player(&game->player, game);
 	render(game);
@@ -40,14 +42,10 @@ int	game_loop(void *param)
 		last_time = time + 32;
 		if (key_check(KEY_QUIT, game))
 			exit_game(game);
-		if (game->state == MENU)
-			render_menu(game, 1);
-		if (game->state == PLAYING && key_is_pressed(KEY_PAUSE, game))
-			game->state = PAUSED;
-		if (game->state == PLAYING)
+		if (game->state == MENU || game->state == PAUSED)
+			render_menu(game, game->state == MENU);
+		else
 			play_loop(game, frame);
-		else if (game->state == PAUSED)
-			render_menu(game, 0);
 		mlx_put_image_to_window(game->mlx, game->win, frame->img_ptr, -2, -2);
 		printf("FPS : %lu TIME S :%ld\n", get_fps(time), get_elapsed_ms() / 1000);
 	}

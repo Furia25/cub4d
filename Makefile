@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/08/18 15:22:39 by vdurand          ###   ########.fr        #
+#    Updated: 2025/08/18 22:27:43 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,8 @@ SRC_FILES = \
 	utils/map_utils.c \
 	utils/move_utils.c \
 	utils/time_utils.c \
+	utils/vector_managing.c \
+	utils/vector_methods.c \
 	player_movement.c \
 	end_game.c \
 	game_loop.c \
@@ -113,7 +115,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -O3 -march=native -g3 -flto
+CFLAGS = -O3 -march=native -g3 -flto -Wall -Werror -Wextra
 
 # GCC control
 GCC = 0
