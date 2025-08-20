@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/20 18:53:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/21 01:34:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,20 @@
 typedef struct s_entity	t_entity;
 struct s_entity
 {
-	t_sprite_sheet	sheet;
-	t_vec3			position;
-	t_bbox			hitbox;
-	uint16_t		anim_index;
-	uint16_t		state;
-	void			(*create)(t_entity*, t_game*);
-	void			(*tick)(t_entity*, t_game*);
-	void			(*draw)(t_entity*, t_render_context*);
-	void			(*destroy)(t_entity*, t_game*);
-	void			(*free_data)(void *);
-	void			*data;
-	t_rgba8			map_color;
+	t_sprite_sheet		sheet;
+	t_draw_transform	draw_transform;
+	t_vec3				position;
+	t_bbox				hitbox;
+	uint16_t			anim_index;
+	uint16_t			state;
+	void				(*create)(t_entity*, t_game*);
+	void				(*tick)(t_entity*, t_game*);
+	void				(*draw)(t_entity*, t_render_context*);
+	void				(*destroy)(t_entity*, t_game*);
+	void				(*free_data)(void *);
+	void				*data;
+	t_rgba8				map_color;
+	bool				solid;
 };
 
 typedef struct s_data_example
@@ -42,5 +44,8 @@ bool	entity_add(t_entity *entity, t_game *game);
 bool	entity_destroy(t_entity *entity, t_game *game);
 void	entities_tick(t_game *game);
 void	entities_draw(t_game *game, t_render_context *render);
+void	entity_init_basics(t_vec3 position, t_entity *entity);
+
+t_entity	*entity_new_example(t_vec3 position, t_game *game);
 
 #endif

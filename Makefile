@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/08/20 18:48:45 by vdurand          ###   ########.fr        #
+#    Updated: 2025/08/21 01:23:35 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,7 +100,7 @@ SRC_FILES = \
 	drawing/text_utils.c \
 	constants/constants.c \
 	constants/colors.c \
-	entities/entity_example.c \
+	entities/entity_exemple.c \
 	entities/entities_updates.c \
 	entities/entities_utils.c \
 	entities/manager.c

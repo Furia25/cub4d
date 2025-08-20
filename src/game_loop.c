@@ -6,14 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/19 20:11:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/21 01:29:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_rendering.h"
-#include "mlx.h"
-#include "mlx_int.h"
+#include "cub3d_entities.h"
 #include "glyphs.h"
 
 uint64_t	get_fps(uint64_t start_time);
@@ -22,8 +21,9 @@ inline void	play_loop(t_game *game, t_img_data *frame)
 {
 	if (key_is_pressed(KEY_PAUSE, game))
 		game->state = PAUSED;
-	ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
+	entities_tick(game);
 	update_player(&game->player, game);
+	ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
 	render(game);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 18:39:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/21 01:30:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static const char	*g_errors[ERROR_MAX] = {
 [ERROR_LOADING_ASSETS] = "Couldn't load assets.",
 [ERROR_LOADING_GRAPHICS] = "Couldn't load textures.",
 [ERROR_LOADING] = "Initilization of the game failed.",
-[ERROR_WINDOW] = "Unable to create Window and/or Frame buffer."
+[ERROR_WINDOW] = "Unable to create Window and/or Framebuffer.",
+[ERROR_ENTITIES_ALLOC] = "Entities Manager caused a memory allocation error.",
+[ERROR_ENTITIES_MISC] = "Unexpected entity manager error.",
+[ERROR_ENTITIES_INVALID] = "Entity Manager couldn't resolve unknow entity"
 };
 
 void	trow_error(t_game *game, t_error error)

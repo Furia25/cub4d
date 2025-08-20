@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 18:40:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/21 01:39:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,14 @@ void	run_game(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		trow_error(game, ERROR_LOADING_GRAPHICS);
-	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
+	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, GAME_NAME);
 	if (!game->win)
 		trow_error(game, ERROR_WINDOW);
 	if (!create_frame_image(game))
 		trow_error(game, ERROR_WINDOW);
 	game->start_time = time_init();
 	game->state = MENU;
+	entity_add(entity_new_example((t_vec3){10, 10, 10}, game), game);
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);

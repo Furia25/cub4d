@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   entity_updates.c                                   :+:      :+:    :+:   */
+/*   entities_updates.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:50:05 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/20 18:43:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/21 01:10:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	entities_tick(t_game *game)
 		current = ((t_entity *)entities->get(entities, i));
 		if (!current)
 			break ;
-		current->tick(current, game);
+		if (current->tick)
+			current->tick(current, game);
 		i++;
 	}
 }
@@ -43,7 +44,8 @@ void	entities_draw(t_game *game, t_render_context *render)
 		current = ((t_entity *)entities->get(entities, i));
 		if (!current)
 			break ;
-		current->draw(current, render);
+		if (current->draw)
+			current->draw(current, render);
 		i++;
 	}
 }
