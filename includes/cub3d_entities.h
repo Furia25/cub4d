@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/21 01:34:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/21 16:59:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 typedef struct s_entity	t_entity;
 struct s_entity
 {
-	t_sprite_sheet		sheet;
+	t_sprite_sheet		spr;
 	t_draw_transform	draw_transform;
 	t_vec3				position;
 	t_bbox				hitbox;

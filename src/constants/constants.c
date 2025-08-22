@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/20 15:01:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/21 16:59:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_SOUTH] = "2",
 [TEXTURE_WEST] = "3",
 [TEXTURE_EAST] = "4",
+[TEXTURE_ENTITY_NPC] = "assets/textures/entity/npc.png",
 [ASSET_BG_PAUSE] = "assets/textures/gui/bg_pause.png",
 [ASSET_BG_START] = "assets/textures/gui/test.png",
 [ASSET_SELECTOR] = "assets/textures/gui/selector.png"

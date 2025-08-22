@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 17:52:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/21 16:58:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum e_texture_type
 	TEXTURE_TOP,
 	TEXTURE_TEST,
 	TEXTURE_GRASS,
+	TEXTURE_ENTITY_NPC,
 	ASSET_BG_START,
 	ASSET_BG_PAUSE,
 	ASSET_SELECTOR,

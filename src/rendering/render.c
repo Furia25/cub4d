@@ -6,13 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/20 17:44:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/21 18:30:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <immintrin.h>
 #include "cub3d.h"
 #include "cub3d_rendering.h"
+#include "cub3d_entities.h"
 
 static inline void	render_rays(int start, int end, t_render_context *render);
 static void		render_init(int width, int height, \
@@ -25,10 +25,10 @@ void	render(t_game *game)
 
 	render_init(game->w_width, game->w_height, &context, game);
 	render_rays(0, context.render_width, &context);
+	entities_draw(game, &context);
 	render_fog(&context);
 	//render_sky(&context);
 	draw_minimap(game);
-	//manage_npcs(game);
 	if (key_check(KEY_TAB, game))
 		draw_full_map(game);
 }
