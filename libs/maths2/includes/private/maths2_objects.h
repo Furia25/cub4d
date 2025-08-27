@@ -6,18 +6,32 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 01:50:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 19:16:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/25 22:52:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATHS2_OBJECTS_H
 # define MATHS2_OBJECTS_H
 
+# include "stddef.h"
+
 typedef struct s_vec2
 {
 	float	x;
 	float	y;
 }	t_vec2;
+
+typedef struct s_ivec2
+{
+	int	x;
+	int	y;
+}	t_ivec2;
+
+typedef struct s_svec2
+{
+	size_t	x;
+	size_t	y;
+}	t_svec2;
 
 typedef struct s_vec3
 {
@@ -26,18 +40,19 @@ typedef struct s_vec3
 	float	z;
 }	t_vec3;
 
-typedef struct s_ivec2
-{
-	int	x;
-	int	y;
-}	t_ivec2;
-
 typedef struct s_ivec3
 {
 	int	x;
 	int	y;
 	int	z;
 }	t_ivec3;
+
+typedef struct s_svec3
+{
+	size_t	x;
+	size_t	y;
+	size_t	z;
+}	t_svec3;
 
 /*
 Types representing 2D objects should be reserved for this usage.

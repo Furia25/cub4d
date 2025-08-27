@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/21 16:59:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/25 23:01:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_entity	t_entity;
 struct s_entity
 {
 	t_sprite_sheet		spr;
-	t_draw_transform	draw_transform;
+	t_entity_transform	transform;
 	t_vec3				position;
 	t_bbox				hitbox;
 	uint16_t			anim_index;
@@ -39,12 +39,13 @@ typedef struct s_data_example
 	
 }	t_data_example;
 
-void	entity_free(t_entity *entity);
-bool	entity_add(t_entity *entity, t_game *game);
-bool	entity_destroy(t_entity *entity, t_game *game);
-void	entities_tick(t_game *game);
-void	entities_draw(t_game *game, t_render_context *render);
-void	entity_init_basics(t_vec3 position, t_entity *entity);
+void		entity_free(t_entity *entity);
+bool		entity_add(t_entity *entity, t_game *game);
+bool		entity_destroy(t_entity *entity, t_game *game);
+void		entities_tick(t_game *game);
+void		entities_draw(t_game *game, t_render_context *render);
+void		entity_init_basics(t_vec3 position, t_entity *entity);
+void		entity_basic_draw(t_entity *entity, t_render_context *render);
 
 t_entity	*entity_new_example(t_vec3 position, t_game *game);
 

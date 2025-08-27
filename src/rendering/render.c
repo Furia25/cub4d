@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/21 18:30:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/25 21:36:50 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void	render_init(int width, int height,
 	context->proj_dist_y = context->halfh / tanf(context->fov_y * .5f);
 	context->halfh = game->w_halfheight + game->player.pitch_offset;
 	context->halfh = clamp(context->halfh, 0, game->w_height);
+	context->yaw_cos = cos(game->player.yaw_rad);
+	context->yaw_sin = sin(game->player.yaw_rad);
 }
 
 static inline void	render_rays(int start, int end, t_render_context *render)

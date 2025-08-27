@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/20 17:49:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/25 22:07:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static inline void	draw_top_faces(t_raycast_hit *h, int y,
 	while (y != r_ctx->halfh && y > 0)
 	{
 		real_dist = (z / (y - r_ctx->halfh)) * inv_cos ;
-		h->pos.x = h->o_ray.origin.x + h->o_ray.dir_normal.x * real_dist;
-		h->pos.y = h->o_ray.origin.y + h->o_ray.dir_normal.y * real_dist;
-		if (floor(h->pos.x) != h->tile_x || floor(h->pos.y) != h->tile_y)
-			break ;
 		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
+			h->pos.x = h->o_ray.origin.x + h->o_ray.dir_normal.x * real_dist;
+			h->pos.y = h->o_ray.origin.y + h->o_ray.dir_normal.y * real_dist;
+			if (floor(h->pos.x) != h->tile_x || floor(h->pos.y) != h->tile_y)
+				break ;
 			render_horizontal_texture((t_ivec2){ctx->column, y},
 				h->pos, r_ctx, h->tile_info->texture_topbot);
 			r_ctx->z_buffer[buffer_idx] = real_dist;
@@ -60,13 +60,13 @@ static inline void	draw_bot_faces(t_raycast_hit *h, int y,
 	while (y <= r_ctx->halfh)
 	{
 		real_dist = (z / (y - r_ctx->halfh)) * inv_cos;
-		h->pos.x = h->o_ray.origin.x + h->o_ray.dir_normal.x * real_dist;
-		h->pos.y = h->o_ray.origin.y + h->o_ray.dir_normal.y * real_dist;
-		if (floor(h->pos.x) != h->tile_x || floor(h->pos.y) != h->tile_y)
-			break ;
 		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
+			h->pos.x = h->o_ray.origin.x + h->o_ray.dir_normal.x * real_dist;
+			h->pos.y = h->o_ray.origin.y + h->o_ray.dir_normal.y * real_dist;
+			if (floor(h->pos.x) != h->tile_x || floor(h->pos.y) != h->tile_y)
+				break ;
 			render_horizontal_texture((t_ivec2){ctx->column, y},
 				h->pos, r_ctx, h->tile_info->texture_topbot);
 			r_ctx->z_buffer[buffer_idx] = real_dist;

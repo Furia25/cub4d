@@ -6,11 +6,12 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/20 17:09:05 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/26 02:46:18 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "cub3d_rendering.h"
 
 void	draw_pixel(t_rgba8 src, unsigned int x, unsigned int y, t_img_data *img)
 {
@@ -34,8 +35,8 @@ void	draw_pixel(t_rgba8 src, unsigned int x, unsigned int y, t_img_data *img)
 	}
 }
 
-static inline void	transformed_draw(t_rgba8 color, t_draw_transform *tform,
-						t_vec2 *pos, t_img_data *img)
+static inline void	tform_draw(t_rgba8 color, t_draw_transform *tform,
+						t_svec2 *pos, t_img_data *img)
 {
 	t_rgba8		*dest;
 
@@ -49,17 +50,17 @@ static inline void	transformed_draw(t_rgba8 color, t_draw_transform *tform,
 	draw_pixel(color, tform->x + pos->x, tform->y + pos->y, img);
 }
 
-void	draw_sprite_sheet(t_draw_transform tform, size_t index,
+void	draw_spr_transformed(t_draw_transform tform, size_t index,
 			t_sprite_sheet *spr, t_img_data *img)
 {
 	t_vec2	step;
 	int		uv;
-	t_vec2	pos;
+	t_svec2	pos;
 	t_ivec2	uv_start;
 
 	step.x = (float)spr->width / tform.width;
 	step.y = (float)spr->height / tform.height;
-	pos = (t_vec2){0, 0};
+	pos = (t_svec2){0, 0};
 	uv_start.x = (index % spr->sprite_per_line) * spr->width;
 	uv_start.y = (index / spr->sprite_per_line) * spr->height;
 	while (pos.y < tform.height)
@@ -69,29 +70,52 @@ void	draw_sprite_sheet(t_draw_transform tform, size_t index,
 		{
 			uv = (uv_start.x + (int)(pos.x * step.x)) + (uv_start.y
 					+ (int)(pos.y * step.y)) * spr->asset->header.width;
-			transformed_draw((t_rgba8)spr->asset->pixels_8bit[uv], &tform, &pos, img);
+			tform_draw((t_rgba8)spr->asset->pixels_8bit[uv], &tform, &pos, img);
 			pos.x++;
 		}
 		pos.y++;
 	}
 }
 
-void	draw_texture(int x, int y, t_png *texture, t_img_data *img)
+static inline void	eform_draw(t_rgba8 color, t_entity_transform *tform,
+						t_svec2 *pos, t_img_data *img)
 {
-	int	xx;
-	int	max_x;
-	int	max_y;
+	t_rgba8		*dest;
 
-	max_x = texture->header.width + x;
-	max_y = texture->header.height + y;
-	while (y < max_y)
+	dest = &tform->color;
+	if (dest->channels.r != 255)
+		color.channels.r = dest->channels.r;
+	if (dest->channels.g != 255)
+		color.channels.g = dest->channels.g;
+	if (dest->channels.b != 255)
+		color.channels.b = dest->channels.b;
+	draw_pixel(color, tform->x + pos->x, tform->y + pos->y, img);
+}
+
+void	draw_sprite_entity(t_entity_transform tform,
+			t_sprite_sheet *spr, t_render_context *ctx)
+{
+	t_ivec2	uv;
+	t_svec2	pos;
+	t_ivec2	uv_start;
+
+	pos = (t_svec2){0, 0};
+	uv_start.x = (tform.index % spr->sprite_per_line) * spr->width;
+	uv_start.y = (tform.index / spr->sprite_per_line) * spr->height;
+	while (pos.y < tform.height)
 	{
-		xx = x;
-		while (xx < max_x)
+		uv.y = (uv_start.y + pos.y) * spr->asset->header.width;
+		pos.x = 0;
+		while (pos.x < tform.width)
 		{
-			draw_pixel((t_rgba8)texture->pixels_8bit[xx + y * texture->header.width], xx, y, img);
-			xx++;
+			uv.x = uv_start.x + pos.x;
+			if (pos.x > 0 || pos.x < ctx->render_width || pos.y > 0 || pos.y < ctx->render_height)
+			{
+				eform_draw((t_rgba8){255, 0, 255, 255},
+					&tform, &pos, ctx->frame);
+			}
+			pos.x++;
 		}
-		y++;
+		pos.y++;
 	}
 }

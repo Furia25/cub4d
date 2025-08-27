@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:02:52 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/20 17:08:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/25 22:49:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static inline t_rgba8	rgba8(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 }
 
 void	draw_pixel(t_rgba8 rgba, unsigned int x, unsigned int y, t_img_data *img);
-void	draw_sprite_sheet(t_draw_transform tform, size_t index,
+void	draw_spr_transformed(t_draw_transform tform, size_t index,
 			t_sprite_sheet *sprite, t_img_data *img);
-void	draw_texture(int x, int y, t_png *texture, t_img_data *img);
 
 #endif

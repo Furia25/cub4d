@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/18 15:51:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/25 23:09:44 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_render_context
 	float		fov;
 	float		fov_x;
 	float		fov_y;
+	float		yaw_cos;
+	float		yaw_sin;
 	float		proj_dist_x;
 	float		proj_dist_y;
 	int			halfh;
@@ -83,6 +85,9 @@ typedef struct s_vertical_tex
 	int		wall_height;
 	int		tex_x;
 }	t_vertical_tex;
+
+void	draw_sprite_entity(t_entity_transform tform,
+			t_sprite_sheet *spr, t_render_context *ctx);
 
 void	render_ray(float base_angle, int column,
 			t_ray2 *ray, t_render_context *render_ctx);

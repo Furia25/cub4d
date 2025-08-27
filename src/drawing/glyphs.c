@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:42:38 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/26 01:39:58 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/08/25 22:11:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void	draw_glyph(t_text_context *ctx, size_t glyph, t_img_data *img)
 		geffect_rainbow(ctx, &temp);
 	if (!(ctx->effect & TE_TYPEWRITER) || geffect_typewrite(ctx))
 	{
-		draw_sprite_sheet(temp, glyph, &g_glyphs, img);
+		draw_spr_transformed(temp, glyph, &g_glyphs, img);
 		if (ctx->effect & TE_BOLD)
 		{
 			temp.x += temp.width * 0.07;
 			temp.y -= temp.height * 0.07;
-			draw_sprite_sheet(temp, glyph, &g_glyphs, img);
+			draw_spr_transformed(temp, glyph, &g_glyphs, img);
 		}
 	}
 }
