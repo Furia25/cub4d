@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/03 21:20:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 01:06:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static inline void	eform_draw(t_rgba8 color, t_entity_transform *tform,
 		return ;
 	test.x = tform->x + pos->x;
 	test.y = tform->y + pos->y;
-	if (test.x < 0 || test.x >= img->width || test.y < 0 || test.y >= img->height)
+	if (test.x < 0 || test.x > img->width || test.y < 0 || test.y > img->height)
 		return ;
 	dest = &tform->color;
 	if (dest->channels.r != 255)
@@ -107,16 +107,16 @@ void	draw_sprite_entity(t_entity_transform tform,
 	t_svec2	pos;
 	t_ivec2	uv_start;
 
-	pos = (t_svec2){0, 0};
-	step.x = (float)spr->width / (float)tform.width;
-	step.y = (float)spr->height / (float)tform.height;
+	step.x = (float)spr->width / (float)(tform.width * tform.scale);
+	step.y = (float)spr->height / (float)(tform.height * tform.scale);
 	uv_start.x = (tform.index % spr->sprite_per_line) * spr->width;
 	uv_start.y = (tform.index / spr->sprite_per_line) * spr->height;
-	while (pos.y < tform.height)
+	pos = (t_svec2){0, 0};
+	while (pos.y < (tform.height * tform.scale))
 	{
 		uv.y = (uv_start.y + (int)(pos.y * step.y)) * spr->asset->header.width;
 		pos.x = 0;
-		while (pos.x < tform.width)
+		while (pos.x < (tform.width * tform.scale))
 		{
 			uv.x = uv_start.x + (int)(pos.x * step.x);
 			eform_draw((t_rgba8)spr->asset->pixels_8bit[uv.y + uv.x],

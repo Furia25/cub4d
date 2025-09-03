@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/03 21:19:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 01:17:40 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 	entity->transform.x = (projected.x + 1.0f) * render->halfw;
 	entity->transform.y = (1.0f - projected.y) * render->halfh;
 	entity->transform.depth = cam_pos.z;
-	entity->transform.scale = 0.1f / cam_pos.z;
-	printf("TEST:%f\n", entity->transform.scale);
+	entity->transform.scale = 3.0f / cam_pos.z;
 	draw_sprite_entity(entity->transform, &entity->spr, render);
 }
