@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/08/26 03:00:15 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/03 19:40:28 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,7 @@ SRC_FILES = \
 	keys/keys.c \
 	drawing/draw_basics.c \
 	drawing/glyphs_effects.c \
+	drawing/draw_geometry.c \
 	drawing/glyphs.c \
 	drawing/text.c \
 	drawing/text_utils.c \

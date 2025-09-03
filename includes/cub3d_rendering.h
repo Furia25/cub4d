@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/25 23:09:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/03 20:34:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "cub3d.h"
 # include "cub3d_textures.h"
 
-# define RENDER_DISTANCE	50
+# define RENDER_DISTANCE	10
 
 typedef struct s_render_context
 {
@@ -30,7 +30,6 @@ typedef struct s_render_context
 	int			render_width;
 	int			render_height;
 	float		fov;
-	float		fov_x;
 	float		fov_y;
 	float		yaw_cos;
 	float		yaw_sin;

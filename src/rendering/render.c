@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/25 21:36:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/03 20:34:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	render(t_game *game)
 
 	render_init(game->w_width, game->w_height, &context, game);
 	render_rays(0, context.render_width, &context);
-	entities_draw(game, &context);
 	render_fog(&context);
+	entities_draw(game, &context);
 	//render_sky(&context);
 	draw_minimap(game);
 	if (key_check(KEY_TAB, game))
@@ -48,16 +48,15 @@ static void	render_init(int width, int height,
 	context->render_width = width;
 	context->eye_height = game->player.position.z;
 	context->fov = deg_to_rad(game->player.fov_deg);
-	context->fov_x = context->fov;
 	context->fov_y = deg_to_rad(game->player.fov_deg - 15);
 	context->halfw = game->w_halfwidth;
 	context->halfh = game->w_halfheight;
-	context->proj_dist_x = context->halfw / tanf(context->fov_x * .5f);
+	context->proj_dist_x = context->halfw / tanf(context->fov * .5f);
 	context->proj_dist_y = context->halfh / tanf(context->fov_y * .5f);
 	context->halfh = game->w_halfheight + game->player.pitch_offset;
 	context->halfh = clamp(context->halfh, 0, game->w_height);
-	context->yaw_cos = cos(game->player.yaw_rad);
-	context->yaw_sin = sin(game->player.yaw_rad);
+	context->yaw_cos = cosf(game->player.yaw_rad);
+	context->yaw_sin = sinf(game->player.yaw_rad);
 }
 
 static inline void	render_rays(int start, int end, t_render_context *render)

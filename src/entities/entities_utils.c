@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/26 02:58:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/03 21:19:44 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,32 @@ void	entity_init_basics(t_vec3 position, t_entity *entity)
 	entity->spr.sprite_per_line = 1;
 	entity->transform.color = g_colors[C_WHITE];
 	entity->transform.width = 100;
-	entity->transform.height = 100;
+	entity->transform.height = 200;
 	entity->transform.index = 0;
+	entity->transform.scale = 1;
 	entity->map_color = g_colors[C_AZURE];
 }
 
 void	entity_basic_draw(t_entity *entity, t_render_context *render)
 {
-	t_vec3	rel;
+	t_vec3	relative;
 	t_vec3	cam_pos;
-	t_vec2	screen_pos;
+	t_vec2	projected;
 
-	rel = vec3_sub(entity->position, render->player->position);
-	cam_pos.z = rel.x * render->yaw_sin - rel.y * render->yaw_cos;
-	if (cam_pos.z <= 0.01f)
+	relative = vec3_sub(entity->position, render->player->position);
+    cam_pos.z = relative.x * render->yaw_cos + relative.y * render->yaw_sin;
+	if (cam_pos.z <= 0.01)
 		return ;
-	cam_pos.x = rel.x * render->yaw_cos + rel.y * render->yaw_sin;
-	cam_pos.y = rel.y;
-	screen_pos.x = (render->render_width * 0.5f) * (1.0f + cam_pos.x / cam_pos.z);
-	screen_pos.y = (render->render_height * 0.5f) - (cam_pos.y / cam_pos.z);
+	cam_pos.x = relative.y * render->yaw_cos - relative.x * render->yaw_sin;
+    cam_pos.y = relative.z;
+	float	aspect_ratio = (float)(render->render_width) / (float)(render->render_height);
+	float	f = 1.0f / tanf(render->fov * 0.5);
+	projected.x = (cam_pos.x / cam_pos.z) * f * aspect_ratio;
+	projected.y = (cam_pos.y / cam_pos.z) * f;
+	entity->transform.x = (projected.x + 1.0f) * render->halfw;
+	entity->transform.y = (1.0f - projected.y) * render->halfh;
 	entity->transform.depth = cam_pos.z;
-	entity->transform.x = screen_pos.x;
-	entity->transform.y = screen_pos.y;
-	entity->transform.width = fabs(render->render_height / cam_pos.z);
-	entity->transform.height = fabs(render->render_height / cam_pos.z);
+	entity->transform.scale = 0.1f / cam_pos.z;
+	printf("TEST:%f\n", entity->transform.scale);
 	draw_sprite_entity(entity->transform, &entity->spr, render);
 }

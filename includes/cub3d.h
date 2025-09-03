@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 18:37:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/03 20:48:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@
 # include "cub3d_textures.h"
 # include "cub3d_colors.h"
 # include "cub3d_errors.h"
+
+//TEMP
+# define vec3_print(vec)	printf("x: %f, y: %f, z: %f\n", vec.x, vec.y, vec.z);
+# define vec2_print(vec)	printf("x: %f, y: %f\n", vec.x, vec.y);
+//TEMP
 
 # define GAME_NAME	"CUB3D"
 # define GAME_NAME_F	L"»9t~*«CUB3D"

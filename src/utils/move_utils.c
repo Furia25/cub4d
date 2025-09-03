@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/18 15:48:05 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/03 20:48:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int mouse_move(int x, int y, t_game *game)
 	last_y = y;
 	y_dif = -(y - game->w_halfheight);
 	game->player.yaw_rad += x_dif;
+	game->player.yaw_rad = fmodf(game->player.yaw_rad, 2 * M_PI);
 	game->player.pitch_offset += y_dif;
 	game->player.pitch_offset = clamp(game->player.pitch_offset, -600, 600);
 	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);

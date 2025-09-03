@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/26 02:24:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:49:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,13 @@ void	run_game(t_game *game)
 		trow_error(game, ERROR_WINDOW);
 	game->start_time = time_init();
 	game->state = MENU;
-	entity_add(entity_new_example(game->player.position, game), game);
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
+	entity_add(entity_new_example(game->player.position, game), game);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
-	//mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
+	mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
 	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
 	mlx_loop_hook(game->mlx, game_loop, game);
 	mlx_loop(game->mlx);
