@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/03 20:34:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 20:17:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_render_context
 	float		yaw_sin;
 	float		proj_dist_x;
 	float		proj_dist_y;
+	float		focal;
 	int			halfh;
 	int			halfw;
 	float		eye_height;

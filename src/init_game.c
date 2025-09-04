@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/03 17:49:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 23:22:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,14 @@ void	run_game(t_game *game)
 	game->state = MENU;
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
-	entity_add(entity_new_example(game->player.position, game), game);
+	t_vec3 lol = game->player.position;
+	lol.x += 5;
+	for (int i = 0; i < 100; i++)
+		entity_add(entity_new_example(lol, game), game);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
-	mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
+	//mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
 	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
 	mlx_loop_hook(game->mlx, game_loop, game);
 	mlx_loop(game->mlx);

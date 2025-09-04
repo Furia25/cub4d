@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/03 20:48:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 21:29:08 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,8 +257,8 @@ void		player_add_y(float value, t_player *player);
 void		player_add_z(float value, t_player *player);
 
 void		draw_button(t_game *game, t_button *btn);
-t_vec2		calculate_axis_dist(t_vec2 p_pos, t_vec2 e_pos);
-float		calculate_distance(t_vec2 p_pos, t_vec2 e_pos, t_vec2 axis_dist);
 void		render_menu(t_game *game, int start);
+
+bool		is_pixel_valid(int x, int y, t_img_data *img);
 
 #endif

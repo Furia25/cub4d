@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/25 22:11:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 20:35:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	render_menu(t_game *game, int start)
 		background.asset = game->textures[ASSET_BG_START];
 	background.width = background.asset->header.width;
 	background.height = background.asset->header.height;
-	background.sprite_per_line = 1;
+	background.spr_per_line = 1;
 	draw_spr_transformed(
 		(t_draw_transform){0, 0, game->frame->width, game->frame->height, g_colors[C_WHITE]},
 		0, &background, game->frame);

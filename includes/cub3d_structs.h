@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/03 21:18:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 20:35:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_sprite_sheet
 	t_png	*asset;
 	size_t	width;
 	size_t	height;
-	size_t	sprite_per_line;
+	size_t	spr_per_line;
 }	t_sprite_sheet;
 
 typedef struct s_draw_transform

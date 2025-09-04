@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/03 20:38:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 21:28:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,9 @@ bool	is_file_valid(char *path)
 		return (false);
 	close(temp_fd);
 	return (true);
+}
+
+bool	is_pixel_valid(int x, int y, t_img_data *img)
+{
+	return (!(x < 0 || x > img->width || y < 0 || y > img->height));
 }

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/04 01:06:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 21:23:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	draw_spr_transformed(t_draw_transform tform, size_t index,
 	step.x = (float)spr->width / tform.width;
 	step.y = (float)spr->height / tform.height;
 	pos = (t_svec2){0, 0};
-	uv_start.x = (index % spr->sprite_per_line) * spr->width;
-	uv_start.y = (index / spr->sprite_per_line) * spr->height;
+	uv_start.x = (index % spr->spr_per_line) * spr->width;
+	uv_start.y = (index / spr->spr_per_line) * spr->height;
 	while (pos.y < tform.height)
 	{
 		pos.x = 0;
@@ -71,56 +71,6 @@ void	draw_spr_transformed(t_draw_transform tform, size_t index,
 			uv = (uv_start.x + (int)(pos.x * step.x)) + (uv_start.y
 					+ (int)(pos.y * step.y)) * spr->asset->header.width;
 			tform_draw((t_rgba8)spr->asset->pixels_8bit[uv], &tform, &pos, img);
-			pos.x++;
-		}
-		pos.y++;
-	}
-}
-
-static inline void	eform_draw(t_rgba8 color, t_entity_transform *tform,
-						t_svec2 *pos, t_img_data *img)
-{
-	t_rgba8		*dest;
-	t_vec2		test;
-
-	if (color.channels.a == 0)
-		return ;
-	test.x = tform->x + pos->x;
-	test.y = tform->y + pos->y;
-	if (test.x < 0 || test.x > img->width || test.y < 0 || test.y > img->height)
-		return ;
-	dest = &tform->color;
-	if (dest->channels.r != 255)
-		color.channels.r = dest->channels.r;
-	if (dest->channels.g != 255)
-		color.channels.g = dest->channels.g;
-	if (dest->channels.b != 255)
-		color.channels.b = dest->channels.b;
-	draw_pixel(color, test.x, test.y, img);
-}
-
-void	draw_sprite_entity(t_entity_transform tform,
-			t_sprite_sheet *spr, t_render_context *ctx)
-{
-	t_vec2	step;
-	t_ivec2	uv;
-	t_svec2	pos;
-	t_ivec2	uv_start;
-
-	step.x = (float)spr->width / (float)(tform.width * tform.scale);
-	step.y = (float)spr->height / (float)(tform.height * tform.scale);
-	uv_start.x = (tform.index % spr->sprite_per_line) * spr->width;
-	uv_start.y = (tform.index / spr->sprite_per_line) * spr->height;
-	pos = (t_svec2){0, 0};
-	while (pos.y < (tform.height * tform.scale))
-	{
-		uv.y = (uv_start.y + (int)(pos.y * step.y)) * spr->asset->header.width;
-		pos.x = 0;
-		while (pos.x < (tform.width * tform.scale))
-		{
-			uv.x = uv_start.x + (int)(pos.x * step.x);
-			eform_draw((t_rgba8)spr->asset->pixels_8bit[uv.y + uv.x],
-					&tform, &pos, ctx->frame);
 			pos.x++;
 		}
 		pos.y++;

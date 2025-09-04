@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/04 01:17:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 22:56:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	entity_init_basics(t_vec3 position, t_entity *entity)
 {
 	entity->free_data = free;
 	entity->position = position;
-	entity->spr.sprite_per_line = 1;
+	entity->spr.spr_per_line = 1;
 	entity->transform.color = g_colors[C_WHITE];
 	entity->transform.width = 100;
 	entity->transform.height = 200;
@@ -34,9 +34,9 @@ void	entity_init_basics(t_vec3 position, t_entity *entity)
 
 void	entity_basic_draw(t_entity *entity, t_render_context *render)
 {
-	t_vec3	relative;
-	t_vec3	cam_pos;
-	t_vec2	projected;
+	t_vec3				relative;
+	t_vec3				cam_pos;
+	t_vec2				projected;
 
 	relative = vec3_sub(entity->position, render->player->position);
     cam_pos.z = relative.x * render->yaw_cos + relative.y * render->yaw_sin;
@@ -45,12 +45,11 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 	cam_pos.x = relative.y * render->yaw_cos - relative.x * render->yaw_sin;
     cam_pos.y = relative.z;
 	float	aspect_ratio = (float)(render->render_width) / (float)(render->render_height);
-	float	f = 1.0f / tanf(render->fov * 0.5);
-	projected.x = (cam_pos.x / cam_pos.z) * f * aspect_ratio;
-	projected.y = (cam_pos.y / cam_pos.z) * f;
+	projected.x = (cam_pos.x / cam_pos.z) * render->focal * aspect_ratio;
+	projected.y = (cam_pos.y / cam_pos.z) * render->focal * aspect_ratio;
 	entity->transform.x = (projected.x + 1.0f) * render->halfw;
 	entity->transform.y = (1.0f - projected.y) * render->halfh;
 	entity->transform.depth = cam_pos.z;
-	entity->transform.scale = 3.0f / cam_pos.z;
+	entity->transform.scale = 2.0f / cam_pos.z;
 	draw_sprite_entity(entity->transform, &entity->spr, render);
 }
