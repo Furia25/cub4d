@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 11:03:39 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:55:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 09:48:38 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,20 @@ char	**read_npc_text(t_game *game)
 		exit (EXIT_FAILURE);
 	}
 	line_nb = determine_line_nb("assets/text/npc.txt");
-	game->npc_text = (char **)malloc(sizeof(char *) * (line_nb + 1));
-	if (!(game->npc_text))
+	game->parsing.npc_text = (char **)malloc(sizeof(char *) * (line_nb + 1));
+	if (!(game->parsing.npc_text))
 		return (NULL);
-	game->npc_text[0] = get_next_line(fd).line;
+	game->parsing.npc_text[0] = get_next_line(fd).line;
 	i = 0;
 	while (++i < line_nb)
 	{
-		game->npc_text[i] = get_next_line(fd).line;
-		if (!game->npc_text[i])
+		game->parsing.npc_text[i] = get_next_line(fd).line;
+		if (!game->parsing.npc_text[i])
 			return (NULL);
 	}
-	game->npc_text[i] = NULL;
+	game->parsing.npc_text[i] = NULL;
 	close(fd);
-	return (game->npc_text);
+	return (game->parsing.npc_text);
 }
 
 char	**read_map(char *map_file, t_game *game)
@@ -79,21 +79,21 @@ char	**read_map(char *map_file, t_game *game)
 		ft_putstr_fd("Error while openning the map", 2);
 		exit (EXIT_FAILURE);
 	}
-	game->map_height = determine_line_nb(map_file);
-	game->file_content = (char **)malloc(sizeof(char *) * (game->map_height + 1));
-	if (!(game->file_content))
+	game->parsing.map_height = determine_line_nb(map_file);
+	game->parsing.file_content = (char **)malloc(sizeof(char *) * (game->parsing.map_height + 1));
+	if (!(game->parsing.file_content))
 		return (NULL);
-	game->file_content[0] = get_next_line(fd).line;
+	game->parsing.file_content[0] = get_next_line(fd).line;
 	i = 0;
-	while (++i < game->map_height)
+	while (++i < game->parsing.map_height)
 	{
-		game->file_content[i] = get_next_line(fd).line;
-		if (!game->file_content[i])
+		game->parsing.file_content[i] = get_next_line(fd).line;
+		if (!game->parsing.file_content[i])
 			return (NULL);
 	}
-	game->file_content[i] = NULL;
+	game->parsing.file_content[i] = NULL;
 	close(fd);
-	return (game->file_content);
+	return (game->parsing.file_content);
 }
 
 int	check_map_validity(t_game *game)
@@ -111,7 +111,7 @@ void	parsing(t_game *game, char *map_file)
 {
 	if (!read_npc_text(game))
 	{
-		free_map(game->file_content);
+		free_map(game->parsing.file_content);
 		ft_putstr_fd("Error: Reading npc text file failed", 2);
 		exit(EXIT_FAILURE);
 	}
@@ -122,7 +122,7 @@ void	parsing(t_game *game, char *map_file)
 	}
 	if (!check_map_validity(game))
 	{
-		free_map(game->file_content);
+		free_map(game->parsing.file_content);
 		ft_putstr_fd("Error: The map is not valid", 2);
 		exit(EXIT_FAILURE);
 	}

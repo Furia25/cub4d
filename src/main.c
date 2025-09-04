@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:21:21 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:46:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 09:49:31 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 	parsing(&game, av[1]);
-	game.tilemap = tilemap_from_tab(game.map, game.map_width, game.map_height, 1);
-	if (!game.colors)
+	game.tilemap = tilemap_from_tab(game.parsing.map, game.parsing.map_width, game.parsing.map_height, 1);
+	if (!game.parsing.colors)
 		exit_game(&game);
 	run_game(&game);
 	return (0);

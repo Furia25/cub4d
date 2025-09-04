@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_paths.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:16:07 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 19:19:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 09:47:56 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	assign_path(t_game *game, int i, char **identifiers)
 {
 	char	*line;
 
-	line = game->file_content[i];
-	game->paths[i] = game->file_content[i];
-	game->paths[i] += 3;
+	line = game->parsing.file_content[i];
+	game->parsing.paths[i] = game->parsing.file_content[i];
+	game->parsing.paths[i] += 3;
 	if (ft_strncmp(line, identifiers[i], 3))
 		return (0);
 	line += 3;
@@ -39,8 +39,8 @@ int	check_paths(t_game *game)
 	identifiers[1] = "SO ";
 	identifiers[2] = "WE ";
 	identifiers[3] = "EA ";
-	game->paths = (char **)malloc(sizeof(char *) * 5);
-	if (!game->paths)
+	game->parsing.paths = (char **)malloc(sizeof(char *) * 5);
+	if (!game->parsing.paths)
 		return (0);
 	while (i < 4)
 	{
@@ -48,6 +48,6 @@ int	check_paths(t_game *game)
 			return (0);
 		i++;
 	}
-	game->paths[i] = NULL;
+	game->parsing.paths[i] = NULL;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/25 21:36:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:20:47 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	render(t_game *game)
 {
 	t_render_context	context;
 
-	render_init(game->w_width, game->w_height, &context, game);
+	render_init(game->win_size.width, game->win_size.height, &context, game);
 	render_rays(0, context.render_width, &context);
 	entities_draw(game, &context);
 	render_fog(&context);
@@ -50,12 +50,12 @@ static void	render_init(int width, int height,
 	context->fov = deg_to_rad(game->player.fov_deg);
 	context->fov_x = context->fov;
 	context->fov_y = deg_to_rad(game->player.fov_deg - 15);
-	context->halfw = game->w_halfwidth;
-	context->halfh = game->w_halfheight;
+	context->halfw = game->win_size.halfwidth;
+	context->halfh = game->win_size.halfheight;
 	context->proj_dist_x = context->halfw / tanf(context->fov_x * .5f);
 	context->proj_dist_y = context->halfh / tanf(context->fov_y * .5f);
-	context->halfh = game->w_halfheight + game->player.pitch_offset;
-	context->halfh = clamp(context->halfh, 0, game->w_height);
+	context->halfh = game->win_size.halfheight + game->player.pitch_offset;
+	context->halfh = clamp(context->halfh, 0, game->win_size.height);
 	context->yaw_cos = cos(game->player.yaw_rad);
 	context->yaw_sin = sin(game->player.yaw_rad);
 }

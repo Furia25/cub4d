@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/18 15:48:05 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 09:53:54 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int mouse_move(int x, int y, t_game *game)
 	if (last_x == x && last_y == y)
 		return (1);
 	last_x = x;
-	x_dif = (x - game->w_halfwidth) * MOUSE_SENS;
+	x_dif = (x - game->win_size.halfwidth) * MOUSE_SENS;
 	last_y = y;
-	y_dif = -(y - game->w_halfheight);
+	y_dif = -(y - game->win_size.halfheight);
 	game->player.yaw_rad += x_dif;
 	game->player.pitch_offset += y_dif;
 	game->player.pitch_offset = clamp(game->player.pitch_offset, -600, 600);
-	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
+	mlx_mouse_move(game->mlx, game->win, game->win_size.halfwidth, game->win_size.halfheight);
 	return (1);
 }
 

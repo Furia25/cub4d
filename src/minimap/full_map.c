@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   full_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 14:55:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 09:53:16 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	draw_tiles(t_game *game, int pos_x, int pos_y, t_rgba8 color)
 	int	h_tile_size;
 	int	tile_size;
 
-	w_tile_size = game->w_width / game->map_width;
-	h_tile_size = game->w_height / game->map_height;
+	w_tile_size = game->win_size.width / game->parsing.map_width;
+	h_tile_size = game->win_size.height / game->parsing.map_height;
 	if (w_tile_size > h_tile_size)
 		tile_size = h_tile_size;
 	else
@@ -65,9 +65,9 @@ void	draw_full_map(t_game *game)
 	int	line;
 
 	line = 0;
-	while (game->map[line])
+	while (game->parsing.map[line])
 	{
-		draw_lines(game->map[line], game, line);
+		draw_lines(game->parsing.map[line], game, line);
 		line++;
 	}
 	draw_tiles(game, game->player.position.x, \

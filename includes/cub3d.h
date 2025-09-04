@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 18:37:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:55:03 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,25 +121,35 @@ typedef struct s_entity_manager
 	t_vector	*entities;
 }	t_entity_manager;
 
+typedef struct s_parsing
+{
+	int				map_width;
+	int				map_height;
+	char			**file_content;
+	char			**map;
+	char			**paths;
+	char			**colors;
+	char			**npc_text;
+	t_png_pixel8	f_color;
+	t_png_pixel8	c_color;
+}	t_parsing;
+
+typedef struct s_win_size
+{
+	int	width;
+	int	height;
+	int	halfwidth;
+	int	halfheight;
+}	t_win_size;
+
 typedef struct s_game
 {
 	void				*mlx;
 	char				*win;
 	t_img_data			*frame;
-	int					map_width;
-	int					map_height;
-	int					w_width;
-	int					w_height;
-	int					w_halfwidth;
-	int					w_halfheight;
+	t_parsing			parsing;
+	t_win_size			win_size;
 	t_player			player;
-	char				**file_content;
-	char				**map;
-	char				**paths;
-	char				**colors;
-	char				**npc_text;
-	t_png_pixel8		f_color;
-	t_png_pixel8		c_color;
 	t_tilemap			*tilemap;
 	uint8_t				*z_buffer;
 	t_key				key_buffer[KEY_MAX_COUNT];
@@ -208,6 +218,8 @@ int			center_tile(char c);
 void		draw_minimap(t_game *game);
 void		rad_to_vect(t_vec2 *direction, float rad);
 int			check_corners(t_game *game, double pos_x, double pos_y);
+int			calculate_offset(double p_pos);
+void		draw_entities(t_game *game);
 
 // ----- UTILS ----- //
 int			check_file_extension(char *filename);

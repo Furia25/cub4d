@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/26 02:24:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 15:58:22 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	create_frame_image(t_game *game)
 	if (!game->frame)
 		return (false);
 	game->frame->img_ptr = mlx_new_image(game->mlx,
-		game->w_width, game->w_height);
+		game->win_size.width, game->win_size.height);
 	if (!game->frame->img_ptr)
 		return (false);
 	img = game->frame;
@@ -35,7 +35,7 @@ bool	create_frame_image(t_game *game)
 	img->connection = game->mlx;
 	img->buffer = mlx_get_data_addr(img->img_ptr, &img->pbits,
 		&img->size_line, &img->endian);
-	game->z_buffer = malloc(game->w_width * game->w_height + 8);
+	game->z_buffer = malloc(game->win_size.width * game->win_size.height + 8);
 	if (!game->z_buffer)
 		return (false);
 	return (true);
@@ -53,7 +53,7 @@ int	init_textures(t_game *game)
 		path = (char *)g_textures_files[index];
 		parsed_index = ft_atoi(path);
 		if (parsed_index != 0)
-			path = game->paths[parsed_index - 1];
+			path = game->parsing.paths[parsed_index - 1];
 		errno = 0;
 		if (path != NULL)
 			game->textures[index] = png_open(path);
@@ -107,10 +107,10 @@ void	init_player(t_player *player)
 
 void	run_game(t_game *game)
 {
-	game->w_width = WINDOW_WIDTH;
-	game->w_height = WINDOW_HEIGHT;
-	game->w_halfwidth = WINDOW_WIDTH / 2;
-	game->w_halfheight = WINDOW_HEIGHT / 2;
+	game->win_size.width = WINDOW_WIDTH;
+	game->win_size.height = WINDOW_HEIGHT;
+	game->win_size.halfwidth = WINDOW_WIDTH / 2;
+	game->win_size.halfheight = WINDOW_HEIGHT / 2;
 	rng_init(&game->rng, 0xCACA);
 	init_assets(game);
 	game->entity_manager.entities = vector_new();
@@ -127,13 +127,17 @@ void	run_game(t_game *game)
 		trow_error(game, ERROR_WINDOW);
 	game->start_time = time_init();
 	game->state = MENU;
-	entity_add(entity_new_example(game->player.position, game), game);
+	entity_add(entity_new_example((t_vec3){1, 1, 1}, game), game);
+	entity_add(entity_new_example((t_vec3){8, 1, 1}, game), game);
+	entity_add(entity_new_example((t_vec3){4, 3, 1}, game), game);
+	entity_add(entity_new_example((t_vec3){5, 4, 1}, game), game);
+	entity_add(entity_new_example((t_vec3){13, 13, 1}, game), game);
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
-	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
-	//mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
+	mlx_mouse_move(game->mlx, game->win, game->win_size.halfwidth, game->win_size.halfheight);
+	mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
 	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
 	mlx_loop_hook(game->mlx, game_loop, game);
 	mlx_loop(game->mlx);
