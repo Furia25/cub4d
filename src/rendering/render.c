@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/04 20:23:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/07 20:21:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,33 @@ void	render(t_game *game)
 		draw_full_map(game);
 }
 static void	render_init(int width, int height,
-		t_render_context *context, t_game *game)
+		t_render_context *ctx, t_game *game)
 {
-	context->z_buffer = game->z_buffer;
-	ft_memset(context->z_buffer, UINT8_MAX, width * height);
-	context->game = game;
-	context->textures = game->textures;
-	context->tilemap = game->tilemap;
-	context->frame = game->frame;
-	context->player = &game->player;
-	context->position = vec3_to_vec2(game->player.position);
-	context->direction = game->player.yaw_rad;
-	context->render_height = height;
-	context->render_width = width;
-	context->eye_height = game->player.position.z;
-	context->fov = deg_to_rad(game->player.fov_deg);
-	context->fov_y = deg_to_rad(game->player.fov_deg - 15);
-	context->halfw = game->w_halfwidth;
-	context->halfh = game->w_halfheight;
-	context->focal = 1.0f / tanf(context->fov * 0.70);
-	context->proj_dist_x = context->halfw / tanf(context->fov * .5f);
-	context->proj_dist_y = context->halfh / tanf(context->fov * .5f);
-	context->halfh = game->w_halfheight + game->player.pitch_offset;
-	context->halfh = clamp(context->halfh, 0, game->w_height);
-	context->yaw_cos = cosf(game->player.yaw_rad);
-	context->yaw_sin = sinf(game->player.yaw_rad);
+	ctx->z_buffer = game->z_buffer;
+	ft_memset(ctx->z_buffer, UINT8_MAX, width * height);
+	ctx->game = game;
+	ctx->textures = game->textures;
+	ctx->tilemap = game->tilemap;
+	ctx->frame = game->frame;
+	ctx->player = &game->player;
+	ctx->position = vec3_to_vec2(game->player.position);
+	ctx->direction = game->player.yaw_rad;
+	ctx->render_height = height;
+	ctx->render_width = width;
+	ctx->eye_height = game->player.position.z;
+	ctx->fov = deg_to_rad(game->player.fov_deg);
+	ctx->fov_y = deg_to_rad(game->player.fov_deg - 15);
+	ctx->halfw = game->w_halfwidth;
+	ctx->halfh = game->w_halfheight;
+	ctx->focal = 1.0f / tanf(ctx->fov * 0.70);
+	ctx->proj_dist_x = ctx->halfw / tanf(ctx->fov * .5f);
+	ctx->proj_dist_y = ctx->halfh / tanf(ctx->fov * .5f);
+	ctx->halfh = game->w_halfheight + game->player.pitch_offset;
+	ctx->halfh = clamp(ctx->halfh, 0, game->w_height);
+	ctx->yaw_cos = cosf(game->player.yaw_rad);
+	ctx->yaw_sin = sinf(game->player.yaw_rad);
+	ctx->ratio = (float)(ctx->render_width) / (float)(ctx->render_height);
+	ctx->aspect_res = ctx->render_height / (float)ASPECT_RES;
 }
 
 static inline void	render_rays(int start, int end, t_render_context *render)

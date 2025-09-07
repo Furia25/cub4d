@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/04 23:22:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/07 22:20:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,13 @@ void	run_game(t_game *game)
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	t_vec3 lol = game->player.position;
-	lol.x += 5;
-	for (int i = 0; i < 100; i++)
+	t_vec3 test = lol;
+	for (int i = 0; i < 40000; i++)
+	{
+		lol.x = test.x + rng_float_range(&game->rng, -10, 10);
+		lol.y = test.y + rng_float_range(&game->rng, -10, 10);
 		entity_add(entity_new_example(lol, game), game);
+	}
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);

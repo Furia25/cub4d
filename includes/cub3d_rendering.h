@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/04 20:17:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/07 21:51:22 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "cub3d.h"
 # include "cub3d_textures.h"
 
-# define RENDER_DISTANCE	10
+# define RENDER_DISTANCE	100
 
 typedef struct s_render_context
 {
@@ -40,6 +40,8 @@ typedef struct s_render_context
 	int			halfw;
 	float		eye_height;
 	float		direction;
+	float		aspect_res;
+	float		ratio;
 	t_png		**textures;
 }	t_render_context;
 
@@ -85,9 +87,6 @@ typedef struct s_vertical_tex
 	int		wall_height;
 	int		tex_x;
 }	t_vertical_tex;
-
-void	draw_sprite_entity(t_entity_transform tform,
-			t_sprite_sheet *spr, t_render_context *ctx);
 
 void	render_ray(float base_angle, int column,
 			t_ray2 *ray, t_render_context *render_ctx);

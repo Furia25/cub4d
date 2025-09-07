@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/04 20:35:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/07 20:32:23 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ typedef struct s_entity_transform
 {
 	uint8_t	depth;
 	size_t	index;
-	size_t	x;
-	size_t	y;
-	size_t	width;
-	size_t	height;
+	int		x;
+	int		y;
+	int		width;
+	int		height;
 	float	scale;
 	t_rgba8 color;
 }	t_entity_transform;

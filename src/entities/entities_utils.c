@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/04 22:56:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/07 22:10:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,15 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 
 	relative = vec3_sub(entity->position, render->player->position);
     cam_pos.z = relative.x * render->yaw_cos + relative.y * render->yaw_sin;
-	if (cam_pos.z <= 0.01)
+	if (cam_pos.z <= 0.01 || cam_pos.z > RENDER_DISTANCE)
 		return ;
 	cam_pos.x = relative.y * render->yaw_cos - relative.x * render->yaw_sin;
     cam_pos.y = relative.z;
-	float	aspect_ratio = (float)(render->render_width) / (float)(render->render_height);
-	projected.x = (cam_pos.x / cam_pos.z) * render->focal * aspect_ratio;
-	projected.y = (cam_pos.y / cam_pos.z) * render->focal * aspect_ratio;
+	projected.x = (cam_pos.x / cam_pos.z) * render->focal * render->ratio;
+	projected.y = (cam_pos.y / cam_pos.z) * render->focal * render->ratio;
 	entity->transform.x = (projected.x + 1.0f) * render->halfw;
 	entity->transform.y = (1.0f - projected.y) * render->halfh;
-	entity->transform.depth = cam_pos.z;
-	entity->transform.scale = 2.0f / cam_pos.z;
-	draw_sprite_entity(entity->transform, &entity->spr, render);
+	entity->transform.depth = vec3_length(relative);
+	entity->transform.scale = render->aspect_res * (2.f / cam_pos.z);
+	draw_sprite_entity(entity->transform, entity, render);
 }
