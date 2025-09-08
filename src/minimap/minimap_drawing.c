@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/04 16:00:22 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/09/08 14:49:52 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,35 @@ void	draw_player(t_game *game)
 	}
 }
 
-void	draw_entities(t_game *game)
+void	draw_entites(t_game *game, t_entity *entity)
 {
-	int				i;
 	int				off_x;
 	int				off_y;
-	int				pos_x;
-	int				pos_y;
-	t_vector		*entities;
-	t_entity		*entity;
+	t_vec2			minimap_pos;
 	t_vec3			pos;
 	t_tile_context	tile_info;
+
+	pos = entity->position;
+	if ((pos.x >= game->player.position.x - 8
+			&& pos.x <= game->player.position.x + 9)
+		&& (pos.y >= game->player.position.y - 8
+			&& pos.y <= game->player.position.y + 9))
+	{
+		off_x = calculate_offset(game->player.position.x);
+		off_y = calculate_offset(game->player.position.y);
+		minimap_pos.x = 8 - game->player.position.x + pos.x;
+		minimap_pos.y = 8 - game->player.position.y + pos.y;
+		tile_info = (t_tile_context){game, NULL, 0, minimap_pos.x, \
+minimap_pos.y, off_x, off_y};
+		draw_tile(&tile_info, entity->transform.color, MMAP_TILE_SIZE / 2);
+	}
+}
+
+void	manage_entities(t_game *game)
+{
+	int				i;
+	t_vector		*entities;
+	t_entity		*entity;
 
 	i = 0;
 	entities = game->entity_manager.entities;
@@ -111,22 +129,7 @@ void	draw_entities(t_game *game)
 	{
 		entity = entities->items[i];
 		if (entity)
-		{
-			pos = entity->position;
-			if ((pos.x >= game->player.position.x - 8 \
-				&& pos.x <= game->player.position.x + 9) \
-				&& (pos.y >= game->player.position.y - 8 \
-				&& pos.y <= game->player.position.y + 9))
-			{
-				off_x = calculate_offset(game->player.position.x);
-				off_y = calculate_offset(game->player.position.y);
-				pos_x = 8 - game->player.position.x + pos.x;
-				pos_y = 8 - game->player.position.y + pos.y;
-				printf("off_x:%d, off_y:%d\n", off_x, off_y);
-				tile_info = (t_tile_context){game, NULL, 0, pos_x, pos_y, off_x, off_y};
-				draw_tile(&tile_info, entity->transform.color, MMAP_TILE_SIZE / 2);
-			}
-		}
+			draw_entites(game, entity);
 		i++;
 	}
 }

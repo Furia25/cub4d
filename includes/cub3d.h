@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/04 15:55:03 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/09/08 14:41:24 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ void		draw_minimap(t_game *game);
 void		rad_to_vect(t_vec2 *direction, float rad);
 int			check_corners(t_game *game, double pos_x, double pos_y);
 int			calculate_offset(double p_pos);
-void		draw_entities(t_game *game);
+void		manage_entities(t_game *game);
 
 // ----- UTILS ----- //
 int			check_file_extension(char *filename);

@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/04 15:59:12 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/09/08 14:41:10 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ void	draw_minimap(t_game *game)
 		i++;
 	}
 	draw_border(game);
-	draw_entities(game);
+	manage_entities(game);
 	draw_player(game);
 }
