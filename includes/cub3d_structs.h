@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/07 20:32:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/08 16:58:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_draw_transform
 
 typedef struct s_entity_transform
 {
-	uint8_t	depth;
+	float	depth;
 	size_t	index;
 	int		x;
 	int		y;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/07 21:51:22 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/08 16:50:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_render_context
 {
-	uint8_t		*z_buffer;
+	float		*z_buffer;
 	t_game		*game;
 	t_img_data	*frame;
 	t_player	*player;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/07 22:20:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/08 16:51:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	create_frame_image(t_game *game)
 	img->connection = game->mlx;
 	img->buffer = mlx_get_data_addr(img->img_ptr, &img->pbits,
 		&img->size_line, &img->endian);
-	game->z_buffer = malloc(game->w_width * game->w_height + 8);
+	game->z_buffer = malloc((game->w_width * game->w_height + 8) * sizeof(float));
 	if (!game->z_buffer)
 		return (false);
 	return (true);

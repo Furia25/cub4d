@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/07 20:21:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/08 17:14:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static void	render_init(int width, int height,
 		t_render_context *ctx, t_game *game)
 {
 	ctx->z_buffer = game->z_buffer;
-	ft_memset(ctx->z_buffer, UINT8_MAX, width * height);
+	for (int i = 0; i < width * height; i++)
+		ctx->z_buffer[i] = INFINITY;
 	ctx->game = game;
 	ctx->textures = game->textures;
 	ctx->tilemap = game->tilemap;
@@ -83,7 +84,7 @@ static inline void	render_rays(int start, int end, t_render_context *render)
 static inline void	render_fog(t_render_context *render)
 {
 	uint16_t	fog;
-	uint8_t		*zbuffer;
+	float		*zbuffer;
 	int			x;
 	int			y;
 
@@ -94,7 +95,7 @@ static inline void	render_fog(t_render_context *render)
 		x = 0;
 		while (x < render->render_width)
 		{
-			fog = zbuffer[x + y * render->render_width] << 3;
+			fog = zbuffer[x + y * render->render_width];
 			if (fog > 255)
 				fog = 255;
 			draw_pixel((t_rgba8){{0, 0, 0, fog}}, x, y, render->frame);

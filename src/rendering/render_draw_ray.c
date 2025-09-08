@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/25 22:07:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/08 17:13:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static inline void	draw_top_faces(t_raycast_hit *h, int y,
 	float				z;
 
 	inv_cos = (1.0f / cos(h->original_angle - r_ctx->direction))
-		* r_ctx->proj_dist_y + 0.006;
-	z = (r_ctx->eye_height - h->tile->ceiling);
+		* r_ctx->proj_dist_y;//TEMP+ 0.006
+	z = (r_ctx->player->position.z - h->tile->ceiling);
 	if (ctx->actual.dist <= 0.01)
 		y = r_ctx->render_height - 1;
-	while (y != r_ctx->halfh && y > 0)
+	while (y != r_ctx->halfh && y >= 0)
 	{
 		real_dist = (z / (y - r_ctx->halfh)) * inv_cos ;
 		buffer_idx = y * r_ctx->render_width + ctx->column;
-		if (real_dist < r_ctx-> z_buffer[buffer_idx])
+		if (real_dist < r_ctx->z_buffer[buffer_idx])
 		{
 			h->pos.x = h->o_ray.origin.x + h->o_ray.dir_normal.x * real_dist;
 			h->pos.y = h->o_ray.origin.y + h->o_ray.dir_normal.y * real_dist;

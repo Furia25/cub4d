@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/02 16:03:42 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/08 16:52:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "cub3d.h"
 
 inline static void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
-				t_raycast_context *ctx, uint8_t *zbuf)
+				t_raycast_context *ctx, float *zbuf)
 {
 	int		buffer_idx;
 	int		tex_y;
@@ -45,7 +45,7 @@ inline static void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
 			t_render_context *render, t_vertical_tex *tex_ctx)
 {
-	uint8_t		*zbuf;
+	float		*zbuf;
 	float		offset;
 
 	zbuf = ctx->render_ctx->z_buffer;
