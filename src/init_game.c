@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/08 16:51:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/09 20:26:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ int	init_assets(t_game *game)
 	game->textures[TEXTURE_ERROR]
 		= png_open((char *)g_textures_files[TEXTURE_ERROR]);
 	if (!game->textures[TEXTURE_ERROR])
-		trow_error(game, ERROR_LOADING_ASSETS);
+		throw_error(game, ERROR_LOADING_ASSETS);
 	if (!init_textures(game))
-		trow_error(game, ERROR_LOADING_ASSETS);
+		throw_error(game, ERROR_LOADING_ASSETS);
 	if (!glyph_init(GLYPH_PATH))
-		trow_error(game, ERROR_LOADING_ASSETS);
+		throw_error(game, ERROR_LOADING_ASSETS);
 	return (1);
 }
 
@@ -105,6 +105,8 @@ void	init_player(t_player *player)
 	player->is_grounded = true;
 }
 
+#define print_color(rgb)	printf(#rgb " %d, %d, %d\n", rgb.channels.r, rgb.channels.g, rgb.channels.b);
+
 void	run_game(t_game *game)
 {
 	game->w_width = WINDOW_WIDTH;
@@ -116,31 +118,33 @@ void	run_game(t_game *game)
 	game->entity_manager.entities = vector_new();
 	game->entity_manager.entities->val_free = (void (*)(void *))entity_free;
 	if (!game->entity_manager.entities)
-		trow_error(game, ERROR_LOADING);
+		throw_error(game, ERROR_LOADING);
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		trow_error(game, ERROR_LOADING_GRAPHICS);
+		throw_error(game, ERROR_LOADING_GRAPHICS);
 	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, GAME_NAME);
 	if (!game->win)
-		trow_error(game, ERROR_WINDOW);
+		throw_error(game, ERROR_WINDOW);
 	if (!create_frame_image(game))
-		trow_error(game, ERROR_WINDOW);
+		throw_error(game, ERROR_WINDOW);
 	game->start_time = time_init();
 	game->state = MENU;
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
 	t_vec3 lol = game->player.position;
 	t_vec3 test = lol;
-	for (int i = 0; i < 40000; i++)
+	for (int i = 0; i < 800; i++)
 	{
-		lol.x = test.x + rng_float_range(&game->rng, -10, 10);
-		lol.y = test.y + rng_float_range(&game->rng, -10, 10);
+		lol.x = test.x + rng_float_range(&game->rng, -20, 20);
+		lol.y = test.y + rng_float_range(&game->rng, -20, 20);
 		entity_add(entity_new_example(lol, game), game);
 	}
+	print_color(game->c_color);
+	print_color(game->fog);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
-	//mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
+	mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
 	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
 	mlx_loop_hook(game->mlx, game_loop, game);
 	mlx_loop(game->mlx);

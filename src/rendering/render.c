@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/08 17:14:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/09 20:06:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	render(t_game *game)
 	t_render_context	context;
 
 	render_init(game->w_width, game->w_height, &context, game);
+	entities_draw(game, &context);
 	render_rays(0, context.render_width, &context);
 	render_fog(&context);
-	entities_draw(game, &context);
 	//render_sky(&context);
 	draw_minimap(game);
 	if (key_check(KEY_TAB, game))
@@ -95,10 +95,12 @@ static inline void	render_fog(t_render_context *render)
 		x = 0;
 		while (x < render->render_width)
 		{
-			fog = zbuffer[x + y * render->render_width];
+			fog = zbuffer[x + y * render->render_width]
+				* render->game->fog_intensity;
 			if (fog > 255)
 				fog = 255;
-			draw_pixel((t_rgba8){{0, 0, 0, fog}}, x, y, render->frame);
+			render->game->fog.channels.a = fog;
+			draw_pixel(render->game->fog, x, y, render->frame);
 			x++;
 		}
 		y++;

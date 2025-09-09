@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/21 01:30:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/09 18:21:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static const char	*g_errors[ERROR_MAX] = {
 [ERROR_ENTITIES_INVALID] = "Entity Manager couldn't resolve unknow entity"
 };
 
-void	trow_error(t_game *game, t_error error)
+void	throw_error(t_game *game, t_error error)
 {
 	ft_putstr_fd(GAME_NAME, 2);
 	ft_putstr_fd(" : ", 2);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/08 16:51:00 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/09 20:02:00 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 # define ASPECT_RES		1080
 
-# define WINDOW_WIDTH		960
+# define WINDOW_WIDTH		1080
 # define WINDOW_HEIGHT		540
 
 # define MAP_TILE_SIZE		32
@@ -145,8 +145,10 @@ typedef struct s_game
 	char				**paths;
 	char				**colors;
 	char				**npc_text;
-	t_png_pixel8		f_color;
-	t_png_pixel8		c_color;
+	t_rgba8				f_color;
+	t_rgba8				c_color;
+	t_rgba8				fog;
+	float				fog_intensity;
 	t_tilemap			*tilemap;
 	float				*z_buffer;
 	t_key				key_buffer[KEY_MAX_COUNT];
@@ -181,7 +183,7 @@ typedef struct s_button
 	int				shadow_size;
 }	t_button;
 
-void		trow_error(t_game *game, t_error error);
+void		throw_error(t_game *game, t_error error);
 
 void		render(t_game *game);
 void		run_game(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/08 17:13:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/09 17:08:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static inline void	draw_top_faces(t_raycast_hit *h, int y,
 		y = r_ctx->render_height - 1;
 	while (y != r_ctx->halfh && y >= 0)
 	{
-		real_dist = (z / (y - r_ctx->halfh)) * inv_cos ;
+		real_dist = (z / (y - r_ctx->halfh)) * inv_cos;
 		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx->z_buffer[buffer_idx])
 		{
@@ -54,12 +54,12 @@ static inline void	draw_bot_faces(t_raycast_hit *h, int y,
 
 	inv_cos = (1.0f / cosf(fabsf(h->original_angle - r_ctx->direction)))
 		* r_ctx->proj_dist_y;
-	z = (r_ctx->eye_height - h->tile->floor);
+	z = (r_ctx->player->position.z - h->tile->floor);
 	if (ctx->actual.dist <= 0.01)
 		y = 1;
 	while (y <= r_ctx->halfh)
 	{
-		real_dist = (z / (y - r_ctx->halfh)) * inv_cos;
+		real_dist = (z/ (y - r_ctx->halfh)) * inv_cos;
 		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
