@@ -3,8 +3,8 @@ SO assets/textures/tiles/wall_south.png
 WE assets/textures/tiles/wall_west.png
 EA assets/textures/tiles/wall_east.png
 
-F 220,100,0
-C 225,30,0
+F 0,0,0
+C 0,0,0
 A 20,40,0,30
 
 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111

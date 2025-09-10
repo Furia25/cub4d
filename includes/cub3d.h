@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/10 03:15:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 17:24:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@
 
 # define ASPECT_RES		1080
 
-# define WINDOW_WIDTH		1080
-# define WINDOW_HEIGHT		540
+# define WINDOW_WIDTH		1920
+# define WINDOW_HEIGHT		1080
 
 # define MAP_TILE_SIZE		32
 # define MMAP_TILE_SIZE		16
@@ -155,6 +155,7 @@ typedef struct s_game
 	float				*z_buffer;
 	t_key				key_buffer[KEY_MAX_COUNT];
 	t_png				*textures[TEXTURE_MAX_COUNT];
+	t_animated_texture	water_anim;
 	t_game_state		state;
 	t_menu				menu;
 	t_rng_state			rng;
@@ -194,6 +195,7 @@ int			game_loop(void *param);
 uint64_t	get_time_ms(void);
 uint64_t	get_elapsed_ms(void);
 uint64_t	time_init(void);
+void		init_hooks(t_game *game);
 
 // ----- KEYS ----- //
 void		show_keys(t_game *game);
@@ -257,7 +259,6 @@ void		manage_npcs(t_game *game);
 void		draw_interact_button(t_game *game, t_button *btn, int text_box);
 void		draw_textbox(t_game *game, char *text, uint64_t time);
 
-int			mouse_move(int x, int y, t_game *game);
 void		update_player(t_player *player, t_game *game);
 void		player_add_x(float value, t_player *player);
 void		player_add_y(float value, t_player *player);

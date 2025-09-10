@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/09 19:07:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 17:33:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_ERROR] = "assets/textures/missing.png",
 [TEXTURE_WALL] = NULL,
 [TEXTURE_GRASS] = "assets/textures/tiles/grass.png",
-[TEXTURE_WATER] = "assets/textures/tiles/water.png",
-[TEXTURE_TEST] = "assets/textures/tiles/4fdsfk.png",
 [TEXTURE_TOP] = "assets/textures/tiles/wall_top.png",
 [TEXTURE_BOT] = "assets/textures/tiles/wall_bot.png",
 [TEXTURE_NORTH] = "1",
@@ -25,6 +23,27 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_WEST] = "3",
 [TEXTURE_EAST] = "4",
 [TEXTURE_ENTITY_NPC] = "assets/textures/entity/npc.png",
+[TEXTURE_WATER] = NULL,
+[TEXTURE_WATER0] = "assets/textures/tiles/water/water0.png",
+[TEXTURE_WATER1] = "assets/textures/tiles/water/water1.png",
+[TEXTURE_WATER2] = "assets/textures/tiles/water/water2.png",
+[TEXTURE_WATER3] = "assets/textures/tiles/water/water3.png",
+[TEXTURE_WATER4] = "assets/textures/tiles/water/water4.png",
+[TEXTURE_WATER5] = "assets/textures/tiles/water/water5.png",
+[TEXTURE_WATER6] = "assets/textures/tiles/water/water6.png",
+[TEXTURE_WATER7] = "assets/textures/tiles/water/water7.png",
+[TEXTURE_WATER8] = "assets/textures/tiles/water/water8.png",
+[TEXTURE_WATER9] = "assets/textures/tiles/water/water9.png",
+[TEXTURE_WATER10] = "assets/textures/tiles/water/water10.png",
+[TEXTURE_WATER11] = "assets/textures/tiles/water/water11.png",
+[TEXTURE_WATER12] = "assets/textures/tiles/water/water12.png",
+[TEXTURE_WATER13] = "assets/textures/tiles/water/water13.png",
+[TEXTURE_WATER14] = "assets/textures/tiles/water/water14.png",
+[TEXTURE_WATER15] = "assets/textures/tiles/water/water15.png",
+[TEXTURE_WATER16] = "assets/textures/tiles/water/water16.png",
+[TEXTURE_WATER17] = "assets/textures/tiles/water/water17.png",
+[TEXTURE_WATER18] = "assets/textures/tiles/water/water18.png",
+[TEXTURE_WATER19] = "assets/textures/tiles/water/water19.png",
 [ASSET_BG_PAUSE] = "assets/textures/gui/bg_pause.png",
 [ASSET_BG_START] = "assets/textures/gui/test.png",
 [ASSET_SELECTOR] = "assets/textures/gui/selector.png"

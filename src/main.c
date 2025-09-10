@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:21:21 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/25 00:46:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 17:15:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int ac, char **av)
 {
 	t_game		game;
 
-	memset(&game, 0, sizeof(t_game));
+	ft_memset(&game, 0, sizeof(t_game));
 	if (ac != 2)
 	{
 		ft_putstr_fd("Error: One argument needed\n", 2);

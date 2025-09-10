@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/04 23:01:53 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/10 17:18:39 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,7 @@ SRC_FILES = \
 	end_game.c \
 	game_loop.c \
 	init_game.c \
+	hooks.c \
 	keys/keys_buffer.c \
 	keys/keys_handling.c \
 	keys/keys.c \

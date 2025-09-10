@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/09 18:21:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 17:39:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	free_textures(t_game *game);
 
 int	exit_game(t_game *game)
 {
+	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
 	free(game->paths);
 	free(game->colors);

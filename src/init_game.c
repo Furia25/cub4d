@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/10 03:26:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 18:38:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,68 @@ void	init_player(t_player *player)
 	player->is_grounded = true;
 }
 
+void	init_water(t_animated_texture *water_anim, t_game *game)
+{
+	water_anim->type = TEXTURE_WATER;
+	water_anim->frames_num = 20;
+	water_anim->frame_time = 0.5;
+	water_anim->actual_frame = 0;
+	water_anim->frames[0] = game->textures[TEXTURE_WATER0];
+	water_anim->frames[1] = game->textures[TEXTURE_WATER1];
+	water_anim->frames[2] = game->textures[TEXTURE_WATER2];
+	water_anim->frames[3] = game->textures[TEXTURE_WATER3];
+	water_anim->frames[4] = game->textures[TEXTURE_WATER4];
+	water_anim->frames[5] = game->textures[TEXTURE_WATER5];
+	water_anim->frames[6] = game->textures[TEXTURE_WATER6];
+	water_anim->frames[7] = game->textures[TEXTURE_WATER7];
+	water_anim->frames[8] = game->textures[TEXTURE_WATER8];
+	water_anim->frames[9] = game->textures[TEXTURE_WATER9];
+	water_anim->frames[10] = game->textures[TEXTURE_WATER10];
+	water_anim->frames[11] = game->textures[TEXTURE_WATER11];
+	water_anim->frames[12] = game->textures[TEXTURE_WATER12];
+	water_anim->frames[13] = game->textures[TEXTURE_WATER13];
+	water_anim->frames[14] = game->textures[TEXTURE_WATER14];
+	water_anim->frames[15] = game->textures[TEXTURE_WATER15];
+	water_anim->frames[16] = game->textures[TEXTURE_WATER16];
+	water_anim->frames[17] = game->textures[TEXTURE_WATER17];
+	water_anim->frames[18] = game->textures[TEXTURE_WATER18];
+	water_anim->frames[19] = game->textures[TEXTURE_WATER19];
+}
+
+void	color_texture(t_png *tex, t_rgba8 tint)
+{
+	size_t	x;
+	size_t	y;
+	t_rgba8	*pixel;
+
+	if (tint.channels.r == 255 && tint.channels.g == 255 && tint.channels.b == 255)
+		return ;
+	y = 0;
+	while (y < tex->header.height)
+	{
+		x = 0;
+		while (x < tex->header.width)
+		{
+			pixel = (t_rgba8 *)&tex->pixels_8bit[y * tex->header.width + x];
+			pixel->channels.r = lerp(pixel->channels.r, tint.channels.r, 0.4);
+			pixel->channels.g = lerp(pixel->channels.g, tint.channels.g, 0.4);
+			pixel->channels.b = lerp(pixel->channels.b, tint.channels.b, 0.4);
+			x++;
+		}
+		y++;
+	}
+}
+
 #define print_color(rgb)	printf(#rgb " %d, %d, %d\n", rgb.channels.r, rgb.channels.g, rgb.channels.b);
 
 void	run_game(t_game *game)
 {
+	rng_init(&game->rng, 0xCACA);
+	init_assets(game);
 	game->w_width = WINDOW_WIDTH;
 	game->w_height = WINDOW_HEIGHT;
 	game->w_halfwidth = WINDOW_WIDTH / 2;
 	game->w_halfheight = WINDOW_HEIGHT / 2;
-	rng_init(&game->rng, 0xCACA);
-	init_assets(game);
 	game->entity_manager.entities = vector_new();
 	game->entity_manager.entities->val_free = (void (*)(void *))entity_free;
 	if (!game->entity_manager.entities)
@@ -131,19 +183,9 @@ void	run_game(t_game *game)
 	game->state = MENU;
 	mlx_mouse_hide(game->mlx, game->win);
 	init_player(&game->player);
-	t_vec3 lol = game->player.position;
-	t_vec3 test = lol;
-	for (int i = 0; i < 800; i++)
-	{
-		lol.x = test.x + rng_float_range(&game->rng, -20, 20);
-		lol.y = test.y + rng_float_range(&game->rng, -20, 20);
-		entity_add(entity_new_example(lol, game), game);
-	}
-	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
-	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
-	//mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
-	mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
-	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
-	mlx_loop_hook(game->mlx, game_loop, game);
+	entity_add(entity_new_example(game->player.position, game), game);
+	init_hooks(game);
+	init_water(&game->water_anim, game);
+	color_texture(game->textures[TEXTURE_GRASS], game->f_color);
 	mlx_loop(game->mlx);
 }

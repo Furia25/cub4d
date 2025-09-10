@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/10 03:29:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 17:56:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ void	render(t_game *game)
 	t_render_context	context;
 
 	render_init(game->w_width, game->w_height, &context, game);
-	render_rays(0, context.render_width, &context);
 	entities_draw(game, &context);
-	//render_fog(&context);
+	context.halfh = game->w_halfheight + game->player.pitch_offset;
+	context.halfh = clamp(context.halfh, 0, game->w_height);
+	render_rays(0, context.render_width, &context);
+	render_fog(&context);
 	//render_sky(&context);
 	draw_minimap(game);
 	if (key_check(KEY_TAB, game))
@@ -55,8 +57,6 @@ static void	render_init(int width, int height,
 	ctx->focal = 1.0f / tanf(ctx->fov * 0.75);
 	ctx->proj_x = ctx->halfw / tanf(ctx->fov * .5f);
 	ctx->proj_y = ctx->halfh / tanf(ctx->fov * .5f);
-	ctx->halfh = game->w_halfheight + game->player.pitch_offset;
-	ctx->halfh = clamp(ctx->halfh, 0, game->w_height);
 	ctx->yaw_cos = cosf(game->player.yaw_rad);
 	ctx->yaw_sin = sinf(game->player.yaw_rad);
 	ctx->ratio = (float)(ctx->render_width) / (float)(ctx->render_height);

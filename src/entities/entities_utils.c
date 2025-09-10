@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/10 03:22:18 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 16:42:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 	projected.y = (cam_pos.y / cam_pos.z) * render->focal * render->ratio;
 	entity->transform.x = (projected.x + 1.0f) * render->halfw;
 	entity->transform.y = (1.0f - projected.y) * render->halfh;
+	entity->transform.y += render->player->pitch_offset;
 	entity->transform.scale = render->aspect_res * (2.f / cam_pos.z);
-	entity->transform.depth = vec3_length(relative);
+	entity->transform.depth = cam_pos.z;
 	draw_sprite_entity(entity->transform, entity, render);
 }

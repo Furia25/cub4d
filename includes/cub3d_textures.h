@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/21 16:58:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 18:18:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,27 @@ typedef enum e_texture_type
 	TEXTURE_SOUTH,
 	TEXTURE_BOT,
 	TEXTURE_WATER,
+	TEXTURE_WATER0,
+	TEXTURE_WATER1,
+	TEXTURE_WATER2,
+	TEXTURE_WATER3,
+	TEXTURE_WATER4,
+	TEXTURE_WATER5,
+	TEXTURE_WATER6,
+	TEXTURE_WATER7,
+	TEXTURE_WATER8,
+	TEXTURE_WATER9,
+	TEXTURE_WATER10,
+	TEXTURE_WATER11,
+	TEXTURE_WATER12,
+	TEXTURE_WATER13,
+	TEXTURE_WATER14,
+	TEXTURE_WATER15,
+	TEXTURE_WATER16,
+	TEXTURE_WATER17,
+	TEXTURE_WATER18,
+	TEXTURE_WATER19,
 	TEXTURE_TOP,
-	TEXTURE_TEST,
 	TEXTURE_GRASS,
 	TEXTURE_ENTITY_NPC,
 	ASSET_BG_START,
@@ -38,6 +57,15 @@ typedef enum e_texture_type
 }	t_texture_type;
 
 #define GLYPH_PATH	"assets/textures/glyph.png"
+
+typedef struct s_animated_texture
+{
+	t_texture_type	type;
+	t_png			*frames[32];
+	float			frame_time;
+	int				frames_num;
+	float			actual_frame;
+}	t_animated_texture;
 
 extern const char	*g_textures_files[TEXTURE_MAX_COUNT];
 
