@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/10 16:42:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 18:49:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	entity_init_basics(t_vec3 position, t_entity *entity)
 	entity->transform.height = 200;
 	entity->transform.index = 0;
 	entity->transform.scale = 1;
-	entity->hitbox.min = (t_vec3){position.x - 0.2, position.y- 0.4, position.z};
-	entity->hitbox.max = (t_vec3){position.x, position.y, position.z + 0.2};
+	entity->hitbox.min = (t_vec3){position.x - 0.2, position.y, position.z};
+	entity->hitbox.max = (t_vec3){position.x, position.y + 0.2, position.z - 0.4};
 	entity->map_color = g_colors[C_AZURE];
 }
 
@@ -48,7 +48,7 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 	cam_pos.x = relative.y * render->yaw_cos - relative.x * render->yaw_sin;
     cam_pos.y = relative.z;
 	projected.x = (cam_pos.x / cam_pos.z) * render->focal * render->ratio;
-	projected.y = (cam_pos.y / cam_pos.z) * render->focal * render->ratio;
+	projected.y = (cam_pos.y / cam_pos.z) * render->focal * (render->ratio * 1.15);
 	entity->transform.x = (projected.x + 1.0f) * render->halfw;
 	entity->transform.y = (1.0f - projected.y) * render->halfh;
 	entity->transform.y += render->player->pitch_offset;
