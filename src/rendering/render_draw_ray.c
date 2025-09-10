@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/09 17:08:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 02:39:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ static inline void	draw_top_faces(t_raycast_hit *h, int y,
 {
 	float				real_dist;
 	int					buffer_idx;
-	float				inv_cos;
+	float				inv_proj_cos;
 	float				z;
 
-	inv_cos = (1.0f / cos(h->original_angle - r_ctx->direction))
-		* r_ctx->proj_dist_y;//TEMP+ 0.006
-	z = (r_ctx->player->position.z - h->tile->ceiling);
+	inv_proj_cos = (1.0f / cosf(h->original_angle - r_ctx->direction))
+		* r_ctx->proj_y;
+	z = (h->tile->ceiling - r_ctx->player->position.z);
 	if (ctx->actual.dist <= 0.01)
 		y = r_ctx->render_height - 1;
 	while (y != r_ctx->halfh && y >= 0)
 	{
-		real_dist = (z / (y - r_ctx->halfh)) * inv_cos;
+		real_dist = (z / (r_ctx->halfh - y)) * inv_proj_cos;
 		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx->z_buffer[buffer_idx])
 		{
@@ -49,17 +49,17 @@ static inline void	draw_bot_faces(t_raycast_hit *h, int y,
 {
 	float				real_dist;
 	int					buffer_idx;
-	float				inv_cos;
+	float				inv_proj_cos;
 	float				z;
 
-	inv_cos = (1.0f / cosf(fabsf(h->original_angle - r_ctx->direction)))
-		* r_ctx->proj_dist_y;
+	inv_proj_cos = (1.0f / cosf(fabsf(h->original_angle - r_ctx->direction)))
+		* r_ctx->proj_y;
 	z = (r_ctx->player->position.z - h->tile->floor);
 	if (ctx->actual.dist <= 0.01)
 		y = 1;
 	while (y <= r_ctx->halfh)
 	{
-		real_dist = (z/ (y - r_ctx->halfh)) * inv_cos;
+		real_dist = (z / (y - r_ctx->halfh)) * inv_proj_cos;
 		buffer_idx = y * r_ctx->render_width + ctx->column;
 		if (real_dist < r_ctx-> z_buffer[buffer_idx])
 		{
@@ -98,9 +98,9 @@ static inline void	init_texture_ctx(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 
 	dist_inv = 1 / dist;
 	y_floor = ((hit->tile->floor - render->eye_height) \
-		* dist_inv) * render->proj_dist_y;
+		* dist_inv) * render->proj_y;
 	y_ceiling = ((hit->tile->ceiling - render->eye_height) \
-		* dist_inv) * render->proj_dist_y;
+		* dist_inv) * render->proj_y;
 	tex_ctx->wall_height = render->render_height * dist_inv;
 	tex_ctx->wall_start = clamp(-y_ceiling + render->halfh, \
 		0, render->render_height - 1);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/04 21:28:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 03:13:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,11 @@ bool	is_file_valid(char *path)
 bool	is_pixel_valid(int x, int y, t_img_data *img)
 {
 	return (!(x < 0 || x > img->width || y < 0 || y > img->height));
+}
+
+t_vec3	bbox_get_center(t_bbox bbox)
+{
+	return ((t_vec3){(bbox.min.x + bbox.max.x) * 0.5,
+		(bbox.min.y + bbox.max.y) * 0.5,
+		(bbox.min.z + bbox.max.z) * 0.5});
 }

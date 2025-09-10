@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/09 20:02:00 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 03:15:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include "maths2.h"
 # include "maths2_rng.h"
 # include "maths2_geometry.h"
+# include "maths2_utils.h"
+# include "maths2_easing.h"
 # include "vector.h"
 
 # include "tilemap.h"
@@ -147,7 +149,7 @@ typedef struct s_game
 	char				**npc_text;
 	t_rgba8				f_color;
 	t_rgba8				c_color;
-	t_rgba8				fog;
+	t_rgba8				fog_color;
 	float				fog_intensity;
 	t_tilemap			*tilemap;
 	float				*z_buffer;
@@ -224,6 +226,7 @@ char		**read_map(char *map_file, t_game *game);
 void		parsing(t_game *game, char *map_file);
 void		free_map(char **map);
 bool		is_file_valid(char *path);
+t_vec3		bbox_get_center(t_bbox bbox);
 
 // ----- PARSING ----- //
 int			check_colors(t_game *game);

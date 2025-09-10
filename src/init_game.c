@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/09 20:26:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 03:26:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,11 +139,9 @@ void	run_game(t_game *game)
 		lol.y = test.y + rng_float_range(&game->rng, -20, 20);
 		entity_add(entity_new_example(lol, game), game);
 	}
-	print_color(game->c_color);
-	print_color(game->fog);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_released, game);
-	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
+	//mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
 	mlx_hook(game->win, MotionNotify, PointerMotionMask, mouse_move, game);
 	mlx_hook(game->win, DestroyNotify, 0, exit_game, game);
 	mlx_loop_hook(game->mlx, game_loop, game);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/09 20:06:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/10 03:29:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	render(t_game *game)
 	t_render_context	context;
 
 	render_init(game->w_width, game->w_height, &context, game);
-	entities_draw(game, &context);
 	render_rays(0, context.render_width, &context);
-	render_fog(&context);
+	entities_draw(game, &context);
+	//render_fog(&context);
 	//render_sky(&context);
 	draw_minimap(game);
 	if (key_check(KEY_TAB, game))
@@ -52,9 +52,9 @@ static void	render_init(int width, int height,
 	ctx->fov_y = deg_to_rad(game->player.fov_deg - 15);
 	ctx->halfw = game->w_halfwidth;
 	ctx->halfh = game->w_halfheight;
-	ctx->focal = 1.0f / tanf(ctx->fov * 0.70);
-	ctx->proj_dist_x = ctx->halfw / tanf(ctx->fov * .5f);
-	ctx->proj_dist_y = ctx->halfh / tanf(ctx->fov * .5f);
+	ctx->focal = 1.0f / tanf(ctx->fov * 0.75);
+	ctx->proj_x = ctx->halfw / tanf(ctx->fov * .5f);
+	ctx->proj_y = ctx->halfh / tanf(ctx->fov * .5f);
 	ctx->halfh = game->w_halfheight + game->player.pitch_offset;
 	ctx->halfh = clamp(ctx->halfh, 0, game->w_height);
 	ctx->yaw_cos = cosf(game->player.yaw_rad);
@@ -99,8 +99,8 @@ static inline void	render_fog(t_render_context *render)
 				* render->game->fog_intensity;
 			if (fog > 255)
 				fog = 255;
-			render->game->fog.channels.a = fog;
-			draw_pixel(render->game->fog, x, y, render->frame);
+			render->game->fog_color.channels.a = fog;
+			draw_pixel(render->game->fog_color, x, y, render->frame);
 			x++;
 		}
 		y++;
