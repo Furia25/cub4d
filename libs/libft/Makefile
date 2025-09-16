@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 21:41:19 by val               #+#    #+#              #
-#    Updated: 2025/07/21 14:11:35 by halnuma          ###   ########.fr        #
+#    Updated: 2025/09/13 18:25:29 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ BASE_SRC = checks/ft_isalpha.c \
 		strings/ft_striteri.c \
 		strings/ft_strend.c \
 		conversions/ft_atoi.c \
+		conversions/ft_atof.c \
 		conversions/ft_itoa.c \
 		conversions/ft_intlen.c \
 		conversions/ft_itoab.c \
