@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/10 17:24:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 17:40:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@
 # define MENU_OPTION_RESUME	L"»5«RESUME"
 # define MENU_OPTION_CONFIG	L"»4«Config"
 # define MENU_OPTION_QUIT	L"»4«Quit"
+
+# define WARNING_TEXTURE	"WARNING : Texture at path\
+\"%s\" can't be opened\n"
 
 typedef enum e_game_state
 {
@@ -155,7 +158,8 @@ typedef struct s_game
 	float				*z_buffer;
 	t_key				key_buffer[KEY_MAX_COUNT];
 	t_png				*textures[TEXTURE_MAX_COUNT];
-	t_animated_texture	water_anim;
+	t_animated_tiles	water_anim;
+	t_sprite_sheet		cigarette;
 	t_game_state		state;
 	t_menu				menu;
 	t_rng_state			rng;
@@ -268,5 +272,6 @@ void		draw_button(t_game *game, t_button *btn);
 void		render_menu(t_game *game, int start);
 
 bool		is_pixel_valid(int x, int y, t_img_data *img);
+void		update_anim(t_animated_tiles *anim, t_game *game);
 
 #endif

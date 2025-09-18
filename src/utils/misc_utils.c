@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/10 18:22:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 17:37:18 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_vec3	bbox_get_center(t_bbox bbox)
 		(bbox.min.z + bbox.max.z) * 0.5});
 }
 
-void	update_anim(t_animated_texture *anim, t_game *game)
+void	update_anim(t_animated_tiles *anim, t_game *game)
 {
 	anim->actual_frame = fmodf(anim->actual_frame
 		+ anim->frame_time, anim->frames_num);

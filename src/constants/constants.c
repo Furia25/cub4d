@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/10 17:33:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 17:36:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_EAST] = "4",
 [TEXTURE_ENTITY_NPC] = "assets/textures/entity/npc.png",
 [TEXTURE_WATER] = NULL,
+[TEXTURE_CIGARETTE] = "assets/textures/cigarette.png",
+[ASSET_BG_PAUSE] = "assets/textures/gui/bg_pause.png",
+[ASSET_BG_START] = "assets/textures/gui/test.png",
+[ASSET_SELECTOR] = "assets/textures/gui/selector.png",
 [TEXTURE_WATER0] = "assets/textures/tiles/water/water0.png",
 [TEXTURE_WATER1] = "assets/textures/tiles/water/water1.png",
 [TEXTURE_WATER2] = "assets/textures/tiles/water/water2.png",
@@ -43,10 +47,7 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_WATER16] = "assets/textures/tiles/water/water16.png",
 [TEXTURE_WATER17] = "assets/textures/tiles/water/water17.png",
 [TEXTURE_WATER18] = "assets/textures/tiles/water/water18.png",
-[TEXTURE_WATER19] = "assets/textures/tiles/water/water19.png",
-[ASSET_BG_PAUSE] = "assets/textures/gui/bg_pause.png",
-[ASSET_BG_START] = "assets/textures/gui/test.png",
-[ASSET_SELECTOR] = "assets/textures/gui/selector.png"
+[TEXTURE_WATER19] = "assets/textures/tiles/water/water19.png"
 };
 
 const int	g_keymap[KEY_MAX_COUNT] = {

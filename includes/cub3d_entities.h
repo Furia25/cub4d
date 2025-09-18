@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/07 21:51:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 18:24:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_entity	t_entity;
 struct s_entity
 {
 	t_sprite_sheet		spr;
-	t_entity_transform	transform;
+	t_transform			transform;
 	t_vec3				position;
 	t_bbox				hitbox;
 	uint16_t			anim_index;
@@ -46,9 +46,6 @@ void		entities_tick(t_game *game);
 void		entities_draw(t_game *game, t_render_context *render);
 void		entity_init_basics(t_vec3 position, t_entity *entity);
 void		entity_basic_draw(t_entity *entity, t_render_context *render);
-
-void		draw_sprite_entity(t_entity_transform tform,
-				t_entity *e, t_render_context *ctx);
 
 t_entity	*entity_new_example(t_vec3 position, t_game *game);
 

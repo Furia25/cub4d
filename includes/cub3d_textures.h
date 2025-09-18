@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/10 18:18:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 17:37:18 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef enum e_texture_type
 	TEXTURE_TOP,
 	TEXTURE_GRASS,
 	TEXTURE_ENTITY_NPC,
+	TEXTURE_CIGARETTE,
 	ASSET_BG_START,
 	ASSET_BG_PAUSE,
 	ASSET_SELECTOR,
@@ -65,7 +66,7 @@ typedef struct s_animated_texture
 	float			frame_time;
 	int				frames_num;
 	float			actual_frame;
-}	t_animated_texture;
+}	t_animated_tiles;
 
 extern const char	*g_textures_files[TEXTURE_MAX_COUNT];
 

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/10 18:38:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 17:43:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,19 @@ int	init_textures(t_game *game)
 	while (index < TEXTURE_MAX_COUNT)
 	{
 		path = (char *)g_textures_files[index];
-		parsed_index = ft_atoi(path);
-		if (parsed_index != 0)
-			path = game->paths[parsed_index - 1];
-		errno = 0;
 		if (path != NULL)
-			game->textures[index] = png_open(path);
-		if (!game->textures[index])
 		{
-			game->textures[index] = game->textures[TEXTURE_ERROR];
-			printf("WARNING : Texture at path \"%s\" can't be opened\n", path);
+			parsed_index = ft_atoi(path);
+			if (parsed_index != 0)
+				path = game->paths[parsed_index - 1];
+			errno = 0;
+			if (path != NULL)
+				game->textures[index] = png_open(path);
+			if (!game->textures[index])
+			{
+				game->textures[index] = game->textures[TEXTURE_ERROR];
+				printf(WARNING_TEXTURE, path);
+			}
 		}
 		index++;
 	}
@@ -77,6 +80,10 @@ int	init_assets(t_game *game)
 		throw_error(game, ERROR_LOADING_ASSETS);
 	if (!glyph_init(GLYPH_PATH))
 		throw_error(game, ERROR_LOADING_ASSETS);
+	game->cigarette.asset = game->textures[TEXTURE_CIGARETTE];
+	game->cigarette.width = 538;
+	game->cigarette.height = 673;
+	game->cigarette.spr_per_line = 19;
 	return (1);
 }
 
@@ -105,7 +112,7 @@ void	init_player(t_player *player)
 	player->is_grounded = true;
 }
 
-void	init_water(t_animated_texture *water_anim, t_game *game)
+void	init_water(t_animated_tiles *water_anim, t_game *game)
 {
 	water_anim->type = TEXTURE_WATER;
 	water_anim->frames_num = 20;

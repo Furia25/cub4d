@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/04 21:23:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 17:59:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static inline void	tform_draw(t_rgba8 color, t_draw_transform *tform,
 	draw_pixel(color, tform->x + pos->x, tform->y + pos->y, img);
 }
 
-void	draw_spr_transformed(t_draw_transform tform, size_t index,
+void	draw_spr_sheet(t_draw_transform tform, size_t index,
 			t_sprite_sheet *spr, t_img_data *img)
 {
 	t_vec2	step;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/08 16:58:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 18:24:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,22 @@ typedef struct s_draw_transform
 	t_rgba8	color;
 }	t_draw_transform;
 
-typedef struct s_entity_transform
+typedef struct s_transform
 {
-	float	depth;
-	size_t	index;
 	int		x;
 	int		y;
 	int		width;
 	int		height;
+	float	depth;
+	size_t	index;
 	float	scale;
 	t_rgba8 color;
-}	t_entity_transform;
+}	t_transform;
+
+typedef struct s_sprite
+{
+	t_sprite_sheet		sheet;
+	t_transform			transform;
+}	t_sprite;
 
 #endif
