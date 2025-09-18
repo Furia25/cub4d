@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:39:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 18:24:00 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 18:38:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	draw_sprite(t_transform tform,
 	t_svec2			pos;
 	t_ivec2			uv_start;
 
-	
 	init_draw(&tform, &e->sheet, &step, &uv_start);
 	if (!init_clipping(&tform, &default_pos, ctx))
 		return ;

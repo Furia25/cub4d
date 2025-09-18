@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 17:54:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 18:49:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	render(t_game *game)
 	render_rays(0, context.render_width, &context);
 	render_fog(&context);
 	//render_sky(&context);
-	draw_spr_sheet((t_draw_transform){0, 0, 538 * 2, 673 * 1.5, g_colors[C_WHITE]}, get_elapsed_ms() / 100, &game->cigarette, context.frame);
+	game->cigarette.transform.index = clamp(get_elapsed_ms() / 50, 0, 149);
+	draw_sprite(game->cigarette.transform, &game->cigarette, &context);
 	draw_minimap(game);
 	if (key_check(KEY_TAB, game))
 		draw_full_map(game);

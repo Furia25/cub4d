@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/18 17:43:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 18:42:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,17 @@ int	init_assets(t_game *game)
 		throw_error(game, ERROR_LOADING_ASSETS);
 	if (!glyph_init(GLYPH_PATH))
 		throw_error(game, ERROR_LOADING_ASSETS);
-	game->cigarette.asset = game->textures[TEXTURE_CIGARETTE];
-	game->cigarette.width = 538;
-	game->cigarette.height = 673;
-	game->cigarette.spr_per_line = 19;
+	game->cigarette.sheet.asset = game->textures[TEXTURE_CIGARETTE];
+	game->cigarette.sheet.width = 538;
+	game->cigarette.sheet.height = 673;
+	game->cigarette.sheet.spr_per_line = 19;
+	game->cigarette.transform.x = 0;
+	game->cigarette.transform.y = -400;
+	game->cigarette.transform.depth = 0;
+	game->cigarette.transform.width = 538 * 2;
+	game->cigarette.transform.height = 673 * 2;
+	game->cigarette.transform.color = g_colors[C_WHITE];
+	game->cigarette.transform.scale = 1.25;
 	return (1);
 }
 

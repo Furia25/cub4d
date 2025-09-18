@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/18 17:40:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/18 18:28:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ typedef struct s_game
 	t_key				key_buffer[KEY_MAX_COUNT];
 	t_png				*textures[TEXTURE_MAX_COUNT];
 	t_animated_tiles	water_anim;
-	t_sprite_sheet		cigarette;
+	t_sprite			cigarette;
 	t_game_state		state;
 	t_menu				menu;
 	t_rng_state			rng;
