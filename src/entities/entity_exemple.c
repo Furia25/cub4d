@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/10 03:20:22 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 16:40:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_entity	*entity_new_example(t_vec3 position, t_game *game)
 	entity_init_basics(position, entity);
 	texture = game->textures[TEXTURE_ENTITY_NPC];
 	entity->transform.index = 1;
+	entity->map_color = g_colors[C_ALICE_BLUE];
 	entity->spr.asset = texture;
 	entity->spr.spr_per_line = 2;
 	entity->spr.width = 370;

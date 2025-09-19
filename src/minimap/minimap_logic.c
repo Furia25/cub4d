@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_logic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/08 14:41:10 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/09/19 16:48:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	calculate_offset(double p_pos)
 	int		offset;
 	double	diff;
 
-	diff = p_pos - (int)p_pos;
+	diff = p_pos - floor(p_pos);
 	offset = (int)(MMAP_TILE_SIZE * diff);
 	return (offset);
 }
