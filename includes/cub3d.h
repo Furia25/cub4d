@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 16:20:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 17:24:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@
 # define vec2_print(vec)	printf("x: %f, y: %f\n", vec.x, vec.y);
 //TEMP
 
+# define SEED_SYSTEM_RAND_FILE	"/dev/urandom"
+# define SEED_FALLBACK_DEFAULT	0xCACA
+# define SEED_MESSAGE	"INFO : Seed have been initialized to %016llx\n"
+
 # define GAME_NAME	"CUB3D"
 # define GAME_NAME_F	L"»9t~*«CUB3D"
 
@@ -81,6 +85,8 @@
 
 # define WARNING_TEXTURE	"WARNING : Texture at path\
 \"%s\" can't be opened\n"
+# define WARNING_SEED "WARNING: Failed to set seed \
+from random source, using fallback : %016llx\n"
 
 typedef enum e_game_state
 {
@@ -148,21 +154,21 @@ typedef struct s_parsing
 	float			fog_intensity;
 }	t_parsing;
 
-typedef struct s_win_size
+typedef struct s_win
 {
-	int	width;
-	int	height;
-	int	halfwidth;
-	int	halfheight;
-}	t_win_size;
+	void	*ptr;
+	int		width;
+	int		height;
+	int		halfwidth;
+	int		halfheight;
+}	t_win;
 
 typedef struct s_game
 {
 	void				*mlx;
-	char				*win;
 	t_img_data			*frame;
 	t_parsing			parsing;
-	t_win_size			win_size;
+	t_win				win;
 	t_player			player;
 	t_tilemap			*tilemap;
 	float				*z_buffer;
@@ -245,6 +251,7 @@ void		parsing(t_game *game, char *map_file);
 void		free_map(char **map);
 bool		is_file_valid(char *path);
 t_vec3		bbox_get_center(t_bbox bbox);
+uint64_t	get_seed(void);
 
 // ----- PARSING ----- //
 int			check_colors(t_game *game);

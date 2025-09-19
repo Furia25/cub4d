@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 16:21:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 17:01:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	exit_game(t_game *game)
 	free(game->parsing.map);
 	free_map(game->parsing.file_content);
 	free_map(game->parsing.npc_text);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
+	if (game->win.ptr)
+		mlx_destroy_window(game->mlx, game->win.ptr);
 	if (game->frame)
 	{
 		if (game->frame->img_ptr)

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 17:37:18 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 17:22:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,29 @@ bool	is_file_valid(char *path)
 		return (false);
 	close(temp_fd);
 	return (true);
+}
+
+uint64_t	get_seed(void)
+{
+	ssize_t		len;
+	uint64_t	result;
+	int			file_fd;
+
+	file_fd = open(SEED_SYSTEM_RAND_FILE, O_RDONLY);
+	if (file_fd == -1)
+	{
+		printf(WARNING_SEED, SEED_FALLBACK_DEFAULT);
+		return (SEED_FALLBACK_DEFAULT);
+	}
+	len = read(file_fd, &result, sizeof(result));
+	close(file_fd);
+	if (len < sizeof(result))
+	{
+		printf(WARNING_SEED, SEED_FALLBACK_DEFAULT);
+		return (SEED_FALLBACK_DEFAULT);
+	}
+	printf(SEED_MESSAGE, result);
+	return (result);
 }
 
 bool	is_pixel_valid(int x, int y, t_img_data *img)

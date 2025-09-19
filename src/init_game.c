@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 16:31:00 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 17:26:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	create_frame_image(t_game *game)
 	if (!game->frame)
 		return (false);
 	game->frame->img_ptr = mlx_new_image(game->mlx,
-		game->win_size.width, game->win_size.height);
+		game->win.width, game->win.height);
 	if (!game->frame->img_ptr)
 		return (false);
 	img = game->frame;
@@ -35,7 +35,7 @@ bool	create_frame_image(t_game *game)
 	img->connection = game->mlx;
 	img->buffer = mlx_get_data_addr(img->img_ptr, &img->pbits,
 		&img->size_line, &img->endian);
-	game->z_buffer = malloc((game->win_size.width * game->win_size.height + 8) * sizeof(float));
+	game->z_buffer = malloc((game->win.width * game->win.height + 8) * sizeof(float));
 	if (!game->z_buffer)
 		return (false);
 	return (true);
@@ -175,11 +175,11 @@ void	color_texture(t_png *tex, t_rgba8 tint)
 
 void	run_game(t_game *game)
 {
-	game->win_size.width = WINDOW_WIDTH;
-	game->win_size.height = WINDOW_HEIGHT;
-	game->win_size.halfwidth = WINDOW_WIDTH / 2;
-	game->win_size.halfheight = WINDOW_HEIGHT / 2;
-	rng_init(&game->rng, 0xCACA);
+	game->win.width = WINDOW_WIDTH;
+	game->win.height = WINDOW_HEIGHT;
+	game->win.halfwidth = WINDOW_WIDTH / 2;
+	game->win.halfheight = WINDOW_HEIGHT / 2;
+	rng_init(&game->rng, get_seed());
 	init_assets(game);
 	game->entity_manager.entities = vector_new();
 	game->entity_manager.entities->val_free = (void (*)(void *))entity_free;
@@ -188,16 +188,27 @@ void	run_game(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		throw_error(game, ERROR_LOADING_GRAPHICS);
-	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, GAME_NAME);
-	if (!game->win)
+	game->win.ptr = mlx_new_window(game->mlx, WINDOW_WIDTH,
+		WINDOW_HEIGHT, GAME_NAME);
+	if (!game->win.ptr)
 		throw_error(game, ERROR_WINDOW);
 	if (!create_frame_image(game))
 		throw_error(game, ERROR_WINDOW);
 	game->start_time = time_init();
 	game->state = MENU;
-	mlx_mouse_hide(game->mlx, game->win);
+	mlx_mouse_hide(game->mlx, game->win.ptr);
 	init_player(&game->player);
-	entity_add(entity_new_example(game->player.position, game), game);
+	t_vec3	pos;
+	t_vec3	ppos;
+	ppos = game->player.position;
+	for (int i = 0; i < 10000; i++)
+	{
+		pos = ppos;
+		pos.x += rng_float_range(&game->rng, -100, 100);
+		pos.y += rng_float_range(&game->rng, -100, 100);
+		pos.z += rng_float_range(&game->rng, 0, 10);
+		entity_add(entity_new_example(pos, game), game);
+	}
 	init_hooks(game);
 	init_water(&game->water_anim, game);
 	color_texture(game->textures[TEXTURE_GRASS], game->parsing.f_color);

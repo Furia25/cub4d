@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_interactions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:38:25 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/04 09:53:37 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/09/19 17:00:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	draw_interact_button(t_game *game, t_button *btn, int text_box)
 	else
 		draw_text(L"»3~«E", (t_text_properties) \
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
-	x = game->win_size.halfwidth - 120;
-	y = game->win_size.height * 0.96;
+	x = game->win.halfwidth - 120;
+	y = game->win.height * 0.96;
 	if (!text_box)
 		draw_text(L"»3*«interact", (t_text_properties) \
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
@@ -56,7 +56,7 @@ void	draw_textbox(t_game *game, char *text, uint64_t time)
 	btn.color_out = g_colors[C_DIM_GRAY];
 	btn.x = TXTBOX_X_START;
 	btn.y = MINIMAP_Y_START;
-	btn.width = game->win_size.width - TXTBOX_X_START - 80;
+	btn.width = game->win.width - TXTBOX_X_START - 80;
 	btn.height = MINIMAP_SIZE;
 	btn.shadow_size = 15;
 	draw_button(game, &btn);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/19 16:36:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 17:00:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	render(t_game *game)
 {
 	t_render_context	context;
 
-	render_init(game->win_size.width, game->win_size.height, &context, game);
+	render_init(game->win.width, game->win.height, &context, game);
 	entities_draw(game, &context);
-	context.halfh = game->win_size.halfheight + game->player.pitch_offset;
-	context.halfh = clamp(context.halfh, 0, game->win_size.height);
+	context.halfh = game->win.halfheight + game->player.pitch_offset;
+	context.halfh = clamp(context.halfh, 0, game->win.height);
 	render_rays(0, context.render_width, &context);
 	render_fog(&context, &game->parsing);
 	//render_sky(&context);
@@ -54,8 +54,8 @@ static void	render_init(int width, int height,
 	ctx->eye_height = game->player.position.z;
 	ctx->fov = deg_to_rad(game->player.fov_deg);
 	ctx->fov_y = deg_to_rad(game->player.fov_deg - 15);
-	ctx->halfw = game->win_size.halfwidth;
-	ctx->halfh = game->win_size.halfheight;
+	ctx->halfw = game->win.halfwidth;
+	ctx->halfh = game->win.halfheight;
 	ctx->focal = 1.0f / tanf(ctx->fov * 0.75);
 	ctx->proj_x = ctx->halfw / tanf(ctx->fov * .5f);
 	ctx->proj_y = ctx->halfh / tanf(ctx->fov * .5f);
