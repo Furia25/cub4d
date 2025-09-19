@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/10 17:39:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 16:21:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	exit_game(t_game *game)
 {
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
-	free(game->paths);
-	free(game->colors);
-	free(game->map);
-	free_map(game->file_content);
-	free_map(game->npc_text);
+	free(game->parsing.paths);
+	free(game->parsing.colors);
+	free(game->parsing.map);
+	free_map(game->parsing.file_content);
+	free_map(game->parsing.npc_text);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->frame)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_npc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 17:43:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 09:53:37 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 	}
 	if (!game->interaction.count)
 	{
-		btn.x = (game->w_halfwidth - (S_BUTTON_INTERACT / 2));
-		btn.y = (game->w_height * 0.90 - (S_BUTTON_INTERACT / 2));
+		btn.x = (game->win_size.halfwidth - (S_BUTTON_INTERACT / 2));
+		btn.y = (game->win_size.height * 0.90 - (S_BUTTON_INTERACT / 2));
 		btn.width = S_BUTTON_INTERACT;
 		btn.height = S_BUTTON_INTERACT;
 		draw_interact_button(game, &btn, 0);

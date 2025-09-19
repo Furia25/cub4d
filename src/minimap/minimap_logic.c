@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_logic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/13 18:32:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/08 14:41:10 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	draw_plain_tiles(t_tile_context *tile)
 			draw_tile(tile, rgba8(255, 150, 100, 200), 0);
 		else if (tile->line[tile->tile] == '1')
 			draw_tile(tile, rgba8(200, 10, 40, 200), 0);
-		if (tile->line[tile->tile] == 'P')
-			draw_tile(tile, rgba8(0, 0, 255, 200), MMAP_TILE_SIZE / 2);
 		tile->tile++;
 		tile->pos_x++;
 	}
@@ -89,10 +87,10 @@ void	draw_minimap(t_game *game)
 		draw_line(NULL, game, i);
 		i++;
 	}
-	while (line < game->map_height \
-		&& game->map[line] && line < (int)game->player.position.y + 9)
+	while (line < game->parsing.map_height \
+		&& game->parsing.map[line] && line < (int)game->player.position.y + 9)
 	{
-		draw_line(game->map[line], game, i);
+		draw_line(game->parsing.map[line], game, i);
 		line++;
 		i++;
 	}
@@ -103,5 +101,6 @@ void	draw_minimap(t_game *game)
 		i++;
 	}
 	draw_border(game);
+	manage_entities(game);
 	draw_player(game);
 }

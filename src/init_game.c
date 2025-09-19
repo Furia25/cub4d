@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/18 18:42:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 16:31:00 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	create_frame_image(t_game *game)
 	if (!game->frame)
 		return (false);
 	game->frame->img_ptr = mlx_new_image(game->mlx,
-		game->w_width, game->w_height);
+		game->win_size.width, game->win_size.height);
 	if (!game->frame->img_ptr)
 		return (false);
 	img = game->frame;
@@ -35,7 +35,7 @@ bool	create_frame_image(t_game *game)
 	img->connection = game->mlx;
 	img->buffer = mlx_get_data_addr(img->img_ptr, &img->pbits,
 		&img->size_line, &img->endian);
-	game->z_buffer = malloc((game->w_width * game->w_height + 8) * sizeof(float));
+	game->z_buffer = malloc((game->win_size.width * game->win_size.height + 8) * sizeof(float));
 	if (!game->z_buffer)
 		return (false);
 	return (true);
@@ -55,7 +55,7 @@ int	init_textures(t_game *game)
 		{
 			parsed_index = ft_atoi(path);
 			if (parsed_index != 0)
-				path = game->paths[parsed_index - 1];
+				path = game->parsing.paths[parsed_index - 1];
 			errno = 0;
 			if (path != NULL)
 				game->textures[index] = png_open(path);
@@ -175,12 +175,12 @@ void	color_texture(t_png *tex, t_rgba8 tint)
 
 void	run_game(t_game *game)
 {
+	game->win_size.width = WINDOW_WIDTH;
+	game->win_size.height = WINDOW_HEIGHT;
+	game->win_size.halfwidth = WINDOW_WIDTH / 2;
+	game->win_size.halfheight = WINDOW_HEIGHT / 2;
 	rng_init(&game->rng, 0xCACA);
 	init_assets(game);
-	game->w_width = WINDOW_WIDTH;
-	game->w_height = WINDOW_HEIGHT;
-	game->w_halfwidth = WINDOW_WIDTH / 2;
-	game->w_halfheight = WINDOW_HEIGHT / 2;
 	game->entity_manager.entities = vector_new();
 	game->entity_manager.entities->val_free = (void (*)(void *))entity_free;
 	if (!game->entity_manager.entities)
@@ -200,6 +200,6 @@ void	run_game(t_game *game)
 	entity_add(entity_new_example(game->player.position, game), game);
 	init_hooks(game);
 	init_water(&game->water_anim, game);
-	color_texture(game->textures[TEXTURE_GRASS], game->f_color);
+	color_texture(game->textures[TEXTURE_GRASS], game->parsing.f_color);
 	mlx_loop(game->mlx);
 }

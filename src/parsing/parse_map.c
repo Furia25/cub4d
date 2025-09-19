@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:34:48 by halnuma           #+#    #+#             */
-/*   Updated: 2025/08/20 17:43:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/04 09:47:38 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	loop_through_line(t_game *game, t_parsing_content *map_content, int i)
 	int	j;
 
 	j = -1;
-	while (game->file_content[i][++j])
+	while (game->parsing.file_content[i][++j])
 	{
-		if (!check_tile_validity(game->file_content[i][j]))
+		if (!check_tile_validity(game->parsing.file_content[i][j]))
 			return (0);
-		if (center_tile(game->file_content[i][j]) && \
-		!borders_around(game->file_content, i, j))
+		if (center_tile(game->parsing.file_content[i][j]) && \
+		!borders_around(game->parsing.file_content, i, j))
 			return (0);
 		if (!check_player(game, i, j, &map_content->player))
 			return (0);
@@ -44,16 +44,16 @@ int	loop_through_map(t_game *game, t_parsing_content *map_content)
 	k = -1;
 	map_content->enemies = 0;
 	map_content->npcs = 0;
-	while (game->file_content[++i])
+	while (game->parsing.file_content[++i])
 	{
-		game->map[++k] = game->file_content[i];
-		width = ft_strlen(game->file_content[i]);
-		if (width > game->map_width)
-			game->map_width = width;
+		game->parsing.map[++k] = game->parsing.file_content[i];
+		width = ft_strlen(game->parsing.file_content[i]);
+		if (width > game->parsing.map_width)
+			game->parsing.map_width = width;
 		if (!loop_through_line(game, map_content, i))
 			return (0);
 	}
-	game->map[++k] = NULL;
+	game->parsing.map[++k] = NULL;
 	return (1);
 }
 
@@ -62,10 +62,10 @@ int	check_tiles_and_borders(t_game *game)
 	t_parsing_content	map_content;
 
 	map_content.player = 0;
-	game->map_width = 0;
-	game->map = (char **)malloc(sizeof(char *) * ((game->map_height -7) + 1));
-	game->map_height -= 7;
-	if (!game->map)
+	game->parsing.map_width = 0;
+	game->parsing.map = (char **)malloc(sizeof(char *) * ((game->parsing.map_height -7) + 1));
+	game->parsing.map_height -= 7;
+	if (!game->parsing.map)
 		return (0);
 	if (!loop_through_map(game, &map_content))
 		return (0);

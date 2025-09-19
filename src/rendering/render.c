@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 18:49:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 16:29:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@
 static inline void	render_rays(int start, int end, t_render_context *render);
 static void		render_init(int width, int height, \
 	t_render_context *context, t_game *game);
-static inline void	render_fog(t_render_context *render);
+static inline void	render_fog(t_render_context *render, t_parsing *parsing);
 
 void	render(t_game *game)
 {
 	t_render_context	context;
 
-	render_init(game->w_width, game->w_height, &context, game);
+	render_init(game->win_size.width, game->win_size.height, &context, game);
 	entities_draw(game, &context);
-	context.halfh = game->w_halfheight + game->player.pitch_offset;
-	context.halfh = clamp(context.halfh, 0, game->w_height);
+	context.halfh = game->win_size.halfheight + game->player.pitch_offset;
+	context.halfh = clamp(context.halfh, 0, game->win_size.height);
 	render_rays(0, context.render_width, &context);
-	render_fog(&context);
+	render_fog(&context, &game->parsing);
 	//render_sky(&context);
 	game->cigarette.transform.index = clamp(get_elapsed_ms() / 50, 0, 149);
 	draw_sprite(game->cigarette.transform, &game->cigarette, &context);
@@ -54,8 +54,8 @@ static void	render_init(int width, int height,
 	ctx->eye_height = game->player.position.z;
 	ctx->fov = deg_to_rad(game->player.fov_deg);
 	ctx->fov_y = deg_to_rad(game->player.fov_deg - 15);
-	ctx->halfw = game->w_halfwidth;
-	ctx->halfh = game->w_halfheight;
+	ctx->halfw = game->win_size.halfwidth;
+	ctx->halfh = game->win_size.halfheight;
 	ctx->focal = 1.0f / tanf(ctx->fov * 0.75);
 	ctx->proj_x = ctx->halfw / tanf(ctx->fov * .5f);
 	ctx->proj_y = ctx->halfh / tanf(ctx->fov * .5f);
@@ -83,7 +83,7 @@ static inline void	render_rays(int start, int end, t_render_context *render)
 	}
 }
 
-static inline void	render_fog(t_render_context *render)
+static inline void	render_fog(t_render_context *render, t_parsing *parsing)
 {
 	uint16_t	fog;
 	float		*zbuffer;
@@ -97,12 +97,12 @@ static inline void	render_fog(t_render_context *render)
 		x = 0;
 		while (x < render->render_width)
 		{
-			fog = zbuffer[x + y * render->render_width]
-				* render->game->fog_intensity;
-			if (fog > 255)
-				fog = 255;
-			render->game->fog_color.channels.a = fog;
-			draw_pixel(render->game->fog_color, x, y, render->frame);
+			fog = zbuffer[x + y * render->render_width] * parsing->fog_intensity;
+			parsing->fog_color.channels.a = fog;
+			if (fog >= 255)
+				draw_pixel(parsing->c_color, x, y, render->frame);
+			else
+				draw_pixel(parsing->fog_color, x, y, render->frame);
 			x++;
 		}
 		y++;
