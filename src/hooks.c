@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:16:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/10 17:56:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 16:23:33 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,15 @@ static int mouse_move(int x, int y, t_game *game)
 	if (last_x == x && last_y == y)
 		return (1);
 	last_x = x;
-	x_dif = (x - game->w_halfwidth) * MOUSE_SENS;
+	x_dif = (x - game->win_size.halfwidth) * MOUSE_SENS;
 	last_y = y;
-	y_dif = -(y - game->w_halfheight);
+	y_dif = -(y - game->win_size.halfheight);
 	game->player.yaw_rad += x_dif;
 	game->player.yaw_rad = fmodf(game->player.yaw_rad, 2 * M_PI);
 	game->player.pitch_offset += y_dif;
-	game->player.pitch_offset = clamp(game->player.pitch_offset, -game->w_halfheight, game->w_halfheight);
-	mlx_mouse_move(game->mlx, game->win, game->w_halfwidth, game->w_halfheight);
+	game->player.pitch_offset = clamp(game->player.pitch_offset,
+		-game->win_size.halfheight, game->win_size.halfheight);
+	mlx_mouse_move(game->mlx, game->win,
+		game->win_size.halfwidth, game->win_size.halfheight);
 	return (1);
 }

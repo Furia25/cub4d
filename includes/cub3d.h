@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 16:16:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/19 16:20:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,10 @@ typedef struct s_parsing
 	char			**paths;
 	char			**colors;
 	char			**npc_text;
-	t_png_pixel8	f_color;
-	t_png_pixel8	c_color;
+	t_rgba8			f_color;
+	t_rgba8			c_color;
+	t_rgba8			fog_color;
+	float			fog_intensity;
 }	t_parsing;
 
 typedef struct s_win_size
