@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:27:11 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/22 23:55:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/22 20:27:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static inline bool	char_command(t_text_context *ctx, wchar_t c)
 		ctx->effect = ctx->effect ^ TE_WAVE;
 	else if (c == 'T')
 		ctx->effect = ctx->effect ^ TE_TYPEWRITER;
-	else if (c == L'🌈')
+	else if (c == L'=')
 		ctx->effect = ctx->effect ^ TE_RAINBOW;
 	else if (c == L'*')
 		ctx->effect = ctx->effect ^ TE_BOLD;
@@ -51,8 +51,11 @@ static inline bool	text_command(t_text_context *ctx, wchar_t *str)
 	while (str[ctx->index])
 	{
 		c = str[ctx->index];
-		if (c == L'«')
-			return (true);	
+		if (c == L'}')
+		{
+			ctx->index++;
+			return (true);
+		}
 		if (!char_command(ctx, c))
 			return (true);
 	}
@@ -79,9 +82,10 @@ void	draw_text(wchar_t *str, t_text_properties prop, t_img_data *img)
 	while (str[ctx.index])
 	{
 		c = str[ctx.index];
-		if (c == L'»' && !text_command(&ctx, str))
+		if (c == L'{' && text_command(&ctx, str))
 			continue ;
-		if (c == '\n' || (ctx.line_char >= prop.wrap_max && (c == ' ' || ctx.true_break)))
+		if (c == '\n' || (ctx.line_char >= prop.wrap_max
+			&& (c == ' ' || ctx.true_break)))
 		{
 			ctx.line_char = 0;
 			ctx.line_n++;

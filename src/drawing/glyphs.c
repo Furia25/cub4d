@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:42:38 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 17:54:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/22 19:02:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static t_sprite_sheet	g_glyphs = {0};
 
 bool	glyph_init(char *asset)
 {
-	g_glyphs.asset = png_open(asset);
 	g_glyphs.width = GLYPH_SIZE;
 	g_glyphs.height = GLYPH_SIZE;
 	g_glyphs.spr_per_line = 16;
+	g_glyphs.asset = png_open(asset);
 	return (g_glyphs.asset != NULL);
 }
 

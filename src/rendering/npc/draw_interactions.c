@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:38:25 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 17:00:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/22 20:12:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	draw_interact_button(t_game *game, t_button *btn, int text_box)
 	x = btn->x + (btn->width * 0.25);
 	y = btn->y + (btn->height * 0.50);
 	if (!text_box)
-		draw_text(L"»5~«E", (t_text_properties) \
+		draw_text(L"{5~}E", (t_text_properties) \
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
 	else
-		draw_text(L"»3~«E", (t_text_properties) \
+		draw_text(L"{3~}E", (t_text_properties) \
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
 	x = game->win.halfwidth - 120;
 	y = game->win.height * 0.96;
 	if (!text_box)
-		draw_text(L"»3*«interact", (t_text_properties) \
+		draw_text(L"{3*}interact", (t_text_properties) \
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
 }
 

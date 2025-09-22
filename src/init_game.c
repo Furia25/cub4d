@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 17:26:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/22 18:59:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	init_assets(t_game *game)
 	if (!glyph_init(GLYPH_PATH))
 		throw_error(game, ERROR_LOADING_ASSETS);
 	game->cigarette.sheet.asset = game->textures[TEXTURE_CIGARETTE];
-	game->cigarette.sheet.width = 538;
-	game->cigarette.sheet.height = 673;
+	game->cigarette.sheet.width = 287;
+	game->cigarette.sheet.height = 357;
 	game->cigarette.sheet.spr_per_line = 19;
 	game->cigarette.transform.x = 0;
 	game->cigarette.transform.y = -400;
@@ -206,7 +206,7 @@ void	run_game(t_game *game)
 		pos = ppos;
 		pos.x += rng_float_range(&game->rng, -100, 100);
 		pos.y += rng_float_range(&game->rng, -100, 100);
-		pos.z += rng_float_range(&game->rng, 0, 10);
+		pos.z += rng_float_range(&game->rng, 0, 100);
 		entity_add(entity_new_example(pos, game), game);
 	}
 	init_hooks(game);

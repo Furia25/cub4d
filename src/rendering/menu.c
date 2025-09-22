@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 17:00:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/22 20:12:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	handle_menu_options(t_game *game, bool start, int x, int y)
 			0.8, 0, 0, 1, 75, game->start_time}, game->frame);
 		index++;
 	}
-	draw_text(L"»5«>", (t_text_properties){x - 50, y + (125 * game->menu.action),
+	draw_text(L"{5}>", (t_text_properties){x - 50, y + (125 * game->menu.action),
 			0.8, 0, 0, 1, 75, game->start_time}, game->frame);
 	if (start)
 		draw_text(GAME_NAME_F, (t_text_properties){game->frame->width * 0.38, game->frame->height * 0.25,

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 17:24:24 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/22 20:14:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@
 
 # define SEED_SYSTEM_RAND_FILE	"/dev/urandom"
 # define SEED_FALLBACK_DEFAULT	0xCACA
-# define SEED_MESSAGE	"INFO : Seed have been initialized to %016llx\n"
+# define SEED_MESSAGE	"INFO : Seed have been initialized to %016lx\n"
 
 # define GAME_NAME	"CUB3D"
-# define GAME_NAME_F	L"»9t~*«CUB3D"
+# define GAME_NAME_F	L"{9t~*}CUB3D"
 
 # define ASPECT_RES		1080
 
@@ -78,15 +78,15 @@
 # define TXTBOX_X_START		350
 
 # define MENU_ACTIONS	2
-# define MENU_OPTION_PLAY	L"»5«PLAY"
-# define MENU_OPTION_RESUME	L"»5«RESUME"
-# define MENU_OPTION_CONFIG	L"»4«Config"
-# define MENU_OPTION_QUIT	L"»4«Quit"
+# define MENU_OPTION_PLAY	L"{5}PLAY"
+# define MENU_OPTION_RESUME	L"{5}RESUME"
+# define MENU_OPTION_CONFIG	L"{4}Config"
+# define MENU_OPTION_QUIT	L"{4}Quit"
 
 # define WARNING_TEXTURE	"WARNING : Texture at path\
 \"%s\" can't be opened\n"
 # define WARNING_SEED "WARNING: Failed to set seed \
-from random source, using fallback : %016llx\n"
+from random source, using fallback : %016lx\n"
 
 typedef enum e_game_state
 {
