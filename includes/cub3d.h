@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/22 20:14:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/23 19:55:42 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@
 # define GAME_NAME	"CUB3D"
 # define GAME_NAME_F	L"{9t~*}CUB3D"
 
+# define FPS_INTERVAL_MAX	32
+
 # define ASPECT_RES		1080
 
-# define WINDOW_WIDTH		1920
-# define WINDOW_HEIGHT		1080
+# define WINDOW_WIDTH		1280
+# define WINDOW_HEIGHT		720
 
 # define MAP_TILE_SIZE		32
 # define MMAP_TILE_SIZE		16

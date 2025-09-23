@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:27:11 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/22 20:27:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/23 17:37:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,41 @@ static inline bool	text_command(t_text_context *ctx, wchar_t *str)
 	return (false);
 }
 
+static inline void	init_text(t_text_context *ctx, t_draw_transform *tform,
+						t_text_properties *prop, wchar_t *str)
+{
+	ft_memset(ctx, 0, sizeof(t_text_context));
+	ctx->prop = prop;
+	ctx->start_time = prop->start_time;
+	ctx->length = strlen_wchar(str);
+	tform->color = g_colors[C_WHITE];
+	tform->width = GLYPH_SIZE;
+	tform->height = GLYPH_SIZE;
+	tform->x = prop->x;
+	tform->y = prop->y;
+	prop->y += tform->height;
+}
+
+static inline void	line_break(t_text_context *ctx, t_text_properties *prop,
+						t_draw_transform *tform)
+{
+	ctx->line_char = 0;
+	ctx->line_n++;
+	ctx->nl_x += prop->nl_spacing_x * tform->width;
+	ctx->nl_y += prop->nl_spacing_y * tform->height;
+	tform->x = prop->x + ctx->nl_x;
+	tform->y = prop->y + ctx->nl_y;
+	ctx->index++;
+}
+
 void	draw_text(wchar_t *str, t_text_properties prop, t_img_data *img)
 {
 	t_text_context		ctx;
 	t_draw_transform	*tform;
 	wchar_t				c;
 
-	ft_memset(&ctx, 0, sizeof(ctx));
-	ctx.prop = &prop;
-	ctx.start_time = prop.start_time;
-	ctx.length = strlen_wchar(str);
 	tform = &ctx.tform;
-	tform->color = g_colors[C_WHITE];
-	tform->width = GLYPH_SIZE;
-	tform->height = GLYPH_SIZE;
-	prop.y += tform->height;
-	tform->x = prop.x;
-	tform->y = prop.y;
+	init_text(&ctx, tform, &prop, str);
 	while (str[ctx.index])
 	{
 		c = str[ctx.index];
@@ -87,13 +105,7 @@ void	draw_text(wchar_t *str, t_text_properties prop, t_img_data *img)
 		if (c == '\n' || (ctx.line_char >= prop.wrap_max
 			&& (c == ' ' || ctx.true_break)))
 		{
-			ctx.line_char = 0;
-			ctx.line_n++;
-			ctx.nl_x += prop.nl_spacing_x * tform->width;
-			ctx.nl_y += prop.nl_spacing_y * tform->height;
-			tform->x = prop.x + ctx.nl_x;
-			tform->y = prop.y + ctx.nl_y;
-			ctx.index++;
+			line_break(&ctx, &prop, tform);
 			continue;
 		}
 		ctx.actual_glyph = glyph_get_index(c);

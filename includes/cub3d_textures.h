@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/18 17:37:18 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/23 17:50:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,21 @@ typedef enum e_texture_type
 
 typedef struct s_animated_texture
 {
-	t_texture_type	type;
-	t_png			*frames[32];
 	float			frame_time;
 	int				frames_num;
 	float			actual_frame;
+	t_texture_type	type;
+	t_png			*frames[32];
 }	t_animated_tiles;
+
+typedef struct s_sheet_animation
+{
+	float			frame_time;
+	size_t			start_frame;
+	size_t			end_frame;
+	float			actual_frame;
+	t_sprite_sheet	sheet;
+}	t_sheet_animation;
 
 extern const char	*g_textures_files[TEXTURE_MAX_COUNT];
 
