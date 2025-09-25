@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/23 19:55:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/25 20:00:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static inline void	play_loop(t_game *game, t_img_data *frame, uint64_t time)
 	if (key_is_pressed(KEY_PAUSE, game))
 		game->state = PAUSED;
 	entities_tick(game);
-	update_anim(&game->water_anim, game);
+	anim_tile_update(&game->water_anim, game);
 	update_player(&game->player, game);
 	ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
 	render(game);
@@ -44,7 +44,7 @@ int	game_loop(void *param)
 	time = get_time_ms();
 	if (time >= last_time)
 	{
-		last_time = time + FPS_INTERVAL_MAX;
+		last_time = time + GAME_INTERVAL_MIN;
 		if (key_check(KEY_QUIT, game))
 			exit_game(game);
 		if (game->state == MENU || game->state == PAUSED)

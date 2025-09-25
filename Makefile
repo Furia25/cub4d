@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/10 17:18:39 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/25 19:37:58 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,7 @@ SRC_FILES = \
 	player_movement.c \
 	end_game.c \
 	game_loop.c \
+	init_assets.c \
 	init_game.c \
 	hooks.c \
 	keys/keys_buffer.c \
@@ -123,7 +124,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -O3 -march=native -g3 
+CFLAGS = -O3 -march=native -g3 -Wall -Werror -Wextra
 
 # GCC control
 GCC = 0

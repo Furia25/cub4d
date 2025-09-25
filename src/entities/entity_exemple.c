@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/19 16:40:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/25 19:36:26 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ t_entity	*entity_new_example(t_vec3 position, t_game *game)
 
 void	entity_example_tick(t_entity *self, t_game *game)
 {
+	(void)game;
 	self->transform.index = (self->transform.index + 1) % 2;
 }
 
 void	entity_example_create(t_entity *self, t_game *game)
 {
+	(void)game;
+	(void)self;
 }

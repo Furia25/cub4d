@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 17:00:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/25 19:33:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,20 @@ void	draw_lines(char *line, t_game *game, int pos_y)
 
 void	fm_manage_entities(t_game *game)
 {
-	int				i;
+	unsigned int	i;
 	t_vector		*entities;
 	t_entity		*entity;
 	t_vec3			pos;
-	t_tile_context	tile_info;
 
 	i = 0;
 	entities = game->entity_manager.entities;
-	while (entity != NULL)
+	while (i < entities->size)
 	{
 		entity = entities->items[i];
-		if (entity)
-		{
-			pos = entity->position;
-			draw_tiles(game, pos.x, pos.y, entity->transform.color);
-		}
+		if (entity == NULL)
+			break ;
+		pos = entity->position;
+		draw_tiles(game, pos.x, pos.y, entity->transform.color);
 		i++;
 	}
 }

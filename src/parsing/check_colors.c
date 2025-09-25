@@ -6,13 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:16:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 16:34:29 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/25 19:33:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	assign_color(t_game *game, int k, int i, char **rgb)
+void	assign_color(t_game *game, int i, char **rgb)
 {
 	if (i == 5)
 	{
@@ -62,7 +62,7 @@ int	parse_color(t_game *game, int i, int k, char **identifiers)
 		}
 		j++;
 	}
-	assign_color(game, k, i, rgb);
+	assign_color(game, i, rgb);
 	free_map(rgb);
 	return (1);
 }

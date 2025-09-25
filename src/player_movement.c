@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 19:00:00 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/25 18:40:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	player_handle_jump(t_player *plr, t_game *game)
 	const float	gravity = -0.013f;
 	bool		jumping;
 
+	plr->is_grounded = tilemap_collide_bbox((t_vec3){0, 0, -0.1},
+		plr->bbox, game->tilemap);
 	jumping = key_check(KEY_JUMP, game);
 	if (jumping && plr->is_grounded)
 	{
@@ -37,15 +39,11 @@ void	player_handle_jump(t_player *plr, t_game *game)
 		plr->jump_velocity = plr->jump_force;
 	}
 	plr->jump_velocity += gravity;
-	if (/*!(plr->jump_velocity < 0 && plr->bbox.min.z <= plr->eye_height)
-		&& */!tilemap_collide_bbox((t_vec3){0, 0, plr->jump_velocity},
+	if (!tilemap_collide_bbox((t_vec3){0, 0, plr->jump_velocity},
 			plr->bbox, game->tilemap))
 		player_add_z(plr->jump_velocity, plr);
 	else
 		plr->jump_velocity = 0.0f;
-	if (plr->bbox.min.z <= plr->eye_height
-		|| tilemap_collide_bbox((t_vec3){0, 0, -0.1}, plr->bbox, game->tilemap))
-		plr->is_grounded = true;
 }
 
 void	update_player(t_player *player, t_game *game)

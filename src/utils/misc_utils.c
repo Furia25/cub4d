@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/22 16:41:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/25 19:41:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ uint64_t	get_seed(void)
 	}
 	len = read(file_fd, &result, sizeof(result));
 	close(file_fd);
-	if (len < sizeof(result))
+	if (len < (long)sizeof(result))
 	{
 		printf(WARNING_SEED, (uint64_t)SEED_FALLBACK_DEFAULT);
 		return ((uint64_t)SEED_FALLBACK_DEFAULT);
@@ -59,11 +59,4 @@ t_vec3	bbox_get_center(t_bbox bbox)
 	return ((t_vec3){(bbox.min.x + bbox.max.x) * 0.5,
 		(bbox.min.y + bbox.max.y) * 0.5,
 		(bbox.min.z + bbox.max.z) * 0.5});
-}
-
-void	update_anim(t_animated_tiles *anim, t_game *game)
-{
-	anim->actual_frame = fmodf(anim->actual_frame
-		+ anim->frame_time, anim->frames_num);
-	game->textures[anim->type] = anim->frames[(int)anim->actual_frame];
 }

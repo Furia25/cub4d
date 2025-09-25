@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:39:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 18:38:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/25 19:39:08 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "cub3d_entities.h"
 
 static inline void	eform_draw(t_rgba8 color, t_sprite *e,
-						t_svec2 *pos, t_render_context *ctx)
+						t_ivec2 *pos, t_render_context *ctx)
 {
 	t_rgba8			*dest;
 	const t_vec2	uv = {e->transform.x + pos->x, e->transform.y + pos->y};
@@ -45,8 +45,8 @@ static inline void	init_draw(t_transform *tform, t_sprite_sheet *spr,
 		(float)spr->height / tform->height};
 	uv_start->x = (tform->index % spr->spr_per_line) * spr->width;
 	uv_start->y = (tform->index / spr->spr_per_line) * spr->height;
-	if (uv_start->x >= spr->asset->header.width
-		|| uv_start->y >= spr->asset->header.height)
+	if (uv_start->x >= (int)spr->asset->header.width
+		|| uv_start->y >= (int)spr->asset->header.height)
 	{
 		tform->index = 0;
 		uv_start->x = 0;
@@ -55,9 +55,9 @@ static inline void	init_draw(t_transform *tform, t_sprite_sheet *spr,
 }
 
 static inline bool	init_clipping(t_transform *tform,
-						t_svec2 *default_pos, t_render_context *ctx)
+						t_ivec2 *default_pos, t_render_context *ctx)
 {
-	*default_pos = (t_svec2){0, 0};
+	*default_pos = (t_ivec2){0, 0};
 	if (tform->x < 0)
 		default_pos->x = -tform->x;
 	if (tform->y < 0)
@@ -75,9 +75,9 @@ void	draw_sprite(t_transform tform,
 			t_sprite *e, t_render_context *ctx)
 {
 	t_vec2			step;
-	t_svec2			default_pos;
+	t_ivec2			default_pos;
 	t_ivec2			uv;
-	t_svec2			pos;
+	t_ivec2			pos;
 	t_ivec2			uv_start;
 
 	init_draw(&tform, &e->sheet, &step, &uv_start);

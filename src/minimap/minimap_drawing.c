@@ -6,14 +6,15 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 16:53:24 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/25 19:31:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_entities.h"
 
-void	draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off)
+void	draw_tile(t_tile_context *tile, t_rgba8 color,
+			int mid_off, t_ivec2 map_pos)
 {
 	int	i;
 	int	j;
@@ -26,14 +27,14 @@ void	draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off)
 		j = 0;
 		while (j < MMAP_TILE_SIZE - mid_off)
 		{
-			x = (tile->pos_x * MMAP_TILE_SIZE + i - tile->off_x \
-				+ MINIMAP_X_START + MINIMAP_BORDER) + (mid_off / 2);
-			y = (tile->pos_y * MMAP_TILE_SIZE + j - tile->off_y \
-				+ MINIMAP_Y_START + MINIMAP_BORDER) + (mid_off / 2);
-			if (x >= MINIMAP_X_START + MINIMAP_BORDER && \
-				x < MINIMAP_X_START + MINIMAP_SIZE && \
-				y >= MINIMAP_Y_START + MINIMAP_BORDER && \
-				y < MINIMAP_Y_START + MINIMAP_SIZE)
+			x = (tile->pos_x * MMAP_TILE_SIZE
+				+ i - tile->off_x + map_pos.x + MINIMAP_BORDER) + (mid_off / 2);
+			y = (tile->pos_y * MMAP_TILE_SIZE
+				+ j - tile->off_y + map_pos.y + MINIMAP_BORDER) + (mid_off / 2);
+			if (x >= map_pos.x + MINIMAP_BORDER
+				&& x < map_pos.x + MINIMAP_SIZE
+				&& y >= map_pos.y + MINIMAP_BORDER
+				&& y < map_pos.y + MINIMAP_SIZE)
 				draw_pixel(color, x, y, tile->game->frame);
 			j++;
 		}
@@ -41,7 +42,7 @@ void	draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off)
 	}
 }
 
-void	draw_border(t_game *game)
+void	draw_border(t_game *game, t_ivec2 map_pos)
 {
 	int				i;
 	int				j;
@@ -54,13 +55,13 @@ void	draw_border(t_game *game)
 		j = 0;
 		while (j < MINIMAP_SIZE)
 		{
-			if (j < MINIMAP_BORDER || \
-				j > MINIMAP_SIZE - MINIMAP_BORDER || \
-				i < MINIMAP_BORDER || \
-				i > MINIMAP_SIZE - MINIMAP_BORDER)
+			if (j < MINIMAP_BORDER
+				|| j > MINIMAP_SIZE - MINIMAP_BORDER
+				|| i < MINIMAP_BORDER
+				|| i > MINIMAP_SIZE - MINIMAP_BORDER)
 			{
-				draw_pixel(color, i + MINIMAP_X_START,
-					j + MINIMAP_Y_START, game->frame);
+				draw_pixel(color, i + map_pos.x,
+					j + map_pos.y, game->frame);
 			}
 			j++;
 		}
@@ -68,7 +69,7 @@ void	draw_border(t_game *game)
 	}
 }
 
-void	draw_player(t_game *game)
+void	draw_player(t_game *game, t_ivec2 map_pos)
 {
 	int	i;
 	int	j;
@@ -81,9 +82,9 @@ void	draw_player(t_game *game)
 		{
 			draw_pixel(
 				rgba8(255, 0, 10, 200),
-				((7 * MMAP_TILE_SIZE) + i + MINIMAP_X_START \
+				((7 * MMAP_TILE_SIZE) + i + map_pos.x \
 				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
-				((7 * MMAP_TILE_SIZE) + j + MINIMAP_Y_START \
+				((7 * MMAP_TILE_SIZE) + j + map_pos.y \
 				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
 				game->frame
 				);
@@ -93,7 +94,7 @@ void	draw_player(t_game *game)
 	}
 }
 
-void	draw_entites(t_game *game, t_entity *entity)
+void	draw_entites(t_game *game, t_entity *entity, t_ivec2 map_pos)
 {
 	int				off_x;
 	int				off_y;
@@ -113,13 +114,14 @@ void	draw_entites(t_game *game, t_entity *entity)
 		minimap_pos.y = (pos.y - game->player.position.y) + 7.5;
 		tile_info = (t_tile_context){game, NULL, 0, minimap_pos.x, 
 			minimap_pos.y, off_x, off_y};
-		draw_tile(&tile_info, entity->map_color, MMAP_TILE_SIZE * 0.75);
+		draw_tile(&tile_info, entity->map_color,
+			MMAP_TILE_SIZE * 0.75, map_pos);
 	}
 }
 
-void	manage_entities(t_game *game)
+void	map_manage_entities(t_game *game, t_ivec2 map_pos)
 {
-	int				i;
+	unsigned int	i;
 	t_vector		*entities;
 	t_entity		*entity;
 
@@ -130,7 +132,7 @@ void	manage_entities(t_game *game)
 		entity = entities->items[i];
 		if (entity == NULL)
 			break ;
-		draw_entites(game, entity);
+		draw_entites(game, entity, map_pos);
 		i++;
 	}
 }
