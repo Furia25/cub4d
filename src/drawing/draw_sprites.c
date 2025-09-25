@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:39:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/25 19:39:08 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 01:19:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,19 @@ static inline void	init_draw(t_transform *tform, t_sprite_sheet *spr,
 {
 	tform->width *= tform->scale;
 	tform->height *= tform->scale;
-	*step = (t_vec2){(float)spr->width / tform->width,
-		(float)spr->height / tform->height};
+	if (tform->width <= 0 || tform->height <= 0)
+		*step = (t_vec2){100000, 100000};
+	else
+		*step = (t_vec2){(float)spr->width / tform->width,
+			(float)spr->height / tform->height};
 	uv_start->x = (tform->index % spr->spr_per_line) * spr->width;
 	uv_start->y = (tform->index / spr->spr_per_line) * spr->height;
-	if (uv_start->x >= (int)spr->asset->header.width
-		|| uv_start->y >= (int)spr->asset->header.height)
+	if ((uint32_t)uv_start->x >= spr->asset->header.width
+		|| (uint32_t)uv_start->y >= spr->asset->header.height)
 	{
-		tform->index = 0;
 		uv_start->x = 0;
 		uv_start->y = 0;
+		tform->index = 0;
 	}
 }
 

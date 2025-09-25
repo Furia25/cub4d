@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/25 19:34:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 01:23:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	run_game(t_game *game)
 		throw_error(game, ERROR_WINDOW);
 	game->start_time = time_init();
 	game->state = MENU;
-	mlx_mouse_hide(game->mlx, game->win.ptr);
 	init_player(&game->player);
 	t_vec3	pos;
 	t_vec3	ppos;

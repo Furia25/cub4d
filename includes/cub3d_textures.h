@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/25 20:44:53 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 00:25:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,6 @@ typedef enum e_texture_type
 
 #define GLYPH_PATH	"assets/textures/glyph.png"
 
-typedef struct s_animated_texture
-{
-	float			actual_frame;
-	float			frame_time;
-	int				frames_num;
-	t_png			*frames[32];
-	t_texture_type	type;
-}	t_tile_animation;
-
-typedef struct s_index_animation
-{
-	float			actual_index;
-	float			time_per_frame;
-	size_t			start_index;
-	size_t			end_index;
-	bool			repeating;
-}	t_index_animation;
-
 extern const char	*g_textures_files[TEXTURE_MAX_COUNT];
-
-t_index_animation	anim_index_init(size_t start_index, size_t end_index,
-						float time_per_frame, float repeating);
-
-void				anim_index_update(t_index_animation *anim);
-void				anim_tile_update(t_tile_animation *anim, t_game *game);
 
 #endif

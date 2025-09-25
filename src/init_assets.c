@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/25 20:45:58 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 01:19:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ void	init_hud(t_game *game)
 	spr->sheet.spr_per_line = 19;
 	spr->transform.x = 0;
 	spr->transform.depth = 0;
-	spr->transform.width = 538 * game->aspect_res;
-	spr->transform.height = 673 * game->aspect_res;
+	spr->transform.width = 538;
+	spr->transform.height = 673;
+	spr->transform.scale = game->aspect_res * 1.25;
 	spr->transform.y = game->win.height
 		- spr->transform.height * 1.2;
 	spr->transform.color = g_colors[C_WHITE];
-	spr->transform.scale = 1.25;
+	spr->transform.index = 0;
 	hud_cigarette->equipped = false;
 	hud_cigarette->anim_start = anim_index_init(0, 38, 1, false);
 	hud_cigarette->anim_idle_off = anim_index_init(38, 42, 1, true);
@@ -48,6 +49,7 @@ int	init_assets(t_game *game)
 		throw_error(game, ERROR_LOADING_ASSETS);
 	if (!glyph_init(GLYPH_PATH))
 		throw_error(game, ERROR_LOADING_ASSETS);
+	init_hud(game);
 	return (1);
 }
 

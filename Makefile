@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/25 19:37:58 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/26 01:21:43 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRC_FILES = \
 	parsing/check_characters.c \
 	parsing/check_colors.c \
 	parsing/check_paths.c \
+	utils/animation_utils.c \
 	utils/misc_utils.c \
 	utils/map_utils.c \
 	utils/move_utils.c \
