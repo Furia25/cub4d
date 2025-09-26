@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/25 19:58:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:04:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	render(t_game *game)
 	render_rays(0, context.render_width, &context);
 	render_fog(&context, &game->parsing);
 	//render_sky(&context);
+	game->hud_cigarette.sprite.transform.index = game->hud_cigarette.anim_idle_on.actual_index;
 	draw_sprite(game->hud_cigarette.sprite.transform,
 		&game->hud_cigarette.sprite, &context);
 	map_gap = game->win.height * 0.05;

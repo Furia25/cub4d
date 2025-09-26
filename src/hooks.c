@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:16:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/19 17:01:58 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:26:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int mouse_move(int x, int y, t_game *game)
 	static int	last_x = 0;
 	static int	last_y = 0;
 
+	if (game->state != STATE_PLAYING)
+		return (1);
 	if (last_x == x && last_y == y)
 		return (1);
 	last_x = x;

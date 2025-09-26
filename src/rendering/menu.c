@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/22 20:12:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:26:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ void	handle_input(t_game *game, int start)
 	if (key_is_released(KEY_ENTER, game))
 	{
 		if (game->menu.action == 0)
-			game->state = PLAYING;
+		{
+			if (start)
+				init_game_start(game);
+			game->state = STATE_PLAYING;
+		}
 		if (game->menu.action == 2)
 			exit_game(game);
 	}
@@ -62,7 +66,7 @@ void	handle_input(t_game *game, int start)
 		if (start)
 			exit_game(game);
 		else
-			game->state = PLAYING;
+			game->state = STATE_PLAYING;
 	}
 }
 

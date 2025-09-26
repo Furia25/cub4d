@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 00:26:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:26:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@
 
 # define GAME_INTERVAL_MIN	32
 
-# define WINDOW_WIDTH		1920
-# define WINDOW_HEIGHT		1080
+# define WINDOW_WIDTH		1280
+# define WINDOW_HEIGHT		720
 # define ASPECT_RES			1080
 # define MOUSE_SENS			0.001
 
@@ -89,9 +89,9 @@ from random source, using fallback : %016lx\n"
 
 typedef enum e_game_state
 {
-	MENU,
-	PLAYING,
-	PAUSED
+	STATE_MENU,
+	STATE_PLAYING,
+	STATE_PAUSED
 }	t_game_state;
 
 typedef struct s_parsing_content
@@ -167,10 +167,10 @@ typedef struct s_hud_cigarette
 	t_sprite			sprite;
 	t_index_animation	anim_start;
 	bool				equipped;
+	t_index_animation	*actual_anim;
 	t_index_animation	anim_idle_off;
-	t_index_animation	anim_flex_off;
 	t_index_animation	anim_idle_on;
-	t_index_animation	anim_flex_on;
+	t_index_animation	anim_flex;
 }	t_hud_cigarette;
 
 typedef struct s_game
@@ -226,6 +226,7 @@ int			exit_game(t_game *game);
 int			game_loop(void *param);
 int			init_assets(t_game *game);
 int			init_textures(t_game *game);
+void		init_game_start(t_game *game);
 void		init_water(t_tile_animation *water_anim, t_game *game);
 
 void		color_texture(t_png *tex, t_rgba8 tint);

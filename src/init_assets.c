@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 01:19:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:22:33 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,19 @@ void	init_hud(t_game *game)
 	spr->sheet.height = 357;
 	spr->sheet.spr_per_line = 19;
 	spr->transform.x = 0;
-	spr->transform.depth = 0;
-	spr->transform.width = 538;
-	spr->transform.height = 673;
-	spr->transform.scale = game->aspect_res * 1.25;
-	spr->transform.y = game->win.height
-		- spr->transform.height * 1.2;
+	spr->transform.depth = -1;
+	spr->transform.width = 538 * game->aspect_res;
+	spr->transform.height = 673 * game->aspect_res;
+	spr->transform.scale = 1;
+	spr->transform.y = game->win.height - spr->transform.height;
 	spr->transform.color = g_colors[C_WHITE];
-	spr->transform.index = 0;
 	hud_cigarette->equipped = false;
-	hud_cigarette->anim_start = anim_index_init(0, 38, 1, false);
-	hud_cigarette->anim_idle_off = anim_index_init(38, 42, 1, true);
+	hud_cigarette->anim_start = anim_index_init(0, 56, 0.5, false);
+	hud_cigarette->anim_idle_off = anim_index_init(55, 59, 0.5, true);
+	hud_cigarette->anim_flex = anim_index_init(59, 138, 0.5, false);
+	hud_cigarette->anim_idle_on = anim_index_init(139, 149, 0.5, true);
+	hud_cigarette->anim_idle_on.reversing = true;
+	hud_cigarette->anim_idle_off.reversing = true;
 }
 
 int	init_assets(t_game *game)
@@ -49,6 +51,9 @@ int	init_assets(t_game *game)
 		throw_error(game, ERROR_LOADING_ASSETS);
 	if (!glyph_init(GLYPH_PATH))
 		throw_error(game, ERROR_LOADING_ASSETS);
+	init_water(&game->water_anim, game);
+	if (game->textures[TEXTURE_GRASS] != game->textures[TEXTURE_ERROR])
+		color_texture(game->textures[TEXTURE_GRASS], game->parsing.f_color);
 	init_hud(game);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 17:01:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 01:35:35 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	exit_game(t_game *game)
 {
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
+	free(game->sky_buffer);
 	free(game->parsing.paths);
 	free(game->parsing.colors);
 	free(game->parsing.map);
@@ -58,8 +59,8 @@ int	exit_game(t_game *game)
 	free(game->z_buffer);
 	if (game->mlx)
 		mlx_destroy_display(game->mlx);
-	free_textures(game);
 	glyph_end();
+	free_textures(game);
 	free(game->mlx);
 	vector_free(game->entity_manager.entities, true);
 	exit(EXIT_SUCCESS);

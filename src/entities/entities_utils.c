@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/19 16:20:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:10:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 	cam_pos.x = relative.y * render->yaw_cos - relative.x * render->yaw_sin;
     cam_pos.y = relative.z;
 	projected.x = (cam_pos.x / cam_pos.z) * render->focal * render->ratio;
-	projected.y = (cam_pos.y / cam_pos.z) * render->focal * (render->ratio * 1.15);
+	projected.y = (cam_pos.y / cam_pos.z) * render->focal * render->ratio;
 	entity->transform.x = (projected.x + 1.0f) * render->halfw;
 	entity->transform.y = (1.0f - projected.y) * render->halfh;
 	entity->transform.y += render->player->pitch_offset;

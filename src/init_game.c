@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 01:23:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:28:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ bool	create_frame_image(t_game *game)
 		* sizeof(int));
 	if (!game->sky_buffer)
 		return (false);
-	
 	return (true);
 }
 
@@ -72,6 +71,33 @@ void	init_player(t_player *player)
 //TEMP
 #define print_color(rgb)	printf(#rgb " %d, %d, %d\n", rgb.channels.r, rgb.channels.g, rgb.channels.b);
 
+static inline void	spawn_test_entities(t_game *game)
+{
+	t_vec3	pos;
+	t_vec3	ppos;
+	int		i;
+
+	i = 10000;
+	ppos = game->player.position;
+	while (i >= 0)
+	{
+		pos = ppos;
+		pos.x += rng_float_range(&game->rng, -100, 100);
+		pos.y += rng_float_range(&game->rng, -100, 100);
+		pos.z += rng_float_range(&game->rng, 0, 100);
+		entity_add(entity_new_example(pos, game), game);
+		i--;
+	}
+}
+//TEMP
+
+void	init_game_start(t_game *game)
+{
+	game->start_time = time_init();
+	init_player(&game->player);
+	spawn_test_entities(game);
+}
+
 void	run_game(t_game *game)
 {
 	game->win.width = WINDOW_WIDTH;
@@ -94,22 +120,7 @@ void	run_game(t_game *game)
 		throw_error(game, ERROR_WINDOW);
 	if (!create_frame_image(game))
 		throw_error(game, ERROR_WINDOW);
-	game->start_time = time_init();
-	game->state = MENU;
-	init_player(&game->player);
-	t_vec3	pos;
-	t_vec3	ppos;
-	ppos = game->player.position;
-	for (int i = 0; i < 10000; i++)
-	{
-		pos = ppos;
-		pos.x += rng_float_range(&game->rng, -100, 100);
-		pos.y += rng_float_range(&game->rng, -100, 100);
-		pos.z += rng_float_range(&game->rng, 0, 100);
-		entity_add(entity_new_example(pos, game), game);
-	}
+	game->state = STATE_MENU;
 	init_hooks(game);
-	init_water(&game->water_anim, game);
-	color_texture(game->textures[TEXTURE_GRASS], game->parsing.f_color);
 	mlx_loop(game->mlx);
 }
