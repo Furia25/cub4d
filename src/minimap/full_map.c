@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 03:18:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:40:31 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	draw_lines(char *line, t_game *game, int pos_y)
 	pos_x = 0;
 	while (line[tile])
 	{
-		if (center_tile(line[tile]))
+		if (is_center_tile(line[tile]))
 			draw_tiles(game, pos_x, pos_y, rgba8(0, 150, 255, 200));
 		else if (line[tile] == '1')
 			draw_tiles(game, pos_x, pos_y, rgba8(200, 10, 200, 200));

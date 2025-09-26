@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:34:48 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 17:28:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:50:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ int	loop_through_line(int i, t_parsing_content *map_content,
 {
 	int	j;
 
-	j = -1;
-	while (parsing->file_content[i][++j])
+	j = 0;
+	while (parsing->file_content[i][j] && j < parsing->map_width)
 	{
 		if (!check_tile_validity(parsing->file_content[i][j]))
 			return (0);
-		if (center_tile(parsing->file_content[i][j]) && \
-		!borders_around(parsing->file_content, i, j))
+		if (is_center_tile(parsing->file_content[i][j])
+			&& !borders_around(parsing->map, i - parsing->map_start,
+				j, parsing))
 			return (0);
 		if (!check_player(game, i, j, &map_content->player))
 			return (0);
+		j++;
 	}
 	return (1);
 }
@@ -39,19 +41,19 @@ int	loop_through_map(t_parsing *parsing, t_parsing_content *map_content,
 	int	width;
 
 	i = parsing->map_start;
-	k = -1;
+	k = 0;
 	map_content->enemies = 0;
 	map_content->npcs = 0;
-	while (parsing->file_content[++i] && i <= parsing->map_end)
+	while (parsing->file_content[i] && i < parsing->map_end)
 	{
-		parsing->map[++k] = parsing->file_content[i];
-		width = ft_strlen(parsing->file_content[i]);
+		parsing->map[k++] = parsing->file_content[i];
+		width = ft_strlen(parsing->file_content[i]) - 1;
 		if (width > parsing->map_width)
 			parsing->map_width = width;
 		if (!loop_through_line(i, map_content, parsing, game))
 			return (0);
+		i++;
 	}
-	parsing->map[++k] = NULL;
 	return (1);
 }
 
@@ -78,7 +80,6 @@ void	find_height(int *start, int *end, t_parsing *parsing)
 	while (parsing->file_content[i])
 	{
 		line = parsing->file_content[i];
-		printf("%s\n", line);
 		if (!is_str_empty(line))
 			break ;
 		i++;
@@ -87,7 +88,6 @@ void	find_height(int *start, int *end, t_parsing *parsing)
 	while (parsing->file_content[i])
 	{
 		line = parsing->file_content[i];
-		printf("%s\n", line);
 		if (is_str_empty(line))
 			break ;
 		i++;
@@ -103,11 +103,9 @@ int	check_tiles_and_borders(t_parsing *parsing, t_game *game)
 	game->parsing.map_width = 0;
 	find_height(&parsing->map_start, &parsing->map_end, parsing);
 	parsing->map_height = parsing->map_end - parsing->map_start;
-	parsing->map_start -= 1;
 	if (parsing->map_height <= 0)
 		return (0);
-	printf("MAP SIZE : %d\n", parsing->map_height);
-	parsing->map = malloc(sizeof(char *) * (parsing->map_height + 1));
+	parsing->map = ft_calloc(parsing->map_height + 1, sizeof(char *));
 	if (!parsing->map)
 		return (0);
 	if (!loop_through_map(parsing, &map_content, game))
@@ -117,5 +115,6 @@ int	check_tiles_and_borders(t_parsing *parsing, t_game *game)
 		printf("%d\n", map_content.player);
 		return (0);
 	}
+	printf(PARSING_MAP_MESSAGE, parsing->map_width, parsing->map_height);
 	return (1);
 }

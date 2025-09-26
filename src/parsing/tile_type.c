@@ -6,33 +6,25 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:55:18 by halnuma           #+#    #+#             */
-/*   Updated: 2025/07/21 20:57:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:41:42 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	player_tile(char c)
+int	is_player_tile(char c)
 {
-	if (c != 'N' && c != 'S' && c != 'E' && c != 'W')
-		return (0);
-	return (1);
+	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-int	center_tile(char c)
+int	is_center_tile(char c)
 {
-	if (c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W' && \
-		c != 'M' && c != 'P')
-		return (0);
-	return (1);
+	return (check_tile_validity(c) && !is_wrapping_tile(c));
 }
 
-int	wrapping_tile(char c)
+int	is_wrapping_tile(char c)
 {
-	if (c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W' && \
-		c != '1' && c != '2' && c != 'P')
-		return (0);
-	return (1);
+	return (c == '1');
 }
 
 int	check_tile_validity(char c)

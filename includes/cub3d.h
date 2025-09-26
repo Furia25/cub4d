@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 17:27:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:57:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@
 # define SEED_SYSTEM_RAND_FILE	"/dev/urandom"
 # define SEED_FALLBACK_DEFAULT	0xCACA
 # define SEED_MESSAGE	"INFO : Seed have been initialized to %016lx\n"
+
+# define PARSING_MAP_MESSAGE "INFO : Map size parsed to %dx%d\n"
 
 # define WARNING_TEXTURE	"WARNING : Texture at path\
 \"%s\" can't be opened\n"
@@ -268,13 +270,12 @@ void		rad_to_vect(t_vec2 *direction, float rad);
 // ----- PARSING ----- //
 int			check_colors(t_game *game);
 int			check_paths(t_game *game);
-int			center_tile(char c);
-int			borders_around(char **map, int i, int j);
+int			borders_around(char **map, int i, int j, t_parsing *parsing);
 int			check_borders(char *line, int row, int line_nb);
 int			check_tile_validity(char c);
-int			wrapping_tile(char c);
-int			center_tile(char c);
-int			player_tile(char c);
+int			is_center_tile(char c);
+int			is_wrapping_tile(char c);
+int			is_player_tile(char c);
 int			check_player(t_game *game, int i, int j, int *player);
 int			check_tiles_and_borders(t_parsing *parsing, t_game *game);
 

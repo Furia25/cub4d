@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_characters.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:33:46 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/04 09:48:38 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/09/26 18:29:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 
 int	check_player(t_game *game, int i, int j, int *player)
 {
-	if (player_tile(game->parsing.file_content[i][j]))
+	if (is_player_tile(game->parsing.file_content[i][j]))
 	{
 		if (*player)
 			return (0);
