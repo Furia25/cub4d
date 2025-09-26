@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 17:36:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 03:55:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_TEST_UP] = XK_Up,
 [KEY_INTERACT] = XK_e,
 [KEY_PAUSE] = XK_F1,
-[KEY_ENTER] = XK_Return
+[KEY_ENTER] = XK_Return,
+[KEY_FLEX] = XK_f
 };
 
 const t_rgba8	g_color_text[26] = {

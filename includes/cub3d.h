@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 02:26:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 03:25:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ typedef struct s_hud_cigarette
 {
 	t_sprite			sprite;
 	t_index_animation	anim_start;
+	bool				wait_to_flex;
 	bool				equipped;
 	t_index_animation	*actual_anim;
 	t_index_animation	anim_idle_off;
@@ -221,19 +222,22 @@ typedef struct s_button
 void		throw_error(t_game *game, t_error error);
 
 void		render(t_game *game);
-void		run_game(t_game *game);
+
 int			exit_game(t_game *game);
 int			game_loop(void *param);
+void		init_engine(t_game *game);
 int			init_assets(t_game *game);
 int			init_textures(t_game *game);
-void		init_game_start(t_game *game);
 void		init_water(t_tile_animation *water_anim, t_game *game);
+void		init_hooks(t_game *game);
+void		init_game(t_game *game);
 
 void		color_texture(t_png *tex, t_rgba8 tint);
+
 uint64_t	get_time_ms(void);
 uint64_t	get_elapsed_ms(void);
+uint64_t	get_fps(uint64_t start_time);
 uint64_t	time_init(void);
-void		init_hooks(t_game *game);
 
 // ----- KEYS ----- //
 void		show_keys(t_game *game);

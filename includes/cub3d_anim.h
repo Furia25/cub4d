@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 00:24:17 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 02:14:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 03:32:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ t_index_animation	anim_index_init(size_t start_index, size_t end_index,
 void				anim_tile_update(t_tile_animation *anim, t_game *game);
 void				anim_index_update(t_index_animation *anim);
 bool				anim_index_is_ended(t_index_animation *anim);
+void				anim_index_reset(t_index_animation *anim);
 
 #endif

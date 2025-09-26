@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/25 19:37:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 03:54:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_key_type
 	KEY_INTERACT,
 	KEY_ENTER,
 	KEY_PAUSE,
+	KEY_FLEX,
 	KEY_MAX_COUNT
 }	t_key_type;
 

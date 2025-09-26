@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 02:28:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:36:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,15 @@ static inline void	spawn_test_entities(t_game *game)
 }
 //TEMP
 
-void	init_game_start(t_game *game)
+void	init_game(t_game *game)
 {
 	game->start_time = time_init();
 	init_player(&game->player);
 	spawn_test_entities(game);
+	game->hud_cigarette.actual_anim = &game->hud_cigarette.anim_start;
 }
 
-void	run_game(t_game *game)
+void	init_engine(t_game *game)
 {
 	game->win.width = WINDOW_WIDTH;
 	game->win.height = WINDOW_HEIGHT;

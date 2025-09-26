@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/25 18:54:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 03:11:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,12 @@ void	draw_empty_tiles(t_tile_context *tile, int limit, t_ivec2 map_pos)
 
 void	draw_plain_tiles(t_tile_context *tile, t_ivec2 map_pos)
 {
-	while (tile->line[tile->tile]
-		&& tile->tile < (int)tile->game->player.position.x + 9)
+	int	length;
+
+	if (!tile || !tile->line)
+		return ;
+	length = ft_strlen(tile->line);
+	while (tile->tile < length && tile->tile < (int)tile->game->player.position.x + 9 && tile->line[tile->tile])
 	{
 		if (tile->line[tile->tile] == ' '
 			|| tile->line[tile->tile] == '\n'
@@ -66,7 +70,7 @@ void	draw_line(char *line, t_game *game, double pos_y, t_ivec2 map_pos)
 	tile_info = (t_tile_context){game, line, tile, pos_x, pos_y, off_x, off_y};
 	if (!line)
 	{
-		draw_empty_tiles(&tile_info, \
+		draw_empty_tiles(&tile_info,
 			(int)tile_info.game->player.position.x + 9, map_pos);
 		return ;
 	}

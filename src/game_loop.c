@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 02:28:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 03:55:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "cub3d_entities.h"
 #include "glyphs.h"
 
-uint64_t	get_fps(uint64_t start_time);
+static inline void	hud_cigarette_animator(t_hud_cigarette *hud_cigarette,
+						t_game *game);
 
 static inline void	play_loop(t_game *game, t_img_data *frame, uint64_t time)
 {
@@ -26,9 +27,9 @@ static inline void	play_loop(t_game *game, t_img_data *frame, uint64_t time)
 	entities_tick(game);
 	anim_tile_update(&game->water_anim, game);
 	update_player(&game->player, game);
+	hud_cigarette_animator(&game->hud_cigarette, game);
 	ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
 	render(game);
-	anim_index_update(&game->hud_cigarette.anim_idle_on);
 	fps = get_fps(time);
 	if (fps != 0)
 		printf("FPS : %lu TIME S :%ld\n", fps, get_elapsed_ms() / 1000);
@@ -52,10 +53,33 @@ int	game_loop(void *param)
 		if (game->state == STATE_MENU || game->state == STATE_PAUSED)
 			render_menu(game, game->state == STATE_MENU);
 		else
-		{
 			play_loop(game, frame, time);
-		}
 		mlx_put_image_to_window(game->mlx, game->win.ptr, frame->img_ptr, -2, -2);
 	}
 	return (1);
+}
+
+static inline void	hud_cigarette_animator(t_hud_cigarette *cig,
+						t_game *game)
+{
+	anim_index_update(cig->actual_anim);
+	cig->sprite.transform.index = cig->actual_anim->actual_index;
+	if (anim_index_is_ended(&cig->anim_start) && anim_index_is_ended(&cig->anim_flex))
+	{
+		if (cig->equipped)
+			cig->actual_anim = &cig->anim_idle_on;
+		else
+			cig->actual_anim = &cig->anim_idle_off;
+	}
+	if (key_is_released(KEY_FLEX, game)
+		&& (anim_index_is_ended(cig->actual_anim)
+		|| cig->actual_anim == &cig->anim_idle_off
+		|| cig->actual_anim == &cig->anim_idle_on))
+	{
+		cig->wait_to_flex = false;
+		cig->equipped = !cig->equipped;
+		cig->actual_anim = &cig->anim_flex;
+		cig->actual_anim->anim_dir = 1 - (2.5 * !cig->equipped);
+		anim_index_reset(cig->actual_anim);
+	}
 }

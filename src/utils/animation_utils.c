@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:41:10 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 02:14:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 03:47:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,22 @@ t_index_animation	anim_index_init(size_t start_index, size_t end_index,
 
 void	anim_index_update(t_index_animation *anim)
 {
-	if (!anim->repeating && anim->actual_index >= anim->end_index)
+	if (!anim->repeating && anim_index_is_ended(anim))
 		return ;
-	anim->actual_index += anim->time_per_frame * anim->anim_dir;
-	if (anim->repeating)
+	if (anim->reversing)
 	{
-		if (anim->reversing)
+		if (anim->actual_index >= anim->end_index)
 		{
-			if (anim->actual_index >= anim->end_index)
-			{
-				anim->actual_index = anim->end_index;
-				anim->anim_dir = -1;
-			}
-			else if (anim->actual_index <= anim->start_index)
-			{
-				anim->actual_index = anim->start_index;
-				anim->anim_dir = 1;
-			}
+			anim->actual_index = anim->end_index;
+			anim->anim_dir = -1;
 		}
-		else
-			anim->actual_index = anim->start_index + fmodf(anim->actual_index
-				- anim->start_index + anim->time_per_frame, anim->end_index - anim->start_index);
+		else if (anim->actual_index <= anim->start_index)
+		{
+			anim->actual_index = anim->start_index;
+			anim->anim_dir = 1;
+		}
 	}
-	else if (anim->actual_index > anim->end_index)
-		anim->actual_index = anim->end_index;
+	anim->actual_index += anim->time_per_frame * anim->anim_dir;
 }
 
 bool	anim_index_is_ended(t_index_animation *anim)
@@ -68,4 +60,12 @@ bool	anim_index_is_ended(t_index_animation *anim)
 		return (anim->actual_index >= anim->end_index);
 	else
 		return (anim->actual_index <= anim->start_index);
+}
+
+void	anim_index_reset(t_index_animation *anim)
+{
+	if (anim->anim_dir >= 0)
+		anim->actual_index = anim->start_index;
+	else
+		anim->actual_index = anim->end_index;
 }

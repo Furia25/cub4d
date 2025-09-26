@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 02:26:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:34:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	handle_input(t_game *game, int start)
 		if (game->menu.action == 0)
 		{
 			if (start)
-				init_game_start(game);
+				init_game(game);
 			game->state = STATE_PLAYING;
 		}
 		if (game->menu.action == 2)
@@ -80,15 +80,16 @@ void	render_menu(t_game *game, int start)
 	background.width = background.asset->header.width;
 	background.height = background.asset->header.height;
 	background.spr_per_line = 1;
-	draw_spr_sheet(
-		(t_draw_transform){0, 0, game->frame->width, game->frame->height, g_colors[C_WHITE]},
-		0, &background, game->frame);
+	draw_spr_sheet((t_draw_transform){0, 0, game->frame->width,
+		game->frame->height, g_colors[C_WHITE]}, 0, &background, game->frame);
 	if (start)
-		handle_menu_options(game, true, game->win.width * 0.43, game->win.halfheight);
+		handle_menu_options(game, true,
+			game->win.width * 0.43, game->win.halfheight);
 	else
 	{
 		draw_full_map(game);
-		handle_menu_options(game, false, game->win.halfwidth, game->win.halfheight);
+		handle_menu_options(game, false, game->win.halfwidth,
+			game->win.halfheight);
 	}
 	handle_input(game, start);
 }

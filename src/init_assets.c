@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 02:22:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 03:56:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ void	init_hud(t_game *game)
 	spr->transform.scale = 1;
 	spr->transform.y = game->win.height - spr->transform.height;
 	spr->transform.color = g_colors[C_WHITE];
+	spr->transform.index = 0;
 	hud_cigarette->equipped = false;
-	hud_cigarette->anim_start = anim_index_init(0, 56, 0.5, false);
-	hud_cigarette->anim_idle_off = anim_index_init(55, 59, 0.5, true);
-	hud_cigarette->anim_flex = anim_index_init(59, 138, 0.5, false);
-	hud_cigarette->anim_idle_on = anim_index_init(139, 149, 0.5, true);
+	hud_cigarette->anim_start = anim_index_init(0, 56, 1, false);
+	hud_cigarette->anim_flex = anim_index_init(59, 138, 1, false);
+	hud_cigarette->anim_idle_on = anim_index_init(138, 149, 0.8, true);
+	hud_cigarette->anim_idle_off = anim_index_init(57, 59, 0.1, true);
 	hud_cigarette->anim_idle_on.reversing = true;
 	hud_cigarette->anim_idle_off.reversing = true;
 }

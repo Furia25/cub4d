@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/25 19:33:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 03:18:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	draw_tiles(t_game *game, int pos_x, int pos_y, t_rgba8 color)
 		j = 0;
 		while (j < tile_size)
 		{
-			draw_pixel(color, (pos_x * tile_size + i), \
-			(pos_y * tile_size + j), game->frame);
+			draw_pixel(color, (pos_x * tile_size + i), 
+				(pos_y * tile_size + j), game->frame);
 			j++;
 		}
 		i++;
@@ -59,26 +59,6 @@ void	draw_lines(char *line, t_game *game, int pos_y)
 	}
 }
 
-void	fm_manage_entities(t_game *game)
-{
-	unsigned int	i;
-	t_vector		*entities;
-	t_entity		*entity;
-	t_vec3			pos;
-
-	i = 0;
-	entities = game->entity_manager.entities;
-	while (i < entities->size)
-	{
-		entity = entities->items[i];
-		if (entity == NULL)
-			break ;
-		pos = entity->position;
-		draw_tiles(game, pos.x, pos.y, entity->transform.color);
-		i++;
-	}
-}
-
 void	draw_full_map(t_game *game)
 {
 	int	line;
@@ -89,7 +69,6 @@ void	draw_full_map(t_game *game)
 		draw_lines(game->parsing.map[line], game, line);
 		line++;
 	}
-	fm_manage_entities(game);
 	draw_tiles(game, game->player.position.x, \
 		game->player.position.y, rgba8(255, 0, 10, 200));
 }

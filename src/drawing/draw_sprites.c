@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:39:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 01:19:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 02:54:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,16 @@ static inline void	init_draw(t_transform *tform, t_sprite_sheet *spr,
 	uv_start->x = (tform->index % spr->spr_per_line) * spr->width;
 	uv_start->y = (tform->index / spr->spr_per_line) * spr->height;
 	if ((uint32_t)uv_start->x >= spr->asset->header.width
-		|| (uint32_t)uv_start->y >= spr->asset->header.height)
+		|| (uint32_t)uv_start->y >= spr->asset->header.height
+		|| spr->width > spr->asset->header.width
+		|| spr->height > spr->asset->header.height)
 	{
 		uv_start->x = 0;
 		uv_start->y = 0;
 		tform->index = 0;
+		spr->width = spr->asset->header.width;
+		spr->height = spr->asset->header.height;
+		*step = (t_vec2){0, 0};
 	}
 }
 
