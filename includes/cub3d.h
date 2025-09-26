@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 03:25:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 17:27:32 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@
 
 # define PLAYER_SIZE		0.25
 
-# define MAX_ENEMIES		100
-# define MAX_PNJ			10
 # define TEXT_MAX_SIZE		1000
 
 # define S_BUTTON_INTERACT	100
 # define S_BUTTON_OUTL		4
 # define INTERACTION_RANGE	2
+
+# define PARSING_MAP_START	8
 
 # define SEED_SYSTEM_RAND_FILE	"/dev/urandom"
 # define SEED_FALLBACK_DEFAULT	0xCACA
@@ -140,13 +140,16 @@ typedef struct s_entity_manager
 
 typedef struct s_parsing
 {
+	int				file_fd;
 	int				map_width;
 	int				map_height;
+	int				map_start;
+	int				map_end;
+	int				file_length;
 	char			**file_content;
 	char			**map;
 	char			**paths;
 	char			**colors;
-	char			**npc_text;
 	t_rgba8			f_color;
 	t_rgba8			c_color;
 	t_rgba8			fog_color;
@@ -249,16 +252,15 @@ bool		key_is_pressed(t_key_type type, t_game *game);
 
 // ----- MAP_UTILS ----- //
 int			check_file_extension(char *filename);
-char		**read_map(char *map_file, t_game *game);
 void		parsing(t_game *game, char *map_file);
 void		free_map(char **map);
 
 // ----- UTILS ----- //
 int			check_file_extension(char *filename);
-char		**read_map(char *map_file, t_game *game);
 void		parsing(t_game *game, char *map_file);
 void		free_map(char **map);
 bool		is_file_valid(char *path);
+int			file_length(char *file);
 t_vec3		bbox_get_center(t_bbox bbox);
 uint64_t	get_seed(void);
 void		rad_to_vect(t_vec2 *direction, float rad);
@@ -274,7 +276,7 @@ int			wrapping_tile(char c);
 int			center_tile(char c);
 int			player_tile(char c);
 int			check_player(t_game *game, int i, int j, int *player);
-int			check_tiles_and_borders(t_game *game);
+int			check_tiles_and_borders(t_parsing *parsing, t_game *game);
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game, t_ivec2 map_pos);

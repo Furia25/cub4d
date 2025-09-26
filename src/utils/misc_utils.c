@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/25 19:41:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 16:37:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,33 @@ bool	is_file_valid(char *path)
 		return (false);
 	close(temp_fd);
 	return (true);
+}
+
+int	file_length(char *file)
+{
+	int				fd;
+	int				length;
+	t_gnl_result	line;
+
+	length = 0;
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	line = get_next_line(fd);
+	while (!line.error)
+	{
+		length++;
+		if (line.ended)
+			break;
+		free(line.line);
+		line = get_next_line(fd);
+	}
+	free(line.line);
+	close(fd);
+	if (line.error)
+		return (-1);
+	else
+		return (length);
 }
 
 uint64_t	get_seed(void)

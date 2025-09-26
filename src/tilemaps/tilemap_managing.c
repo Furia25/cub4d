@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 19:03:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 20:26:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 16:30:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_tilemap	*tilemap_new(size_t width, size_t height, size_t tile_size)
 
 void	tilemap_free(t_tilemap *map)
 {
+	if (!map)
+		return ;
 	tilemap_free_tiles(map);
 	free(map->tiles);
 	free(map);

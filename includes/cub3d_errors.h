@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/21 01:31:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 16:09:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 
 typedef enum e_error
 {
+	ERROR_ALLOC,
+	ERROR_PARSING,
+	ERROR_PARSING_IO,
+	ERROR_PARSING_VALIDITY,
 	ERROR_LOADING_ASSETS,
 	ERROR_LOADING_GRAPHICS,
 	ERROR_LOADING,

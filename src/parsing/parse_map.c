@@ -3,71 +3,114 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 14:34:48 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/04 09:47:38 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/09/26 17:28:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	loop_through_line(t_game *game, t_parsing_content *map_content, int i)
+int	loop_through_line(int i, t_parsing_content *map_content,
+		t_parsing *parsing, t_game *game)
 {
 	int	j;
 
 	j = -1;
-	while (game->parsing.file_content[i][++j])
+	while (parsing->file_content[i][++j])
 	{
-		if (!check_tile_validity(game->parsing.file_content[i][j]))
+		if (!check_tile_validity(parsing->file_content[i][j]))
 			return (0);
-		if (center_tile(game->parsing.file_content[i][j]) && \
-		!borders_around(game->parsing.file_content, i, j))
+		if (center_tile(parsing->file_content[i][j]) && \
+		!borders_around(parsing->file_content, i, j))
 			return (0);
 		if (!check_player(game, i, j, &map_content->player))
 			return (0);
-		// if (!check_enemies(game, i, j, &map_content->enemies))
-		// 	return (0);
-		//if (!check_npcs(game, i, j, &map_content->npcs))
-		//	return (0);
 	}
 	return (1);
 }
 
-int	loop_through_map(t_game *game, t_parsing_content *map_content)
+int	loop_through_map(t_parsing *parsing, t_parsing_content *map_content,
+		t_game *game)
 {
 	int	i;
 	int	k;
 	int	width;
 
-	i = 7;
+	i = parsing->map_start;
 	k = -1;
 	map_content->enemies = 0;
 	map_content->npcs = 0;
-	while (game->parsing.file_content[++i])
+	while (parsing->file_content[++i] && i <= parsing->map_end)
 	{
-		game->parsing.map[++k] = game->parsing.file_content[i];
-		width = ft_strlen(game->parsing.file_content[i]);
-		if (width > game->parsing.map_width)
-			game->parsing.map_width = width;
-		if (!loop_through_line(game, map_content, i))
+		parsing->map[++k] = parsing->file_content[i];
+		width = ft_strlen(parsing->file_content[i]);
+		if (width > parsing->map_width)
+			parsing->map_width = width;
+		if (!loop_through_line(i, map_content, parsing, game))
 			return (0);
 	}
-	game->parsing.map[++k] = NULL;
+	parsing->map[++k] = NULL;
 	return (1);
 }
 
-int	check_tiles_and_borders(t_game *game)
+/*Find height from newline*/
+
+bool	is_str_empty(char *str)
+{
+	while (str && *str)
+	{
+		if (!ft_isspace(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}
+
+void	find_height(int *start, int *end, t_parsing *parsing)
+{
+	char	*line;
+	int		i;
+
+	i = PARSING_MAP_START;
+	*end = parsing->file_length;
+	while (parsing->file_content[i])
+	{
+		line = parsing->file_content[i];
+		printf("%s\n", line);
+		if (!is_str_empty(line))
+			break ;
+		i++;
+	}
+	*start = i;
+	while (parsing->file_content[i])
+	{
+		line = parsing->file_content[i];
+		printf("%s\n", line);
+		if (is_str_empty(line))
+			break ;
+		i++;
+	}
+	*end = i;
+}
+
+int	check_tiles_and_borders(t_parsing *parsing, t_game *game)
 {
 	t_parsing_content	map_content;
 
 	map_content.player = 0;
 	game->parsing.map_width = 0;
-	game->parsing.map = (char **)malloc(sizeof(char *) * ((game->parsing.map_height -7) + 1));
-	game->parsing.map_height -= 7;
-	if (!game->parsing.map)
+	find_height(&parsing->map_start, &parsing->map_end, parsing);
+	parsing->map_height = parsing->map_end - parsing->map_start;
+	parsing->map_start -= 1;
+	if (parsing->map_height <= 0)
 		return (0);
-	if (!loop_through_map(game, &map_content))
+	printf("MAP SIZE : %d\n", parsing->map_height);
+	parsing->map = malloc(sizeof(char *) * (parsing->map_height + 1));
+	if (!parsing->map)
+		return (0);
+	if (!loop_through_map(parsing, &map_content, game))
 		return (0);
 	if (!map_content.player)
 	{
