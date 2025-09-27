@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 16:09:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 02:16:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,14 @@ typedef enum e_error
 {
 	ERROR_ALLOC,
 	ERROR_PARSING,
+	ERROR_PARSING_ALLOC,
 	ERROR_PARSING_IO,
 	ERROR_PARSING_VALIDITY,
+	ERROR_PARSING_NL_MAP,
+	ERROR_PARSING_PLAYER,
+	ERROR_PARSING_PROPERTY,
+	ERROR_PARSING_UNCLOSED,
+	ERROR_PARSING_SYMBOL,
 	ERROR_LOADING_ASSETS,
 	ERROR_LOADING_GRAPHICS,
 	ERROR_LOADING,
@@ -28,6 +34,7 @@ typedef enum e_error
 	ERROR_ENTITIES_ALLOC,
 	ERROR_ENTITIES_MISC,
 	ERROR_ENTITIES_INVALID,
+	ERROR_WTF,
 	ERROR_MAX
 }	t_error;
 

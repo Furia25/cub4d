@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 16:53:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 02:29:32 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,18 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_WATER19] = "assets/textures/tiles/water/water19.png"
 };
 
+const char *g_property_token[PROP_UNKNOWN] = {
+[PROP_NO] = "NO",
+[PROP_SO] = "SO",
+[PROP_WE] = "WE",
+[PROP_EA] = "EA",
+[PROP_F] = "F",
+[PROP_C] = "C",
+[PROP_A] = "A",
+[PROP_ENTITY] = "ENTITY",
+[PROP_HEIGHT] = "HEIGHT"
+};
+
 const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_QUIT] = XK_Escape,
 [KEY_TEST] = XK_r,
@@ -67,35 +79,6 @@ const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_PAUSE] = XK_F1,
 [KEY_ENTER] = XK_Return,
 [KEY_FLEX] = XK_f
-};
-
-const t_rgba8	g_color_text[26] = {
-{{.r = 0, .g = 0, .b = 0, .a = 255}},
-{{.r = 255, .g = 255, .b = 255, .a = 255}},
-{{.r = 255, .g = 0, .b = 0, .a = 255}},
-{{.r = 0, .g = 255, .b = 0, .a = 255}},	
-{{.r = 0, .g = 0, .b = 255, .a = 255}},
-{{.r = 0, .g = 255, .b = 255, .a = 255}},
-{{.r = 255, .g = 255, .b = 0, .a = 255}},
-{{.r = 255, .g = 0, .b = 255, .a = 255}},
-{{.r = 255, .g = 165, .b = 0, .a = 255}},
-{{.r = 128, .g = 0, .b = 128, .a = 255}},
-{{.r = 255, .g = 192, .b = 203, .a = 255}},
-{{.r = 165, .g = 42, .b = 42, .a = 255}},
-{{.r = 128, .g = 128, .b = 128, .a = 255}},
-{{.r = 211, .g = 211, .b = 211, .a = 255}},
-{{.r = 169, .g = 169, .b = 169, .a = 255}},
-{{.r = 0, .g = 0, .b = 128, .a = 255}},
-{{.r = 128, .g = 128, .b = 0, .a = 255}},
-{{.r = 0, .g = 255, .b = 0, .a = 255}},
-{{.r = 0, .g = 128, .b = 128, .a = 255}},
-{{.r = 0, .g = 255, .b = 255, .a = 255}},
-{{.r = 128, .g = 0, .b = 0, .a = 255}},
-{{.r = 192, .g = 192, .b = 192, .a = 255}},
-{{.r = 255, .g = 215, .b = 0, .a = 255}},
-{{.r = 255, .g = 127, .b = 80, .a = 255}},
-{{.r = 250, .g = 128, .b = 114, .a = 255}},
-{{.r = 210, .g = 105, .b = 30, .a = 255}}
 };
 
 /*[TYPE] = 

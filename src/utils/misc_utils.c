@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 16:37:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 00:02:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	file_length(char *file)
 	length = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (-1);
+		return (-2);
 	line = get_next_line(fd);
 	while (!line.error)
 	{

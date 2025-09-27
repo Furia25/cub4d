@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 16:27:00 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 02:17:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,24 @@ static const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING] = "Unable to continue the map parsing.",
 [ERROR_PARSING_IO] = "Unable to open/read the map file.",
 [ERROR_PARSING_VALIDITY] = "Map couldn't be used, verify integrity.",
+[ERROR_PARSING_NL_MAP] = "Unexpected new line in tilemap.",
+[ERROR_PARSING_ALLOC] = "Couldn't allocate enough memory when parsing.",
+[ERROR_PARSING_PLAYER] = "Map must contain exactly one player spawn point.",
+[ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
 [ERROR_LOADING_ASSETS] = "Couldn't load assets.",
 [ERROR_LOADING_GRAPHICS] = "Couldn't load textures.",
 [ERROR_LOADING] = "Initilization of the game failed.",
 [ERROR_WINDOW] = "Unable to create Window and/or Framebuffers.",
 [ERROR_ENTITIES_ALLOC] = "Entities Manager caused a memory allocation error.",
 [ERROR_ENTITIES_MISC] = "Unexpected entity manager error.",
-[ERROR_ENTITIES_INVALID] = "Entity Manager couldn't resolve unknown entity."
+[ERROR_ENTITIES_INVALID] = "Entity Manager couldn't resolve unknown entity.",
+[ERROR_WTF] = "You are cooked, I don't even know how it's possible."
 };
 
 void	throw_error(t_game *game, t_error error)
 {
-	ft_putstr_fd(GAME_NAME, 2);
-	ft_putstr_fd(" : ", 2);
+	ft_putstr_fd("Error", 2);
+	ft_putstr_fd(": ", 2);
 	if (error < ERROR_MAX)
 		ft_putstr_fd((char *)g_errors[error], 2);
 	else
@@ -52,7 +57,7 @@ int	exit_game(t_game *game)
 	free(game->parsing.paths);
 	free(game->parsing.colors);
 	free(game->parsing.map);
-	free_map(game->parsing.file_content);
+	free_chartab(game->parsing.file_content);
 	if (game->win.ptr)
 		mlx_destroy_window(game->mlx, game->win.ptr);
 	if (game->frame)
