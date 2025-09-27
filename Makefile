@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/26 02:53:50 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/27 16:06:22 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,16 +72,15 @@ SRC_FILES = \
 	minimap/minimap_drawing.c \
 	minimap/minimap_logic.c \
 	minimap/full_map.c \
+	parsing/interpret.c \
+	parsing/map_parsing.c \
+	parsing/parsing_utils.c \
 	parsing/parsing.c \
-	parsing/borders.c \
-	parsing/tile_type.c \
-	parsing/parse_map.c \
-	parsing/check_characters.c \
-	parsing/check_colors.c \
-	parsing/check_paths.c \
+	parsing/properties_utils.c \
+	parsing/properties.c \
+	parsing/tiles_symbols.c \
 	utils/animation_utils.c \
 	utils/misc_utils.c \
-	utils/map_utils.c \
 	utils/move_utils.c \
 	utils/time_utils.c \
 	utils/vector_managing.c \

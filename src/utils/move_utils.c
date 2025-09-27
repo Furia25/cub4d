@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/27 02:04:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:06:41 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	player_add_z(float value, t_player *player)
 
 int	check_player(t_game *game, int i, int j, int *player)
 {
-	if (is_player_tile(game->parsing.file_content[i][j]))
+	if (is_symbol_player(game->parsing.file_content[i][j]))
 	{
 		if (*player)
 			return (0);

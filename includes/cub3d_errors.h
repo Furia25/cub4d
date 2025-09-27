@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 02:16:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:40:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef enum e_error
 	ERROR_PARSING_NL_MAP,
 	ERROR_PARSING_PLAYER,
 	ERROR_PARSING_PROPERTY,
+	ERROR_PARSING_MISSING_COLOR,
 	ERROR_PARSING_UNCLOSED,
 	ERROR_PARSING_SYMBOL,
 	ERROR_LOADING_ASSETS,

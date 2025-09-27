@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 03:08:30 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 15:59:35 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ static inline void	render_fog(t_render_context *render, t_parsing *parsing)
 		x = 0;
 		while (x < render->render_width)
 		{
-			fog = zbuffer[x + y * render->render_width] * parsing->fog_intensity;
+			fog = zbuffer[x + y * render->render_width]
+				* parsing->ambiant_strength;
 			if (fog > 255)
 				fog = 255;
-			parsing->fog_color.channels.a = fog;
-			draw_pixel(parsing->fog_color, x, y, render->frame);
+			parsing->ambiant_color.channels.a = fog;
+			draw_pixel(parsing->ambiant_color, x, y, render->frame);
 			x++;
 		}
 		y++;

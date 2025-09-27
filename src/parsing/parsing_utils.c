@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:03:47 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 03:04:35 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:03:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,23 @@ void	map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game)
 		throw_error(game, ERROR_WTF);
 }
 
-t_property	property_get_args(char *line, t_property_type type, t_game *game)
+void	str_remove_chars(char *str, char *set)
 {
-	t_property	result;
-	size_t		index;
-	size_t		length;
-	char		*temp;
+	int	i;
+	int	j;
 
-	length = ft_strlen(line);
-	if (length == 0)
-		throw_error(game, ERROR_WTF);
-	index = ft_strlen(g_property_token[type]);
-	if (line[index])
-		throw_error(game, ERROR_PARSING_PROPERTY);
-	temp = line + index;
-	/*TU EN ETAIS LA*/
-	result.argc = count_words(temp, ',');
-	result.argv = ft_split(temp, ',');
-	if (!result.argv)
-		throw_error(game, ERROR_PARSING_ALLOC);
-	return (result);
+	i = 0;
+	j = 0;
+	if (!str || !set)
+		return ;
+	while (str && str[i])
+	{
+		if (ft_strchr(set, str[i]) == NULL)
+		{
+			str[j] = str[i];
+			j++;
+		}	
+		i++;
+	}
+	str[j] = '\0';
 }

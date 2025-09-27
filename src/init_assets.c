@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 03:56:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:07:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	init_assets(t_game *game)
 		throw_error(game, ERROR_LOADING_ASSETS);
 	init_water(&game->water_anim, game);
 	if (game->textures[TEXTURE_GRASS] != game->textures[TEXTURE_ERROR])
-		color_texture(game->textures[TEXTURE_GRASS], game->parsing.f_color);
+		color_texture(game->textures[TEXTURE_GRASS], game->parsing.floor_color);
 	init_hud(game);
 	return (1);
 }
@@ -73,7 +73,7 @@ int	init_textures(t_game *game)
 		{
 			parsed_index = ft_atoi(path);
 			if (parsed_index != 0)
-				path = game->parsing.paths[parsed_index - 1];
+				path = game->parsing.textures_paths[parsed_index - 1];
 			errno = 0;
 			if (path != NULL)
 				game->textures[index] = png_open(path);

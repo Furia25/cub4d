@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 02:51:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:42:26 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,38 +51,46 @@ typedef struct s_parsing
 	int				map_start;
 	int				map_end;
 	bool			has_player;
+	t_rgba8			ambiant_color;
+	uint8_t			ambiant_strength;
+	t_rgba8			floor_color;
+	t_rgba8			ceil_color;
+	bool			has_ceil;
+	bool			has_floor;
 }	t_parsing;
 
 extern const char *g_property_token[PROP_UNKNOWN];
 
 /*Parsing*/
-void	parsing(char *file_name, t_game *game);
-int		check_file_extension(char *filename);
-void	try_parse_map(int index, t_parsing *parsing, t_game *game);
+void		parsing(char *file_name, t_game *game);
+int			check_file_extension(char *filename);
+void		try_parse_map(int index, t_parsing *parsing, t_game *game);
 
 /*Interpret*/
-void	interpret_map_from_file(t_parsing *parsing, t_game *game);
+void		interpret_map_from_file(t_parsing *parsing, t_game *game);
 
 /*Parsing Properties*/
-size_t	property_token_length(t_property_type type);
+t_property	property_get_args(char *line, t_property_type type, t_game *game);
+bool		property_check_color(t_property prop);
 
-void	parse_property_height(char *line, t_property_type type,
-			t_parsing *parsing, t_game *game);
-void	parse_property_color(char *line, t_property_type type,
-			t_parsing *parsing, t_game *game);
-void	parse_property_wall(char *line, t_property_type type,
-			t_parsing *parsing, t_game *game);
-void	parse_property_entity(char *line, t_property_type type,
-			t_parsing *parsing, t_game *game);
+void		parse_property_height(char *line, t_property_type type,
+				t_parsing *parsing, t_game *game);
+void		parse_property_color(char *line, t_property_type type,
+				t_parsing *parsing, t_game *game);
+void		parse_property_wall(char *line, t_property_type type,
+				t_parsing *parsing, t_game *game);
+void		parse_property_entity(char *line, t_property_type type,
+				t_parsing *parsing, t_game *game);
 
 /*Tile Symbols*/
-bool	is_symbol_player(char c);
-bool	is_symbol_border(char c);
-bool	is_symbol_central(char c);
-bool	is_symbol_valid(char c);
+bool		is_symbol_player(char c);
+bool		is_symbol_border(char c);
+bool		is_symbol_central(char c);
+bool		is_symbol_valid(char c);
 
 /*Utils*/
-bool	is_str_empty(char *str);
-void	map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game);
+void		str_remove_chars(char *str, char *set);
+bool		is_str_empty(char *str);
+void		map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game);
 
 #endif

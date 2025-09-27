@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 18:40:31 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:00:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	draw_plain_tiles(t_tile_context *tile, t_ivec2 map_pos)
 			|| tile->line[tile->tile] == '\n'
 			|| tile->tile > (int)ft_strlen(tile->line))
 			draw_tile(tile, rgba8(0, 0, 0, 200), 0, map_pos);
-		else if (is_center_tile(tile->line[tile->tile]))
+		else if (is_symbol_central(tile->line[tile->tile]))
 			draw_tile(tile, rgba8(255, 150, 100, 200), 0, map_pos);
 		else if (tile->line[tile->tile] == '1')
 			draw_tile(tile, rgba8(200, 10, 40, 200), 0, map_pos);

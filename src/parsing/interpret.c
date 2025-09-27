@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:06:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 02:28:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:42:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,13 @@ static inline void	parse_property(char *line, t_property_type type,
 			|| type == PROP_WE)
 		parse_property_wall(line, type, parsing, game);
 	if (type == PROP_A || type == PROP_C || type == PROP_F)
+	{
+		if (type == PROP_C)
+			parsing->has_ceil = true;
+		else if (type == PROP_F)
+			parsing->has_floor = true;
 		parse_property_color(line, type, parsing, game);
+	}
 	if (type == PROP_ENTITY)
 		parse_property_entity(line, type, parsing, game);
 	if (type == PROP_HEIGHT)

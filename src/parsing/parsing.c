@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 03:00:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:40:50 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	parsing(char *file_name, t_game *game)
 	close(parsing->file_fd);
 	parsing->file_fd = -1;
 	interpret_map_from_file(parsing, game);
+	if (!parsing->has_ceil || !parsing->has_floor)
+		throw_error(game, ERROR_PARSING_MISSING_COLOR);
+	game->tilemap = tilemap_from_tab(game->parsing.map,
+		game->parsing.map_width, game->parsing.map_height, 1);
 }
 
 static inline void	read_file(t_parsing *parsing, t_game *game)

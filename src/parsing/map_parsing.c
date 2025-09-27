@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:02:07 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 02:24:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:08:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static inline void	parse_map_from_file(t_parsing *parsing, t_game *game)
 	int		y;
 	int		map_y;
 	char	*line;
-	size_t	width;
+	int		width;
 
 	y = parsing->map_start;
 	map_y = 0;
@@ -79,7 +79,7 @@ static inline void	parse_map_line(char *line, int y,
 		if (!is_symbol_valid(line[x]))
 			throw_error(game, ERROR_PARSING_SYMBOL);
 		if (line[x] == '\n')
-			line[x] == ' ';
+			line[x] = ' ';
 		if (is_symbol_player(line[x]))
 			map_set_player_pos(x, y, parsing, game);
 		if (is_symbol_central(line[x])
@@ -92,11 +92,9 @@ static inline void	parse_map_line(char *line, int y,
 static inline bool	check_tile_border(int x, int y,
 						char **map, t_parsing *parsing)
 {
-	int		relative_y;
-
-	relative_y = y - parsing->map_start - 1;
-	printf("%c : %d\n", map[y][x], relative_y);
-	/*if (relative_y <= parsing->map_height && !is_valid_tile(map[y + 1][x]))
-		return (0);*/
+	(void)x;
+	(void)y;
+	(void)map;
+	(void)parsing;
 	return (1);
 }

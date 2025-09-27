@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:56:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 02:43:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:31:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,46 @@
 void	parse_property_height(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	
+	(void)line;
+	(void)type;
+	(void)parsing;
+	(void)game;
 }
 
 void	parse_property_color(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	size_t	index;
+	t_property	prop;
+	t_rgba8		*color;
 
-	index = 0;
+	prop = property_get_args(line, type, game);
+	if (prop.argc < 3 || (prop.argc < 4 && type == PROP_A)
+		|| (prop.argc > 3 && type != PROP_A) || prop.argc > 4
+		|| !property_check_color(prop))
+	{
+		free_chartab(prop.argv);
+		throw_error_info(game, ERROR_PARSING_PROPERTY, line);
+	}
+	if (type == PROP_C)
+		color = &parsing->ceil_color;
+	else if (type == PROP_A)
+		color = &parsing->ambiant_color;
+	else
+		color = &parsing->floor_color;
+	color->channels.r = ft_atoi(prop.argv[0]);
+	color->channels.g = ft_atoi(prop.argv[1]);
+	color->channels.b = ft_atoi(prop.argv[2]);
+	if (type == PROP_A)
+		parsing->ambiant_strength = ft_atoi(prop.argv[3]);
+	free_chartab(prop.argv);
 }
 
 void	parse_property_wall(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	int		cardinal;
-	size_t	index;
-	size_t	length;
+	int			cardinal;
+	t_property	prop;
+	
 
 	if (type == PROP_NO)
 		cardinal = 0;
@@ -41,19 +64,25 @@ void	parse_property_wall(char *line, t_property_type type,
 		cardinal = 2;
 	else if (type == PROP_EA)
 		cardinal = 3;
-	length = ft_strlen(line);
-	if (length == 0)
-		throw_error(game, ERROR_WTF);
-	index = property_token_length(type);
-	while (index < length && line[index] && ft_isspace(line[index]))
-		index++;
-	if (line[length - 1] == '\n')
-		line[length - 1] = '\0';
-	parsing->textures_paths[cardinal] = line + index;
+	else
+		cardinal = 0;
+	prop = property_get_args(line, type, game);
+	if (prop.argc != 1)
+	{
+		free_chartab(prop.argv);
+		throw_error_info(game, ERROR_PARSING_PROPERTY, line);
+	}
+	parsing->textures_paths[cardinal] = ft_strdup(prop.argv[0]);
+	free_chartab(prop.argv);
+	if (!parsing->textures_paths[cardinal])
+		throw_error(game, ERROR_PARSING_ALLOC);
 }
 
 void	parse_property_entity(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	
+	(void)line;
+	(void)type;
+	(void)parsing;
+	(void)game;
 }

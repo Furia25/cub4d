@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/27 03:01:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:40:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_PLAYER] = "Map must contain exactly one player spawn point.",
 [ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
 [ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
+[ERROR_PARSING_MISSING_COLOR] = "Missing property in map: floor and ceiling \
+colors must be defined using the F and C properties.",
 [ERROR_LOADING_ASSETS] = "Couldn't load assets.",
 [ERROR_LOADING_GRAPHICS] = "Couldn't load textures.",
 [ERROR_LOADING] = "Initilization of the game failed.",
@@ -36,12 +38,22 @@ static const char	*g_errors[ERROR_MAX] = {
 
 void	throw_error(t_game *game, t_error error)
 {
+	throw_error_info(game, error, NULL);
+}
+
+void	throw_error_info(t_game *game, t_error error, char *info)
+{
 	ft_putstr_fd("Error", 2);
 	ft_putstr_fd(": ", 2);
 	if (error < ERROR_MAX)
 		ft_putstr_fd((char *)g_errors[error], 2);
 	else
 		ft_putstr_fd(ERROR_BASIC, 2);
+	if (info)
+	{
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(info, 2);
+	}
 	ft_putstr_fd("\n", 2);
 	exit_game(game);
 }
@@ -55,8 +67,6 @@ int	exit_game(t_game *game)
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
 	free(game->sky_buffer);
-	free(game->parsing.paths);
-	free(game->parsing.colors);
 	free(game->parsing.map);
 	free_chartab(game->parsing.file_content);
 	if (game->win.ptr)
@@ -92,5 +102,9 @@ static void	free_textures(t_game *game)
 		index++;
 	}
 	png_close(missing_ptr);
+	free(game->parsing.textures_paths[0]);
+	free(game->parsing.textures_paths[1]);
+	free(game->parsing.textures_paths[2]);
+	free(game->parsing.textures_paths[3]);
 	glyph_end();
 }

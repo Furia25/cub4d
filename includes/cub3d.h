@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/27 02:05:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:30:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 # define SEED_FALLBACK_DEFAULT	0xCACA
 # define SEED_MESSAGE	"INFO : Seed have been initialized to %016lx\n"
 
-# define WARNING_TEXTURE	"WARNING : Texture at path\
+# define WARNING_TEXTURE	"WARNING : Texture at path \
 \"%s\" can't be opened\n"
 # define WARNING_SEED "WARNING: Failed to set seed \
 from random source, using fallback : %016lx\n"
@@ -204,6 +204,7 @@ typedef struct s_button
 }	t_button;
 
 void		throw_error(t_game *game, t_error error);
+void		throw_error_info(t_game *game, t_error error, char *info);
 
 void		render(t_game *game);
 
