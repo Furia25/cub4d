@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 02:35:28 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 02:51:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ typedef enum e_property_type
 	PROP_UNKNOWN
 }	t_property_type;
 
+typedef	struct s_property
+{
+	char	**argv;
+	int		argc;
+}	t_property;
+
 typedef struct s_parsing
 {
 	int				file_fd;
@@ -58,7 +64,7 @@ void	try_parse_map(int index, t_parsing *parsing, t_game *game);
 void	interpret_map_from_file(t_parsing *parsing, t_game *game);
 
 /*Parsing Properties*/
-void	property_pass_token(size_t *index, t_property_type type);
+size_t	property_token_length(t_property_type type);
 
 void	parse_property_height(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game);

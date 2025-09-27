@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/27 02:17:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 03:01:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_ALLOC] = "Couldn't allocate enough memory when parsing.",
 [ERROR_PARSING_PLAYER] = "Map must contain exactly one player spawn point.",
 [ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
+[ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
 [ERROR_LOADING_ASSETS] = "Couldn't load assets.",
 [ERROR_LOADING_GRAPHICS] = "Couldn't load textures.",
 [ERROR_LOADING] = "Initilization of the game failed.",

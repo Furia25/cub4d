@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 01:02:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 03:00:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static inline void	read_file(t_parsing *parsing, t_game *game)
 	t_gnl_result	line;
 	int				i;
 
-	parsing->file_content = malloc(sizeof(char *) * (parsing->file_length + 1));
+	parsing->file_content = ft_calloc(parsing->file_length + 1, sizeof(char *));
 	if (!parsing->file_content)
 		throw_error(game, ERROR_ALLOC);
 	i = 0;
