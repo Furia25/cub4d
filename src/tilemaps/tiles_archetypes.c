@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tiles_symbols.c                                    :+:      :+:    :+:   */
+/*   tiles_archetypes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/27 00:07:02 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 02:21:07 by vdurand          ###   ########.fr       */
+/*   Created: 2025/09/28 22:54:59 by vdurand           #+#    #+#             */
+/*   Updated: 2025/09/28 23:11:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 bool	is_symbol_player(char c)
 {
-	return (c == 'N' || c == 'E' || c == 'S' || c == 'W');
+	return (c == SYMBOL_PLAYER_NORTH || c == SYMBOL_PLAYER_SOUTH
+		|| c == SYMBOL_PLAYER_EAST || c == SYMBOL_PLAYER_WEST);
 }
 
 bool	is_symbol_border(char c)
 {
-	return (c == '1');
+	return (c == SYMBOL_WALL);
 }
 
 bool	is_symbol_central(char c)
@@ -30,6 +31,6 @@ bool	is_symbol_central(char c)
 
 bool	is_symbol_valid(char c)
 {
-	return (c == '0' || c == '1' || c == '2'
-		|| is_symbol_player(c) || c == '\n' || c == ' ');
+	return (c == SYMBOL_WATER || c == SYMBOL_WALL || c == SYMBOL_GRASS
+		|| is_symbol_player(c) || c == ' ' || '\n');
 }

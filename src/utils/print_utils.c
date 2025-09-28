@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 21:56:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 01:03:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static inline void	print_loading(int loaded, int max, int *bar)
 
 	index = 0;
 	percent = (int)((float)(loaded + 1) / max * 100);
-	ft_putstr_fd(ANSI_CARRIAGE ANSI_ERASE, 1);
+	ft_putstr_fd(ANSI_CARRIAGE, 1);
 	ft_putstr_fd(LOADING_COLOR LOADING_PREFIX " " LOADING_BORDER_LEFT, 1);
 	while (index < max)
 	{
@@ -37,7 +37,7 @@ static inline void	print_loading(int loaded, int max, int *bar)
 		{
 			if (bar[index] == 1)
 				ft_putstr_fd(ANSI_YELLOW LOADING_CHAR, 1);
-			else if (bar[index] == 2)
+			else if (bar[index] > 1)
 				ft_putstr_fd(ANSI_RED LOADING_CHAR, 1);
 			else
 				ft_putstr_fd(LOADING_COLOR_GOOD LOADING_CHAR, 1);
@@ -54,27 +54,25 @@ static inline void	print_loading(int loaded, int max, int *bar)
 void	loading_log(int error, char *error_format, char *str)
 {
 	const int	loading_max = TEXTURE_MAX_COUNT + 2;
-	static int	bar[TEXTURE_MAX_COUNT + 4] = {0};
+	static int	bar[TEXTURE_MAX_COUNT + 2] = {0};
 	static int	loaded = -1;
-	static int	errors_message = 0;
+	static int	error_occured = 0;
 
-	if (loaded >= loading_max)
-		return ;
-	bar[loaded] = error;
-	ft_printf(ANSI_SEQUENCE_UP, errors_message + 1);
+	if (loaded >= 0)
+		bar[loaded] = error;
+	ft_putstr_fd(ANSI_SEQUENCE_DOWN, 2);
 	print_loading(loaded, loading_max, bar);
-	ft_printf(ANSI_SEQUENCE_DOWN, errors_message + 1);
-	ft_putstr_fd(ANSI_ERASE ANSI_CARRIAGE, 1);
 	if (error && error_format && str)
 	{
-		errors_message++;
+		ft_putstr_fd(ANSI_CARRIAGE ANSI_ERASE, 1);
+		error_occured++;
 		if (error == 1)
 			ft_putstr_fd(WARNING_PREFIX, 2);
 		else
 			ft_putstr_fd(ERROR_PREFIX, 2);
 		ft_printf(error_format, str);
+		ft_putstr_fd("\n", 1);
 	}
 	ft_putstr_fd(ANSI_RESET, 1);
-	ft_printf(ANSI_SEQUENCE_DOWN, 1);
 	loaded++;
 }

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 22:33:42 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 01:02:40 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,10 @@ int	init_assets(t_game *game)
 {
 	bool	temp;
 
-	ft_putchar_fd('\n', 1);
 	loading_log(false, NULL, NULL);
 	game->textures[TEXTURE_ERROR]
 		= png_open((char *)g_textures_files[TEXTURE_ERROR]);
-	loading_log((game->textures[TEXTURE_ERROR] == NULL) * 2, NULL, NULL);
+	loading_log(!game->textures[TEXTURE_ERROR] * 2, NULL, NULL);
 	if (!game->textures[TEXTURE_ERROR])
 		throw_error_info(game, ERROR_LOADING_TEXTURES_FALLBACK,
 			(char *)g_textures_files[TEXTURE_ERROR]);
@@ -68,8 +67,11 @@ int	init_assets(t_game *game)
 	loading_log(0, NULL, NULL);
 	init_hud(game);
 	loading_log(0, NULL, NULL);
+	ft_putstr_fd("\n", 1);
 	return (1);
 }
+
+static inline void	textures_log(t_png *actual, char *path, t_game *game);
 
 void	init_textures(t_game *game)
 {
@@ -89,18 +91,29 @@ void	init_textures(t_game *game)
 			errno = 0;
 			if (path != NULL)
 				game->textures[index] = png_open(path);
-			if (path != NULL && errno != 0)
-			{
-				loading_log(2, NULL, NULL);
-				throw_error(game, ERROR_LOADING_TEXTURES_FATAL);
-			}		
 			if (!game->textures[index])
 				game->textures[index] = game->textures[TEXTURE_ERROR];
-			loading_log(game->textures[index] == game->textures[TEXTURE_ERROR],
-				WARNING_TEXTURE, path);
+			textures_log(game->textures[index], path, game);
 		}
 		index++;
 	}
+}
+
+static inline void	textures_log(t_png *actual, char *path, t_game *game)
+{
+	char	*warning;
+
+	if (path != NULL
+		&& (errno == ENOMEM || errno == ENFILE || errno == EMFILE))
+	{
+		loading_log(2, NULL, NULL);
+		throw_error(game, ERROR_LOADING_TEXTURES_FATAL);
+	}
+	if (errno == ENAMETOOLONG)
+		warning = WARNING_TEXTURE_NAME;
+	else
+		warning = WARNING_TEXTURE_ACCESS;
+	loading_log(actual == game->textures[TEXTURE_ERROR], warning, path);
 }
 
 void	color_texture(t_png *tex, t_rgba8 tint)

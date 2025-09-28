@@ -27,6 +27,8 @@ bool	tilemap_collision(float x, float y, t_vec2 z_range, t_tilemap *tilemap)
 {
 	t_tile	*tile;
 
+	if (x < 0 || y < 0)
+		return (false);
 	if (!tilemap_is_tile_valid(x, y, tilemap))
 		return (false);
 	tile = tilemap_get_tile(x, (size_t)y, tilemap);

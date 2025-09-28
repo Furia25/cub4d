@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/28 22:31:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 01:02:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@
 # define SEED_FALLBACK_DEFAULT	0xCACA
 # define SEED_MESSAGE	"Seed have been initialized to %016lx\n."
 
-# define ANSI_YELLOW	"\033[33m"
-# define ANSI_RED	"\033[33m"
+# define ANSI_YELLOW	"\033[1;33m"
+# define ANSI_RED	"\033[31m"
 # define ANSI_RESET	"\033[0m"
 # define ANSI_ERASE	"\033[2K"
 # define ANSI_CARRIAGE	"\r"
@@ -78,8 +78,9 @@
 # define LOADING_COLOR_GOOD	"\033[32m"
 # define LOADING_CHAR	"*"
 
-# define WARNING_TEXTURE	"Texture at path \"%s\" can't be opened.\n"
-# define WARNING_SEED "Failed to set seed \
+#define WARNING_TEXTURE_ACCESS	"Cannot access texture file at path: \"%s\""
+#define WARNING_TEXTURE_NAME	"Texture file name too long at path: \"%s\""
+# define WARNING_SEED	"Failed to set seed \
 from random source, using fallback : %016lx\n."
 
 # define MAP_TILE_SIZE		32

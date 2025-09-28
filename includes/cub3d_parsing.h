@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 19:57:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 01:03:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "cub3d_structs.h"
 
-# define DEBUG_PARSING	1
+# define DEBUG_PARSING	0
 # define PARSING_MAP_MESSAGE "Map size parsed to %dx%d.\n"
 
 typedef struct s_game	t_game;

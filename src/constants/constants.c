@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 16:50:29 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 00:43:33 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ texture_topbot,
 solid,
 wall,
 visible,
-blocking,
 ceil_offset,
 floor_offset,
 name
 */
 
-const t_tile_data	g_base_tile_info[TILE_MAX_COUNT] = {
-[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_GRASS, TEXTURE_GRASS, SOLID_ALL, false, false, false, 0, 0, "Empty"},
-[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, SOLID_ALL, true, true, true, 0, 0, "Wall"},
-[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER, SOLID_FLOOR, false, true, true, -0.1, -0.15, "Water"},
+const t_tile_data	g_base_tile_info[TILE_MAX] = {
+[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_ERROR, TEXTURE_ERROR, SOLID_NONE, false, -5, -6, "Empty"},
+[TILE_GRASS] = {TILE_GRASS, TEXTURE_GRASS, TEXTURE_GRASS, SOLID_ALL, true, 0, 0, "Empty"},
+[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, SOLID_ALL, true, 1.5, 0, "Wall"},
+[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER, SOLID_FLOOR, true, -0.1, -0.15, "Water"},
 };

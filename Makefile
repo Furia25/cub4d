@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/28 22:34:23 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/28 23:10:14 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRC_FILES = \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_populate.c \
+	tilemaps/tiles_archetypes.c \
 	minimap/minimap_drawing.c \
 	minimap/minimap_logic.c \
 	minimap/full_map.c \
@@ -78,7 +79,6 @@ SRC_FILES = \
 	parsing/parsing.c \
 	parsing/properties_utils.c \
 	parsing/properties.c \
-	parsing/tiles_symbols.c \
 	utils/free_utils.c \
 	utils/print_utils.c \
 	utils/misc_utils.c \

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/16 20:22:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 00:42:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ static inline void	raycast_init(t_raycast_context *ctx)
 
 static inline void	raycast_launch(t_raycast_context *ctx)
 {
-	char	is_wall;
-
 	while (fminf(ctx->step_dist.x, ctx->step_dist.y) < RENDER_DISTANCE)
 	{
 		if (ctx->step_dist.x < ctx->step_dist.y)
@@ -92,8 +90,7 @@ static inline void	raycast_launch(t_raycast_context *ctx)
 			ctx->actual_tile.y += ctx->step.y;
 			ctx->actual.orientation = 1;
 		}
-		is_wall = check_tile(&ctx->actual, ctx);
-		if (is_wall != 0)
+		if (check_tile(&ctx->actual, ctx))
 		{
 			raycast_set_dist(&ctx->actual, ctx);
 			render_draw_ray(&ctx->actual, ctx, ctx->render_ctx);
@@ -105,24 +102,23 @@ static inline bool	check_tile(t_raycast_hit *hit,
 		t_raycast_context *ctx)
 {
 	t_tile	*tile;
-	int		tile_x;
-	int		tile_y;
+	size_t	tile_x;
+	size_t	tile_y;
 
 	tile_x = ctx->actual_tile.x;
 	tile_y = ctx->actual_tile.y;
-	if (!tilemap_is_tile_valid(tile_x, tile_y, ctx->tilemap))
+	if (tile_x >= ctx->tilemap->width || tile_y >= ctx->tilemap->height)
 		return (0);
 	tile = &ctx->tilemap->tiles[tile_y][tile_x];
 	hit->tile_x = tile_x;
 	hit->tile_y = tile_y;
 	hit->tile_info = &tile->info;
 	hit->tile = tile;
-	hit->draw_walls = false;
-	if (ctx->last_ceil != hit->tile->ceiling || ctx->last_floor != hit->tile->floor)
-		hit->draw_walls = true;
+	hit->draw_walls = ctx->last_ceil != hit->tile->ceiling 
+		|| ctx->last_floor != hit->tile->floor;
 	ctx->last_ceil = hit->tile->ceiling;
 	ctx->last_floor = hit->tile->floor;
-	return (1);
+	return (tile->info.visible);
 }
 
 static inline void	raycast_set_dist(t_raycast_hit *hit,

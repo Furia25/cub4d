@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/23 00:28:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 00:41:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include <stdbool.h>
 # include "crazypng.h"
 # include "cub3d_textures.h"
+
+# define SYMBOL_PLAYER_EAST	'E'
+# define SYMBOL_PLAYER_NORTH	'N'
+# define SYMBOL_PLAYER_SOUTH	'S'
+# define SYMBOL_PLAYER_WEST	'W'
+# define SYMBOL_WALL	'1'
+# define SYMBOL_GRASS	'0'
+# define SYMBOL_WATER	'2'
 
 typedef enum e_tile_solid_mode
 {
@@ -29,11 +37,11 @@ typedef enum e_tile_solid_mode
 typedef enum e_tile_type
 {
 	TILE_EMPTY,
+	TILE_GRASS,
 	TILE_WALL,
 	TILE_WATER,
-	TILE_MAX_COUNT
+	TILE_MAX
 }	t_tile_type;
-
 
 typedef struct t_tile_data
 {
@@ -41,9 +49,7 @@ typedef struct t_tile_data
 	t_texture_type	texture;
 	t_texture_type	texture_topbot;
 	int				solid;
-	bool			wall;
 	bool			visible;
-	bool			blocking;
 	float			ceil_offset;
 	float			floor_offset;
 	const char		*name;
@@ -65,7 +71,7 @@ typedef struct s_tilemap
 	size_t			tile_size;
 }	t_tilemap;
 
-extern const t_tile_data	g_base_tile_info[TILE_MAX_COUNT];
+extern const t_tile_data	g_base_tile_info[TILE_MAX];
 
 t_tilemap	*tilemap_new(size_t width, size_t height, size_t tile_size);
 void		tilemap_free(t_tilemap *map);

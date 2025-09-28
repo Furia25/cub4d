@@ -6,15 +6,16 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:48:38 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/13 19:18:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 23:40:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "crazypng_png.h"
 #include <errno.h>
 
-static bool	verify_png_signature(t_cp_file *file);
-static bool	assign_basics(t_png *png, char *file_name);
+static bool			verify_png_signature(t_cp_file *file);
+static bool			assign_basics(t_png *png, char *file_name);
+static inline void	png_clean(t_png *png);
 
 t_png	*png_open(char *file_name)
 {
@@ -34,18 +35,25 @@ t_png	*png_open(char *file_name)
 		png_close(png);
 		return (NULL);
 	}
+	png_clean(png);
 	return (png);
+}
+
+static inline void	png_clean(t_png *png)
+{
+	cp_buffer_reset(&png->compressed_data);
+	cp_buffer_reset(&png->data);
+	cp_close(png->file);
+	png->file = NULL;
 }
 
 void	png_close(t_png *png)
 {
 	if (!png)
 		return ;
-	cp_buffer_reset(&png->compressed_data);
-	cp_buffer_reset(&png->data);
+	png_clean(png);
 	free(png->palette);
 	free(png->pixels_8bit);
-	cp_close(png->file);
 	free(png);
 }
 

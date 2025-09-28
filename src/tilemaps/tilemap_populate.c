@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:20:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 17:20:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 00:43:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ void	tilemap_tiles_from_str(char *str, size_t line, t_tilemap *map)
 		tile->type = type;
 		tile->floor = 0.f;
 		tile->ceiling = 0.25;
-		if (tile->info.wall)
-			tile->ceiling = 2 + rand() % 4 * 0.5f + tile->floor;
 		tile->floor += tile->info.floor_offset;
-		tile->ceiling += tile->info.ceil_offset;
+		tile->ceiling += tile->info.ceil_offset ;
 		index++;
 	}
 }
 
 t_tile_type	tiletype_from_symbol(char symbol)
 {
-	if (symbol == '1')
+	if (symbol == SYMBOL_GRASS || is_symbol_player(symbol))
+		return (TILE_GRASS);
+	if (symbol == SYMBOL_WALL)
 		return (TILE_WALL);
-	if (symbol == '2')
+	if (symbol == SYMBOL_WATER)
 		return (TILE_WATER);
 	return (TILE_EMPTY);
 }
