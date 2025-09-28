@@ -6,22 +6,11 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 15:42:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 16:36:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:11:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//TEMP
-void	print_char_tab(char **tab)
-{
-	while (tab && *tab)
-	{
-		printf(*(tab + 1) ? "%s, " : "%s\n", *tab);
-		tab++;
-	}
-}
-//temp;
 
 t_property	property_get_args(char *line, t_property_type type, t_game *game)
 {
@@ -40,6 +29,11 @@ t_property	property_get_args(char *line, t_property_type type, t_game *game)
 	result.argv = ft_split(temp, ',');
 	if (!result.argv)
 		throw_error(game, ERROR_PARSING_ALLOC);
+	if (DEBUG_PARSING)
+	{
+		printf(DEBUG_PREFIX "%s : ", (char *)g_property_token[type]);
+		print_char_tab(result.argv);
+	}
 	return (result);
 }
 
@@ -55,6 +49,8 @@ bool	property_check_color(t_property prop)
 	while (prop.argv[index])
 	{
 		temp = prop.argv[index];
+		if (ft_strlen(temp) > 8)
+			return (false);
 		if (!ft_strcheck(temp, ft_isdigit))
 			return (false);
 		temp_int = ft_atoi(temp);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/27 16:30:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 19:59:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,29 @@
 # define ASPECT_RES			1080
 # define MOUSE_SENS			0.001
 
+# define SEED_SYSTEM_RAND_FILE	"/dev/urandom"
+# define SEED_FALLBACK_DEFAULT	0xCACA
+# define SEED_MESSAGE	"Seed have been initialized to %016lx\n."
+
+# define ANSI_YELLOW	"\033[33m"
+# define ANSI_RED	"\033[33m"
+# define ANSI_RESET	
+# define ANSI_SEQUENCE_UP	"\033[%dA"
+# define ANSI_SEQUENCE_DOWN	"\033[%dB"
+
+# define INFO_PREFIX		"\033[36mInfo:\033[0m "
+# define DEBUG_PREFIX	"\033[34mDebug:\033[0m "
+# define LOADING_COLOR	"\033[34m\033[1m"
+# define LOADING_BORDER_LEFT	"["
+# define LOADING_BORDER_RIGHT	"]"
+# define LOADING_PREFIX	"\rLoading: "
+# define LOADING_COLOR_GOOD	"\033[32m"
+# define LOADING_CHAR	"*"
+
+# define WARNING_TEXTURE	"Texture at path \"%s\" can't be opened.\n"
+# define WARNING_SEED "Failed to set seed \
+from random source, using fallback : %016lx\n."
+
 # define MAP_TILE_SIZE		32
 # define MMAP_TILE_SIZE		16
 # define MINIMAP_SIZE		249
@@ -70,15 +93,6 @@
 # define S_BUTTON_INTERACT	100
 # define S_BUTTON_OUTL		4
 # define INTERACTION_RANGE	2
-
-# define SEED_SYSTEM_RAND_FILE	"/dev/urandom"
-# define SEED_FALLBACK_DEFAULT	0xCACA
-# define SEED_MESSAGE	"INFO : Seed have been initialized to %016lx\n"
-
-# define WARNING_TEXTURE	"WARNING : Texture at path \
-\"%s\" can't be opened\n"
-# define WARNING_SEED "WARNING: Failed to set seed \
-from random source, using fallback : %016lx\n"
 
 # define MENU_ACTIONS	2
 # define MENU_OPTION_PLAY	L"{5}PLAY"
@@ -233,12 +247,15 @@ bool		key_is_released(t_key_type type, t_game *game);
 bool		key_is_pressed(t_key_type type, t_game *game);
 
 // ----- UTILS ----- //
-void		free_chartab(char **map);
+void		free_tab(void **map);
+void		free_tab_content(void **map);
 bool		is_file_valid(char *path);
 int			file_length(char *file);
 t_vec3		bbox_get_center(t_bbox bbox);
 uint64_t	get_seed(void);
 void		rad_to_vect(t_vec2 *direction, float rad);
+void		print_char_tab(char **tab);
+void		loading_log(int error, char *error_format, char *str);
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game, t_ivec2 map_pos);

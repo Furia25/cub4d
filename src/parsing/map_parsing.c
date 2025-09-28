@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:02:07 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 16:08:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:12:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	try_parse_map(int index, t_parsing *parsing, t_game *game)
 {
 	parsing->map_start = index;
 	parsing->map_end = get_last_non_empty_line(parsing);
-	parsing->map_height = parsing->map_end - parsing->map_start;
+	parsing->map_height = parsing->map_end - parsing->map_start + 1;
 	if (parsing->map_height <= 0)
 		throw_error(game, ERROR_PARSING_VALIDITY);
 	parsing->map = ft_calloc(parsing->map_height + 1, sizeof(char *));

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 16:07:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 19:47:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,27 @@ void	init_hud(t_game *game)
 
 int	init_assets(t_game *game)
 {
+	bool	temp;
+
+	loading_log(false, NULL, NULL);
 	game->textures[TEXTURE_ERROR]
 		= png_open((char *)g_textures_files[TEXTURE_ERROR]);
+	loading_log((game->textures[TEXTURE_ERROR] == NULL) * 2, NULL, NULL);
 	if (!game->textures[TEXTURE_ERROR])
 		throw_error(game, ERROR_LOADING_ASSETS);
 	if (!init_textures(game))
 		throw_error(game, ERROR_LOADING_ASSETS);
-	if (!glyph_init(GLYPH_PATH))
-		throw_error(game, ERROR_LOADING_ASSETS);
+	temp = glyph_init(GLYPH_PATH);
+	loading_log(!temp * 2, NULL, NULL);
+	if (!temp)
+		throw_error(game, ERROR_LOADING_GLYPHS);
 	init_water(&game->water_anim, game);
+	loading_log(0, NULL, NULL);
 	if (game->textures[TEXTURE_GRASS] != game->textures[TEXTURE_ERROR])
 		color_texture(game->textures[TEXTURE_GRASS], game->parsing.floor_color);
+	loading_log(0, NULL, NULL);
 	init_hud(game);
+	loading_log(0, NULL, NULL);
 	return (1);
 }
 
@@ -78,10 +87,9 @@ int	init_textures(t_game *game)
 			if (path != NULL)
 				game->textures[index] = png_open(path);
 			if (!game->textures[index])
-			{
 				game->textures[index] = game->textures[TEXTURE_ERROR];
-				printf(WARNING_TEXTURE, path);
-			}
+			loading_log(game->textures[index] == game->textures[TEXTURE_ERROR],
+				WARNING_TEXTURE, path);
 		}
 		index++;
 	}

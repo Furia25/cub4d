@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 00:02:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:29:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	file_length(char *file)
 	{
 		length++;
 		if (line.ended)
-			break;
+			break ;
 		free(line.line);
 		line = get_next_line(fd);
 	}
@@ -62,17 +62,17 @@ uint64_t	get_seed(void)
 	file_fd = open(SEED_SYSTEM_RAND_FILE, O_RDONLY);
 	if (file_fd == -1)
 	{
-		printf(WARNING_SEED, (uint64_t)SEED_FALLBACK_DEFAULT);
+		printf(WARNING_PREFIX WARNING_SEED, (uint64_t)SEED_FALLBACK_DEFAULT);
 		return ((uint64_t)SEED_FALLBACK_DEFAULT);
 	}
 	len = read(file_fd, &result, sizeof(result));
 	close(file_fd);
-	if (len < (long)sizeof(result))
+	if (len < (long) sizeof(result))
 	{
-		printf(WARNING_SEED, (uint64_t)SEED_FALLBACK_DEFAULT);
+		printf(WARNING_PREFIX WARNING_SEED, (uint64_t)SEED_FALLBACK_DEFAULT);
 		return ((uint64_t)SEED_FALLBACK_DEFAULT);
 	}
-	printf(SEED_MESSAGE, result);
+	printf(INFO_PREFIX SEED_MESSAGE, result);
 	return (result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 00:25:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:29:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define CUB3D_TEXTURES_H
 
 # include "cub3d_structs.h"
-
-# define STATE_MACHINE_MAX	5
 
 /* TEXTURE_MISSING and TEXTURE_MAX_COUNT need to be first
 and last respectively to assure correct behavior*/
@@ -59,7 +57,7 @@ typedef enum e_texture_type
 	TEXTURE_MAX_COUNT
 }	t_texture_type;
 
-#define GLYPH_PATH	"assets/textures/glyph.png"
+# define GLYPH_PATH	"assets/textures/glyph.png"
 
 extern const char	*g_textures_files[TEXTURE_MAX_COUNT];
 

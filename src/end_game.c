@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/27 16:40:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 18:24:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,12 @@ static const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_PLAYER] = "Map must contain exactly one player spawn point.",
 [ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
 [ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
-[ERROR_PARSING_MISSING_COLOR] = "Missing property in map: floor and ceiling \
-colors must be defined using the F and C properties.",
+[ERROR_PARSING_MISSING_COLOR] = "Invalid map configuration: floor and \
+ceiling colors must be defined using the F and C properties.",
+[ERROR_PARSING_MISSING_PATHS] = "Invalid map configuration: wall textures \
+must be defined for all directions using the NO, SO, WE, and EA properties.",
 [ERROR_LOADING_ASSETS] = "Couldn't load assets.",
+[ERROR_LOADING_GLYPHS] = "Failed to load or initialize glyphs.",
 [ERROR_LOADING_GRAPHICS] = "Couldn't load textures.",
 [ERROR_LOADING] = "Initilization of the game failed.",
 [ERROR_WINDOW] = "Unable to create Window and/or Framebuffers.",
@@ -43,8 +46,7 @@ void	throw_error(t_game *game, t_error error)
 
 void	throw_error_info(t_game *game, t_error error, char *info)
 {
-	ft_putstr_fd("Error", 2);
-	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(ERROR_PREFIX, 2);
 	if (error < ERROR_MAX)
 		ft_putstr_fd((char *)g_errors[error], 2);
 	else
@@ -68,7 +70,7 @@ int	exit_game(t_game *game)
 	tilemap_free(game->tilemap);
 	free(game->sky_buffer);
 	free(game->parsing.map);
-	free_chartab(game->parsing.file_content);
+	free_tab((void **)game->parsing.file_content);
 	if (game->win.ptr)
 		mlx_destroy_window(game->mlx, game->win.ptr);
 	if (game->frame)

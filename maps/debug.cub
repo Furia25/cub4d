@@ -1,3 +1,4 @@
+A 0,0,0,0
 NO assets/textures       /tiles/wall_north.png
 SO assets/textures      /tiles/wall_south.png
 WE assets/textures /tiles/wall_west.png
@@ -5,7 +6,7 @@ EA assets/textures /tiles/wall_east.png
 
 F 255,0,0
 C 0,0,0
-A 0,0,0,0
+
 
 111111111
 10S000001

@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/27 16:06:22 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/28 18:01:40 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,8 @@ SRC_FILES = \
 	parsing/properties.c \
 	parsing/tiles_symbols.c \
 	utils/animation_utils.c \
+	utils/free_utils.c \
+	utils/print_utils.c \
 	utils/misc_utils.c \
 	utils/move_utils.c \
 	utils/time_utils.c \

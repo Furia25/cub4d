@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:16:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 15:46:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:53:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int mouse_move(int x, int y, t_game *game);
 
 void	init_hooks(t_game *game)
 {
-	mlx_mouse_hide(game->mlx, game->win.ptr);
+	//mlx_mouse_hide(game->mlx, game->win.ptr);
 	mlx_hook(game->win.ptr, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win.ptr, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_hook(game->win.ptr, MotionNotify, PointerMotionMask, mouse_move, game);

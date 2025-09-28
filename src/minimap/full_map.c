@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/27 16:00:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 17:44:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ void	draw_full_map(t_game *game)
 	int	line;
 
 	line = 0;
-	while (game->parsing.map[line])
+	while (line < game->parsing.map_height && game->parsing.map[line])
 	{
 		draw_lines(game->parsing.map[line], game, line);
 		line++;
 	}
-	draw_tiles(game, game->player.position.x, \
-		game->player.position.y, rgba8(255, 0, 10, 200));
+	draw_tiles(game, game->player.position.x, game->player.position.y,
+		rgba8(255, 0, 10, 200));
 }

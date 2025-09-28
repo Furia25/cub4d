@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 02:29:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/27 16:50:29 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 };
 
 const char *g_property_token[PROP_UNKNOWN] = {
-[PROP_NO] = "NO",
-[PROP_SO] = "SO",
-[PROP_WE] = "WE",
-[PROP_EA] = "EA",
-[PROP_F] = "F",
-[PROP_C] = "C",
-[PROP_A] = "A",
-[PROP_ENTITY] = "ENTITY",
-[PROP_HEIGHT] = "HEIGHT"
+[PROP_NO] = "NO ",
+[PROP_SO] = "SO ",
+[PROP_WE] = "WE ",
+[PROP_EA] = "EA ",
+[PROP_F] = "F ",
+[PROP_C] = "C ",
+[PROP_A] = "A ",
+[PROP_ENTITY] = "ENTITY ",
+[PROP_HEIGHT] = "HEIGHT "
 };
 
 const int	g_keymap[KEY_MAX_COUNT] = {
