@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 19:47:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 20:11:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	init_assets(t_game *game)
 {
 	bool	temp;
 
+	ft_putchar_fd('\n', 1);
 	loading_log(false, NULL, NULL);
 	game->textures[TEXTURE_ERROR]
 		= png_open((char *)g_textures_files[TEXTURE_ERROR]);
@@ -65,6 +66,7 @@ int	init_assets(t_game *game)
 	loading_log(0, NULL, NULL);
 	init_hud(game);
 	loading_log(0, NULL, NULL);
+	ft_putchar_fd('\n', 1);
 	return (1);
 }
 

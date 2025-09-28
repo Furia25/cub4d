@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 20:01:11 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 20:17:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ void	loading_log(int error, char *error_format, char *str)
 	const int	loading_max = TEXTURE_MAX_COUNT + 2;
 	static int	bar[TEXTURE_MAX_COUNT + 4] = {0};
 	static int	loaded = -1;
-	static int	errors_message = 1;
+	static int	errors_message = 0;
 
 	if (loaded >= loading_max)
 		return ;
 	bar[loaded] = error;
-	ft_printf(ANSI_SEQUENCE_UP, errors_message);
+	ft_printf(ANSI_SEQUENCE_UP, errors_message + 1);
 	print_loading(loaded, loading_max, bar);
 	ft_printf(ANSI_SEQUENCE_DOWN, errors_message + 1);
-	ft_putchar_fd('\r', 1);
+	ft_putstr_fd("\033[2K\r", 1);
 	if (error && error_format && str)
 	{
 		errors_message++;
@@ -74,5 +74,6 @@ void	loading_log(int error, char *error_format, char *str)
 		ft_printf(error_format, str);
 	}
 	ft_putstr_fd("\033[0m", 1);
+	ft_printf(ANSI_SEQUENCE_DOWN, 1);
 	loaded++;
 }
