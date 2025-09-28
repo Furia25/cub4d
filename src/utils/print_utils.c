@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 20:17:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 21:56:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static inline void	print_loading(int loaded, int max, int *bar)
 
 	index = 0;
 	percent = (int)((float)(loaded + 1) / max * 100);
+	ft_putstr_fd(ANSI_CARRIAGE ANSI_ERASE, 1);
 	ft_putstr_fd(LOADING_COLOR LOADING_PREFIX " " LOADING_BORDER_LEFT, 1);
 	while (index < max)
 	{
@@ -63,7 +64,7 @@ void	loading_log(int error, char *error_format, char *str)
 	ft_printf(ANSI_SEQUENCE_UP, errors_message + 1);
 	print_loading(loaded, loading_max, bar);
 	ft_printf(ANSI_SEQUENCE_DOWN, errors_message + 1);
-	ft_putstr_fd("\033[2K\r", 1);
+	ft_putstr_fd(ANSI_ERASE ANSI_CARRIAGE, 1);
 	if (error && error_format && str)
 	{
 		errors_message++;
@@ -73,7 +74,7 @@ void	loading_log(int error, char *error_format, char *str)
 			ft_putstr_fd(ERROR_PREFIX, 2);
 		ft_printf(error_format, str);
 	}
-	ft_putstr_fd("\033[0m", 1);
+	ft_putstr_fd(ANSI_RESET, 1);
 	ft_printf(ANSI_SEQUENCE_DOWN, 1);
 	loaded++;
 }

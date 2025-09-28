@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/28 18:01:40 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/28 22:34:23 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,6 @@ SRC_FILES = \
 	parsing/properties_utils.c \
 	parsing/properties.c \
 	parsing/tiles_symbols.c \
-	utils/animation_utils.c \
 	utils/free_utils.c \
 	utils/print_utils.c \
 	utils/misc_utils.c \
@@ -88,12 +87,14 @@ SRC_FILES = \
 	utils/vector_managing.c \
 	utils/vector_methods.c \
 	utils/vector_methods2.c \
+	utils/file_utils.c \
 	player_movement.c \
 	end_game.c \
 	game_loop.c \
 	init_assets.c \
 	init_game.c \
 	hooks.c \
+	animation.c \
 	keys/keys_buffer.c \
 	keys/keys_handling.c \
 	keys/keys.c \

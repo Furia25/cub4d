@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/28 18:29:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 21:52:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 
 # include "cub3d_structs.h"
 
-/* TEXTURE_MISSING and TEXTURE_MAX_COUNT need to be first
-and last respectively to assure correct behavior*/
+/* 
+ * TEXTURE_MISSING must be first and TEXTURE_MAX_COUNT must be last
+ * to ensure correct behavior. 
+ * TEXTURE_WATER0 through TEXTURE_WATER19 must appear consecutively in between.
+ */
+
 typedef enum e_texture_type
 {
 	TEXTURE_ERROR,

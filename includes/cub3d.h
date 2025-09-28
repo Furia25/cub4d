@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/28 19:59:28 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 22:31:26 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,18 @@
 
 # define ANSI_YELLOW	"\033[33m"
 # define ANSI_RED	"\033[33m"
-# define ANSI_RESET	
+# define ANSI_RESET	"\033[0m"
+# define ANSI_ERASE	"\033[2K"
+# define ANSI_CARRIAGE	"\r"
 # define ANSI_SEQUENCE_UP	"\033[%dA"
 # define ANSI_SEQUENCE_DOWN	"\033[%dB"
 
-# define INFO_PREFIX		"\033[36mInfo:\033[0m "
+# define INFO_PREFIX	"\033[36mInfo:\033[0m "
 # define DEBUG_PREFIX	"\033[34mDebug:\033[0m "
 # define LOADING_COLOR	"\033[34m\033[1m"
 # define LOADING_BORDER_LEFT	"["
 # define LOADING_BORDER_RIGHT	"]"
-# define LOADING_PREFIX	"\rLoading: "
+# define LOADING_PREFIX	"Loading: "
 # define LOADING_COLOR_GOOD	"\033[32m"
 # define LOADING_CHAR	"*"
 
@@ -163,13 +165,13 @@ typedef struct s_win
 typedef struct s_hud_cigarette
 {
 	t_sprite			sprite;
-	t_index_animation	anim_start;
+	t_animation	anim_start;
 	bool				wait_to_flex;
 	bool				equipped;
-	t_index_animation	*actual_anim;
-	t_index_animation	anim_idle_off;
-	t_index_animation	anim_idle_on;
-	t_index_animation	anim_flex;
+	t_animation	*actual_anim;
+	t_animation	anim_idle_off;
+	t_animation	anim_idle_on;
+	t_animation	anim_flex;
 }	t_hud_cigarette;
 
 typedef struct s_game
@@ -226,8 +228,7 @@ int			exit_game(t_game *game);
 int			game_loop(void *param);
 void		init_engine(t_game *game);
 int			init_assets(t_game *game);
-int			init_textures(t_game *game);
-void		init_water(t_tile_animation *water_anim, t_game *game);
+void		init_textures(t_game *game);
 void		init_hooks(t_game *game);
 void		init_game(t_game *game);
 

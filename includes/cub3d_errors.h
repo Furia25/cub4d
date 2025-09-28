@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 18:24:58 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 22:28:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef enum e_error
 	ERROR_PARSING_UNCLOSED,
 	ERROR_PARSING_SYMBOL,
 	ERROR_LOADING_ASSETS,
+	ERROR_LOADING_TEXTURES_FALLBACK,
+	ERROR_LOADING_TEXTURES_FATAL,
 	ERROR_LOADING_GRAPHICS,
 	ERROR_LOADING_GLYPHS,
 	ERROR_LOADING,
@@ -42,5 +44,7 @@ typedef enum e_error
 	ERROR_WTF,
 	ERROR_MAX
 }	t_error;
+
+extern const char	*g_errors[ERROR_MAX];
 
 #endif

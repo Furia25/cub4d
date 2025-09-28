@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 20:11:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 22:33:42 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	init_hud(t_game *game)
 	spr->transform.color = g_colors[C_WHITE];
 	spr->transform.index = 0;
 	hud_cigarette->equipped = false;
-	hud_cigarette->anim_start = anim_index_init(0, 56, 1, false);
-	hud_cigarette->anim_flex = anim_index_init(59, 138, 1, false);
-	hud_cigarette->anim_idle_on = anim_index_init(138, 149, 0.8, true);
-	hud_cigarette->anim_idle_off = anim_index_init(57, 59, 0.1, true);
+	hud_cigarette->anim_start = anim_init(0, 56, 1, false);
+	hud_cigarette->anim_flex = anim_init(59, 138, 1, false);
+	hud_cigarette->anim_idle_on = anim_init(138, 149, 0.8, true);
+	hud_cigarette->anim_idle_off = anim_init(57, 59, 0.1, true);
 	hud_cigarette->anim_idle_on.reversing = true;
 	hud_cigarette->anim_idle_off.reversing = true;
 }
@@ -52,25 +52,26 @@ int	init_assets(t_game *game)
 		= png_open((char *)g_textures_files[TEXTURE_ERROR]);
 	loading_log((game->textures[TEXTURE_ERROR] == NULL) * 2, NULL, NULL);
 	if (!game->textures[TEXTURE_ERROR])
-		throw_error(game, ERROR_LOADING_ASSETS);
-	if (!init_textures(game))
-		throw_error(game, ERROR_LOADING_ASSETS);
+		throw_error_info(game, ERROR_LOADING_TEXTURES_FALLBACK,
+			(char *)g_textures_files[TEXTURE_ERROR]);
+	init_textures(game);
 	temp = glyph_init(GLYPH_PATH);
 	loading_log(!temp * 2, NULL, NULL);
 	if (!temp)
 		throw_error(game, ERROR_LOADING_GLYPHS);
-	init_water(&game->water_anim, game);
+	game->water_anim.type = TEXTURE_WATER;
+	game->water_anim.index = anim_init(TEXTURE_WATER0,
+		TEXTURE_WATER19, 0.4f, true);
 	loading_log(0, NULL, NULL);
 	if (game->textures[TEXTURE_GRASS] != game->textures[TEXTURE_ERROR])
 		color_texture(game->textures[TEXTURE_GRASS], game->parsing.floor_color);
 	loading_log(0, NULL, NULL);
 	init_hud(game);
 	loading_log(0, NULL, NULL);
-	ft_putchar_fd('\n', 1);
 	return (1);
 }
 
-int	init_textures(t_game *game)
+void	init_textures(t_game *game)
 {
 	char		*path;
 	int			index;
@@ -88,6 +89,11 @@ int	init_textures(t_game *game)
 			errno = 0;
 			if (path != NULL)
 				game->textures[index] = png_open(path);
+			if (path != NULL && errno != 0)
+			{
+				loading_log(2, NULL, NULL);
+				throw_error(game, ERROR_LOADING_TEXTURES_FATAL);
+			}		
 			if (!game->textures[index])
 				game->textures[index] = game->textures[TEXTURE_ERROR];
 			loading_log(game->textures[index] == game->textures[TEXTURE_ERROR],
@@ -95,35 +101,6 @@ int	init_textures(t_game *game)
 		}
 		index++;
 	}
-	return (1);
-}
-
-void	init_water(t_tile_animation *water_anim, t_game *game)
-{
-	water_anim->type = TEXTURE_WATER;
-	water_anim->frames_num = 20;
-	water_anim->frame_time = 0.5;
-	water_anim->actual_frame = 0;
-	water_anim->frames[0] = game->textures[TEXTURE_WATER0];
-	water_anim->frames[1] = game->textures[TEXTURE_WATER1];
-	water_anim->frames[2] = game->textures[TEXTURE_WATER2];
-	water_anim->frames[3] = game->textures[TEXTURE_WATER3];
-	water_anim->frames[4] = game->textures[TEXTURE_WATER4];
-	water_anim->frames[5] = game->textures[TEXTURE_WATER5];
-	water_anim->frames[6] = game->textures[TEXTURE_WATER6];
-	water_anim->frames[7] = game->textures[TEXTURE_WATER7];
-	water_anim->frames[8] = game->textures[TEXTURE_WATER8];
-	water_anim->frames[9] = game->textures[TEXTURE_WATER9];
-	water_anim->frames[10] = game->textures[TEXTURE_WATER10];
-	water_anim->frames[11] = game->textures[TEXTURE_WATER11];
-	water_anim->frames[12] = game->textures[TEXTURE_WATER12];
-	water_anim->frames[13] = game->textures[TEXTURE_WATER13];
-	water_anim->frames[14] = game->textures[TEXTURE_WATER14];
-	water_anim->frames[15] = game->textures[TEXTURE_WATER15];
-	water_anim->frames[16] = game->textures[TEXTURE_WATER16];
-	water_anim->frames[17] = game->textures[TEXTURE_WATER17];
-	water_anim->frames[18] = game->textures[TEXTURE_WATER18];
-	water_anim->frames[19] = game->textures[TEXTURE_WATER19];
 }
 
 void	color_texture(t_png *tex, t_rgba8 tint)

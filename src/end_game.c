@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/28 18:24:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 22:28:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "glyphs.h"
 #include "cub3d_errors.h"
 
-static const char	*g_errors[ERROR_MAX] = {
+const char	*g_errors[ERROR_MAX] = {
 [ERROR_ALLOC] = "Couldn't allocate enough memory.",
 [ERROR_PARSING] = "Unable to continue the map parsing.",
 [ERROR_PARSING_IO] = "Unable to open/read the map file.",
@@ -29,6 +29,9 @@ ceiling colors must be defined using the F and C properties.",
 [ERROR_PARSING_MISSING_PATHS] = "Invalid map configuration: wall textures \
 must be defined for all directions using the NO, SO, WE, and EA properties.",
 [ERROR_LOADING_ASSETS] = "Couldn't load assets.",
+[ERROR_LOADING_TEXTURES_FALLBACK] = "Failed to load fallback error texture \
+from the required path",
+[ERROR_LOADING_TEXTURES_FATAL] = "Fatal error occurred while loading textures",
 [ERROR_LOADING_GLYPHS] = "Failed to load or initialize glyphs.",
 [ERROR_LOADING_GRAPHICS] = "Couldn't load textures.",
 [ERROR_LOADING] = "Initilization of the game failed.",

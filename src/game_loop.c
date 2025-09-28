@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 03:55:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 22:04:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	game_loop(void *param)
 static inline void	hud_cigarette_animator(t_hud_cigarette *cig,
 						t_game *game)
 {
-	anim_index_update(cig->actual_anim);
+	anim_update(cig->actual_anim);
 	cig->sprite.transform.index = cig->actual_anim->actual_index;
-	if (anim_index_is_ended(&cig->anim_start) && anim_index_is_ended(&cig->anim_flex))
+	if (anim_is_ended(&cig->anim_start) && anim_is_ended(&cig->anim_flex))
 	{
 		if (cig->equipped)
 			cig->actual_anim = &cig->anim_idle_on;
@@ -72,7 +72,7 @@ static inline void	hud_cigarette_animator(t_hud_cigarette *cig,
 			cig->actual_anim = &cig->anim_idle_off;
 	}
 	if (key_is_released(KEY_FLEX, game)
-		&& (anim_index_is_ended(cig->actual_anim)
+		&& (anim_is_ended(cig->actual_anim)
 		|| cig->actual_anim == &cig->anim_idle_off
 		|| cig->actual_anim == &cig->anim_idle_on))
 	{
@@ -80,6 +80,6 @@ static inline void	hud_cigarette_animator(t_hud_cigarette *cig,
 		cig->equipped = !cig->equipped;
 		cig->actual_anim = &cig->anim_flex;
 		cig->actual_anim->anim_dir = 1 - (2.5 * !cig->equipped);
-		anim_index_reset(cig->actual_anim);
+		anim_reset(cig->actual_anim);
 	}
 }

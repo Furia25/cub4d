@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 00:24:17 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 03:32:53 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 22:05:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,7 @@
 
 typedef struct s_game	t_game;
 
-typedef struct s_animated_texture
-{
-	float			actual_frame;
-	float			frame_time;
-	int				frames_num;
-	t_png			*frames[32];
-	t_texture_type	type;
-}	t_tile_animation;
-
-typedef struct s_index_animation
+typedef struct s_animation
 {
 	float			actual_index;
 	float			time_per_frame;
@@ -35,14 +26,20 @@ typedef struct s_index_animation
 	float			anim_dir;
 	bool			repeating;
 	bool			reversing;
-}	t_index_animation;
+}	t_animation;
 
-t_index_animation	anim_index_init(size_t start_index, size_t end_index,
+typedef struct s_tile_animation
+{
+	t_animation		index;
+	t_texture_type	type;
+}	t_tile_animation;
+
+t_animation	anim_init(size_t start_index, size_t end_index,
 						float time_per_frame, float repeating);
 
 void				anim_tile_update(t_tile_animation *anim, t_game *game);
-void				anim_index_update(t_index_animation *anim);
-bool				anim_index_is_ended(t_index_animation *anim);
-void				anim_index_reset(t_index_animation *anim);
+void				anim_update(t_animation *anim);
+bool				anim_is_ended(t_animation *anim);
+void				anim_reset(t_animation *anim);
 
 #endif
