@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:06:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 16:42:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 23:58:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,6 @@ static inline void	parse_property(char *line, t_property_type type,
 		parse_property_entity(line, type, parsing, game);
 	if (type == PROP_HEIGHT)
 		parse_property_height(line, type, parsing, game);
+	if (type == PROP_BROADCAST)
+		printf("%s\n", line + 2);
 }

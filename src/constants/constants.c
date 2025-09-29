@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 00:43:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 23:34:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ const char *g_property_token[PROP_UNKNOWN] = {
 [PROP_C] = "C ",
 [PROP_A] = "A ",
 [PROP_ENTITY] = "ENTITY ",
-[PROP_HEIGHT] = "HEIGHT "
+[PROP_HEIGHT] = "HEIGHT ",
+[PROP_BROADCAST] = "##",
+[PROP_COMMENT] = "#"
 };
 
 const int	g_keymap[KEY_MAX_COUNT] = {

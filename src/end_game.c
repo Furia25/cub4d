@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/29 22:42:30 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 01:10:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_NOPLAYER] = "Map must contain at least one player spawn point.",
 [ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
 [ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
+[ERROR_PROPERTY_COLOR] = "Malformed property: 'C' and 'F' require three bytes \
+values (red, green, blue); \n'A' requires three bytes and \
+one optional numeral between 0-250 (red, green, blue, [intensity])",
+[ERROR_PROPERTY_PATH] = "Malformed property: EA, WE, SO, and NO require one \
+string argument (path)",
+[ERROR_PROPERTY_COMMENTS] = "Malformed property: '#' and '##' require one \
+string argument (broadcast)",
 [ERROR_PARSING_UNCLOSED] = "All tiles must be surrounded by walls; \
 the map cannot have open edges.",
 [ERROR_PARSING_MISSING_COLOR] = "Invalid map configuration: floor and \
@@ -59,8 +66,9 @@ void	throw_error_info(t_game *game, t_error error, char *info)
 		ft_putstr_fd(ERROR_BASIC, 2);
 	if (info)
 	{
-		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(": \"", 2);
 		ft_putstr_fd(info, 2);
+		ft_putchar_fd('\"', 2);
 	}
 	ft_putstr_fd("\n", 2);
 	exit_game(game);
@@ -74,7 +82,6 @@ int	exit_game(t_game *game)
 		close(game->parsing.file_fd);
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
-	free(game->sky_buffer);
 	free_tab((void **)game->parsing.map);
 	free_tab((void **)game->parsing.file_content);
 	if (game->win.ptr)

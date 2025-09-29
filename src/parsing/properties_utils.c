@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 15:42:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 03:00:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 00:37:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	property_check_color(t_property prop)
 		temp_int = ft_atoi(temp);
 		if (index < 3 && (temp_int < 0 || temp_int > 255))
 			return false;
-		if (index == 3 && (temp_int < 0 || temp_int > 1000))
+		if (index == 3 && (temp_int < 0 || temp_int >= PROPERTY_AMBIANT_MAX))
 			return false;
 		index++;
 	}

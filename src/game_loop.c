@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 01:16:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 01:19:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 static inline void	hud_cigarette_animator(t_hud_cigarette *hud_cigarette,
 						t_game *game);
 
-static inline void	play_loop(t_game *game, t_img_data *frame, uint64_t time)
+static inline void	play_loop(t_game *game, uint64_t time)
 {
 	uint64_t	fps;
 
@@ -29,7 +29,6 @@ static inline void	play_loop(t_game *game, t_img_data *frame, uint64_t time)
 	anim_tile_update(&game->water_anim, game);
 	update_player(&game->player, game);
 	hud_cigarette_animator(&game->hud_cigarette, game);
-	ft_memset(frame->buffer, 0, frame->width * frame->height * (frame->pbits / 8));
 	render(game);
 	fps = get_fps(time);
 	if (fps != 0)
@@ -54,7 +53,7 @@ int	game_loop(void *param)
 		if (game->state == STATE_MENU || game->state == STATE_PAUSED)
 			render_menu(game, game->state == STATE_MENU);
 		else
-			play_loop(game, frame, time);
+			play_loop(game, time);
 		mlx_put_image_to_window(game->mlx, game->win.ptr, frame->img_ptr, -2, -2);
 	}
 	return (1);

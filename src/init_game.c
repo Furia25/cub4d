@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/29 18:04:42 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 01:10:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ bool	create_frame_image(t_game *game)
 	game->z_buffer = malloc((game->win.width * game->win.height + 8)
 		* sizeof(float));
 	if (!game->z_buffer)
-		return (false);
-	game->sky_buffer = malloc(((game->win.width * game->win.height) / 2)
-		* sizeof(int));
-	if (!game->sky_buffer)
 		return (false);
 	return (true);
 }

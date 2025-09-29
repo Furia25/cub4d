@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/29 23:10:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 01:10:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,6 @@ typedef struct s_game
 {
 	void				*mlx;
 	t_img_data			*frame;
-	uint8_t				*sky_buffer;
 	t_parsing			parsing;
 	t_win				win;
 	float				aspect_res;

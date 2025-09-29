@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 19:11:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 23:56:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ typedef enum e_error
 	ERROR_PARSING_PLAYERS,
 	ERROR_PARSING_NOPLAYER,
 	ERROR_PARSING_PROPERTY,
+	ERROR_PROPERTY_COLOR,
+	ERROR_PROPERTY_PATH,
+	ERROR_PROPERTY_COMMENTS,
 	ERROR_PARSING_MISSING_COLOR,
 	ERROR_PARSING_MISSING_PATHS,
 	ERROR_PARSING_UNCLOSED,

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 23:10:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 01:27:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static inline void	parsing_check_mandatory(t_parsing *parsing, t_game *game)
 		|| !parsing->textures_paths[2]
 		|| !parsing->textures_paths[3])
 		throw_error(game, ERROR_PARSING_MISSING_PATHS);
+	parsing->ceil_color.channels.a = 255;
+	parsing->floor_color.channels.a = 255;
 }
 
 static inline void	read_mapfile(t_parsing *parsing, t_game *game)

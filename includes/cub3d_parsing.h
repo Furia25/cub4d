@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 22:42:22 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 01:20:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # include "cub3d_structs.h"
 
-# define DEBUG_PARSING	0
+# define DEBUG_PARSING	1
 # define PARSING_MAP_MESSAGE "Map size parsed to %dx%d.\n"
+
+# define PROPERTY_AMBIANT_MAX	250
 
 typedef struct s_game	t_game;
 
@@ -31,6 +33,8 @@ typedef enum e_property_type
 	PROP_A,
 	PROP_ENTITY,
 	PROP_HEIGHT,
+	PROP_BROADCAST,
+	PROP_COMMENT,
 	PROP_UNKNOWN
 }	t_property_type;
 
@@ -53,7 +57,7 @@ typedef struct s_parsing
 	int				map_end;
 	bool			has_player;
 	t_rgba8			ambiant_color;
-	uint8_t			ambiant_strength;
+	uint16_t		ambiant_strength;
 	t_rgba8			floor_color;
 	t_rgba8			ceil_color;
 	bool			has_ceil;

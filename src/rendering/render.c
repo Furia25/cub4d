@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 01:07:08 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 01:29:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,28 @@ static inline void	render_rays(int start, int end, t_render_context *render)
 
 static inline void	render_fog(t_render_context *render, t_parsing *parsing)
 {
-	uint16_t	fog;
-	float		*zbuffer;
-	int			x;
-	int			y;
+	unsigned int	fog;
+	float			depth;
+	int				x;
+	int				y;
 
 	y = 0;
-	zbuffer = render->z_buffer;
 	while (y < render->render_height)
 	{
 		x = 0;
 		while (x < render->render_width)
 		{
-			fog = zbuffer[x + y * render->render_width]
-				* parsing->ambiant_strength;
-			if (fog > 255)
-				fog = 255;
-			parsing->ambiant_color.channels.a = fog;
-			draw_pixel(parsing->ambiant_color, x, y, render->frame);
+			depth = render->z_buffer[x + y * render->render_width];
+			if (depth == INFINITY)
+				draw_pixel(parsing->ceil_color, x, y, render->frame);
+			else
+			{
+				fog = depth * parsing->ambiant_strength;
+				if (fog > 255)
+					fog = 255;
+				parsing->ambiant_color.channels.a = fog;
+				draw_pixel(parsing->ambiant_color, x, y, render->frame);
+			}
 			x++;
 		}
 		y++;
