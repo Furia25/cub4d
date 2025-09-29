@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:02:07 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 19:45:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 22:45:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	try_parse_map(int index, t_parsing *parsing, t_game *game)
 		throw_error(game, ERROR_PARSING_VALIDITY);
 	parsing->has_player = false;
 	parse_map_from_file(parsing, game);
-	map_check_borders(parsing, game);
 }
 
 static inline int	map_get_width(t_parsing *parsing)

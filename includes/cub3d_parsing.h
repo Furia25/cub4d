@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 19:45:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 22:42:22 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_parsing
 	t_rgba8			ceil_color;
 	bool			has_ceil;
 	bool			has_floor;
-	char			**temp_map;
 }	t_parsing;
 
 extern const char *g_property_token[PROP_UNKNOWN];
