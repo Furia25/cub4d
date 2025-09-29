@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/29 02:36:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:11:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_VALIDITY] = "Map couldn't be used, verify integrity.",
 [ERROR_PARSING_NL_MAP] = "Unexpected new line in tilemap.",
 [ERROR_PARSING_ALLOC] = "Couldn't allocate enough memory when parsing.",
-[ERROR_PARSING_PLAYER] = "Map must contain exactly one player spawn point.",
+[ERROR_PARSING_PLAYERS] = "Map must contain exactly one player spawn point.",
+[ERROR_PARSING_NOPLAYER] = "Map must contain at least one player spawn point.",
 [ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
 [ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
 [ERROR_PARSING_UNCLOSED] = "All tiles must be surrounded by walls; \
@@ -74,6 +75,7 @@ int	exit_game(t_game *game)
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
 	free(game->sky_buffer);
+	free_tab((void **)game->parsing.temp_map);
 	free_tab((void **)game->parsing.map);
 	free_tab((void **)game->parsing.file_content);
 	if (game->win.ptr)

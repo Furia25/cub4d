@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/29 03:00:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 18:45:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@
 
 # define GAME_INTERVAL_MIN	32
 
-# define WINDOW_WIDTH		1280
-# define WINDOW_HEIGHT		720
+# define WINDOW_WIDTH		1280 * 1.5
+# define WINDOW_HEIGHT		720 * 1.5
 # define ASPECT_RES			1080
 # define MOUSE_SENS			0.001
 
@@ -251,6 +251,7 @@ bool		key_is_pressed(t_key_type type, t_game *game);
 
 // ----- UTILS ----- //
 void		free_tab(void **map);
+char		**chartab_dup(char **tab, size_t height);
 void		free_tab_content(void **map);
 bool		is_file_valid(char *path);
 int			file_length(char *file);

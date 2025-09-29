@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 15:39:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 17:39:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 17:39:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 t_list			*ft_lstnew(void *content);
 t_list			*ft_lstlast(t_list *lst);
 //
+size_t			ft_intlen(int n);
 size_t			ft_strlen(const char *str);
 size_t			ft_strlcat(char *dest, char *src, size_t size);
 size_t			ft_strlcpy(char *dest, char *src, size_t size);
@@ -47,13 +48,16 @@ int				ft_memcmp(const void *s1, const void *s2, size_t n);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strend(char *str, char *suffix);
+bool			ft_strcheck(char *str, int (*f)(int c));
 int				count_words(const char *str, char c);
 int				ft_atoi(const char *nptr);
+double			ft_atof(char *str);
 int				ft_lstsize(t_list *lst);
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);
 int				ft_isascii(int c);
 int				ft_isdigit(int c);
+int				ft_isspace(int c);
 int				ft_isprint(int c);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
@@ -73,6 +77,7 @@ char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(const char *s);
 t_gnl_result	get_next_line(int fd);
 char			*ft_itoa(int n);
+void			ft_itoab(int n, wchar_t *res, int len);
 //
 void			ft_striteri(char *s, void (*f)(size_t, char *));
 void			ft_lstdelone(t_list *lst, void (*del)(void *));

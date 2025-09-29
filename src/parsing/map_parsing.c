@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:02:07 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 04:14:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:45:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static inline void	parse_map_from_file(t_parsing *parsing, t_game *game);
 static inline void	parse_map_line(char *line, int y,
 						t_parsing *parsing, t_game *game);
-static inline void	map_check_borders(t_parsing *parsing, t_game *game);
 static inline int	map_get_width(t_parsing *parsing);
 
 void	try_parse_map(int index, t_parsing *parsing, t_game *game)
@@ -99,34 +98,4 @@ static inline void	parse_map_line(char *line, int y,
 			map_set_player_pos(x, y, parsing, game);
 		x++;
 	}
-}
-
-static inline bool	check_neighbour(int x, int y, char **map, t_parsing *parsing);
-
-static inline void	map_check_borders(t_parsing *parsing, t_game *game)
-{
-	char	c;
-	int		x;
-	int		y;
-
-	y = 0;
-	while (y < parsing->map_height)
-	{
-		x = 0;
-		while (x < parsing->map_width)
-		{
-			c = parsing->map[y][x];
-			if (is_symbol_central(c)
-				&& !check_neighbour(x, y, parsing->map, parsing))
-				throw_error(game, ERROR_PARSING_UNCLOSED);
-			x++;
-		}
-		y++;
-	}
-}
-
-static inline bool	check_neighbour(int x, int y, char **map, t_parsing *parsing)
-{
-	/*TO DO FLOODFILL*/
-	return (true);
 }

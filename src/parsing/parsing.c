@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 02:28:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:12:08 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	parsing(char *file_name, t_game *game)
 
 static inline void	parsing_postcheck_clean(t_parsing *parsing, t_game *game)
 {
+	if (!parsing->has_player)
+		throw_error(game, ERROR_PARSING_NOPLAYER);
 	if (!parsing->has_ceil || !parsing->has_floor)
 		throw_error(game, ERROR_PARSING_MISSING_COLOR);
 	if (!parsing->textures_paths[0]

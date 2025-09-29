@@ -6,12 +6,12 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 21:41:19 by val               #+#    #+#              #
-#    Updated: 2025/06/23 15:12:51 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/29 01:30:28 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INCLUDE_DIR = ./
-CFLAGS = -Wall -Wextra -Werror -fPIC -I$(INCLUDE_DIR)  -O3 -Wno-unused-result
+CFLAGS = -Wall -Wextra -Werror -fPIC -I$(INCLUDE_DIR) -O3 -Wno-unused-result
 CC = cc
 NAME = libft.a
 
@@ -31,6 +31,7 @@ BASE_SRC = checks/ft_isalpha.c \
 		memory/ft_memcmp.c \
 		memory/ft_calloc.c \
 		strings/ft_strlen.c \
+		strings/ft_strcheck.c \
 		strings/ft_strlcpy.c \
 		strings/ft_strlcat.c \
 		strings/ft_strcpy.c \
@@ -49,7 +50,10 @@ BASE_SRC = checks/ft_isalpha.c \
 		strings/ft_striteri.c \
 		strings/ft_strend.c \
 		conversions/ft_atoi.c \
+		conversions/ft_atof.c \
 		conversions/ft_itoa.c \
+		conversions/ft_intlen.c \
+		conversions/ft_itoab.c \
 		files_managing/ft_putchar_fd.c \
 		files_managing/ft_putstr_fd.c \
 		files_managing/ft_putendl_fd.c \
@@ -58,6 +62,7 @@ BASE_SRC = checks/ft_isalpha.c \
 		files_managing/ft_putnbr_base_fd.c \
 		files_managing/get_next_line.c \
 		ft_printf.c \
+		ft_vprintf_fd.c \
 
 BONUS_SRC = chained_lists/ft_lstadd_back_bonus.c \
 			chained_lists/ft_lstadd_front_bonus.c \

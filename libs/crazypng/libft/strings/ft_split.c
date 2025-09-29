@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:14:20 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 17:40:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/28 17:39:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,3 @@ int	count_words(const char *str, char c)
 	}
 	return (words);
 }
-
-/*    int	main(int argc, char *argv[])
-{
-	char	*test = "split  ||this|for|me|||||!|";
-	char	**t;
-	char	**t2;
-
-	t = ft_split(argv[1], '-');
-	int i = 0;
-	while (t[i])
-	{
-		puts(t[i]);
-		i++;
-	}
-} */

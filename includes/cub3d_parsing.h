@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 01:03:05 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 19:45:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_parsing
 	t_rgba8			ceil_color;
 	bool			has_ceil;
 	bool			has_floor;
+	char			**temp_map;
 }	t_parsing;
 
 extern const char *g_property_token[PROP_UNKNOWN];
@@ -66,6 +67,7 @@ extern const char *g_property_token[PROP_UNKNOWN];
 void		parsing(char *file_name, t_game *game);
 int			check_file_extension(char *filename);
 void		try_parse_map(int index, t_parsing *parsing, t_game *game);
+void		map_check_borders(t_parsing *parsing, t_game *game);
 
 /*Interpret*/
 void		interpret_map_from_file(t_parsing *parsing, t_game *game);

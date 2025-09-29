@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:27:07 by vdurand           #+#    #+#             */
-/*   Updated: 2025/04/17 17:35:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/26 17:11:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 
-static int	ft_isspace(char c)
+int	ft_isspace(int c)
 {
-	if (c == '\n' || c == ' ' || c == '	' || c == '\f')
+	if (c == '\n' || c == ' ' || c == '	'
+		|| c == '\f' || c == '\r' || c == '\t' || c == '\v')
 		return (1);
-	return (c == '\r' || c == '\t' || c == '\v');
+	return (0);
 }
 
 int	ft_atoi(const char *nptr)

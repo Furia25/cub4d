@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/26 02:36:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 18:04:42 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static inline void	spawn_test_entities(t_game *game)
 	t_vec3	ppos;
 	int		i;
 
-	i = 10000;
+	i = 10;
 	ppos = game->player.position;
 	while (i >= 0)
 	{

@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/28 23:10:14 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/29 19:45:27 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,8 +78,9 @@ SRC_FILES = \
 	parsing/parsing_utils.c \
 	parsing/parsing.c \
 	parsing/properties_utils.c \
+	parsing/map_borders.c \
 	parsing/properties.c \
-	utils/free_utils.c \
+	utils/tab_utils.c \
 	utils/print_utils.c \
 	utils/misc_utils.c \
 	utils/move_utils.c \
