@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 22:04:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 01:16:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "cub3d_rendering.h"
 #include "cub3d_entities.h"
 #include "glyphs.h"
+#include "ft_printf.h"
 
 static inline void	hud_cigarette_animator(t_hud_cigarette *hud_cigarette,
 						t_game *game);
@@ -32,7 +33,7 @@ static inline void	play_loop(t_game *game, t_img_data *frame, uint64_t time)
 	render(game);
 	fps = get_fps(time);
 	if (fps != 0)
-		printf("FPS : %lu TIME S :%ld\n", fps, get_elapsed_ms() / 1000);
+		ft_printf(ANSI_CARRIAGE ANSI_ERASE "FPS : %d", fps);
 }
 
 int	game_loop(void *param)

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 01:03:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 03:00:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	print_char_tab(char **tab)
 {
 	while (tab && *tab)
 	{
-		printf(*(tab + 1) ? "|%s|, " : "|%s|\n", *tab);
+		if (*(tab + 1))
+			printf("|%s|, ", *tab);
+		else
+			printf("|%s|\n", *tab);
+		
 		tab++;
 	}
 }
@@ -29,7 +33,7 @@ static inline void	print_loading(int loaded, int max, int *bar)
 
 	index = 0;
 	percent = (int)((float)(loaded + 1) / max * 100);
-	ft_putstr_fd(ANSI_CARRIAGE, 1);
+	ft_putstr_fd(ANSI_CARRIAGE ANSI_ERASE, 1);
 	ft_putstr_fd(LOADING_COLOR LOADING_PREFIX " " LOADING_BORDER_LEFT, 1);
 	while (index < max)
 	{
@@ -70,8 +74,8 @@ void	loading_log(int error, char *error_format, char *str)
 			ft_putstr_fd(WARNING_PREFIX, 2);
 		else
 			ft_putstr_fd(ERROR_PREFIX, 2);
-		ft_printf(error_format, str);
-		ft_putstr_fd("\n", 1);
+		ft_printf_fd(2, error_format, str);
+		ft_putstr_fd("\n", 2);
 	}
 	ft_putstr_fd(ANSI_RESET, 1);
 	loaded++;

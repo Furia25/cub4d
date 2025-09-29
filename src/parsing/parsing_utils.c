@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:03:47 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 16:03:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 02:45:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game)
 	parsing->has_player = true;
 	game->player.position.x = (float)x + 0.5;
 	game->player.position.y = (float)(y - parsing->map_start) + 0.5;
-	if (game->parsing.file_content[y][x] == 'S')
+	if (game->parsing.map[y][x] == 'S')
 		game->player.yaw_rad = M_PI / 2;
-	else if (game->parsing.file_content[y][x] == 'N')
+	else if (game->parsing.map[y][x] == 'N')
 		game->player.yaw_rad = 3 * M_PI / 2;
-	else if (game->parsing.file_content[y][x] == 'W')
+	else if (game->parsing.map[y][x] == 'W')
 		game->player.yaw_rad = M_PI;
-	else if (game->parsing.file_content[y][x] == 'E')
+	else if (game->parsing.map[y][x] == 'E')
 		game->player.yaw_rad = 0;
 	else
 		throw_error(game, ERROR_WTF);

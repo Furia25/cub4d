@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/29 01:02:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 03:00:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@
 # define LOADING_PREFIX	"Loading: "
 # define LOADING_COLOR_GOOD	"\033[32m"
 # define LOADING_CHAR	"*"
+# define LOADING_COMPLETE	"\033[34m\033[1mAll assets ready. Starting up..."
 
 #define WARNING_TEXTURE_ACCESS	"Cannot access texture file at path: \"%s\""
 #define WARNING_TEXTURE_NAME	"Texture file name too long at path: \"%s\""

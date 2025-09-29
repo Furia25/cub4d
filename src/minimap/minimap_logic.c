@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/28 23:08:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 01:06:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ void	draw_plain_tiles(t_tile_context *tile, t_ivec2 map_pos)
 	length = ft_strlen(tile->line);
 	while (tile->tile < length && tile->tile < (int)tile->game->player.position.x + 9 && tile->line[tile->tile])
 	{
-		if (tile->line[tile->tile] == ' '
-			|| tile->line[tile->tile] == '\n'
-			|| tile->tile > (int)ft_strlen(tile->line))
+		if (tile->tile > (int)ft_strlen(tile->line))
 			draw_tile(tile, rgba8(0, 0, 0, 200), 0, map_pos);
 		else if (is_symbol_central(tile->line[tile->tile]))
 			draw_tile(tile, rgba8(255, 150, 100, 200), 0, map_pos);

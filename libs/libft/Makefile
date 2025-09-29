@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 21:41:19 by val               #+#    #+#              #
-#    Updated: 2025/09/27 15:50:03 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/29 01:30:28 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ BASE_SRC = checks/ft_isalpha.c \
 		files_managing/ft_putnbr_base_fd.c \
 		files_managing/get_next_line.c \
 		ft_printf.c \
+		ft_vprintf_fd.c \
 
 BONUS_SRC = chained_lists/ft_lstadd_back_bonus.c \
 			chained_lists/ft_lstadd_front_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/28 22:28:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 02:36:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_PLAYER] = "Map must contain exactly one player spawn point.",
 [ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
 [ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
+[ERROR_PARSING_UNCLOSED] = "All tiles must be surrounded by walls; \
+the map cannot have open edges.",
 [ERROR_PARSING_MISSING_COLOR] = "Invalid map configuration: floor and \
 ceiling colors must be defined using the F and C properties.",
 [ERROR_PARSING_MISSING_PATHS] = "Invalid map configuration: wall textures \
@@ -72,7 +74,7 @@ int	exit_game(t_game *game)
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
 	free(game->sky_buffer);
-	free(game->parsing.map);
+	free_tab((void **)game->parsing.map);
 	free_tab((void **)game->parsing.file_content);
 	if (game->win.ptr)
 		mlx_destroy_window(game->mlx, game->win.ptr);
@@ -88,6 +90,7 @@ int	exit_game(t_game *game)
 	free_textures(game);
 	free(game->mlx);
 	vector_free(game->entity_manager.entities, true);
+	ft_putchar_fd('\n', 1);
 	exit(EXIT_SUCCESS);
 }
 

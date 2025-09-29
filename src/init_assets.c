@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 01:02:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 01:10:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	init_assets(t_game *game)
 	loading_log(0, NULL, NULL);
 	init_hud(game);
 	loading_log(0, NULL, NULL);
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\n" LOADING_COMPLETE "\n", 1);
 	return (1);
 }
 

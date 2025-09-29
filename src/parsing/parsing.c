@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 00:24:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/29 02:28:50 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static inline void	read_file(t_parsing *parsing, t_game *game)
 			parsing->file_content[i] = NULL;
 			return ;
 		}
+		else
+			line.line[ft_strlen(line.line) - 1] = '\0';
 		line = get_next_line(parsing->file_fd);
 	}
 	free(line.line);
