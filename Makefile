@@ -109,13 +109,13 @@ SRC_FILES = \
 	drawing/text_utils.c \
 	constants/constants.c \
 	constants/colors.c \
-	entities/entity_exemple.c \
 	entities/entities_updates.c \
 	entities/entities_utils.c \
+	entities/entity_npc.c \
 	entities/manager.c
 
 HEADERS = \
-	cub3d.h
+	cub3d.h \
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

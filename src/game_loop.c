@@ -31,8 +31,8 @@ static inline void	play_loop(t_game *game, uint64_t time)
 	hud_cigarette_animator(&game->hud_cigarette, game);
 	render(game);
 	fps = get_fps(time);
-	if (fps != 0)
-		ft_printf(ANSI_CARRIAGE ANSI_ERASE "FPS : %d" ANSI_RESET, fps);
+	// if (fps != 0)
+		// ft_printf(ANSI_CARRIAGE ANSI_ERASE "FPS : %d" ANSI_RESET, fps);
 }
 
 int	game_loop(void *param)

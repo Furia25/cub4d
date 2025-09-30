@@ -22,7 +22,6 @@ int	calculate_offset(double p_pos)
 	return (offset);
 }
 
-
 void	draw_empty_tiles(t_tile_context *tile, int limit, t_ivec2 map_pos)
 {
 	while (tile->tile < limit)
@@ -42,7 +41,7 @@ void	draw_plain_tiles(t_tile_context *tile, t_ivec2 map_pos)
 	length = ft_strlen(tile->line);
 	while (tile->tile < length && tile->tile < (int)tile->game->player.position.x + 9 && tile->line[tile->tile])
 	{
-		if (tile->tile > (int)ft_strlen(tile->line))
+		if (tile->tile > (int)ft_strlen(tile->line) || tile->line[tile->tile] == ' ')
 			draw_tile(tile, rgba8(0, 0, 0, 200), 0, map_pos);
 		else if (is_symbol_central(tile->line[tile->tile]))
 			draw_tile(tile, rgba8(255, 150, 100, 200), 0, map_pos);

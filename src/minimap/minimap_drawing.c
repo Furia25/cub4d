@@ -22,6 +22,7 @@ void	draw_tile(t_tile_context *tile, t_rgba8 color,
 	int	y;
 
 	i = 0;
+	printf("\nposx: %d posy: %d\n", tile->pos_x, tile->pos_y);
 	while (i < MMAP_TILE_SIZE - mid_off)
 	{
 		j = 0;
@@ -108,12 +109,14 @@ void	draw_entites(t_game *game, t_entity *entity, t_ivec2 map_pos)
 		&& (pos.y >= game->player.position.y - 8
 			&& pos.y <= game->player.position.y + 9))
 	{
+		// printf("\nposx: %f posy: %f\n", pos.x, pos.y);
 		off_x = calculate_offset(game->player.position.x);
 		off_y = calculate_offset(game->player.position.y);
 		minimap_pos.x = (pos.x - game->player.position.x) + 7.5;
 		minimap_pos.y = (pos.y - game->player.position.y) + 7.5;
-		tile_info = (t_tile_context){game, NULL, 0, minimap_pos.x, 
-			minimap_pos.y, off_x, off_y};
+		printf("\nposx: %f posy: %f\n", minimap_pos.x, minimap_pos.y);
+		tile_info = (t_tile_context){game, NULL, 0, minimap_pos.x,
+			minimap_pos.y, 0, 0};
 		draw_tile(&tile_info, entity->map_color,
 			MMAP_TILE_SIZE * 0.75, map_pos);
 	}
