@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 23:34:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 02:01:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,13 @@ const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_RIGHT] = XK_d,
 [KEY_JUMP] = XK_space,
 [KEY_TAB] = XK_Tab,
-[KEY_TEST_LEFT] = XK_Left,
-[KEY_TEST_RIGHT] = XK_Right,
-[KEY_TEST_DOWN] = XK_Down,
-[KEY_TEST_UP] = XK_Up,
+[KEY_LOOK_LEFT] = XK_Left,
+[KEY_LOOK_RIGHT] = XK_Right,
+[KEY_FLY_DOWN] = XK_Down,
+[KEY_FLY_UP] = XK_Up,
 [KEY_INTERACT] = XK_e,
 [KEY_PAUSE] = XK_F1,
+[KEY_GRAVITY] = XK_g,
 [KEY_ENTER] = XK_Return,
 [KEY_FLEX] = XK_f
 };

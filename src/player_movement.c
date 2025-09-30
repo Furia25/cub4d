@@ -6,14 +6,60 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/25 18:40:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 02:46:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "maths2_easing.h"
 
-void	player_move_collision(t_vec3 move, t_player *player, t_game *game)
+static inline void	player_handle_move(t_player *player, t_game *game);
+static inline void	player_move_collision(t_vec3 move,
+						t_player *player, t_game *game);
+static inline void	player_handle_jump(t_player *plr, t_game *game);
+
+void	update_player(t_player *player, t_game *game)
+{
+	const bool	gravity_key = key_is_released(KEY_GRAVITY, game);
+	const float	fly = key_check(KEY_FLY_UP, game) - key_check(KEY_FLY_DOWN, game);
+
+	if (gravity_key)
+		player->has_gravity = !player->has_gravity;
+	player->yaw_rad += (M_PI / 100) * (key_check(KEY_LOOK_RIGHT, game) - key_check(KEY_LOOK_LEFT, game));
+	game->player.yaw_rad = fmodf(game->player.yaw_rad, 2 * M_PI);
+	player_handle_move(player, game);
+	if (fly == 0)
+		player_handle_jump(player, game);
+	else
+		player_add_z(fly * 0.025, player);
+	if (player->position.z < -15)
+		player_death(game);
+}
+
+static inline void	player_handle_move(t_player *player, t_game *game)
+{
+	const float	forward = key_check(KEY_UP, game) - key_check(KEY_DOWN, game);
+	const float	strafe = key_check(KEY_RIGHT, game) - key_check(KEY_LEFT, game);
+	t_vec2		move;
+	t_vec2		dir;
+
+	dir = vec2_from_angle(player->yaw_rad);
+	move = vec2_add(vec2_scale(dir, forward), vec2_scale(vec2_new(-dir.y, dir.x), strafe));
+	if (strafe == 0 && forward == 0)
+	{
+		move = player->last_move;
+		player->accel = fmaxf(player->accel - player->friction, 0);
+	}
+	else
+		player->accel = fminf(player->accel + player->accel_speed, player->base_speed + player->accel_max);
+	if (move.x != 0 || move.y != 0)
+		move = vec2_scale(vec2_normalize(move), player->accel);
+	player->last_move = move;
+	player_move_collision((t_vec3){move.x, move.y, 0}, player, game);
+}
+
+static inline void	player_move_collision(t_vec3 move,
+						t_player *player, t_game *game)
 {
 	t_vec3	temp_v;
 
@@ -25,7 +71,7 @@ void	player_move_collision(t_vec3 move, t_player *player, t_game *game)
 		player_add_y(move.y, player);
 }
 
-void	player_handle_jump(t_player *plr, t_game *game)
+static inline void	player_handle_jump(t_player *plr, t_game *game)
 {
 	const float	gravity = -0.013f;
 	bool		jumping;
@@ -38,42 +84,16 @@ void	player_handle_jump(t_player *plr, t_game *game)
 		plr->is_grounded = false;
 		plr->jump_velocity = plr->jump_force;
 	}
-	plr->jump_velocity += gravity;
+	if (plr->has_gravity)
+	{
+		if (plr->jump_velocity > -4)
+			plr->jump_velocity += gravity;
+	}
+	else
+		plr->jump_velocity = 0;
 	if (!tilemap_collide_bbox((t_vec3){0, 0, plr->jump_velocity},
 			plr->bbox, game->tilemap))
 		player_add_z(plr->jump_velocity, plr);
 	else
 		plr->jump_velocity = 0.0f;
-}
-
-void	update_player(t_player *player, t_game *game)
-{
-	float	fly;
-	float	forward;
-	float	strafe;
-	t_vec2	dir;
-	t_vec2	move;
-
-	strafe =  key_check(KEY_RIGHT, game) - key_check(KEY_LEFT, game);
-	forward =  key_check(KEY_UP, game) - key_check(KEY_DOWN, game);
-	player->yaw_rad += (M_PI / 100) * (key_check(KEY_TEST_RIGHT, game) - key_check(KEY_TEST_LEFT, game));
-	game->player.yaw_rad = fmodf(game->player.yaw_rad, 2 * M_PI);
-	dir = vec2_from_angle(player->yaw_rad);
-	move = vec2_add(vec2_scale(dir, forward), vec2_scale(vec2_new(-dir.y, dir.x), strafe));
-	if (strafe == 0 && forward == 0)
-	{
-		move = player->last_move;
-		player->accel = fmaxf(player->accel - player->friction, 0);
-	}
-	else
-		player->accel = fclamp(player->accel + player->accel_speed, 0, player->base_speed + player->accel_max);
-	if (move.x != 0 || move.y != 0)
-		move = vec2_scale(vec2_normalize(move), player->accel);
-	player->last_move = move;
-	player_move_collision((t_vec3){move.x, move.y, 0}, player, game);
-	fly = (key_check(KEY_TEST_UP, game) - key_check(KEY_TEST_DOWN, game)) * 0.025;
-	if (fly == 0)
-		player_handle_jump(player, game);
-	else
-		player_add_z(fly, player);
 }

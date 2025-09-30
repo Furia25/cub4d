@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 01:10:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 02:46:50 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@
 # include "cub3d_anim.h"
 # include "cub3d_parsing.h"
 
-//TEMP
-# define vec3_print(vec)	printf("x: %f, y: %f, z: %f\n", vec.x, vec.y, vec.z);
-# define vec2_print(vec)	printf("x: %f, y: %f\n", vec.x, vec.y);
-//TEMP
-
 # define GAME_NAME	"CUB3D"
 # define GAME_NAME_F	L"{9t~*}CUB3D"
 
@@ -61,6 +56,7 @@
 # define SEED_FALLBACK_DEFAULT	0xCACA
 # define SEED_MESSAGE	"Seed have been initialized to %016lx\n."
 
+# define ANSI_BOLD	"\033[1m"
 # define ANSI_YELLOW	"\033[1;33m"
 # define ANSI_RED	"\033[31m"
 # define ANSI_RESET	"\033[0m"
@@ -79,8 +75,8 @@
 # define LOADING_CHAR	"*"
 # define LOADING_COMPLETE	"\033[34m\033[1mAll assets ready. Starting up..."
 
-#define WARNING_TEXTURE_ACCESS	"Cannot access texture file at path: \"%s\""
-#define WARNING_TEXTURE_NAME	"Texture file name too long at path: \"%s\""
+# define WARNING_TEXTURE_ACCESS	"Cannot access texture file at path: \"%s\""
+# define WARNING_TEXTURE_NAME	"Texture file name too long at path: \"%s\""
 # define WARNING_SEED	"Failed to set seed \
 from random source, using fallback : %016lx\n."
 
@@ -103,6 +99,12 @@ from random source, using fallback : %016lx\n."
 # define MENU_OPTION_RESUME	L"{5}RESUME"
 # define MENU_OPTION_CONFIG	L"{4}Config"
 # define MENU_OPTION_QUIT	L"{4}Quit"
+# define DEATH_MESSAGE	"\n\n\
+▗▖  ▗▖▄▄▄  █  ▐▌    ▗▄▄▄  ▄ ▗▞▀▚▖   ▐▌\n\
+ ▝▚▞▘█   █ ▀▄▄▞▘    ▐▌  █ ▄ ▐▛▀▀▘   ▐▌\n\
+  ▐▌ ▀▄▄▄▀          ▐▌  █ █ ▝▚▄▄▖▗▞▀▜▌\n\
+  ▐▌                ▐▙▄▄▀ █      ▝▚▄▟▌\n\
+\n"
 
 typedef enum e_game_state
 {
@@ -148,6 +150,7 @@ typedef struct s_player
 	float	jump_velocity;
 	t_vec2	last_move;
 	bool	is_grounded;
+	bool	has_gravity;
 }	t_player;
 
 typedef struct s_entity_manager
@@ -166,10 +169,10 @@ typedef struct s_win
 
 typedef struct s_hud_cigarette
 {
-	t_sprite			sprite;
+	t_sprite	sprite;
 	t_animation	anim_start;
-	bool				wait_to_flex;
-	bool				equipped;
+	bool		wait_to_flex;
+	bool		equipped;
 	t_animation	*actual_anim;
 	t_animation	anim_idle_off;
 	t_animation	anim_idle_on;
@@ -225,6 +228,7 @@ void		throw_error_info(t_game *game, t_error error, char *info);
 
 void		render(t_game *game);
 
+void		player_death(t_game *game);
 int			exit_game(t_game *game);
 int			game_loop(void *param);
 void		init_engine(t_game *game);

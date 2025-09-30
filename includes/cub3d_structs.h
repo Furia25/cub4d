@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 01:54:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 02:01:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ typedef enum e_key_type
 {
 	KEY_QUIT,
 	KEY_TEST,
-	KEY_TEST_UP,
-	KEY_TEST_DOWN,
+	KEY_FLY_UP,
+	KEY_FLY_DOWN,
 	KEY_UP,
 	KEY_DOWN,
 	KEY_LEFT,
 	KEY_RIGHT,
 	KEY_JUMP,
 	KEY_TAB,
-	KEY_TEST_RIGHT,
-	KEY_TEST_LEFT,
+	KEY_LOOK_RIGHT,
+	KEY_GRAVITY,
+	KEY_LOOK_LEFT,
 	KEY_INTERACT,
 	KEY_ENTER,
 	KEY_PAUSE,

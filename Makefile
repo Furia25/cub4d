@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/29 19:45:27 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/30 01:42:38 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC_FILES = \
 	rendering/render_draw_ray.c \
 	rendering/raycast_dda.c \
 	rendering/render.c \
+	rendering/fog.c \
 	rendering/texture.c \
 	rendering/button.c \
 	rendering/menu.c \

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 01:29:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 01:42:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,24 @@
 static inline void	render_rays(int start, int end, t_render_context *render);
 static void		render_init(int width, int height, \
 	t_render_context *context, t_game *game);
-static inline void	render_fog(t_render_context *render, t_parsing *parsing);
 
 void	render(t_game *game)
 {
+	t_parsing			*parsing;
 	t_render_context	context;
 	int					map_gap;
 
+	parsing = &game->parsing;
 	render_init(game->win.width, game->win.height, &context, game);
 	entities_draw(game, &context);
 	context.halfh = game->win.halfheight + game->player.pitch_offset;
 	context.halfh = clamp(context.halfh, 0, game->win.height);
 	render_rays(0, context.render_width, &context);
-	render_fog(&context, &game->parsing);
-	//render_sky(&context);
+	render_skyfog(parsing->ambiant_color, parsing->ceil_color,
+		parsing->ambiant_strength, &context);
 	if (game->hud_cigarette.sprite.sheet.asset != game->textures[TEXTURE_ERROR])
-	draw_sprite(game->hud_cigarette.sprite.transform,
-		&game->hud_cigarette.sprite, &context);
+		draw_sprite(game->hud_cigarette.sprite.transform,
+			&game->hud_cigarette.sprite, &context);
 	map_gap = game->win.height * 0.05;
 	draw_minimap(game, (t_ivec2){map_gap, map_gap});
 	if (key_check(KEY_TAB, game))
@@ -83,35 +84,5 @@ static inline void	render_rays(int start, int end, t_render_context *render)
 		ray = ray2_from_angle(render->position, ray_angle);
 		render_ray(ray_angle, x, &ray, render);
 		x++;
-	}
-}
-
-static inline void	render_fog(t_render_context *render, t_parsing *parsing)
-{
-	unsigned int	fog;
-	float			depth;
-	int				x;
-	int				y;
-
-	y = 0;
-	while (y < render->render_height)
-	{
-		x = 0;
-		while (x < render->render_width)
-		{
-			depth = render->z_buffer[x + y * render->render_width];
-			if (depth == INFINITY)
-				draw_pixel(parsing->ceil_color, x, y, render->frame);
-			else
-			{
-				fog = depth * parsing->ambiant_strength;
-				if (fog > 255)
-					fog = 255;
-				parsing->ambiant_color.channels.a = fog;
-				draw_pixel(parsing->ambiant_color, x, y, render->frame);
-			}
-			x++;
-		}
-		y++;
 	}
 }

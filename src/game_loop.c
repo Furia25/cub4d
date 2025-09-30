@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 01:19:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 02:28:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline void	play_loop(t_game *game, uint64_t time)
 	render(game);
 	fps = get_fps(time);
 	if (fps != 0)
-		ft_printf(ANSI_CARRIAGE ANSI_ERASE "FPS : %d", fps);
+		ft_printf(ANSI_CARRIAGE ANSI_ERASE "FPS : %d" ANSI_RESET, fps);
 }
 
 int	game_loop(void *param)
@@ -64,7 +64,10 @@ static inline void	hud_cigarette_animator(t_hud_cigarette *cig,
 {
 	anim_update(cig->actual_anim);
 	cig->sprite.transform.index = cig->actual_anim->actual_index;
-	if (anim_is_ended(&cig->anim_start) && anim_is_ended(&cig->anim_flex))
+	if (anim_is_ended(&cig->anim_start)
+		&& cig->actual_anim == &cig->anim_start)
+		cig->actual_anim = &cig->anim_idle_off;
+	if (anim_is_ended(&cig->anim_flex))
 	{
 		if (cig->equipped)
 			cig->actual_anim = &cig->anim_idle_on;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 01:10:28 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 02:04:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ void	init_player(t_player *player)
 	t_vec3	min;
 	t_vec3	max;
 
+	player->has_gravity = true;
 	player->base_speed = 0.07f;
 	player->accel_max = 0.03;
 	player->accel_speed = 0.003;
-	player->friction = 0.008;
+	player->friction = 0.0075;
 	player->air_friction = 0.0005;
 	player->eye_height = 0.3f;
 	player->jump_force = 0.3f;
@@ -63,9 +64,6 @@ void	init_player(t_player *player)
 	player->bbox = bbox_new(min, max);
 	player->is_grounded = true;
 }
-
-//TEMP
-#define print_color(rgb)	printf(#rgb " %d, %d, %d\n", rgb.channels.r, rgb.channels.g, rgb.channels.b);
 
 static inline void	spawn_test_entities(t_game *game)
 {
