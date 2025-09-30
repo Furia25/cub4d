@@ -62,19 +62,19 @@ void	draw_line(char *line, t_game *game, double pos_y)
 
 	off_x = calculate_offset(game->player.position.x);
 	off_y = calculate_offset(game->player.position.y);
-	tile = (int)game->player.position.x - 7;
+	tile = floor(game->player.position.x) - 7;
 	pos_x = 0;
 	tile_info = (t_tile_context){game, line, tile, pos_x, pos_y, off_x, off_y, 0, 0};
 	if (!line)
 	{
 		draw_empty_tiles(&tile_info,
-			(int)tile_info.game->player.position.x + 9);
+			floor(tile_info.game->player.position.x) + 9);
 		return ;
 	}
 	draw_empty_tiles(&tile_info, 0);
 	draw_plain_tiles(&tile_info);
 	draw_empty_tiles(&tile_info,
-		(int)tile_info.game->player.position.x + 9);
+		floor(tile_info.game->player.position.x) + 9);
 }
 
 void	draw_minimap(t_game *game)
@@ -83,23 +83,23 @@ void	draw_minimap(t_game *game)
 	int		line;
 
 	i = 0;
-	line = (int)game->player.position.y - 8;
+	line = floor(game->player.position.y) - 8;
 	while (++line < 0)
 		draw_line(NULL, game, i++);
 	while (line < game->parsing.map_height && game->parsing.map[line]
-		&& line < (int)game->player.position.y + 9)
+		&& line < floor(game->player.position.y) + 9)
 	{
 		draw_line(game->parsing.map[line], game, i);
 		line++;
 		i++;
 	}
-	while (line < (int)game->player.position.y + 9)
+	while (line < floor(game->player.position.y) + 9)
 	{
 		draw_line(NULL, game, i);
 		line++;
 		i++;
 	}
-	draw_border(game);
 	map_manage_entities(game);
+	draw_border(game);
 	draw_player(game);
 }
