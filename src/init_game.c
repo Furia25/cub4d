@@ -79,8 +79,8 @@ static inline void	spawn_test_entities(t_game *game)
 		// pos.x += rng_float_range(&game->rng, -100, 100);
 		// pos.y += rng_float_range(&game->rng, -100, 100);
 		// pos.z += rng_float_range(&game->rng, 0, 100);
-		pos.x = 2;
-		pos.y = 2;
+		pos.x = -1.5;
+		pos.y = 2.2;
 		pos.z = 1;
 		entity_add(entity_new_npc(pos, game), game);
 		i--;

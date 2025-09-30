@@ -86,6 +86,8 @@ from random source, using fallback : %016lx\n."
 # define MINIMAP_SIZE		249
 # define MINIMAP_BORDER		5
 # define MINIMAP_P_SIZE		8
+#define MINIMAP_X_START 	20
+#define MINIMAP_Y_START 	20
 
 # define PLAYER_SIZE		0.25
 
@@ -211,6 +213,8 @@ typedef struct s_tile_context
 	int		pos_y;
 	int		off_x;
 	int		off_y;
+	float	ent_off_x;
+	float	ent_off_y;
 }	t_tile_context;
 
 typedef struct s_button
@@ -267,15 +271,15 @@ void		print_char_tab(char **tab);
 void		loading_log(int error, char *error_format, char *str);
 
 // ----- MINIMAP ----- //
-void		draw_minimap(t_game *game, t_ivec2 map_pos);
-void		draw_player(t_game *game, t_ivec2 map_pos);
+void		draw_minimap(t_game *game);
+void		draw_player(t_game *game);
 void		draw_tile(t_tile_context *tile, t_rgba8 color,
-				int mid_off, t_ivec2 map_pos);
-void		draw_border(t_game *game, t_ivec2 map_pos);
-void		draw_player(t_game *game, t_ivec2 map_pos);
+				int mid_off);
+void		draw_border(t_game *game);
+void		draw_player(t_game *game);
 void		draw_full_map(t_game *game);
 int			calculate_offset(double p_pos);
-void		map_manage_entities(t_game *game, t_ivec2 map_pos);
+void		map_manage_entities(t_game *game);
 
 // ----- NPC ----- //
 void		draw_interact_button(t_game *game, t_button *btn, int text_box);

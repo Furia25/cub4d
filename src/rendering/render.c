@@ -36,7 +36,7 @@ void	render(t_game *game)
 		draw_sprite(game->hud_cigarette.sprite.transform,
 			&game->hud_cigarette.sprite, &context);
 	map_gap = game->win.height * 0.05;
-	draw_minimap(game, (t_ivec2){map_gap, map_gap});
+	draw_minimap(game);
 	if (key_check(KEY_TAB, game))
 		draw_full_map(game);
 }
