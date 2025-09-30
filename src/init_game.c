@@ -71,17 +71,17 @@ static inline void	spawn_test_entities(t_game *game)
 	t_vec3	ppos;
 	int		i;
 
-	i = 1;
+	i = 10000;
 	ppos = game->player.position;
 	while (i >= 0)
 	{
 		pos = ppos;
-		// pos.x += rng_float_range(&game->rng, -100, 100);
-		// pos.y += rng_float_range(&game->rng, -100, 100);
-		// pos.z += rng_float_range(&game->rng, 0, 100);
-		pos.x = -1.5;
-		pos.y = 2.2;
-		pos.z = 1;
+		pos.x += rng_float_range(&game->rng, -100, 100);
+		pos.y += rng_float_range(&game->rng, -100, 100);
+		pos.z += rng_float_range(&game->rng, 0, 100);
+		// pos.x = -1.5;
+		// pos.y = 2.2;
+		// pos.z = 1;
 		entity_add(entity_new_npc(pos, game), game);
 		i--;
 	}

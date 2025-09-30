@@ -99,7 +99,7 @@ void	draw_minimap(t_game *game)
 		line++;
 		i++;
 	}
-	draw_border(game);
 	map_manage_entities(game);
+	draw_border(game);
 	draw_player(game);
 }
