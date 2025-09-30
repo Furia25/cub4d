@@ -258,14 +258,17 @@ void	draw_entites(t_game *game, t_entity *entity)
 		off_y = calculate_offset(game->player.position.y);
 		ent_off_x = pos.x - floor(pos.x);
 		ent_off_y = pos.x - floor(pos.x);
+		printf("\nposx: %f posy: %f\n", pos.x, pos.y);
 		pos.x = floor(pos.x);
 		pos.y = floor(pos.y);
-		printf("\nposx: %f posy: %f\n", pos.x, pos.y);
+		printf("\nfposx: %f fposy: %f\n", pos.x, pos.y);
 		minimap_pos.x = 8 - game->player.position.x + pos.x;
 		minimap_pos.y = 8 - game->player.position.y + pos.y;
+		printf("\nfposx: %f fposy: %f\n", pos.x, pos.y);
+		printf("\nmposx: %f mposy: %f\n", pos.x, pos.y);
 		tile_info = (t_tile_context){game, NULL, 0, minimap_pos.x, \
 minimap_pos.y, off_x, off_y, ent_off_x, ent_off_y};
-		draw_tile(&tile_info, entity->transform.color, MMAP_TILE_SIZE / 2);
+		draw_tile(&tile_info, entity->map_color, MMAP_TILE_SIZE / 2);
 	}
 }
 

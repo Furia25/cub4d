@@ -47,8 +47,8 @@
 
 # define GAME_INTERVAL_MIN	32
 
-# define WINDOW_WIDTH		1280 * 2
-# define WINDOW_HEIGHT		720 * 2
+# define WINDOW_WIDTH		1280
+# define WINDOW_HEIGHT		720
 # define ASPECT_RES			1080
 # define MOUSE_SENS			0.001
 

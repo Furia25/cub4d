@@ -69,7 +69,6 @@ static inline void	spawn_test_entities(t_game *game)
 {
 	t_vec3	pos;
 	t_vec3	ppos;
-	t_entity	*entity;
 	int		i;
 
 	i = 1;
