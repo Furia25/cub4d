@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 15:19:05 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 23:58:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,15 @@ typedef struct s_hud_cigarette
 	t_animation	anim_flex;
 }	t_hud_cigarette;
 
+typedef void (*t_event_func)(void *ptr, t_game*);
+
+typedef struct s_event
+{
+	t_event_func	call;
+	void			*ptr;
+	bool			to_free;
+}	t_event;
+
 typedef struct s_game
 {
 	void				*mlx;
@@ -201,6 +210,7 @@ typedef struct s_game
 	t_menu				menu;
 	t_rng_state			rng;
 	t_entity_manager	entity_manager;
+	t_vector			*events_postload;
 	uint64_t			start_time;
 }	t_game;
 
@@ -231,17 +241,18 @@ typedef struct s_button
 
 void		throw_error(t_game *game, t_error error);
 void		throw_error_info(t_game *game, t_error error, char *info);
-
-void		render(t_game *game);
-
 void		player_death(t_game *game);
 int			exit_game(t_game *game);
-int			game_loop(void *param);
+
+void		init_engine_preparsing(t_game *game);
 void		init_engine(t_game *game);
 int			init_assets(t_game *game);
 void		init_textures(t_game *game);
 void		init_hooks(t_game *game);
-void		init_game(t_game *game);
+void		start_game(t_game *game);
+
+int			game_loop(void *param);
+void		render(t_game *game);
 
 void		color_texture(t_png *tex, t_rgba8 tint);
 
@@ -249,6 +260,12 @@ uint64_t	get_time_ms(void);
 uint64_t	get_elapsed_ms(void);
 uint64_t	get_fps(uint64_t start_time);
 uint64_t	time_init(void);
+
+/* Events queues*/
+t_vector	*event_queue_init(t_game *game);
+bool		event_queue_push(t_event_func call, void *ptr,
+				bool to_free, t_vector *event_queue);
+void		event_queue_execute(t_vector *event_queue, t_game *game);
 
 // ----- KEYS ----- //
 void		show_keys(t_game *game);

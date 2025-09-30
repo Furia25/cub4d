@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/30 17:42:57 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/01 00:20:41 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,13 +91,14 @@ SRC_FILES = \
 	utils/vector_methods.c \
 	utils/vector_methods2.c \
 	utils/file_utils.c \
-	player_movement.c \
-	end_game.c \
-	game_loop.c \
+	events.c \
 	init_assets.c \
-	init_game.c \
+	init_engine.c \
+	exit_engine.c \
 	hooks.c \
-	animation.c \
+	gameloop/player_movement.c \
+	gameloop/game_loop.c \
+	gameloop/animation.c \
 	keys/keys_buffer.c \
 	keys/keys_handling.c \
 	keys/keys.c \
@@ -129,7 +130,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -g3 -Wall -Werror -Wextra
+CFLAGS = -O3 -g3 -Wall -Werror -Wextra
 
 LOG = echo
 

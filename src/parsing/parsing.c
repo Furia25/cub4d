@@ -6,11 +6,12 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 19:10:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 23:18:44 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "cub3d_entities.h"
 
 static inline void	read_mapfile(t_parsing *parsing, t_game *game);
 static inline void	parsing_end(t_parsing *parsing, t_game *game);
@@ -34,10 +35,6 @@ void	parsing(char *file_name, t_game *game)
 	read_mapfile(parsing, game);
 	close(parsing->file_fd);
 	parsing->file_fd = -1;
-	parsing->entities_cache = vector_new();
-	if (!parsing->entities_cache)
-		throw_error(game, ERROR_PARSING_ALLOC);
-	parsing->entities_cache->val_free = property_free;
 	interpret_map_from_file(parsing, game);
 	parsing_end(parsing, game);
 }

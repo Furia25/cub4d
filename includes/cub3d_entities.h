@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 17:32:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 23:14:11 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,20 @@ struct s_entity
 	void						(*draw)(t_entity*, t_render_context*);
 	void						(*destroy)(t_entity*, t_game*);
 	void						(*free_data)(void *);
-	t_entity_data_constructor	data_constructor;
 	void						*data;
 	t_rgba8						map_color;
 	bool						solid;
 };
 
-typedef struct s_entity_mapping
+typedef struct s_entity_ctx
 {
 	char						*token;
 	t_entity_constructor		constructor;
+	t_entity_data_constructor	data_constructor;
 	t_error						error;
-}	t_entity_mapping;
+}	t_entity_ctx;
+
+
 
 t_entity	*entity_new(t_game *game);
 void		entity_free(t_entity *entity);

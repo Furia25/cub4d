@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 18:12:11 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 23:06:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_parsing
 	bool			has_ceil;
 	bool			has_floor;
 	t_property		temp_prop;
-	t_vector		*entities_cache;
 }	t_parsing;
 
 extern const char *g_property_token[PROP_UNKNOWN];

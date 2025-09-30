@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_drawing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/08 14:49:52 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/01 00:17:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ void	draw_entites(t_game *game, t_entity *entity)
 		pos.y = floor(pos.y);
 		minimap_pos.x = 8 - game->player.position.x + pos.x;
 		minimap_pos.y = 8 - game->player.position.y + pos.y;
-		tile_info = (t_tile_context){game, NULL, 0, floor(minimap_pos.x), \
-floor(minimap_pos.y), off_x, off_y, ent_off_x, ent_off_y};
+		tile_info = (t_tile_context){game, NULL, 0, floor(minimap_pos.x), 
+			floor(minimap_pos.y), off_x, off_y, ent_off_x, ent_off_y};
 		draw_tile(&tile_info, entity->map_color, MMAP_TILE_SIZE / 2);
 	}
 }

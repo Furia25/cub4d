@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:21:21 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 03:22:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 23:20:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int ac, char **av)
 		ft_putstr_fd("Error: Wrong file extension (.cub needed)\n", 2);
 		exit(EXIT_FAILURE);
 	}
+	init_engine_preparsing(&game);
 	parsing(av[1], &game);
 	init_engine(&game);
 	return (0);

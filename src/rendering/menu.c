@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 02:02:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 23:23:00 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	handle_input(t_game *game, int start)
 		if (game->menu.action == 0)
 		{
 			if (start)
-				init_game(game);
+				start_game(game);
 			game->state = STATE_PLAYING;
 		}
 		if (game->menu.action == 2)

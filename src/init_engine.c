@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game.c                                        :+:      :+:    :+:   */
+/*   init_engine.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 19:17:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 00:02:23 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,46 @@
 #include "cub3d_entities.h"
 #include <mlx.h>
 
-bool	create_frame_image(t_game *game)
+void	init_engine_preparsing(t_game *game)
+{
+	game->entity_manager.entities = vector_new();
+	game->entity_manager.entities->val_free = (void (*)(void *))entity_free;
+	if (!game->entity_manager.entities)
+		throw_error(game, ERROR_LOADING);
+	game->events_postload = event_queue_init(game);
+}
+
+static inline void	init_player(t_player *player);
+static inline bool	create_frame_image(t_game *game);
+
+void	init_engine(t_game *game)
+{
+	game->win.width = WINDOW_WIDTH;
+	game->win.height = WINDOW_HEIGHT;
+	game->win.halfwidth = WINDOW_WIDTH / 2;
+	game->win.halfheight = WINDOW_HEIGHT / 2;
+	game->aspect_res = game->win.width / (float)ASPECT_RES;
+	rng_init(&game->rng, get_seed());
+	init_assets(game);
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		throw_error(game, ERROR_LOADING_GRAPHICS);
+	game->win.ptr = mlx_new_window(game->mlx, WINDOW_WIDTH,
+		WINDOW_HEIGHT, GAME_NAME);
+	if (!game->win.ptr)
+		throw_error(game, ERROR_WINDOW);
+	if (!create_frame_image(game))
+		throw_error(game, ERROR_WINDOW);
+	game->state = STATE_MENU;
+	init_hooks(game);
+	if (game->level_broadcast)
+		printf(ANSI_CARRIAGE "%s\n" ANSI_RESET, game->level_broadcast);
+	init_player(&game->player);
+	event_queue_execute(game->events_postload, game);
+	mlx_loop(game->mlx);
+}
+
+static inline bool	create_frame_image(t_game *game)
 {
 	t_img_data	*img;
 
@@ -39,7 +78,7 @@ bool	create_frame_image(t_game *game)
 	return (true);
 }
 
-void	init_player(t_player *player)
+static inline void	init_player(t_player *player)
 {
 	float	size;
 	t_vec3	min;
@@ -63,61 +102,4 @@ void	init_player(t_player *player)
 	player->accel = 0;
 	player->bbox = bbox_new(min, max);
 	player->is_grounded = true;
-}
-
-static inline void	spawn_test_entities(t_game *game)
-{
-	t_vec3	pos;
-	t_vec3	ppos;
-	int		i;
-
-	i = 1000;
-	ppos = game->player.position;
-	while (i >= 0)
-	{
-		pos = ppos;
-		pos.x += rng_float_range(&game->rng, -100, 100);
-		pos.y += rng_float_range(&game->rng, -100, 100);
-		pos.z += rng_float_range(&game->rng, 0, 100);
-		entity_add(entity_new_npc(pos, game), game);
-		i--;
-	}
-}
-//TEMP
-
-void	init_game(t_game *game)
-{
-	game->start_time = time_init();
-	init_player(&game->player);
-	spawn_test_entities(game);
-	game->hud_cigarette.actual_anim = &game->hud_cigarette.anim_start;
-}
-
-void	init_engine(t_game *game)
-{
-	game->win.width = WINDOW_WIDTH;
-	game->win.height = WINDOW_HEIGHT;
-	game->win.halfwidth = WINDOW_WIDTH / 2;
-	game->win.halfheight = WINDOW_HEIGHT / 2;
-	game->aspect_res = game->win.width / (float)ASPECT_RES;
-	rng_init(&game->rng, get_seed());
-	init_assets(game);
-	game->entity_manager.entities = vector_new();
-	game->entity_manager.entities->val_free = (void (*)(void *))entity_free;
-	if (!game->entity_manager.entities)
-		throw_error(game, ERROR_LOADING);
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		throw_error(game, ERROR_LOADING_GRAPHICS);
-	game->win.ptr = mlx_new_window(game->mlx, WINDOW_WIDTH,
-		WINDOW_HEIGHT, GAME_NAME);
-	if (!game->win.ptr)
-		throw_error(game, ERROR_WINDOW);
-	if (!create_frame_image(game))
-		throw_error(game, ERROR_WINDOW);
-	game->state = STATE_MENU;
-	init_hooks(game);
-	if (game->level_broadcast)
-		printf(ANSI_CARRIAGE "%s\n" ANSI_RESET, game->level_broadcast);
-	mlx_loop(game->mlx);
 }

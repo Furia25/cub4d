@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 02:57:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 22:31:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	render(t_game *game)
 {
 	t_parsing			*parsing;
 	t_render_context	context;
-	int					map_gap;
 
 	parsing = &game->parsing;
 	render_init(game->win.width, game->win.height, &context, game);
@@ -35,7 +34,6 @@ void	render(t_game *game)
 	if (game->hud_cigarette.sprite.sheet.asset != game->textures[TEXTURE_ERROR])
 		draw_sprite(game->hud_cigarette.sprite.transform,
 			&game->hud_cigarette.sprite, &context);
-	map_gap = game->win.height * 0.05;
 	draw_minimap(game);
 	if (key_check(KEY_TAB, game))
 		draw_full_map(game);

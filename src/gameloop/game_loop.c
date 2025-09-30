@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 02:28:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 23:27:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static inline void	play_loop(t_game *game, uint64_t time)
 	hud_cigarette_animator(&game->hud_cigarette, game);
 	render(game);
 	fps = get_fps(time);
-	// if (fps != 0)
-		// ft_printf(ANSI_CARRIAGE ANSI_ERASE "FPS : %d" ANSI_RESET, fps);
+	if (fps != 0)
+		ft_printf(ANSI_CARRIAGE ANSI_ERASE "FPS : %d" ANSI_RESET, fps);
 }
 
 int	game_loop(void *param)
@@ -85,4 +85,10 @@ static inline void	hud_cigarette_animator(t_hud_cigarette *cig,
 		cig->actual_anim->anim_dir = 1 - (2.5 * !cig->equipped);
 		anim_reset(cig->actual_anim);
 	}
+}
+
+void	start_game(t_game *game)
+{
+	game->start_time = time_init();
+	game->hud_cigarette.actual_anim = &game->hud_cigarette.anim_start;
 }

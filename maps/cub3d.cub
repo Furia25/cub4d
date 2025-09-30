@@ -14,7 +14,8 @@ EA assets/textures/tiles/wall_east.png
 F 153, 247, 98
 C 135, 206, 250
 A 135, 206, 250, 2
-ENTITY NPC,2,2,0
+
+ENTITY NPC,1.5,1.5,1,f,
 
 #Tilemap
 #

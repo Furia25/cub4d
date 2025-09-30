@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_game.c                                         :+:      :+:    :+:   */
+/*   exit_engine.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 18:34:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 00:27:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ from the required path",
 [ERROR_ENTITIES_ALLOC] = "Entities Manager caused a memory allocation error.",
 [ERROR_ENTITIES_MISC] = "Unexpected entity manager error.",
 [ERROR_ENTITIES_INVALID] = "Entity Manager couldn't resolve unknown entity.",
-[ERROR_ENTITY_NPC] = "Malformed property: NPC require one or none\
-string argument ([text])",
+[ERROR_ENTITY_NPC] = "Malformed Entity Data: 'NPC' [text:string]",
 [ERROR_WTF] = "You are cooked, I don't even know how it's possible."
 };
 
@@ -91,7 +90,6 @@ int	exit_game(t_game *game)
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
 	free(game->level_broadcast);
-	vector_free(game->parsing.entities_cache, true);
 	free_tab((void **)game->parsing.temp_prop.argv);
 	free_tab((void **)game->parsing.map);
 	free_tab((void **)game->parsing.file_content);
@@ -103,11 +101,12 @@ int	exit_game(t_game *game)
 			mlx_destroy_image(game->mlx, game->frame->img_ptr);
 		free(game->frame);
 	}
-	free(game->z_buffer);
 	if (game->mlx)
 		mlx_destroy_display(game->mlx);
-	free_textures(game);
 	free(game->mlx);
+	free(game->z_buffer);
+	free_textures(game);
+	vector_free(game->events_postload, true);
 	vector_free(game->entity_manager.entities, true);
 	ft_putchar_fd('\n', 1);
 	exit(EXIT_SUCCESS);

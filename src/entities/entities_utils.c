@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 17:07:31 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 23:24:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 	t_vec3				cam_pos;
 	t_vec2				projected;
 
-	
 	relative = vec3_sub(bbox_get_center(entity->hitbox), render->player->position);
     cam_pos.z = relative.x * render->yaw_cos + relative.y * render->yaw_sin;
 	if (cam_pos.z <= 0.01 || cam_pos.z > RENDER_DISTANCE)
