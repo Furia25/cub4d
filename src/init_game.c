@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 03:31:53 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:06:30 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,19 @@ static inline void	spawn_test_entities(t_game *game)
 {
 	t_vec3	pos;
 	t_vec3	ppos;
+	t_entity	*entity;
 	int		i;
 
-	i = 10;
+	i = 1;
 	ppos = game->player.position;
 	while (i >= 0)
 	{
 		pos = ppos;
-		pos.x += rng_float_range(&game->rng, -100, 100);
-		pos.y += rng_float_range(&game->rng, -100, 100);
-		pos.z += rng_float_range(&game->rng, 0, 100);
+		pos.x = 2;
+		pos.y = 2;
+		pos.z = 1;
+		entity = entity_new_npc(pos, game);
+		printf("%f, %f\n", bbox_get_center(entity->hitbox).x,bbox_get_center(entity->hitbox).y);
 		entity_add(entity_new_npc(pos, game), game);
 		i--;
 	}

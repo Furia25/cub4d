@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 03:16:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:19:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@
 
 # define GAME_INTERVAL_MIN	32
 
-# define WINDOW_WIDTH		1280
-# define WINDOW_HEIGHT		720
+# define WINDOW_WIDTH		1280 * 2
+# define WINDOW_HEIGHT		720 * 2
 # define ASPECT_RES			1080
 # define MOUSE_SENS			0.001
 
