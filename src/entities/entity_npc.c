@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   entity_exemple.c                                   :+:      :+:    :+:   */
+/*   entity_npc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/25 19:36:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 03:31:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_entities.h"
 
-void	entity_example_tick(t_entity *self, t_game *game);
-void	entity_example_create(t_entity *self, t_game *game);
+void	entity_npc_tick(t_entity *self, t_game *game);
+void	entity_npc_create(t_entity *self, t_game *game);
 
 /*Entity constructor*/
 
-t_entity	*entity_new_example(t_vec3 position, t_game *game)
+t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 {
 	t_entity	*entity;
 	t_png		*texture;
@@ -34,18 +34,18 @@ t_entity	*entity_new_example(t_vec3 position, t_game *game)
 	entity->spr.width = 370;
 	entity->spr.height = texture->header.height;
 	entity->draw = entity_basic_draw;
-	entity->tick = entity_example_tick;
-	entity->create = entity_example_create;
+	entity->tick = entity_npc_tick;
+	entity->create = entity_npc_create;
 	return (entity);
 }
 
-void	entity_example_tick(t_entity *self, t_game *game)
+void	entity_npc_tick(t_entity *self, t_game *game)
 {
 	(void)game;
 	self->transform.index = (self->transform.index + 1) % 2;
 }
 
-void	entity_example_create(t_entity *self, t_game *game)
+void	entity_npc_create(t_entity *self, t_game *game)
 {
 	(void)game;
 	(void)self;

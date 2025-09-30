@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 18:24:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 03:31:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void		entities_draw(t_game *game, t_render_context *render);
 void		entity_init_basics(t_vec3 position, t_entity *entity);
 void		entity_basic_draw(t_entity *entity, t_render_context *render);
 
-t_entity	*entity_new_example(t_vec3 position, t_game *game);
+t_entity	*entity_new_npc(t_vec3 position, t_game *game);
 
 #endif

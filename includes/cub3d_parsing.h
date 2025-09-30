@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 01:20:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 03:12:42 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "cub3d_structs.h"
 
-# define DEBUG_PARSING	1
+# define DEBUG_PARSING	0
 # define PARSING_MAP_MESSAGE "Map size parsed to %dx%d.\n"
 
 # define PROPERTY_AMBIANT_MAX	250
@@ -79,6 +79,7 @@ void		interpret_map_from_file(t_parsing *parsing, t_game *game);
 t_property	property_get_args(char *line, t_property_type type, t_game *game);
 bool		property_check_color(t_property prop);
 
+void		parse_property_broadcast(char *line, t_game *game);
 void		parse_property_height(char *line, t_property_type type,
 				t_parsing *parsing, t_game *game);
 void		parse_property_color(char *line, t_property_type type,

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 01:42:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 02:57:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ void	render(t_game *game)
 	if (key_check(KEY_TAB, game))
 		draw_full_map(game);
 }
+static inline void	clear_zbuffer(float *zbuffer, int width, int height);
+
 static void	render_init(int width, int height,
 		t_render_context *ctx, t_game *game)
 {
 	ctx->z_buffer = game->z_buffer;
-	for (int i = 0; i < width * height; i++)
-		ctx->z_buffer[i] = INFINITY;
+	clear_zbuffer(game->z_buffer, width, height);
 	ctx->game = game;
 	ctx->textures = game->textures;
 	ctx->tilemap = game->tilemap;
@@ -85,4 +86,15 @@ static inline void	render_rays(int start, int end, t_render_context *render)
 		render_ray(ray_angle, x, &ray, render);
 		x++;
 	}
+}
+
+static inline void	clear_zbuffer(float *zbuffer, int width, int height)
+{
+	size_t	index;
+	size_t	size;
+
+	index = 0;
+	size = width * height;
+	while (index < size)
+		zbuffer[index++] = INFINITY;
 }

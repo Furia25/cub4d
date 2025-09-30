@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 02:46:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 03:16:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@
 # define LOADING_PREFIX	"Loading: "
 # define LOADING_COLOR_GOOD	"\033[32m"
 # define LOADING_CHAR	"*"
-# define LOADING_COMPLETE	"\033[34m\033[1mAll assets ready. Starting up..."
+# define LOADING_COMPLETE	"\033[34m\033[1mAll assets ready. \
+Starting up...\033[0m"
 
 # define WARNING_TEXTURE_ACCESS	"Cannot access texture file at path: \"%s\""
 # define WARNING_TEXTURE_NAME	"Texture file name too long at path: \"%s\""
@@ -192,6 +193,7 @@ typedef struct s_game
 	t_key				key_buffer[KEY_MAX_COUNT];
 	t_png				*textures[TEXTURE_MAX_COUNT];
 	t_tile_animation	water_anim;
+	char				*level_broadcast;
 	t_hud_cigarette		hud_cigarette;
 	t_game_state		state;
 	t_menu				menu;

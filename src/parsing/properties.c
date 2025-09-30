@@ -6,11 +6,32 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:56:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 01:26:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 03:27:32 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	parse_property_broadcast(char *line, t_game *game)
+{
+	char	*temp_nl;
+	char	*temp;
+
+	if (game->level_broadcast)
+		temp_nl = ft_strjoin(game->level_broadcast, "\n");
+	else
+		temp_nl = ft_calloc(1, sizeof(char));
+	if (!temp_nl)
+		throw_error(game, ERROR_PARSING_ALLOC);
+	temp = ft_strjoin(temp_nl, 
+		line + ft_strlen(g_property_token[PROP_BROADCAST]));
+	free(temp_nl);
+	if (!temp)
+		throw_error(game, ERROR_PARSING_ALLOC);
+	if (game->level_broadcast)
+		free(game->level_broadcast);
+	game->level_broadcast = temp;
+}
 
 void	parse_property_height(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
@@ -78,13 +99,4 @@ void	parse_property_wall(char *line, t_property_type type,
 	free_tab((void **)prop.argv);
 	if (!parsing->textures_paths[cardinal])
 		throw_error(game, ERROR_PARSING_ALLOC);
-}
-
-void	parse_property_entity(char *line, t_property_type type,
-			t_parsing *parsing, t_game *game)
-{
-	(void)line;
-	(void)type;
-	(void)parsing;
-	(void)game;
 }

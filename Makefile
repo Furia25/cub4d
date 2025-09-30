@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/09/30 01:42:38 by vdurand          ###   ########.fr        #
+#    Updated: 2025/09/30 03:14:38 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,9 +78,10 @@ SRC_FILES = \
 	parsing/map_parsing.c \
 	parsing/parsing_utils.c \
 	parsing/parsing.c \
-	parsing/properties_utils.c \
 	parsing/map_borders.c \
 	parsing/properties.c \
+	parsing/properties_utils.c \
+	parsing/property_entity.c \
 	utils/tab_utils.c \
 	utils/print_utils.c \
 	utils/misc_utils.c \
@@ -103,7 +104,6 @@ SRC_FILES = \
 	drawing/draw_basics.c \
 	drawing/draw_sprites.c \
 	drawing/glyphs_effects.c \
-	drawing/draw_geometry.c \
 	drawing/glyphs.c \
 	drawing/text.c \
 	drawing/text_utils.c \
@@ -131,11 +131,14 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 CC = cc
 CFLAGS = -O3 -march=native -g3 -Wall -Werror -Wextra
 
+LOG = echo
+
 # GCC control
 GCC = 0
 ifeq ($(GCC),1)
 	CC = gcc
 	CFLAGS += -std=gnu99
+	LOG += -e
 endif
 
 INC_FLAGS = -I$(INC_DIR) $(addprefix -I,$(LIBS_DIRS)) $(addprefix -I,$(LIBS_INCLUDE_DIRS))
@@ -145,52 +148,52 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBS)
 	$(SILENT) $(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	@echo -e "$(BG_GREEN)>>> Program $(NAME) compiled!$(RESET)"
+	@$(LOG) "$(BG_GREEN)>>> Program $(NAME) compiled!$(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
 	$(SILENT) mkdir -p $(dir $@)
-	@echo -e "$(BLUE)>>> Compiling $<...$(RESET)"
+	@$(LOG) "$(BLUE)>>> Compiling $<...$(RESET)"
 	$(SILENT) $(CC) $(CFLAGS) -MMD -MP $(INC_FLAGS) -c $< -o $@
 
 $(LIBS): %.a:
 	$(SILENT) \
 	if [ -f "$(@D)/configure" ]; then \
-		echo -e "$(CYAN)>>> Found configure in $(notdir $(@D)), running it...$(RESET)"; \
+		$(LOG) "$(CYAN)>>> Found configure in $(notdir $(@D)), running it...$(RESET)"; \
 		cd "$(@D)" && ./configure $(DUMP_OUT); \
 		if [ $$? -ne 0 ]; then \
-			echo -e "$(RED)>>> ./configure failed in $(notdir $(@D)) – aborting.$(RESET)"; \
+			$(LOG) "$(RED)>>> ./configure failed in $(notdir $(@D)) – aborting.$(RESET)"; \
 			exit 1; \
 		else \
 			exit 0; \
 		fi; \
 	fi; \
-	echo -e "$(MAGENTA)>>> Compiling library $(notdir $@)...$(RESET)"; \
+	$(LOG) "$(MAGENTA)>>> Compiling library $(notdir $@)...$(RESET)"; \
 	$(MAKE) -C $(dir $@) > /dev/null 2> make_errors.log || { \
-		echo -e "$(RED)>>> Error compiling $(notdir $@):$(RESET)"; \
+		$(LOG) "$(RED)>>> Error compiling $(notdir $@):$(RESET)"; \
 		cat make_errors.log; rm -f make_errors.log; exit 1; }; \
 	rm -f make_errors.log; \
 	if $(MAKE) -C $(dir $@) -n bonus $(DUMP_OUT); then \
-		echo -e "$(DIM)$(MAGENTA)>>> Bonus rule exists, compiling...$(RESET)"; \
+		$(LOG) "$(DIM)$(MAGENTA)>>> Bonus rule exists, compiling...$(RESET)"; \
 		$(MAKE) -C $(dir $@) bonus > /dev/null 2> make_errors.log || { \
-			echo -e "$(RED)>>> Error compiling bonus for $(notdir $@):$(RESET)"; \
+			$(LOG) "$(RED)>>> Error compiling bonus for $(notdir $@):$(RESET)"; \
 			cat make_errors.log; rm -f make_errors.log; exit 1; }; \
 		rm -f make_errors.log; \
 	fi; \
-	echo -e "$(BG_BLUE)$(GREEN)>>> Compilation of $(notdir $@) completed!$(RESET)"
+	$(LOG) "$(BG_BLUE)$(GREEN)>>> Compilation of $(notdir $@) completed!$(RESET)"
 
 clean:
-	@echo -e "$(YELLOW)>>> Cleaning objects$(RESET)"
+	@$(LOG) "$(YELLOW)>>> Cleaning objects$(RESET)"
 	$(SILENT) rm -rf $(OBJ_DIR)
 
 fcleanlibs:
 	$(SILENT) for dir in $(LIBS_DIRS); do \
 		$(MAKE) -C $$dir clean $(DUMP_OUT); \
 		$(MAKE) -C $$dir fclean $(DUMP_OUT); \
-		echo -e "$(GREEN)>>> Cleaned all in $$dir$(RESET)"; \
+		$(LOG) "$(GREEN)>>> Cleaned all in $$dir$(RESET)"; \
 	done
 
 fclean: clean fcleanlibs
-	@echo -e "$(YELLOW)>>> Cleaning executable...$(RESET)"
+	@$(LOG) "$(YELLOW)>>> Cleaning executable...$(RESET)"
 	$(SILENT) rm -f $(NAME)
 
 re: fclean all
