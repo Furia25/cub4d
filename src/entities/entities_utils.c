@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 02:10:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:18:22 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	entity_init_basics(t_vec3 position, t_entity *entity)
 	entity->transform.height = 200;
 	entity->transform.index = 0;
 	entity->transform.scale = 1;
-	entity->hitbox.min = (t_vec3){position.x - 0.2, position.y, position.z};
-	entity->hitbox.max = (t_vec3){position.x, position.y + 0.2, position.z - 0.4};
+	entity->hitbox.min = (t_vec3){position.x - 0.2f, position.y - 0.2f, position.z - 0.4};
+	entity->hitbox.max = (t_vec3){position.x + 0.2f, position.y + 0.2f, position.z};
 	entity->map_color = g_colors[C_AZURE];
 }
 
@@ -53,6 +53,7 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 	entity->transform.y = (1.0f - projected.y) * render->halfh;
 	entity->transform.y += render->player->pitch_offset;
 	entity->transform.scale = render->aspect_res * (2.f / cam_pos.z);
+	entity->transform.x -= entity->spr.width * entity->transform.scale * 0.2;
 	entity->transform.depth = cam_pos.z;
 	draw_sprite(entity->transform, (t_sprite *)entity, render);
 }
