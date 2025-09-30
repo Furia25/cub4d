@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 15:42:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 00:37:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 19:04:41 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,26 @@ bool	property_check_color(t_property prop)
 		index++;
 	}
 	return (true);
+}
+
+void	property_free(void *ptr)
+{
+	t_property	*property;
+	int			index;
+
+	property = (t_property *)ptr;
+	if (!property)
+		return ;
+	if (property->argv)
+	{
+		index = 0;
+		while (property->argv[index])
+		{
+			free(property->argv[index++]);
+			property->argv[index] = NULL;
+			index++;
+		}
+		free(property->argv);
+	}
+	free(property);
 }

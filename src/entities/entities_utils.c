@@ -6,11 +6,21 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 15:18:22 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:07:31 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_entities.h"
+
+t_entity	*entity_new(t_game *game)
+{
+	t_entity	*result;
+
+	result = ft_calloc(1, sizeof(t_entity));
+	if (!result)
+		throw_error(game, ERROR_ENTITIES_ALLOC);
+	return (result);
+}
 
 void	entity_free(t_entity *entity)
 {

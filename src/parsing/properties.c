@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:56:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 03:27:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:26:40 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,11 @@ void	parse_property_color(char *line, t_property_type type,
 	t_rgba8		*color;
 
 	prop = property_get_args(line, type, game);
+	game->parsing.temp_prop = prop;
 	if ((type != PROP_A && prop.argc != 3)
     	|| (type == PROP_A && (prop.argc != 3 && prop.argc != 4))
     	|| !property_check_color(prop))
-	{
-		free_tab((void **)prop.argv);
 		throw_error_info(game, ERROR_PROPERTY_COLOR, line);
-	}
 	if (type == PROP_C)
 		color = &parsing->ceil_color;
 	else if (type == PROP_A)
@@ -69,7 +67,6 @@ void	parse_property_color(char *line, t_property_type type,
 		parsing->ambiant_strength = ft_atoi(prop.argv[3]);
 	else if (type == PROP_A)
 		parsing->ambiant_strength = 5;
-	free_tab((void **)prop.argv);
 }
 
 void	parse_property_wall(char *line, t_property_type type,
@@ -90,13 +87,10 @@ void	parse_property_wall(char *line, t_property_type type,
 	else
 		cardinal = 0;
 	prop = property_get_args(line, type, game);
+	game->parsing.temp_prop = prop;
 	if (prop.argc != 1)
-	{
-		free_tab((void **)prop.argv);
 		throw_error_info(game, ERROR_PROPERTY_PATH, line);
-	}
 	parsing->textures_paths[cardinal] = ft_strdup(prop.argv[0]);
-	free_tab((void **)prop.argv);
 	if (!parsing->textures_paths[cardinal])
 		throw_error(game, ERROR_PARSING_ALLOC);
 }

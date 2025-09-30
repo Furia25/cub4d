@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:51 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/09 18:21:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:13:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ bool	entity_add(t_entity *entity, t_game *game)
 		throw_error(game, ERROR_ENTITIES_INVALID);
 	entities = game->entity_manager.entities;
 	if (!entities->append(entities, entity))
+	{
+		entity_free(entity);
 		throw_error(game, ERROR_ENTITIES_ALLOC);
+	}
 	if (entity->create)
 		entity->create(entity, game);
 	return (true);

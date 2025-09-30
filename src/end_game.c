@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 03:01:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:34:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_NOPLAYER] = "Map must contain at least one player spawn point.",
 [ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
 [ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
-[ERROR_PROPERTY_COLOR] = "Malformed property: 'C' and 'F' require three bytes \
-values (red, green, blue); \n'A' requires three bytes and \
-one optional numeral between 0-250 (red, green, blue, [intensity])",
-[ERROR_PROPERTY_PATH] = "Malformed property: EA, WE, SO, and NO require one \
-string argument (path)",
-[ERROR_PROPERTY_COMMENTS] = "Malformed property: '#' and '##' require one \
-string argument (broadcast)",
+[ERROR_PROPERTY_COLOR] = "Malformed property: 'C|F' <red:byte> <green:byte> \
+<blue:byte>\n 'A' <red:byte> <green:byte> <blue:byte> [intensity:0-250]",
+[ERROR_PROPERTY_ENTITY_UNKNOWN] = "Malformed property: Unknown entity type",
+[ERROR_PROPERTY_ENTITY] = "Malformed property: 'ENTITY' <type:string> <x:float> \
+ <y:float> <z:float> [optional_datas]",
+[ERROR_PROPERTY_PATH] = "Malformed property: 'EA|WE|SO|NO' <path:string>",
+[ERROR_PARSING_BROADCAST] = "Malformed property: '##' <broadcast:string>",
 [ERROR_PARSING_UNCLOSED] = "All tiles must be surrounded by walls; \
 the map cannot have open edges.",
 [ERROR_PARSING_MISSING_COLOR] = "Invalid map configuration: floor and \
@@ -49,6 +49,8 @@ from the required path",
 [ERROR_ENTITIES_ALLOC] = "Entities Manager caused a memory allocation error.",
 [ERROR_ENTITIES_MISC] = "Unexpected entity manager error.",
 [ERROR_ENTITIES_INVALID] = "Entity Manager couldn't resolve unknown entity.",
+[ERROR_ENTITY_NPC] = "Malformed property: NPC require one or none\
+string argument ([text])",
 [ERROR_WTF] = "You are cooked, I don't even know how it's possible."
 };
 
@@ -89,6 +91,8 @@ int	exit_game(t_game *game)
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
 	free(game->level_broadcast);
+	vector_free(game->parsing.entities_cache, true);
+	free_tab((void **)game->parsing.temp_prop.argv);
 	free_tab((void **)game->parsing.map);
 	free_tab((void **)game->parsing.file_content);
 	if (game->win.ptr)
