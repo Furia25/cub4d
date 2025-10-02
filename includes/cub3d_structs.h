@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 12:37:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 18:38:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,24 +106,26 @@ typedef struct s_sprite
 
 typedef struct s_player
 {
-	t_vec3	spawn_pos;
-	float	base_speed;
-	float	eye_height;
-	float	jump_force;
-	float	fov_deg;
-	float	accel_speed;
-	float	accel_max;
-	float	friction;
-	t_bbox	bbox;
-	t_vec3	position;
-	t_vec2	direction;
-	float	yaw_rad;
-	int		pitch_offset;
-	float	accel;
-	float	jump_velocity;
-	t_vec2	last_move;
-	bool	is_grounded;
-	bool	has_gravity;
+	float		base_speed;
+	float		eye_height;
+	float		jump_force;
+	float		fov_deg;
+	float		accel_speed;
+	float		accel_max;
+	float		friction;
+	t_bbox		bbox;
+	t_vec3		position;
+	t_vec2		direction;
+	float		yaw_rad;
+	int			pitch_offset;
+	float		accel;
+	float		jump_velocity;
+	t_vec2		last_move;
+	bool		is_grounded;
+	bool		has_gravity;
+	uint32_t	deaths;
+	t_vec3		spawn_pos;
+	float		spawn_dir;
 }	t_player;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 15:56:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 19:35:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ typedef struct s_entity_ctx
 	t_error						error;
 }	t_entity_ctx;
 
+typedef struct s_entity_door_data
+{
+	t_tile	*tile;
+	float	actual;
+	float	offset;
+	bool	interacted;
+}	t_entity_door_data;
+
 t_entity	*entity_new(t_game *game);
 void		entity_free(t_entity *entity);
 bool		entity_add(t_entity *entity, t_game *game);
@@ -67,5 +75,8 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game);
 bool		entity_npc_data(t_entity *self, t_property prop, t_game *game);
 
 t_entity	*entity_new_tree(t_vec3 position, t_game *game);
+
+t_entity	*entity_new_door(t_vec3 position, t_game *game);
+bool		entity_door_data(t_entity *self, t_property prop, t_game *game);
 
 #endif

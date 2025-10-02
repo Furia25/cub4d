@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 17:37:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 18:52:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,7 @@ void		rad_to_vect(t_vec2 *direction, float rad);
 void		print_char_tab(char **tab);
 void		loading_log(int error, char *error_format, char *str);
 void		broadcast(char *str, t_game *game);
+void		log_game(uint64_t time, t_game *game);
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);

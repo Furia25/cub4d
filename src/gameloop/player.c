@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 12:34:24 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 19:18:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	player_death(t_player *player)
 {
 	printf(ANSI_BOLD ANSI_RED DEATH_MESSAGE ANSI_RESET);
 	object_set_pos(player->spawn_pos, &player->position, &player->bbox);
+	player->yaw_rad = player->spawn_dir;
+	player->deaths += 1;
 }
 
 void	update_player(t_player *player, t_game *game)

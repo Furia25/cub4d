@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 15:45:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 18:39:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static inline void	init_player(t_player *player)
 	max = vec3_new(player->position.x + size,
 			player->position.y + size, player->position.z - 0.4);
 	player->spawn_pos = player->position;
+	player->spawn_dir = player->yaw_rad;
 	player->accel = 0;
 	player->bbox = bbox_new(min, max);
 	player->is_grounded = true;

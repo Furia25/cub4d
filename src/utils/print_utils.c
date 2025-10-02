@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 12:33:59 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 19:18:29 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,35 @@ void	loading_log(int error, char *error_format, char *str)
 	}
 	ft_putstr_fd(ANSI_RESET, 1);
 	loaded++;
+}
+
+void	log_game(uint64_t time, t_game *game)
+{
+	static uint16_t	altern = 0;
+	uint64_t		time_passed;
+	uint32_t		milliseconds;
+	uint32_t		seconds;
+	uint32_t		minutes;
+
+	if (altern++ % 6 == 0)
+		return ;
+	time_passed = get_elapsed_ms();
+	minutes = time_passed / 60000;
+	seconds = (time_passed % 60000) / 1000;
+	milliseconds = time_passed % 1000;
+	ft_putstr_fd(ANSI_CARRIAGE ANSI_ERASE, 1);
+	ft_printf("FPS : %d DEATH : %d TIME : ", get_fps(time), game->player.deaths);
+	if (minutes < 10)
+		ft_putchar_fd('0', 1);
+	ft_printf("%d:", minutes);
+	if (seconds < 10)
+		ft_putchar_fd('0', 1);
+	ft_printf("%d:", seconds);
+	if (milliseconds < 10)
+		ft_putstr_fd("00", 1);
+	else if (milliseconds < 100)
+		ft_putchar_fd('0', 1);
+	ft_printf("%d" ANSI_RESET, milliseconds);
 }
 
 /*We have to void game here because of event template function*/
