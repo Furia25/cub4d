@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 05:38:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:21:18 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,20 @@ static inline void	hud_cigarette_animator(t_hud_cigarette *hud_cigarette,
 
 static inline void	play_loop(t_game *game, uint64_t time)
 {
-	uint64_t	fps;
+	t_entity_manager	*entities;
+	uint64_t			fps;
 
+	entities = &game->entity_manager;
 	if (key_is_pressed(KEY_PAUSE, game))
 		game->state = STATE_PAUSED;
-	entities_tick(game);
+	entities_tick(entities, game);
+	if (entities->can_interact && !entities->interacted
+		&& key_is_pressed(KEY_INTERACT, game))
+	{
+		entities->interacted = entities->can_interact;
+		if(entities->interacted->interaction)
+			entities->interacted->interaction(entities->interacted, game);
+	}
 	anim_tile_update(&game->water_anim, game);
 	update_player(&game->player, game);
 	hud_cigarette_animator(&game->hud_cigarette, game);
@@ -50,10 +59,10 @@ int	game_loop(void *param)
 		last_time = time + GAME_INTERVAL_MIN;
 		if (key_check(KEY_QUIT, game))
 			exit_game(game);
-		if (game->state == STATE_MENU || game->state == STATE_PAUSED)
-			render_menu(game, game->state == STATE_MENU);
-		else
+		if (game->state != STATE_MENU && game->state != STATE_PAUSED)
 			play_loop(game, time);
+		else
+			render(game);
 		mlx_put_image_to_window(game->mlx, game->win.ptr,
 			frame->img_ptr, -2, -2);
 	}

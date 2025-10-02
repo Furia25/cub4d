@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   button.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:50:02 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 11:41:09 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:05:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "cub3d_rendering.h"
 
 static int	is_border(int i, int j, t_button *btn)
 {
@@ -39,7 +40,7 @@ static int	is_shadow(int i, int j, t_button *btn)
 		|| (j > btn->height - (btn->shadow_size + S_BUTTON_OUTL)));
 }
 
-void	draw_button(t_game *game, t_button *btn)
+void	draw_button(t_render_context *render, t_button *btn)
 {
 	int				i;
 	int				j;
@@ -56,13 +57,13 @@ void	draw_button(t_game *game, t_button *btn)
 				continue ;
 			}
 			if (is_border(i, j, btn))
-				draw_pixel(btn->color_out, i + btn->x, j + btn->y, game->frame);
+				draw_pixel(btn->color_out, i + btn->x, j + btn->y, render->frame);
 			else if (is_shadow(i, j, btn))
 				draw_pixel(btn->color_dark, i + btn->x,
-					j + btn->y, game->frame);
+					j + btn->y, render->frame);
 			else
 				draw_pixel(btn->color_light, i + btn->x,
-					j + btn->y, game->frame);
+					j + btn->y, render->frame);
 			j++;
 		}
 	}

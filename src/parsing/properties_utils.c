@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 15:42:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 00:45:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 13:50:42 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_property	property_get_args(char *line, t_property_type type, t_game *game)
 	if (!line[index])
 		throw_error_info(game, ERROR_PARSING_PROPERTY, line);
 	temp = line + index;
-	str_remove_chars(temp, " \t\n");
+	if (!str_remove_chars(temp, " \t\n"))
+		throw_error_info(game, ERROR_PARSING_QUOTE, line);
 	result.argc = count_words(temp, ',');
 	result.argv = ft_split(temp, ',');
 	if (!result.argv)

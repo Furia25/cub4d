@@ -6,13 +6,14 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:50:05 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 05:40:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 13:24:29 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_entities.h"
+#include "cub3d.h"
+#include "cub3d_rendering.h"
 
-void	entities_tick(t_game *game)
+void	entities_tick(t_entity_manager *manager, t_game *game)
 {
 	uint64_t	time;
 	size_t		i;
@@ -20,10 +21,11 @@ void	entities_tick(t_game *game)
 	t_entity	*current;
 
 	time = get_time_ms();
-	if (time < game->entity_manager.last_tick)
+	if (time < manager->last_tick)
 		return ;
-	game->entity_manager.last_tick = time + GAME_INTERVAL_MIN * 4;
-	entities = game->entity_manager.entities;
+	game->entity_manager.can_interact = NULL;
+	manager->last_tick = time + GAME_INTERVAL_MIN * 2;
+	entities = manager->entities;
 	i = 0;
 	while (i < entities->total)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_drawing.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:02:52 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/01 10:30:58 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:43:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 # include "crazypng.h"
 # include "maths2_geometry.h"
 # include "cub3d_structs.h"
-
-/*TEMP*/
-static inline t_rgba8	rgba8(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-{
-	return ((t_rgba8){{b, g, r, a}});
-}
 
 void	draw_pixel(t_rgba8 rgba, unsigned int x,
 							unsigned int y, t_img_data *img);

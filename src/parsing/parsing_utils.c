@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:03:47 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 03:09:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:29:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,31 @@ void	map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game)
 		throw_error(game, ERROR_WTF);
 }
 
-void	str_remove_chars(char *str, char *set)
+bool str_remove_chars(char *str, char *set)
 {
-	int	i;
-	int	j;
+	bool	in_quotes;
+	int		read_pos;
+	int		write_pos;
 
-	i = 0;
-	j = 0;
 	if (!str || !set)
-		return ;
-	while (str && str[i])
+		return (true);
+	in_quotes = false;
+	read_pos = 0;
+	write_pos = 0;
+	while (str[read_pos])
 	{
-		if (ft_strchr(set, str[i]) == NULL)
+		if (str[read_pos] == '"')
 		{
-			str[j] = str[i];
-			j++;
+			in_quotes = !in_quotes;
+			read_pos++;
+			continue;
 		}
-		i++;
+		if (in_quotes || ft_strchr(set, str[read_pos]) == NULL)
+			str[write_pos++] = str[read_pos];
+		read_pos++;
 	}
-	str[j] = '\0';
+	str[write_pos] = '\0';
+	return (!in_quotes);
 }
 
 int	check_player(t_game *game, int i, int j, int *player)

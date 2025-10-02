@@ -6,11 +6,11 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:51 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 17:13:12 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:43:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_entities.h"
+#include "cub3d.h"
 
 bool	entity_add(t_entity *entity, t_game *game)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   glyphs_effects.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 00:08:25 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/27 13:40:34 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:45:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	geffect_typewrite(t_text_context *ctx)
 	return (ctx->index < end_index);
 }
 
-void	geffect_wave(t_text_context *ctx, t_draw_transform *temp)
+void	geffect_wave(t_text_context *ctx, t_transform *temp)
 {
 	size_t	anim_index;
 	size_t	dif;
@@ -31,7 +31,7 @@ void	geffect_wave(t_text_context *ctx, t_draw_transform *temp)
 	temp->y -= (0.6 * dif);
 }
 
-void	geffect_rainbow(t_text_context *ctx, t_draw_transform *temp)
+void	geffect_rainbow(t_text_context *ctx, t_transform *temp)
 {
 	size_t	anim_index;
 

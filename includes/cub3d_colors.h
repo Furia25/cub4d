@@ -6,15 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 00:44:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/23 00:15:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:43:22 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_COLORS_H
 # define CUB3D_COLORS_H
 # include "cub3d_structs.h"
-
-/*TEMP je sais pas si on le garde ou pas ça peut être utile*/
 
 typedef enum e_color
 {

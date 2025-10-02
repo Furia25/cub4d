@@ -6,10 +6,11 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 01:31:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 01:40:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:37:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 #include "cub3d_rendering.h"
 
 static inline uint8_t	get_fog_force(float depth, uint16_t	strength);

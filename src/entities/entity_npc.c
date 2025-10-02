@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   entity_npc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 11:39:09 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 13:28:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_entities.h"
+#include "cub3d.h"
+#include "cub3d_rendering.h"
 
 void	entity_npc_tick(t_entity *self, t_game *game);
 bool	entity_npc_data(t_entity *self, t_property prop, t_game *game);
 void	entity_npc_postload(t_entity *self, t_game *game);
+void	entity_npc_interacted(t_entity *self, t_game *game);
 
 /*Entity constructor*/
 
@@ -26,9 +28,10 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 	entity_init_basics(position, entity);
 	entity->transform.index = 1;
 	entity->map_color = g_colors[C_ALICE_BLUE];
-	entity->draw = entity_basic_draw;
+	entity->draw = (void (*)(struct s_entity *, void *))entity_basic_draw;
 	entity->tick = entity_npc_tick;
 	entity->create = NULL;
+	entity->interaction = entity_npc_interacted;
 	entity->free_data = free;
 	entity->transform.height = 100;
 	entity->transform.width = 50;
@@ -69,11 +72,23 @@ void	entity_npc_postload(t_entity *self, t_game *game)
 
 void	entity_npc_tick(t_entity *self, t_game *game)
 {
-	t_player	*player;
-
-	player = game->player;
-	self->transform.index = (self->transform.index + 1) % 2;
-	if (self->transform.depth < INTERACTION_RANGE && player.)
+	if (vec3_distance2(self->position, game->player.position) < INTERACTION_RANGE)
+		game->entity_manager.can_interact = self;
+	else if (game->entity_manager.interacted == self
+		|| game->entity_manager.can_interact == self)
 	{
+		game->entity_manager.interacted = NULL;
+		game->render_textbox = false;
 	}
+	if (game->entity_manager.interacted == self)
+		self->transform.index = (self->transform.index + 1) % 2;
+	else
+		self->transform.index = 0;
+}
+
+void	entity_npc_interacted(t_entity *self, t_game *game)
+{
+	(void)self;
+	game->render_textbox = true;
+	game->entity_manager.interaction_time = get_time_ms();
 }

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 20:39:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 02:54:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:26:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 #include "cub3d_rendering.h"
 #include "cub3d_entities.h"
 
-static inline void	eform_draw(t_rgba8 color, t_sprite *e,
+static inline void	eform_draw(t_rgba8 color, t_transform *tform,
 						t_ivec2 *pos, t_render_context *ctx)
 {
 	t_rgba8			*dest;
-	const t_vec2	uv = {e->transform.x + pos->x, e->transform.y + pos->y};
+	const t_ivec2	uv = {tform->x + pos->x, tform->y + pos->y};
 	int				bufferidx;
 
 	bufferidx = uv.y * ctx->render_width + uv.x;
 	if (color.channels.a == 0)
 		return ;
-	if (ctx->z_buffer[bufferidx] < e->transform.depth)
+	if (ctx->z_buffer[bufferidx] < tform->depth)
 		return ;
-	ctx->z_buffer[bufferidx] = e->transform.depth;
-	dest = &e->transform.color;
+	ctx->z_buffer[bufferidx] = tform->depth;
+	dest = &tform->color;
 	if (dest->channels.r != 255)
 		color.channels.r = dest->channels.r;
 	if (dest->channels.g != 255)
@@ -102,7 +102,7 @@ void	draw_sprite(t_transform tform,
 		{
 			uv.x = uv_start.x + (int)(pos.x * step.x);
 			eform_draw((t_rgba8)e->sheet.asset->pixels_8bit[uv.y + uv.x],
-				e, &pos, ctx);
+				&tform, &pos, ctx);
 			pos.x++;
 		}
 		pos.y++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_structs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 10:17:13 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:37:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <X11/Xlib.h>
 # include <stdint.h>
 # include <crazypng.h>
+# include "maths2_vectors.h"
 
 typedef union u_rgba8
 {
@@ -102,5 +103,27 @@ typedef struct s_sprite
 	t_sprite_sheet		sheet;
 	t_transform			transform;
 }	t_sprite;
+
+typedef struct s_player
+{
+	t_vec3	spawn_pos;
+	float	base_speed;
+	float	eye_height;
+	float	jump_force;
+	float	fov_deg;
+	float	accel_speed;
+	float	accel_max;
+	float	friction;
+	t_bbox	bbox;
+	t_vec3	position;
+	t_vec2	direction;
+	float	yaw_rad;
+	int		pitch_offset;
+	float	accel;
+	float	jump_velocity;
+	t_vec2	last_move;
+	bool	is_grounded;
+	bool	has_gravity;
+}	t_player;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 04:23:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 13:53:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_IO] = "Unable to open/read the map file.",
 [ERROR_PARSING_VALIDITY] = "Map couldn't be used, verify integrity.",
 [ERROR_PARSING_NL_MAP] = "Unexpected new line in tilemap.",
+[ERROR_PARSING_QUOTE] = "Unclosed quote",
 [ERROR_PARSING_ALLOC] = "Couldn't allocate enough memory when parsing.",
 [ERROR_PARSING_PLAYERS] = "Map must contain exactly one player spawn point.",
 [ERROR_PARSING_NOPLAYER] = "Map must contain at least one player spawn point.",

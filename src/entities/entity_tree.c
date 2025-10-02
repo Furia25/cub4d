@@ -6,11 +6,12 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 03:36:11 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:43:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_entities.h"
+#include "cub3d.h"
+#include "cub3d_rendering.h"
 
 void	entity_tree_postload(t_entity *self, t_game *game);
 
@@ -24,9 +25,10 @@ t_entity	*entity_new_tree(t_vec3 position, t_game *game)
 	entity_init_basics(position, entity);
 	entity->transform.index = 0;
 	entity->map_color = g_colors[C_GREEN];
-	entity->draw = entity_basic_draw;
+	entity->draw = (void (*)(struct s_entity *, void *))entity_basic_draw;
 	entity->tick = NULL;
 	entity->create = NULL;
+	entity->interaction = NULL;
 	entity->transform.height = 400;
 	entity->transform.width = 200;
 	if (!event_queue_push((void (*)(void *, t_game *))entity_tree_postload,

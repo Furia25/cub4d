@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:31:44 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/22 20:20:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:43:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "cub3d_drawing.h"
 # include "cub3d_textures.h"
+# include "cub3d_rendering.h"
 # include "maths2_utils.h"
 
 # define GLYPH_SIZE		12
@@ -29,8 +30,6 @@
 # define FONT_SIZE9		108
 # define FONT_SIZE10	120
 
-/*TEMP Super long en runtime ça doit
- check pour chaque char : faire une lookup table ?*/
 # define GLYPHS	L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefgh\
 ijklmnopqrstuvwxyz0123456789.,?!:;`'\"*-_~#&|@≈[]<>\
 {}()/\\+=^÷٪ $°·˗■□☰√ⁿ²∓≥≤⌈⌋▸☺☻♥♦♣♠◦◘○◙♂♀♪♫¤➜◂‼¶§\
@@ -67,7 +66,7 @@ typedef struct s_text_context
 	ssize_t				actual_glyph;
 	unsigned short		line_n;
 	unsigned short		line_char;
-	t_draw_transform	tform;
+	t_transform			tform;
 	bool				true_break;
 	uint8_t				effect;
 	uint64_t			start_time;
@@ -79,13 +78,13 @@ extern const t_rgba8	g_color_text[26];
 bool	glyph_init(char *asset);
 void	glyph_end(void);
 
-void	draw_text(wchar_t *glyphs, t_text_properties prop, t_img_data *img);
-void	draw_glyph(t_text_context *ctx, size_t index, t_img_data *img);
+void	draw_text(char *str, t_text_properties prop, t_render_context *render);
+void	draw_glyph(t_text_context *ctx, size_t index, t_render_context *render);
 
 ssize_t	glyph_get_index(wchar_t glyph);
 size_t	strlen_wchar(wchar_t *str);
 
 bool	geffect_typewrite(t_text_context *ctx);
-void	geffect_wave(t_text_context *ctx, t_draw_transform *temp);
-void	geffect_rainbow(t_text_context *ctx, t_draw_transform *temp);
+void	geffect_wave(t_text_context *ctx, t_transform *temp);
+void	geffect_rainbow(t_text_context *ctx, t_transform *temp);
 #endif

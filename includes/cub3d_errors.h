@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 01:15:14 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 13:51:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef enum e_error
 	ERROR_PARSING_MISSING_PATHS,
 	ERROR_PARSING_UNCLOSED,
 	ERROR_PARSING_SYMBOL,
+	ERROR_PARSING_QUOTE,
 	ERROR_LOADING_ASSETS,
 	ERROR_LOADING_TEXTURES_FALLBACK,
 	ERROR_LOADING_TEXTURES_FATAL,

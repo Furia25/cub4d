@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 10:02:52 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:22:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ void	render(t_game *game)
 
 	parsing = &game->parsing;
 	render_init(game->win.width, game->win.height, &context, game);
+	if (game->state == STATE_MENU || game->state == STATE_PAUSED)
+	{
+		render_menu(game->state == STATE_MENU, &context, game);
+		return ;
+	}
 	entities_draw(game, &context);
 	context.halfh = game->win.halfheight + game->player.pitch_offset;
 	context.halfh = clamp(context.halfh, 0, game->win.height);
@@ -34,6 +39,8 @@ void	render(t_game *game)
 	if (game->hud_cigarette.sprite.sheet.asset != game->textures[TEXTURE_ERROR])
 		draw_sprite(game->hud_cigarette.sprite.transform,
 			&game->hud_cigarette.sprite, &context);
+	if (game->entity_manager.can_interact != NULL)
+		draw_interaction(&context, game);
 	draw_minimap(game);
 	if (key_check(KEY_TAB, game))
 		draw_full_map(game);

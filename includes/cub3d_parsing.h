@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_parsing.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 11:36:46 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 13:49:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ bool		is_symbol_valid(char c);
 
 /*Utils*/
 void		property_free(void *ptr);
-void		str_remove_chars(char *str, char *set);
+bool		str_remove_chars(char *str, char *set);
 bool		is_str_empty(char *str);
 void		map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game);
 

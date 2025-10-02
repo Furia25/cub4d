@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 01:45:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:13:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define CUB3D_RENDERING_H
 # include "maths2_vectors.h"
 # include "tilemap.h"
-# include "cub3d.h"
 # include "cub3d_textures.h"
+# include "cub3d.h"
 
 # define RENDER_DISTANCE	100
 
@@ -101,5 +101,12 @@ void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
 			t_render_context *r_ctx, t_texture_type texture_type);
 void	draw_sprite(t_transform tform,
 			t_sprite *spr, t_render_context *ctx);
+void	entities_draw(t_game *game, t_render_context *render);
+void	entity_basic_draw(t_entity *entity, t_render_context *render);
+void	draw_interaction(t_render_context *ctx, t_game *game);
+void	draw_button(t_render_context *ctx, t_button *btn);
+void	render_menu(int start, t_render_context *ctx, t_game *game);
+void	draw_interact_button(t_render_context *ctx, t_button *btn, int text_box);
+void	draw_textbox(t_render_context *ctx, char *text, uint64_t time, t_ivec2 pos);
 
 #endif

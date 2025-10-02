@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   text.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:27:11 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/01 10:57:14 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:30:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "cub3d_rendering.h"
 #include "glyphs.h"
 
-static inline bool	char_command(t_text_context *ctx, wchar_t c)
+static inline bool	char_command(t_text_context *ctx, char c)
 {
 	bool	valid;
 
@@ -43,7 +44,7 @@ static inline bool	char_command(t_text_context *ctx, wchar_t c)
 	return (valid);
 }
 
-static inline bool	text_command(t_text_context *ctx, wchar_t *str)
+static inline bool	text_command(t_text_context *ctx, char *str)
 {
 	wchar_t	c;
 
@@ -62,13 +63,15 @@ static inline bool	text_command(t_text_context *ctx, wchar_t *str)
 	return (false);
 }
 
-static inline void	init_text(t_text_context *ctx, t_draw_transform *tform,
-						t_text_properties *prop, wchar_t *str)
+static inline void	init_text(t_text_context *ctx, t_transform *tform,
+						t_text_properties *prop, char *str)
 {
 	ft_memset(ctx, 0, sizeof(t_text_context));
+	tform->depth = -2;
+	tform->scale = 1;
 	ctx->prop = prop;
 	ctx->start_time = prop->start_time;
-	ctx->length = strlen_wchar(str);
+	ctx->length = ft_strlen(str);
 	tform->color = g_colors[C_WHITE];
 	tform->width = GLYPH_SIZE;
 	tform->height = GLYPH_SIZE;
@@ -78,7 +81,7 @@ static inline void	init_text(t_text_context *ctx, t_draw_transform *tform,
 }
 
 static inline void	line_break(t_text_context *ctx, t_text_properties *prop,
-						t_draw_transform *tform)
+						t_transform *tform)
 {
 	ctx->line_char = 0;
 	ctx->line_n++;
@@ -89,11 +92,11 @@ static inline void	line_break(t_text_context *ctx, t_text_properties *prop,
 	ctx->index++;
 }
 
-void	draw_text(wchar_t *str, t_text_properties prop, t_img_data *img)
+void	draw_text(char *str, t_text_properties prop, t_render_context *render)
 {
-	t_text_context		ctx;
-	t_draw_transform	*tform;
-	wchar_t				c;
+	t_text_context	ctx;
+	t_transform		*tform;
+	char			c;
 
 	tform = &ctx.tform;
 	init_text(&ctx, tform, &prop, str);
@@ -110,7 +113,7 @@ void	draw_text(wchar_t *str, t_text_properties prop, t_img_data *img)
 		}
 		ctx.actual_glyph = glyph_get_index(c);
 		if (ctx.actual_glyph != -1)
-			draw_glyph(&ctx, ctx.actual_glyph, img);
+			draw_glyph(&ctx, ctx.actual_glyph, render);
 		ctx.line_char++;
 		ctx.index++;
 	}

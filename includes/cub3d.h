@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 11:36:54 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:09:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@
 # include "cub3d_errors.h"
 # include "cub3d_anim.h"
 # include "cub3d_parsing.h"
+# include "cub3d_entities.h"
 
 # define GAME_NAME	"CUB3D"
-# define GAME_NAME_F	L"{9t~*}CUB3D"
+# define GAME_NAME_F	"{9t~*}CUB3D"
 
 # define GAME_INTERVAL_MIN	32
 
@@ -101,10 +102,10 @@ from random source, using fallback : %016lx\n."
 # define INTERACTION_RANGE	0.4
 
 # define MENU_ACTIONS	2
-# define MENU_OPTION_PLAY	L"{5}PLAY"
-# define MENU_OPTION_RESUME	L"{5}RESUME"
-# define MENU_OPTION_CONFIG	L"{4}Config"
-# define MENU_OPTION_QUIT	L"{4}Quit"
+# define MENU_OPTION_PLAY	"{5}PLAY"
+# define MENU_OPTION_RESUME	"{5}RESUME"
+# define MENU_OPTION_CONFIG	"{4}Config"
+# define MENU_OPTION_QUIT	"{4}Quit"
 # define DEATH_MESSAGE	"\n\n\
 ▗▖  ▗▖▄▄▄  █  ▐▌    ▗▄▄▄  ▄ ▗▞▀▚▖   ▐▌\n\
  ▝▚▞▘█   █ ▀▄▄▞▘    ▐▌  █ ▄ ▐▛▀▀▘   ▐▌\n\
@@ -130,43 +131,6 @@ typedef struct s_menu
 {
 	int		action;
 }	t_menu;
-
-typedef struct s_interaction
-{
-	int	npc_id;
-	int	count;
-}	t_interaction;
-
-typedef struct s_player
-{
-	t_vec3	spawn_pos;
-	float	base_speed;
-	float	eye_height;
-	float	jump_force;
-	float	fov_deg;
-	float	accel_speed;
-	float	accel_max;
-	float	friction;
-	t_bbox	bbox;
-	t_vec3	position;
-	t_vec2	direction;
-	float	yaw_rad;
-	int		pitch_offset;
-	float	accel;
-	float	jump_velocity;
-	t_vec2	last_move;
-	bool	is_grounded;
-	bool	has_gravity;
-	bool	interaction;
-	bool	interaction;
-	char	*interact_text;
-}	t_player;
-
-typedef struct s_entity_manager
-{
-	t_vector	*entities;
-	uint64_t	last_tick;
-}	t_entity_manager;
 
 typedef struct s_win
 {
@@ -218,6 +182,7 @@ typedef struct s_game
 	t_entity_manager	entity_manager;
 	t_vector			*events_postload;
 	uint64_t			start_time;
+	bool				render_textbox;
 }	t_game;
 
 typedef struct s_tile_context
@@ -305,19 +270,11 @@ int			calculate_offset(double p_pos);
 void		map_manage_entities(t_game *game);
 void		init_tile_ctx(t_game *game, t_vec3 pos, t_tile_context *tile_info);
 
-// ----- NPC ----- //
-void		draw_interact_button(t_game *game, t_button *btn, int text_box);
-void		draw_textbox(t_game *game, char *text, uint64_t time, t_ivec2 pos);
-//
-
 void		player_death(t_player *game);
 void		update_player(t_player *player, t_game *game);
 void		player_add_z(float value, t_player *player);
 void		object_move(t_vec3 offset, t_vec3 *pos, t_bbox *bbox);
 void		object_set_pos(t_vec3 new_pos, t_vec3 *pos, t_bbox *bbox);
-
-void		draw_button(t_game *game, t_button *btn);
-void		render_menu(t_game *game, int start);
 
 bool		is_pixel_valid(int x, int y, t_img_data *img);
 
