@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 02:00:35 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 02:58:36 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static inline void	init_player(t_player *player)
 	player->friction = 0.0075;
 	player->air_friction = 0.0005;
 	player->eye_height = 0.3f;
-	player->jump_force = 0.3f;
+	player->jump_force = 0.15f;
 	player->fov_deg = 80;
 	size = PLAYER_SIZE / 2;
 	player->position.z = player->position.z + player->eye_height + 0.5;

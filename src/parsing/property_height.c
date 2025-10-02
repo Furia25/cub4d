@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:42:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 01:49:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 02:16:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ static inline void	property_check_set_heights(char *line, t_height_data *data,
 	data->y = ft_atoi(prop->argv[1]);
 	data->width = ft_atoi(prop->argv[2]);
 	data->height = ft_atoi(prop->argv[3]);
-	data->ceil_offset = ft_atoi(prop->argv[4]);
+	data->ceil_offset = ft_atof(prop->argv[4]);
 	if (prop->argc == 6)
-		data->floor_offset = ft_atoi(prop->argv[5]);
+		data->floor_offset = ft_atof(prop->argv[5]);
 	else
 		data->floor_offset = data->ceil_offset;
 	if (data->floor_offset > data->ceil_offset && prop->argc == 6)
 		error = ERROR_PROPERTY_HEIGHT_OFFSET;
-	else if (data->x < 0 || data->y || data->width < 0 || data->height < 0)
+	else if (data->x < 0 || data->y < 0|| data->width < 0 || data->height < 0)
 		error = ERROR_PROPERTY_HEIGHT;
 	else if (fabsf(data->floor_offset) > HEIGHT_LIMIT
 		|| fabsf(data->ceil_offset) > HEIGHT_LIMIT)

@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/02 01:32:31 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/02 03:04:52 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,6 +114,7 @@ SRC_FILES = \
 	entities/entities_updates.c \
 	entities/entities_utils.c \
 	entities/entity_npc.c \
+	entities/entity_tree.c \
 	entities/manager.c
 
 HEADERS = \

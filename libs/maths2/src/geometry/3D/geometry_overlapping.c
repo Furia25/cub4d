@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 21:49:06 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/04 23:40:30 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 03:20:22 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 bool	bbox_in_bbox(const t_bbox b1, const t_bbox b2)
 {
 	return (!((b1.max.x <= b2.min.x) || (b1.min.x >= b2.max.x)
-		|| (b1.max.y <= b2.min.y) || (b1.min.y >= b2.max.y) 
-		|| (b1.max.z <= b2.min.z) || (b1.min.z >= b2.max.z)));
+			|| (b1.max.y <= b2.min.y) || (b1.min.y >= b2.max.y)
+			|| (b1.max.z <= b2.min.z) || (b1.min.z >= b2.max.z)));
 }
 
 bool	sphere_in_sphere(const t_sphere s1, const t_sphere s2)

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 21:57:06 by val               #+#    #+#             */
-/*   Updated: 2025/06/04 01:52:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 03:19:40 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MATHS2_RNG_H
 # include <stdint.h>
 
-typedef	struct s_rng_state
+typedef struct s_rng_state
 {
 	uint64_t	state[4];
 }	t_rng_state;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 01:42:30 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 03:03:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_ERROR] = "assets/textures/missing.png",
 [TEXTURE_WALL] = NULL,
 [TEXTURE_GRASS] = "assets/textures/tiles/grass.png",
+[TEXTURE_DIRT] = "assets/textures/tiles/dirt.png",
 [TEXTURE_TOP] = "assets/textures/tiles/wall_top.png",
 [TEXTURE_BOT] = "assets/textures/tiles/wall_bot.png",
 [TEXTURE_NORTH] = "1",
@@ -23,6 +24,7 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_WEST] = "3",
 [TEXTURE_EAST] = "4",
 [TEXTURE_ENTITY_NPC] = "assets/textures/entity/npc.png",
+[TEXTURE_ENTITY_TREE] = "assets/textures/entity/tree.png",
 [TEXTURE_WATER] = NULL,
 [TEXTURE_CIGARETTE] = "assets/textures/cigarette.png",
 [ASSET_BG_PAUSE] = "assets/textures/gui/bg_pause.png",
@@ -47,7 +49,7 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_WATER16] = "assets/textures/tiles/water/water16.png",
 [TEXTURE_WATER17] = "assets/textures/tiles/water/water17.png",
 [TEXTURE_WATER18] = "assets/textures/tiles/water/water18.png",
-[TEXTURE_WATER19] = "assets/textures/tiles/water/water19.png"
+[TEXTURE_WATER19] = "assets/textures/tiles/water/water19.png",
 };
 
 const char *g_property_token[PROP_UNKNOWN] = {
@@ -106,8 +108,12 @@ Ceil offset must be greater than floor offset
 */
 
 const t_tile_data	g_base_tile_info[TILE_MAX] = {
-[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_ERROR, TEXTURE_ERROR, SOLID_NONE, false, -500, -600, "Empty"},
-[TILE_GRASS] = {TILE_GRASS, TEXTURE_GRASS, TEXTURE_GRASS, SOLID_ALL, true, 0, 0, "Empty"},
-[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, SOLID_ALL, true, 1.5, 0, "Wall"},
-[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER, SOLID_FLOOR, true, -0.1, -0.15, "Water"},
+[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_ERROR, TEXTURE_ERROR,
+SOLID_NONE, false, 1000, -600, "Empty"},
+[TILE_GRASS] = {TILE_GRASS, TEXTURE_DIRT, TEXTURE_GRASS,
+SOLID_ALL, true, 0, 0, "Empty"},
+[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP,
+SOLID_ALL, true, 1.5, 0, "Wall"},
+[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER,
+SOLID_FLOOR, true, -0.1, -0.15, "Water"},
 };

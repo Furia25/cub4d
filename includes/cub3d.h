@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 02:00:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 03:22:37 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define MOUSE_SENS			0.001
 
 # define HEIGHT_LIMIT	100
+# define PLAYER_STEP_THRESHOLD	0.08
 
 # define SEED_SYSTEM_RAND_FILE	"/dev/urandom"
 # define SEED_FALLBACK_DEFAULT	0xCACA
@@ -309,6 +310,7 @@ void		update_player(t_player *player, t_game *game);
 void		player_add_x(float value, t_player *player);
 void		player_add_y(float value, t_player *player);
 void		player_add_z(float value, t_player *player);
+void		object_move(t_vec3 offset, t_vec3 *pos, t_bbox *bbox);
 
 void		draw_button(t_game *game, t_button *btn);
 void		render_menu(t_game *game, int start);

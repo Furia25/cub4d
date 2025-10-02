@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:15:50 by val               #+#    #+#             */
-/*   Updated: 2025/06/06 18:40:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 03:19:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 
 # if STANDALONE_IMPLEMENTATION == 1
 #  define _USE_STANDALONE_MATH
-# endif
-
-# ifndef _USE_STANDALONE_MATH
-#  ifdef __has_include
-#   if __has_include(<math.h>)
-#    include <math.h>
-#   endif
-#  endif
 # endif
 
 # ifdef _MATH_H

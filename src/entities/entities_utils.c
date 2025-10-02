@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 00:29:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 03:35:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 	entity->transform.y = (1.0f - projected.y) * render->halfh;
 	entity->transform.y += render->player->pitch_offset;
 	entity->transform.scale = render->aspect_res * (2.f / cam_pos.z);
-	entity->transform.x -= entity->spr.width * entity->transform.scale * 0.2;
+	entity->transform.x -= entity->spr.width * entity->transform.scale * 0.1;
 	entity->transform.depth = sqrt(relative.x * relative.x + relative.y * relative.y);
 	draw_sprite(entity->transform, (t_sprite *)entity, render);
 }

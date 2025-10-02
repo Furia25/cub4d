@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 03:02:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/01 00:26:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 03:04:32 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static inline const t_entity_ctx	*get_constructors(char *token)
 	size_t						index;
 	static const t_entity_ctx	factory[] = {
 	{"NPC", entity_new_npc, entity_npc_data, ERROR_ENTITY_NPC},
+	{"TREE", entity_new_tree, NULL, ERROR_ALLOC},
 	{NULL, NULL, NULL, 0}};
 
 	index = 0;
