@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 00:45:17 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/05 19:23:22 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 02:42:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,10 @@ t_ray3	ray3_from_direction(t_vec3 origin, t_vec3 direction)
 t_vec3	ray3_point_at(t_ray3 ray, float t)
 {
 	return (vec3_add(ray.origin, vec3_scale(ray.dir_normal, t)));
+}
+
+void	bbox_add(t_vec3 position, t_bbox *bbox)
+{
+	bbox->min = vec3_add(bbox->min, position);
+	bbox->max = vec3_add(bbox->max, position);
 }

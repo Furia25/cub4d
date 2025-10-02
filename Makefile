@@ -6,7 +6,7 @@
 #    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/01 10:05:11 by halnuma          ###   ########.fr        #
+#    Updated: 2025/10/02 11:35:49 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,6 @@ SRC_FILES = \
 	rendering/texture.c \
 	rendering/button.c \
 	rendering/menu.c \
-	rendering/npc/manage_npc.c \
-	rendering/npc/draw_interactions.c \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_populate.c \
@@ -83,6 +81,7 @@ SRC_FILES = \
 	parsing/properties.c \
 	parsing/properties_utils.c \
 	parsing/property_entity.c \
+	parsing/property_height.c \
 	utils/tab_utils.c \
 	utils/print_utils.c \
 	utils/misc_utils.c \
@@ -97,8 +96,9 @@ SRC_FILES = \
 	init_engine.c \
 	exit_engine.c \
 	hooks.c \
-	gameloop/player_movement.c \
+	gameloop/player.c \
 	gameloop/game_loop.c \
+	gameloop/interactions.c \
 	gameloop/animation.c \
 	keys/keys_buffer.c \
 	keys/keys_handling.c \
@@ -114,6 +114,7 @@ SRC_FILES = \
 	entities/entities_updates.c \
 	entities/entities_utils.c \
 	entities/entity_npc.c \
+	entities/entity_tree.c \
 	entities/manager.c
 
 HEADERS = \

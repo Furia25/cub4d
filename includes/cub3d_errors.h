@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 16:19:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 01:15:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 # define WARNING_PREFIX	"\033[33mWarning:\033[0m "
 # define ERROR_PREFIX	"\033[31m\033[1mError:\033[0m "
-# define ERROR_BASIC	"Unexpected error: game has crashed."
 
 typedef enum e_error
 {
+	ERROR_NONE,
 	ERROR_ALLOC,
 	ERROR_PARSING,
 	ERROR_PARSING_ALLOC,
@@ -29,8 +29,10 @@ typedef enum e_error
 	ERROR_PARSING_NOPLAYER,
 	ERROR_PARSING_PROPERTY,
 	ERROR_PROPERTY_COLOR,
+	ERROR_PROPERTY_HEIGHT,
+	ERROR_PROPERTY_HEIGHT_LIMIT,
+	ERROR_PROPERTY_HEIGHT_OFFSET,
 	ERROR_PROPERTY_PATH,
-	ERROR_PARSING_BROADCAST,
 	ERROR_PROPERTY_ENTITY,
 	ERROR_PROPERTY_ENTITY_UNKNOWN,
 	ERROR_PARSING_MISSING_COLOR,

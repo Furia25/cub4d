@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/01 10:35:20 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:36:46 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum e_property_type
 	PROP_A,
 	PROP_ENTITY,
 	PROP_HEIGHT,
+	PROP_HEIGHT_PRECISE,
 	PROP_BROADCAST,
 	PROP_COMMENT,
 	PROP_UNKNOWN
@@ -65,6 +66,17 @@ typedef struct s_parsing
 	t_property		temp_prop;
 }	t_parsing;
 
+typedef struct s_height_data
+{
+	int		x;
+	int		y;
+	int		width;
+	int		height;
+	float	floor_offset;
+	float	ceil_offset;
+	bool	precise;
+}	t_height_data;
+
 extern const char		*g_property_token[PROP_UNKNOWN];
 
 /*Parsing*/
@@ -80,6 +92,7 @@ void		build_entities(t_parsing *parsing, t_game *game);
 /*Parsing Properties*/
 t_property	property_get_args(char *line, t_property_type type, t_game *game);
 bool		property_check_color(t_property prop);
+void		apply_height_postload(t_height_data *args, t_game *game);
 
 void		parse_property_broadcast(char *line, t_game *game);
 void		parse_property_height(char *line, t_property_type type,

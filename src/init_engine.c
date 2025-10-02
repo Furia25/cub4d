@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_engine.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/01 00:02:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:38:29 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void	init_engine(t_game *game)
 		throw_error(game, ERROR_WINDOW);
 	game->state = STATE_MENU;
 	init_hooks(game);
-	if (game->level_broadcast)
-		printf(ANSI_CARRIAGE "%s\n" ANSI_RESET, game->level_broadcast);
-	init_player(&game->player);
 	event_queue_execute(game->events_postload, game);
+	init_player(&game->player);
 	mlx_loop(game->mlx);
 }
 
@@ -85,20 +83,20 @@ static inline void	init_player(t_player *player)
 	t_vec3	max;
 
 	player->has_gravity = true;
-	player->base_speed = 0.07f;
-	player->accel_max = 0.03;
+	player->base_speed = 0.05f;
+	player->accel_max = 0.04;
 	player->accel_speed = 0.003;
-	player->friction = 0.0075;
-	player->air_friction = 0.0005;
+	player->friction = 0.0078;
 	player->eye_height = 0.3f;
-	player->jump_force = 0.3f;
+	player->jump_force = 0.15f;
 	player->fov_deg = 80;
 	size = PLAYER_SIZE / 2;
-	player->position.z = player->eye_height + 0.5;
+	player->position.z = player->position.z + player->eye_height + 0.5;
 	min = vec3_new(player->position.x - size,
 			player->position.y - size, player->position.z);
 	max = vec3_new(player->position.x + size,
-			player->position.y + size, player->position.z - 0.4);
+		player->position.y + size, player->position.z - 0.4);
+	player->spawn_pos = player->position;
 	player->accel = 0;
 	player->bbox = bbox_new(min, max);
 	player->is_grounded = true;

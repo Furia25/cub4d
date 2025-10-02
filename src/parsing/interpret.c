@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:06:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 18:11:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 01:12:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static inline void	parse_property(char *line, t_property_type type,
 	if (type == PROP_NO || type == PROP_EA || type == PROP_SO
 		|| type == PROP_WE)
 		parse_property_wall(line, type, parsing, game);
-	if (type == PROP_A || type == PROP_C || type == PROP_F)
+	else if (type == PROP_A || type == PROP_C || type == PROP_F)
 	{
 		if (type == PROP_C)
 			parsing->has_ceil = true;
@@ -76,10 +76,10 @@ static inline void	parse_property(char *line, t_property_type type,
 			parsing->has_floor = true;
 		parse_property_color(line, type, parsing, game);
 	}
-	if (type == PROP_ENTITY)
+	else if (type == PROP_ENTITY)
 		parse_property_entity(line, type, parsing, game);
-	if (type == PROP_HEIGHT)
+	else if (type == PROP_HEIGHT || type == PROP_HEIGHT_PRECISE)
 		parse_property_height(line, type, parsing, game);
-	if (type == PROP_BROADCAST)
+	else if (type == PROP_BROADCAST)
 		parse_property_broadcast(line, game);
 }

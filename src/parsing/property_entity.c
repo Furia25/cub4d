@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 03:02:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 11:33:37 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:41:02 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static inline const t_entity_ctx	*get_constructors(char *token)
 	size_t						index;
 	static const t_entity_ctx	factory[] = {
 	{"NPC", entity_new_npc, entity_npc_data, ERROR_ENTITY_NPC},
+	{"TREE", entity_new_tree, NULL, ERROR_ALLOC},
 	{NULL, NULL, NULL, 0}};
 
 	index = 0;

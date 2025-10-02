@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:24:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/06 21:27:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 02:43:31 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ bool	point_in_sphere(t_vec3 point, t_sphere sphere);
 bool	point_in_triangle3(t_vec3 point, t_triangle3 triangle);
 
 bool	bbox_in_bbox(const t_bbox b1, const t_bbox b2);
+void	bbox_add(t_vec3 position, t_bbox *bbox);
 bool	sphere_in_sphere(const t_sphere s1, const t_sphere s2);
 bool	sphere_in_bbox(const t_sphere sphere, const t_bbox bbox);
 

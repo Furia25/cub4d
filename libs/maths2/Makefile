@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/06/13 15:53:05 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/02 03:21:54 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,12 @@ endif
 
 
 SRC_FILES = \
+	geometry/vectors_constructor.c \
+	geometry/2D/constructors_2D.c \
 	geometry/2D/geometry_overlapping.c \
 	geometry/2D/point_overlapping.c \
 	geometry/2D/rays2_basics.c \
+	geometry/3D/constructors_3D.c \
 	geometry/3D/geometry_overlapping.c \
 	geometry/3D/plane_utils.c \
 	geometry/3D/point_overlapping.c \

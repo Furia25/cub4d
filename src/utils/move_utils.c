@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/27 16:06:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:41:44 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,13 @@ void	rad_to_vect(t_vec2 *direction, float rad)
 	direction->y = sin(rad);
 }
 
-void	player_add_x(float value, t_player *player)
+void	object_set_pos(t_vec3 new_pos, t_vec3 *pos, t_bbox *bbox)
 {
-	player->position.x += value;
-	player->bbox.min.x += value;
-	player->bbox.max.x += value;
-}
+	t_vec3	offset;
 
-void	player_add_y(float value, t_player *player)
-{
-	player->position.y += value;
-	player->bbox.min.y += value;
-	player->bbox.max.y += value;
+	offset = vec3_sub(new_pos, *pos);
+	bbox_add(offset, bbox);
+	*pos = new_pos;
 }
 
 void	player_add_z(float value, t_player *player)
@@ -39,24 +34,10 @@ void	player_add_z(float value, t_player *player)
 	player->bbox.max.z += value;
 }
 
-int	check_player(t_game *game, int i, int j, int *player)
+void	object_move(t_vec3 offset, t_vec3 *pos, t_bbox *bbox)
 {
-	if (is_symbol_player(game->parsing.file_content[i][j]))
-	{
-		if (*player)
-			return (0);
-		game->player.position.x = (double)j + 0.5;
-		game->player.position.y = (double)(i - 8) + 0.5;
-		if (game->parsing.file_content[i][j] == 'S')
-			game->player.yaw_rad = M_PI / 2;
-		else if (game->parsing.file_content[i][j] == 'N')
-			game->player.yaw_rad = 3 * M_PI / 2;
-		else if (game->parsing.file_content[i][j] == 'W')
-			game->player.yaw_rad = M_PI;
-		else if (game->parsing.file_content[i][j] == 'E')
-			game->player.yaw_rad = 0;
-		rad_to_vect(&game->player.direction, game->player.yaw_rad);
-		*player = 1;
-	}
-	return (1);
+	pos->x += offset.x;
+	pos->y += offset.y;
+	pos->z += offset.z;
+	bbox_add(offset, bbox);
 }

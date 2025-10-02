@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:20:57 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/28 21:52:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 03:03:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ typedef enum e_texture_type
 	TEXTURE_WATER19,
 	TEXTURE_TOP,
 	TEXTURE_GRASS,
+	TEXTURE_DIRT,
 	TEXTURE_ENTITY_NPC,
+	TEXTURE_ENTITY_TREE,
 	TEXTURE_CIGARETTE,
 	ASSET_BG_START,
 	ASSET_BG_PAUSE,

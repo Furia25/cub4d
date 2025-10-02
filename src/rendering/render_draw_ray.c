@@ -6,12 +6,15 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/10 02:39:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 01:52:00 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_rendering.h"
+
+/*TEMP TAKE CARE THESE FUNCTIONS ARE MEANT TO BE OPTIMIZED (IN THEORY),
+	ANY CHANGE TO NORM THEM CAN BREAK*/
 
 static inline void	draw_top_faces(t_raycast_hit *h, int y,
 		t_raycast_context *ctx, t_render_context *r_ctx)
