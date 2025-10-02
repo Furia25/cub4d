@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 23:23:30 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 01:57:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,13 @@ void	loading_log(int error, char *error_format, char *str)
 	}
 	ft_putstr_fd(ANSI_RESET, 1);
 	loaded++;
+}
+
+/*We have to void game here because of event template function*/
+
+void	broadcast(char *str, t_game *game)
+{
+	(void)game;
+	ft_putstr_fd(str, 1);
+	ft_putchar_fd('\n',1);
 }

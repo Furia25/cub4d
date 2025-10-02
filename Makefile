@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/01 00:20:41 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/02 01:32:31 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ SRC_FILES = \
 	parsing/properties.c \
 	parsing/properties_utils.c \
 	parsing/property_entity.c \
+	parsing/property_height.c \
 	utils/tab_utils.c \
 	utils/print_utils.c \
 	utils/misc_utils.c \

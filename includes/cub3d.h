@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 23:58:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 02:00:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@
 # define WINDOW_HEIGHT		720
 # define ASPECT_RES			1080
 # define MOUSE_SENS			0.001
+
+# define HEIGHT_LIMIT	100
 
 # define SEED_SYSTEM_RAND_FILE	"/dev/urandom"
 # define SEED_FALLBACK_DEFAULT	0xCACA
@@ -204,7 +206,6 @@ typedef struct s_game
 	t_key				key_buffer[KEY_MAX_COUNT];
 	t_png				*textures[TEXTURE_MAX_COUNT];
 	t_tile_animation	water_anim;
-	char				*level_broadcast;
 	t_hud_cigarette		hud_cigarette;
 	t_game_state		state;
 	t_menu				menu;
@@ -286,6 +287,7 @@ uint64_t	get_seed(void);
 void		rad_to_vect(t_vec2 *direction, float rad);
 void		print_char_tab(char **tab);
 void		loading_log(int error, char *error_format, char *str);
+void		broadcast(char *str, t_game *game);
 
 // ----- MINIMAP ----- //
 void		draw_minimap(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 02:01:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 01:42:30 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ const char *g_property_token[PROP_UNKNOWN] = {
 [PROP_A] = "A ",
 [PROP_ENTITY] = "ENTITY ",
 [PROP_HEIGHT] = "HEIGHT ",
+[PROP_HEIGHT_PRECISE] = "HEIGHT_PRECISE ",
 [PROP_BROADCAST] = "##",
 [PROP_COMMENT] = "#"
 };
@@ -84,7 +85,8 @@ const int	g_keymap[KEY_MAX_COUNT] = {
 [KEY_FLEX] = XK_f
 };
 
-/*[TYPE] = 
+/* The tilemap struct is composed of
+[TYPE] = 
 type, 
 texture, 
 texture_topbot, 
@@ -96,8 +98,15 @@ floor_offset,
 name
 */
 
+/*
+CEIL	 _
+		| |
+FLOOR	 ‾
+Ceil offset must be greater than floor offset
+*/
+
 const t_tile_data	g_base_tile_info[TILE_MAX] = {
-[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_ERROR, TEXTURE_ERROR, SOLID_NONE, false, -5, -6, "Empty"},
+[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_ERROR, TEXTURE_ERROR, SOLID_NONE, false, -500, -600, "Empty"},
 [TILE_GRASS] = {TILE_GRASS, TEXTURE_GRASS, TEXTURE_GRASS, SOLID_ALL, true, 0, 0, "Empty"},
 [TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, SOLID_ALL, true, 1.5, 0, "Wall"},
 [TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER, SOLID_FLOOR, true, -0.1, -0.15, "Water"},

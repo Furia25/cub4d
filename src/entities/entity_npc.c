@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/01 00:20:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 21:27:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 	entity->transform.width = 50;
 	if (!event_queue_push((void (*)(void *, t_game *))entity_npc_postload,
 		entity, false, game->events_postload))
-	throw_error(game, ERROR_ENTITIES_ALLOC);
+	{
+		free(entity);
+		throw_error(game, ERROR_ENTITIES_ALLOC);
+	}
 	return (entity);
 }
 

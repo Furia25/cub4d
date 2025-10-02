@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 01:40:29 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 01:45:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_raycast_context
 	int					column;
 	float				last_floor;
 	float				last_ceil;
+	bool				last_tile_visible;
 }	t_raycast_context;
 
 typedef struct s_vertical_tex

@@ -6,40 +6,27 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:56:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 16:26:40 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 01:59:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	broadcast(char *str, t_game *game);
+
 void	parse_property_broadcast(char *line, t_game *game)
 {
-	char	*temp_nl;
-	char	*temp;
+	char	*event_data;
 
-	if (game->level_broadcast)
-		temp_nl = ft_strjoin(game->level_broadcast, "\n");
-	else
-		temp_nl = ft_calloc(1, sizeof(char));
-	if (!temp_nl)
+	event_data = ft_strdup(line + ft_strlen(g_property_token[PROP_BROADCAST]));
+	if (!event_data)
 		throw_error(game, ERROR_PARSING_ALLOC);
-	temp = ft_strjoin(temp_nl, 
-		line + ft_strlen(g_property_token[PROP_BROADCAST]));
-	free(temp_nl);
-	if (!temp)
+	if (!event_queue_push((void (*)(void *, t_game *))broadcast,
+		event_data, true, game->events_postload))
+	{
+		free(event_data);
 		throw_error(game, ERROR_PARSING_ALLOC);
-	if (game->level_broadcast)
-		free(game->level_broadcast);
-	game->level_broadcast = temp;
-}
-
-void	parse_property_height(char *line, t_property_type type,
-			t_parsing *parsing, t_game *game)
-{
-	(void)line;
-	(void)type;
-	(void)parsing;
-	(void)game;
+	}
 }
 
 void	parse_property_color(char *line, t_property_type type,

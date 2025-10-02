@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/01 00:27:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 02:00:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "cub3d_errors.h"
 
 const char	*g_errors[ERROR_MAX] = {
+[ERROR_NONE] = "",
 [ERROR_ALLOC] = "Couldn't allocate enough memory.",
 [ERROR_PARSING] = "Unable to continue the map parsing.",
 [ERROR_PARSING_IO] = "Unable to open/read the map file.",
@@ -25,19 +26,25 @@ const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_NOPLAYER] = "Map must contain at least one player spawn point.",
 [ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
 [ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
-[ERROR_PROPERTY_COLOR] = "Malformed property: 'C|F' <red:byte> <green:byte> \
-<blue:byte>\n 'A' <red:byte> <green:byte> <blue:byte> [intensity:0-250]",
-[ERROR_PROPERTY_ENTITY_UNKNOWN] = "Malformed property: Unknown entity type",
-[ERROR_PROPERTY_ENTITY] = "Malformed property: 'ENTITY' <type:string> <x:float> \
- <y:float> <z:float> [optional_datas]",
-[ERROR_PROPERTY_PATH] = "Malformed property: 'EA|WE|SO|NO' <path:string>",
-[ERROR_PARSING_BROADCAST] = "Malformed property: '##' <broadcast:string>",
 [ERROR_PARSING_UNCLOSED] = "All tiles must be surrounded by walls; \
 the map cannot have open edges.",
 [ERROR_PARSING_MISSING_COLOR] = "Invalid map configuration: floor and \
 ceiling colors must be defined using the F and C properties.",
 [ERROR_PARSING_MISSING_PATHS] = "Invalid map configuration: wall textures \
 must be defined for all directions using the NO, SO, WE, and EA properties.",
+[ERROR_PROPERTY_COLOR] = "Malformed property: 'C|F' <red:byte> <green:byte> \
+<blue:byte>\n 'A' <red:byte> <green:byte> <blue:byte> [intensity:0-250] ",
+[ERROR_PROPERTY_ENTITY] = "Malformed property: 'ENTITY' <type:string> \
+<x:float> <y:float> <z:float> [optional_datas] ",
+[ERROR_PROPERTY_ENTITY_UNKNOWN] = "Malformed property: Unknown Entity type",
+[ERROR_PROPERTY_HEIGHT] = "Malformed property: 'HEIGHT'/'HEIGHT_PRECISE' \n\
+<x:uint> <y:uint> <w:uint> <h:uint> \
+(<zoffset:float> | <ceil_offset:float> <floor_offset:float>) ",
+[ERROR_PROPERTY_HEIGHT_OFFSET] = "Malformed property: Floor height offset \
+cannot exceed ceiling height ",
+[ERROR_PROPERTY_HEIGHT_LIMIT] = "Malformed property: Height offset must be \
+between -100 and 100 ",
+[ERROR_PROPERTY_PATH] = "Malformed property: 'EA|WE|SO|NO' <path:string> ",
 [ERROR_LOADING_ASSETS] = "Couldn't load assets.",
 [ERROR_LOADING_TEXTURES_FALLBACK] = "Failed to load fallback error texture \
 from the required path",
@@ -60,16 +67,17 @@ void	throw_error(t_game *game, t_error error)
 
 void	throw_error_info(t_game *game, t_error error, char *info)
 {
-	ft_putstr_fd(ERROR_PREFIX, 2);
-	if (error < ERROR_MAX)
-		ft_putstr_fd((char *)g_errors[error], 2);
-	else
-		ft_putstr_fd(ERROR_BASIC, 2);
-	if (info)
+	if (error != ERROR_NONE)
 	{
-		ft_putstr_fd(": \"", 2);
-		ft_putstr_fd(info, 2);
-		ft_putchar_fd('\"', 2);
+		ft_putstr_fd(ERROR_PREFIX, 2);
+		if (error < ERROR_MAX)
+			ft_putstr_fd((char *)g_errors[error], 2);
+		if (info)
+		{
+			ft_putstr_fd(": \"", 2);
+			ft_putstr_fd(info, 2);
+			ft_putchar_fd('\"', 2);
+		}
 	}
 	ft_putstr_fd("\n", 2);
 	exit_game(game);
@@ -89,7 +97,6 @@ int	exit_game(t_game *game)
 		close(game->parsing.file_fd);
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
-	free(game->level_broadcast);
 	free_tab((void **)game->parsing.temp_prop.argv);
 	free_tab((void **)game->parsing.map);
 	free_tab((void **)game->parsing.file_content);
