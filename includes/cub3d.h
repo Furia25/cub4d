@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 12:12:56 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:08:53 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,5 +319,7 @@ void		draw_button(t_game *game, t_button *btn);
 void		render_menu(t_game *game, int start);
 
 bool		is_pixel_valid(int x, int y, t_img_data *img);
+int			is_fdigit(int c);
+
 
 #endif

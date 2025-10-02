@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   properties_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 15:42:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 00:45:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:08:41 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	is_fdigit(int c)
+{
+	if (ft_isdigit(c) || c == '.' || c == '-')
+		return (1);
+	return (0);
+}
 
 t_property	property_get_args(char *line, t_property_type type, t_game *game)
 {
