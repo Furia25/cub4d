@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:38:25 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 11:43:31 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:44:47 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	draw_textbox(t_game *game, char *text, uint64_t time, t_ivec2 pos)
 	draw_button(game, &btn);
 	x = pos.x + 40;
 	y = pos.y + 40;
-	draw_text(text, (t_text_properties){x, y, 0.8, 0, 0, 1, 70,
+	draw_text((wchar_t *)text, (t_text_properties){x, y, 0.8, 0, 0, 1, 70,
 		time}, game->frame);
 	btn.x = 1775;
 	btn.y = 950;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_colors.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 00:44:32 by vdurand           #+#    #+#             */
-/*   Updated: 2025/07/23 00:15:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:27:48 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,11 @@ typedef enum e_color
 	C_WHITE_SMOKE,
 	C_YELLOW,
 	C_YELLOW_GREEN,
+	C_BLACK_T,
+	C_PALE_TURQUOISE_T,
+	C_DARK_TURQUOISE_T,
+	C_RED_T,
+	C_DIM_GRAY_T,
 	C_MAX_COLOR
 }	t_color;
 

@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 11:41:23 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:33:29 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static inline bool	check_tile(t_raycast_hit *hit,
 	hit->tile_y = tile_y;
 	hit->tile_info = &tile->info;
 	hit->tile = tile;
-	hit->draw_walls = ctx->last_ceil != tile->ceiling 
+	hit->draw_walls = ctx->last_ceil != tile->ceiling
 		|| ctx->last_floor != tile->floor || !ctx->last_tile_visible;
 	ctx->last_ceil = tile->ceiling;
 	ctx->last_floor = tile->floor;

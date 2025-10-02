@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 11:39:09 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:45:29 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,12 @@ void	entity_npc_postload(t_entity *self, t_game *game)
 
 void	entity_npc_tick(t_entity *self, t_game *game)
 {
-	t_player	*player;
+	// t_player	*player;
 
-	player = game->player;
+	// player = game->player;
+	(void)game;
 	self->transform.index = (self->transform.index + 1) % 2;
-	if (self->transform.depth < INTERACTION_RANGE && player.)
-	{
-	}
+	// if (self->transform.depth < INTERACTION_RANGE && player.)
+	// {
+	// }
 }

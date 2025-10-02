@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 11:36:54 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:12:56 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ typedef struct s_player
 	bool	is_grounded;
 	bool	has_gravity;
 	bool	interaction;
-	bool	interaction;
 	char	*interact_text;
 }	t_player;
 
@@ -297,7 +296,7 @@ void		broadcast(char *str, t_game *game);
 void		draw_minimap(t_game *game);
 void		draw_player(t_game *game);
 void		draw_tile(t_tile_context *tile, t_rgba8 color,
-				int mid_off);
+				int mid_off, int size);
 void		draw_border(t_game *game);
 void		draw_player(t_game *game);
 void		draw_full_map(t_game *game);

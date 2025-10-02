@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:14:52 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/27 02:28:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:27:41 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ const t_rgba8	g_colors[C_MAX_COLOR] = {
 [C_POWDER_BLUE] = {{.a = 255, .r = 176, .g = 224, .b = 230}},
 [C_PURPLE] = {{.a = 255, .r = 128, .g = 0, .b = 128}},
 [C_REBECCA_PURPLE] = {{.a = 255, .r = 102, .g = 51, .b = 153}},
-[C_RED] = {{.a = 255, .r = 0, .g = 0, .b = 0}},
+[C_RED] = {{.a = 255, .r = 255, .g = 0, .b = 0}},
 [C_ROSY_BROWN] = {{.a = 255, .r = 188, .g = 143, .b = 143}},
 [C_ROYAL_BLUE] = {{.a = 255, .r = 65, .g = 105, .b = 225}},
 [C_SADDLE_BROWN] = {{.a = 255, .r = 139, .g = 69, .b = 19}},
@@ -153,7 +153,12 @@ const t_rgba8	g_colors[C_MAX_COLOR] = {
 [C_WHITE] = {{.a = 255, .r = 255, .g = 255, .b = 255}},
 [C_WHITE_SMOKE] = {{.a = 255, .r = 245, .g = 245, .b = 245}},
 [C_YELLOW] = {{.a = 255, .r = 255, .g = 255, .b = 0}},
-[C_YELLOW_GREEN] = {{.a = 255, .r = 154, .g = 205, .b = 50}}
+[C_YELLOW_GREEN] = {{.a = 255, .r = 154, .g = 205, .b = 50}},
+[C_BLACK_T] = {{.a = 150, .r = 0, .g = 0, .b = 0}},
+[C_PALE_TURQUOISE_T] = {{.a = 150, .r = 175, .g = 238, .b = 238}},
+[C_DARK_TURQUOISE_T] = {{.a = 150, .r = 0, .g = 206, .b = 209}},
+[C_RED_T] = {{.a = 150, .r = 255, .g = 0, .b = 0}},
+[C_DIM_GRAY_T] = {{.a = 150, .r = 105, .g = 105, .b = 105}},
 };
 
 const t_rgba8	g_color_text[26] = {

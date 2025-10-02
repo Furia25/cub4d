@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 11:38:29 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:32:12 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static inline void	init_player(t_player *player)
 	min = vec3_new(player->position.x - size,
 			player->position.y - size, player->position.z);
 	max = vec3_new(player->position.x + size,
-		player->position.y + size, player->position.z - 0.4);
+			player->position.y + size, player->position.z - 0.4);
 	player->spawn_pos = player->position;
 	player->accel = 0;
 	player->bbox = bbox_new(min, max);
