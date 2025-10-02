@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   property_height.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:42:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 02:16:53 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:33:13 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static inline void	property_check_set_heights(char *line, t_height_data *data,
 		data->floor_offset = data->ceil_offset;
 	if (data->floor_offset > data->ceil_offset && prop->argc == 6)
 		error = ERROR_PROPERTY_HEIGHT_OFFSET;
-	else if (data->x < 0 || data->y < 0|| data->width < 0 || data->height < 0)
+	else if (data->x < 0 || data->y < 0 || data->width < 0 || data->height < 0)
 		error = ERROR_PROPERTY_HEIGHT;
 	else if (fabsf(data->floor_offset) > HEIGHT_LIMIT
 		|| fabsf(data->ceil_offset) > HEIGHT_LIMIT)

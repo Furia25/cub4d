@@ -6,11 +6,18 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 15:42:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 13:50:42 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:46:08 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	is_fdigit(int c)
+{
+	if (ft_isdigit(c) || c == '.' || c == '-')
+		return (1);
+	return (0);
+}
 
 t_property	property_get_args(char *line, t_property_type type, t_game *game)
 {

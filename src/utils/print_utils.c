@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 01:57:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:33:59 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,5 @@ void	broadcast(char *str, t_game *game)
 {
 	(void)game;
 	ft_putstr_fd(str, 1);
-	ft_putchar_fd('\n',1);
+	ft_putchar_fd('\n', 1);
 }

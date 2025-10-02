@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 03:02:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 11:41:02 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 14:07:29 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ static inline void	build_entity(char *line, t_property prop, t_game *game)
 
 	if (!data || !data->constructor)
 		throw_error_info(game, ERROR_PROPERTY_ENTITY_UNKNOWN, line);
+	if (!ft_strcheck(prop.argv[1], is_fdigit)
+		|| !ft_strcheck(prop.argv[2], is_fdigit)
+		|| !ft_strcheck(prop.argv[3], is_fdigit))
+	{
+		throw_error_info(game, data->error, line);
+	}
 	pos = (t_vec3){ft_atof(prop.argv[1]),
 		ft_atof(prop.argv[2]), ft_atof(prop.argv[3])};
 	entity = data->constructor(pos, game);

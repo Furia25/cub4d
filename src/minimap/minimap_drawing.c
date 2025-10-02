@@ -6,14 +6,14 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 09:58:07 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:28:04 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_entities.h"
 
-void	draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off)
+void	draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off, int size)
 {
 	int	i;
 	int	j;
@@ -21,10 +21,10 @@ void	draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off)
 	int	y;
 
 	i = -1;
-	while (++i < MMAP_TILE_SIZE - mid_off)
+	while (++i < MMAP_TILE_SIZE - size)
 	{
 		j = 0;
-		while (j < MMAP_TILE_SIZE - mid_off)
+		while (j < MMAP_TILE_SIZE - size)
 		{
 			x = (tile->pos_x * MMAP_TILE_SIZE + i - tile->off_x
 					+ MINIMAP_X_START + MINIMAP_BORDER) + (mid_off / 2)
@@ -48,7 +48,7 @@ void	draw_border(t_game *game)
 	int				j;
 	t_rgba8			color;
 
-	color = rgba8(25, 255, 25, 200);
+	color = g_colors[C_PALE_TURQUOISE_T];
 	i = 0;
 	while (i < MINIMAP_SIZE)
 	{
@@ -81,7 +81,7 @@ void	draw_player(t_game *game)
 		while (j < MINIMAP_P_SIZE)
 		{
 			draw_pixel(
-				rgba8(255, 0, 10, 200),
+				g_colors[C_RED_T],
 				((7 * MMAP_TILE_SIZE) + i + MINIMAP_X_START
 					+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
 				((7 * MMAP_TILE_SIZE) + j + MINIMAP_Y_START
@@ -106,7 +106,8 @@ void	draw_entites(t_game *game, t_entity *entity)
 			&& pos.y <= game->player.position.y + 9))
 	{
 		init_tile_ctx(game, pos, &tile_info);
-		draw_tile(&tile_info, entity->map_color, MMAP_TILE_SIZE / 2);
+		draw_tile(&tile_info, entity->map_color,
+			(-(MMAP_TILE_SIZE / 2)), MMAP_TILE_SIZE / 2);
 	}
 }
 

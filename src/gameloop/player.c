@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 11:43:53 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:34:24 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static inline void	player_handle_move(t_player *player, t_game *game)
 
 	dir = vec2_from_angle(player->yaw_rad);
 	move = vec2_add(vec2_scale(dir, forward),
-		vec2_scale(vec2_new(-dir.y, dir.x), strafe));
+			vec2_scale(vec2_new(-dir.y, dir.x), strafe));
 	if (strafe == 0 && forward == 0)
 	{
 		move = player->last_move;
@@ -61,7 +61,7 @@ static inline void	player_handle_move(t_player *player, t_game *game)
 	}
 	else
 		player->accel = fminf(player->accel + player->accel_speed,
-			player->base_speed + player->accel_max);
+				player->base_speed + player->accel_max);
 	if (move.x != 0 || move.y != 0)
 		move = vec2_scale(vec2_normalize(move), player->accel);
 	player->last_move = move;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   full_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/28 23:08:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:29:55 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	draw_lines(char *line, t_game *game, int pos_y)
 	while (line[tile])
 	{
 		if (is_symbol_central(line[tile]))
-			draw_tiles(game, pos_x, pos_y, rgba8(0, 150, 255, 200));
+			draw_tiles(game, pos_x, pos_y, g_colors[C_DIM_GRAY_T]);
 		else if (line[tile] == SYMBOL_WALL)
-			draw_tiles(game, pos_x, pos_y, rgba8(200, 10, 200, 200));
+			draw_tiles(game, pos_x, pos_y, g_colors[C_DARK_TURQUOISE_T]);
 		tile++;
 		pos_x++;
 	}
@@ -69,6 +69,7 @@ void	draw_full_map(t_game *game)
 		draw_lines(game->parsing.map[line], game, line);
 		line++;
 	}
-	draw_tiles(game, game->player.position.x, game->player.position.y,
-		rgba8(255, 0, 10, 200));
+	if (game->player.position.x > 0 && game->player.position.y > 0)
+		draw_tiles(game, game->player.position.x, game->player.position.y,
+			g_colors[C_RED_T]);
 }

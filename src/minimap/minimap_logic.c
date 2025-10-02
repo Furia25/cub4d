@@ -6,7 +6,7 @@
 /*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/01 10:04:21 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:30:11 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_empty_tiles(t_tile_context *tile, int limit)
 {
 	while (tile->tile < limit)
 	{
-		draw_tile(tile, rgba8(0, 0, 0, 200), 0);
+		draw_tile(tile, g_colors[C_BLACK_T], 0, 0);
 		tile->tile++;
 		tile->pos_x++;
 	}
@@ -34,11 +34,11 @@ void	draw_plain_tiles(t_tile_context *tile)
 	{
 		if (tile->tile > (int)ft_strlen(tile->line)
 			|| tile->line[tile->tile] == ' ')
-			draw_tile(tile, rgba8(0, 0, 0, 200), 0);
+			draw_tile(tile, g_colors[C_BLACK_T], 0, 0);
 		else if (is_symbol_central(tile->line[tile->tile]))
-			draw_tile(tile, rgba8(255, 150, 100, 200), 0);
+			draw_tile(tile, g_colors[C_DIM_GRAY_T], 0, 0);
 		else if (tile->line[tile->tile] == SYMBOL_WALL)
-			draw_tile(tile, rgba8(200, 10, 40, 200), 0);
+			draw_tile(tile, g_colors[C_DARK_TURQUOISE_T], 0, 0);
 		tile->tile++;
 		tile->pos_x++;
 	}
