@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/02 13:12:03 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/02 16:45:35 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,7 +133,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -O3 -g3 -Wall -Werror -Wextra
+CFLAGS = -O3 -flto -g3 -Wall -Werror -Wextra
 
 LOG = echo
 

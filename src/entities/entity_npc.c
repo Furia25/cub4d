@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 15:53:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 16:32:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	entity_npc_tick(t_entity *self, t_game *game)
 	float	distance;
 
 	distance = vec3_distance2(self->position, game->player.position);
-	if (distance < INTERACTION_RANGE)
+	if (distance < INTERACTION_RANGE && self->data)
 		game->entity_manager.can_interact = self;
 	else if (game->entity_manager.interacted == self
 		|| game->entity_manager.can_interact == self)
@@ -91,7 +91,8 @@ void	entity_npc_tick(t_entity *self, t_game *game)
 
 void	entity_npc_interacted(t_entity *self, t_game *game)
 {
-	(void)self;
+	if (!self->data)
+		return ;
 	game->render_textbox = true;
 	game->entity_manager.interaction_time = get_time_ms();
 }

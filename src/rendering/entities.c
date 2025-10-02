@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 12:39:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 15:49:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 16:33:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	draw_interaction(t_render_context *ctx, t_game *game)
 			game->render_textbox = false;
 			return ;
 		}
+		if (!game->entity_manager.interacted->data)
+			return ;
 		draw_textbox(ctx, game->entity_manager.interacted->data,
 			game->entity_manager.interaction_time,
 			(t_ivec2){MINIMAP_SIZE, game->win.height - MINIMAP_SIZE - 12});
