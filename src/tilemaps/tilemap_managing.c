@@ -60,7 +60,7 @@ void	tilemap_free_tiles(t_tilemap *map)
 	while (index < map->height)
 	{
 		if (map->tiles[index] == NULL)
-			break;
+			break ;
 		free(map->tiles[index]);
 		index++;
 	}

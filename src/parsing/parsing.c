@@ -43,11 +43,12 @@ static inline void	parsing_end(t_parsing *parsing, t_game *game)
 {
 	parsing_check_mandatory(parsing, game);
 	game->tilemap = tilemap_from_tab(game->parsing.map,
-		game->parsing.map_width, game->parsing.map_height, 1);
+			game->parsing.map_width, game->parsing.map_height, 1);
 	map_check_borders(parsing, game);
 	free_chartab(parsing->file_content);
 	parsing->file_content = NULL;
-	printf(INFO_PREFIX PARSING_MAP_MESSAGE, parsing->map_width, parsing->map_height);
+	printf(INFO_PREFIX PARSING_MAP_MESSAGE,
+		parsing->map_width, parsing->map_height);
 }
 
 static inline void	parsing_check_mandatory(t_parsing *parsing, t_game *game)

@@ -23,8 +23,8 @@ void	parse_property_broadcast(char *line, t_game *game)
 		temp_nl = ft_calloc(1, sizeof(char));
 	if (!temp_nl)
 		throw_error(game, ERROR_PARSING_ALLOC);
-	temp = ft_strjoin(temp_nl, 
-		line + ft_strlen(g_property_token[PROP_BROADCAST]));
+	temp = ft_strjoin(temp_nl,
+			line + ft_strlen(g_property_token[PROP_BROADCAST]));
 	free(temp_nl);
 	if (!temp)
 		throw_error(game, ERROR_PARSING_ALLOC);
@@ -51,8 +51,8 @@ void	parse_property_color(char *line, t_property_type type,
 	prop = property_get_args(line, type, game);
 	game->parsing.temp_prop = prop;
 	if ((type != PROP_A && prop.argc != 3)
-    	|| (type == PROP_A && (prop.argc != 3 && prop.argc != 4))
-    	|| !property_check_color(prop))
+		|| (type == PROP_A && (prop.argc != 3 && prop.argc != 4))
+		|| !property_check_color(prop))
 		throw_error_info(game, ERROR_PROPERTY_COLOR, line);
 	if (type == PROP_C)
 		color = &parsing->ceil_color;
@@ -74,7 +74,6 @@ void	parse_property_wall(char *line, t_property_type type,
 {
 	int			cardinal;
 	t_property	prop;
-	
 
 	if (type == PROP_NO)
 		cardinal = 0;

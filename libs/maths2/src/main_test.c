@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:38:45 by val               #+#    #+#             */
-/*   Updated: 2025/06/05 01:26:53 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:28:17 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@
 #include "maths2.h"
 #include "maths2_geometry.h"
 
-int main(void)
+int	main(void)
 {
-	t_rect t = rect_new(vec2_new(4, 5), vec2_new(50, 50));
+	t_rect	t;
+
+	t = rect_new(vec2_new(4, 5), vec2_new(50, 50));
 	t.size.x += 1;
 	printf("%f", t.size.x);
 }

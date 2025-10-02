@@ -35,8 +35,8 @@ static void	handle_menu_options(t_game *game, bool start, int x, int y)
 			0.8, 0, 0, 1, 75, game->start_time}, game->frame);
 		index++;
 	}
-	draw_text(L"{5}>", (t_text_properties){x - 50, 
-		y + (125 * game->menu.action), 0.8, 
+	draw_text(L"{5}>", (t_text_properties){x - 50,
+		y + (125 * game->menu.action), 0.8,
 		0, 0, 1, 75, game->start_time}, game->frame);
 	if (start)
 		draw_text(GAME_NAME_F, (t_text_properties){game->frame->width * 0.38,
@@ -50,7 +50,7 @@ void	handle_input(t_game *game, int start)
 
 	input = (key_is_pressed(KEY_DOWN, game) - key_is_pressed(KEY_UP, game));
 	input += (key_is_pressed(KEY_FLY_DOWN, game)
-		- key_is_pressed(KEY_FLY_DOWN, game));
+			- key_is_pressed(KEY_FLY_DOWN, game));
 	game->menu.action = clamp(game->menu.action + input, 0, MENU_ACTIONS);
 	if (key_is_released(KEY_ENTER, game))
 	{

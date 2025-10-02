@@ -40,7 +40,7 @@ void	init_engine(t_game *game)
 	if (!game->mlx)
 		throw_error(game, ERROR_LOADING_GRAPHICS);
 	game->win.ptr = mlx_new_window(game->mlx, WINDOW_WIDTH,
-		WINDOW_HEIGHT, GAME_NAME);
+			WINDOW_HEIGHT, GAME_NAME);
 	if (!game->win.ptr)
 		throw_error(game, ERROR_WINDOW);
 	if (!create_frame_image(game))
@@ -62,7 +62,7 @@ static inline bool	create_frame_image(t_game *game)
 	if (!game->frame)
 		return (false);
 	game->frame->img_ptr = mlx_new_image(game->mlx,
-		game->win.width, game->win.height);
+			game->win.width, game->win.height);
 	if (!game->frame->img_ptr)
 		return (false);
 	img = game->frame;
@@ -70,9 +70,9 @@ static inline bool	create_frame_image(t_game *game)
 	img->height = WINDOW_HEIGHT + 2;
 	img->connection = game->mlx;
 	img->buffer = mlx_get_data_addr(img->img_ptr, &img->pbits,
-		&img->size_line, &img->endian);
+			&img->size_line, &img->endian);
 	game->z_buffer = malloc((game->win.width * game->win.height + 8)
-		* sizeof(float));
+			* sizeof(float));
 	if (!game->z_buffer)
 		return (false);
 	return (true);
@@ -96,9 +96,9 @@ static inline void	init_player(t_player *player)
 	size = PLAYER_SIZE / 2;
 	player->position.z = player->eye_height + 0.5;
 	min = vec3_new(player->position.x - size,
-		player->position.y - size, player->position.z);
+			player->position.y - size, player->position.z);
 	max = vec3_new(player->position.x + size,
-		player->position.y + size, player->position.z - 0.4);
+			player->position.y + size, player->position.z - 0.4);
 	player->accel = 0;
 	player->bbox = bbox_new(min, max);
 	player->is_grounded = true;

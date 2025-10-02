@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_anim.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 00:24:17 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 22:05:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:29:56 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ typedef struct s_tile_animation
 }	t_tile_animation;
 
 t_animation	anim_init(size_t start_index, size_t end_index,
-						float time_per_frame, float repeating);
+				float time_per_frame, float repeating);
 
-void				anim_tile_update(t_tile_animation *anim, t_game *game);
-void				anim_update(t_animation *anim);
-bool				anim_is_ended(t_animation *anim);
-void				anim_reset(t_animation *anim);
+void		anim_tile_update(t_tile_animation *anim, t_game *game);
+void		anim_update(t_animation *anim);
+bool		anim_is_ended(t_animation *anim);
+void		anim_reset(t_animation *anim);
 
 #endif

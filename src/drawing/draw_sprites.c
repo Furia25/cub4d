@@ -19,10 +19,11 @@ static inline void	eform_draw(t_rgba8 color, t_sprite *e,
 {
 	t_rgba8			*dest;
 	const t_vec2	uv = {e->transform.x + pos->x, e->transform.y + pos->y};
+	int				bufferidx;
 
+	bufferidx = uv.y * ctx->render_width + uv.x;
 	if (color.channels.a == 0)
 		return ;
-	int	bufferidx = uv.y * ctx->render_width + uv.x;
 	if (ctx->z_buffer[bufferidx] < e->transform.depth)
 		return ;
 	ctx->z_buffer[bufferidx] = e->transform.depth;

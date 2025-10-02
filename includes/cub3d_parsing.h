@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_parsing.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 23:06:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:35:20 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef enum e_property_type
 	PROP_UNKNOWN
 }	t_property_type;
 
-typedef	struct s_property
+typedef struct s_property
 {
 	char	**argv;
 	int		argc;
@@ -65,7 +65,7 @@ typedef struct s_parsing
 	t_property		temp_prop;
 }	t_parsing;
 
-extern const char *g_property_token[PROP_UNKNOWN];
+extern const char		*g_property_token[PROP_UNKNOWN];
 
 /*Parsing*/
 void		parsing(char *file_name, t_game *game);

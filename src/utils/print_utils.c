@@ -21,7 +21,6 @@ void	print_char_tab(char **tab)
 			printf("|%s|, ", *tab);
 		else
 			printf("|%s|\n", *tab);
-		
 		tab++;
 	}
 }

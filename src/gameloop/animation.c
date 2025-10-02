@@ -17,7 +17,7 @@ t_animation	anim_init(size_t start_index, size_t end_index,
 {
 	t_animation	result;
 
-	result.actual_index	= start_index;
+	result.actual_index = start_index;
 	result.start_index = start_index;
 	result.end_index = end_index;
 	result.time_per_frame = time_per_frame;

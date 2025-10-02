@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 22:31:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 10:02:52 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include "cub3d_entities.h"
 
 static inline void	render_rays(int start, int end, t_render_context *render);
-static void		render_init(int width, int height, \
-	t_render_context *context, t_game *game);
+static void		render_init(int width, int height,
+						t_render_context *context, t_game *game);
 
 void	render(t_game *game)
 {

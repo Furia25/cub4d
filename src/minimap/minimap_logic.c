@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_logic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/29 01:06:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:04:21 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	calculate_offset(double p_pos)
-{
-	int		offset;
-	double	diff;
-
-	diff = p_pos - floor(p_pos);
-	offset = (int)(MMAP_TILE_SIZE * diff);
-	return (offset);
-}
 
 void	draw_empty_tiles(t_tile_context *tile, int limit)
 {
@@ -39,9 +29,11 @@ void	draw_plain_tiles(t_tile_context *tile)
 	if (!tile || !tile->line)
 		return ;
 	length = ft_strlen(tile->line);
-	while (tile->tile < length && tile->tile < (int)tile->game->player.position.x + 9 && tile->line[tile->tile])
+	while (tile->tile < length && tile->tile
+		< (int)tile->game->player.position.x + 9 && tile->line[tile->tile])
 	{
-		if (tile->tile > (int)ft_strlen(tile->line) || tile->line[tile->tile] == ' ')
+		if (tile->tile > (int)ft_strlen(tile->line)
+			|| tile->line[tile->tile] == ' ')
 			draw_tile(tile, rgba8(0, 0, 0, 200), 0);
 		else if (is_symbol_central(tile->line[tile->tile]))
 			draw_tile(tile, rgba8(255, 150, 100, 200), 0);
@@ -64,7 +56,8 @@ void	draw_line(char *line, t_game *game, double pos_y)
 	off_y = calculate_offset(game->player.position.y);
 	tile = floor(game->player.position.x) - 7;
 	pos_x = 0;
-	tile_info = (t_tile_context){game, line, tile, pos_x, pos_y, off_x, off_y, 0, 0};
+	tile_info = (t_tile_context){game, line, tile, pos_x, pos_y,
+		off_x, off_y, 0, 0};
 	if (!line)
 	{
 		draw_empty_tiles(&tile_info,

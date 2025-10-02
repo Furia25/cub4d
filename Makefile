@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/01 00:20:41 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/01 10:05:11 by halnuma          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC_FILES = \
 	tilemaps/tiles_archetypes.c \
 	minimap/minimap_drawing.c \
 	minimap/minimap_logic.c \
+	minimap/minimap_utils.c \
 	minimap/full_map.c \
 	parsing/interpret.c \
 	parsing/map_parsing.c \

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "vector.h"
-# include "libft.h"
+#include "libft.h"
 
 bool	vector_append(t_vector *vec, void *value)
 {
@@ -64,7 +64,7 @@ bool	vector_remove(t_vector *vec, unsigned int index)
 	}
 	vec->total--;
 	if (vec->total <= vec->size * 0.25 && !vec->resize(vec, vec->size * 0.5))
-			return (false);
+		return (false);
 	return (true);
 }
 
@@ -94,5 +94,3 @@ void	*vector_get(t_vector *vec, unsigned int index)
 		return (NULL);
 	return (vec->items[index]);
 }
-
-

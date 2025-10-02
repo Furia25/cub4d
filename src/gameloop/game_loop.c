@@ -54,7 +54,8 @@ int	game_loop(void *param)
 			render_menu(game, game->state == STATE_MENU);
 		else
 			play_loop(game, time);
-		mlx_put_image_to_window(game->mlx, game->win.ptr, frame->img_ptr, -2, -2);
+		mlx_put_image_to_window(game->mlx, game->win.ptr,
+			frame->img_ptr, -2, -2);
 	}
 	return (1);
 }
@@ -76,8 +77,8 @@ static inline void	hud_cigarette_animator(t_hud_cigarette *cig,
 	}
 	if (key_is_released(KEY_FLEX, game)
 		&& (anim_is_ended(cig->actual_anim)
-		|| cig->actual_anim == &cig->anim_idle_off
-		|| cig->actual_anim == &cig->anim_idle_on))
+			|| cig->actual_anim == &cig->anim_idle_off
+			|| cig->actual_anim == &cig->anim_idle_on))
 	{
 		cig->wait_to_flex = false;
 		cig->equipped = !cig->equipped;

@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   property_entity.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 03:02:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/01 00:26:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:33:37 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_entities.h"
 
-static inline void	build_entity(char *line, t_property prop, t_game *game);
+static inline void					build_entity(char *line, t_property prop,
+										t_game *game);
+static inline const t_entity_ctx		*get_constructors(char *token);
 
 void	parse_property_entity(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
@@ -25,8 +27,6 @@ void	parse_property_entity(char *line, t_property_type type,
 		throw_error_info(game, ERROR_PROPERTY_ENTITY, line);
 	build_entity(line, parsing->temp_prop, game);
 }
-
-static inline const t_entity_ctx	*get_constructors(char *token);
 
 static inline void	build_entity(char *line, t_property prop, t_game *game)
 {

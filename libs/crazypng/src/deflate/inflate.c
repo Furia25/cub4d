@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inflate.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:37:16 by vdurand           #+#    #+#             */
-/*   Updated: 2025/08/13 19:20:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:25:39 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static bool	inflate_read_blocks(t_inflate_context *context)
 			return (false);
 		finished = bfinal;
 		if (!handle_block_decompression(context, btype))
-			return (false);	
+			return (false);
 	}
 	return (true);
 }

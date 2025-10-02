@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/08 16:52:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 10:02:21 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ inline static void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 			tex_y = ((int)tex_pos) % tex_ctx->texture->header.height;
 			draw_pixel(
 				(t_rgba8)tex_ctx->texture->pixels_8bit[
-					tex_y * tex_ctx->texture->header.width + tex_ctx->tex_x],
+				tex_y * tex_ctx->texture->header.width + tex_ctx->tex_x],
 				ctx->column, y, ctx->render_ctx->frame);
 			zbuf[buffer_idx] = hit->dist;
 		}
@@ -55,8 +55,8 @@ void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
 	else
 		offset = hit->pos.x - (int)hit->pos.x;
 	tex_ctx->tex_x = (int)(offset * tex_ctx->texture->header.width);
-	if ((hit->orientation == 0 && hit->o_ray.dir_normal.x > 0) || \
-		(hit->orientation == 1 && hit->o_ray.dir_normal.y < 0))
+	if ((hit->orientation == 0 && hit->o_ray.dir_normal.x > 0)
+		|| (hit->orientation == 1 && hit->o_ray.dir_normal.y < 0))
 		tex_ctx->tex_x = tex_ctx->texture->header.width - tex_ctx->tex_x - 1;
 	render_texture(tex_ctx, hit, ctx, zbuf);
 }
@@ -67,7 +67,7 @@ void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
 	t_png	*texture;
 	t_vec2	off;
 	t_ivec2	tex;
-	
+
 	texture = r_ctx->textures[texture_type];
 	off.x = real_pos.x - floor(real_pos.x);
 	off.y = real_pos.y - floor(real_pos.y);

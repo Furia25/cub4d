@@ -33,7 +33,7 @@ void	draw_tiles(t_game *game, int pos_x, int pos_y, t_rgba8 color)
 		j = 0;
 		while (j < tile_size)
 		{
-			draw_pixel(color, (pos_x * tile_size + i), 
+			draw_pixel(color, (pos_x * tile_size + i),
 				(pos_y * tile_size + j), game->frame);
 			j++;
 		}

@@ -55,9 +55,9 @@ bool	property_check_color(t_property prop)
 			return (false);
 		temp_int = ft_atoi(temp);
 		if (index < 3 && (temp_int < 0 || temp_int > 255))
-			return false;
+			return (false);
 		if (index == 3 && (temp_int < 0 || temp_int >= PROPERTY_AMBIANT_MAX))
-			return false;
+			return (false);
 		index++;
 	}
 	return (true);

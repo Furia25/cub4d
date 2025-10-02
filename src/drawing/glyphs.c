@@ -39,7 +39,7 @@ ssize_t	glyph_get_index(wchar_t glyph)
 
 void	draw_glyph(t_text_context *ctx, size_t glyph, t_img_data *img)
 {
-	t_draw_transform temp;
+	t_draw_transform	temp;
 
 	temp = ctx->tform;
 	temp.y -= (temp.height * 0.75);

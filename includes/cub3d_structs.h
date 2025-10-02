@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_structs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 02:01:16 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 10:17:13 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdint.h>
 # include <crazypng.h>
 
-typedef union	u_rgba8
+typedef union u_rgba8
 {
 	t_png_pixel8	channels;
 	uint32_t		integer;
@@ -58,14 +58,14 @@ typedef struct s_key
 
 typedef struct s_img_data
 {
-    void		*connection;
-    void		*img_ptr;
-    char		*buffer;
-    int			width;
-    int			height;
-    int			pbits;
-    int			size_line;
-    int			endian;
+	void	*connection;
+	void	*img_ptr;
+	char	*buffer;
+	int		width;
+	int		height;
+	int		pbits;
+	int		size_line;
+	int		endian;
 }	t_img_data;
 
 typedef struct s_sprite_sheet
@@ -94,7 +94,7 @@ typedef struct s_transform
 	float	depth;
 	size_t	index;
 	float	scale;
-	t_rgba8 color;
+	t_rgba8	color;
 }	t_transform;
 
 typedef struct s_sprite

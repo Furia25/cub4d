@@ -39,8 +39,10 @@ void	entity_init_basics(t_vec3 position, t_entity *entity)
 	entity->transform.height = 200;
 	entity->transform.index = 0;
 	entity->transform.scale = 1;
-	entity->hitbox.min = (t_vec3){position.x - 0.2f, position.y - 0.2f, position.z - 0.4};
-	entity->hitbox.max = (t_vec3){position.x + 0.2f, position.y + 0.2f, position.z};
+	entity->hitbox.min = (t_vec3){position.x - 0.2f,
+		position.y - 0.2f, position.z - 0.4};
+	entity->hitbox.max = (t_vec3){position.x + 0.2f,
+		position.y + 0.2f, position.z};
 	entity->map_color = g_colors[C_AZURE];
 }
 
@@ -50,12 +52,13 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render)
 	t_vec3				cam_pos;
 	t_vec2				projected;
 
-	relative = vec3_sub(bbox_get_center(entity->hitbox), render->player->position);
-    cam_pos.z = relative.x * render->yaw_cos + relative.y * render->yaw_sin;
+	relative = vec3_sub(bbox_get_center(entity->hitbox),
+			render->player->position);
+	cam_pos.z = relative.x * render->yaw_cos + relative.y * render->yaw_sin;
 	if (cam_pos.z <= 0.01 || cam_pos.z > RENDER_DISTANCE)
 		return ;
 	cam_pos.x = relative.y * render->yaw_cos - relative.x * render->yaw_sin;
-    cam_pos.y = relative.z;
+	cam_pos.y = relative.z;
 	projected.x = (cam_pos.x / cam_pos.z) * render->focal * render->ratio;
 	projected.y = (cam_pos.y / cam_pos.z) * render->focal * render->ratio;
 	entity->transform.x = (projected.x + 1.0f) * render->halfw;

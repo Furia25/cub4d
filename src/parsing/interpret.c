@@ -13,7 +13,7 @@
 #include "cub3d.h"
 
 static inline t_property_type	get_property_type(char *line);
-static inline void				parse_property(char *line,
+static inline void			parse_property(char *line,
 									t_property_type type,
 									t_parsing *parsing,
 									t_game *game);
@@ -66,7 +66,7 @@ static inline void	parse_property(char *line, t_property_type type,
 						t_parsing *parsing, t_game *game)
 {
 	if (type == PROP_NO || type == PROP_EA || type == PROP_SO
-			|| type == PROP_WE)
+		|| type == PROP_WE)
 		parse_property_wall(line, type, parsing, game);
 	if (type == PROP_A || type == PROP_C || type == PROP_F)
 	{

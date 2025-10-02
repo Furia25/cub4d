@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   maths2_easing.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 15:56:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/04 22:52:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:27:04 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATHS2_EASING_H
 # define MATHS2_EASING_H
 
-#define _C1	1.70158f
-#define _C2	2.5949f
-#define _C3	2.70158f
+# define _C1	1.70158f
+# define _C2	2.5949f
+# define _C3	2.70158f
 
 extern double	lerp(double a, double b, double t);
 extern double	step(double edge, double x);

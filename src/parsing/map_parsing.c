@@ -13,9 +13,9 @@
 #include "cub3d.h"
 
 static inline void	parse_map_from_file(t_parsing *parsing, t_game *game);
+static inline int		map_get_width(t_parsing *parsing);
 static inline void	parse_map_line(char *line, int y,
 						t_parsing *parsing, t_game *game);
-static inline int	map_get_width(t_parsing *parsing);
 
 void	try_parse_map(int index, t_parsing *parsing, t_game *game)
 {

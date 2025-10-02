@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   manage_npc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:48:51 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/19 17:01:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 10:23:49 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 /*static void	display_interaction(t_game *game, char **text)
 {
@@ -49,9 +48,9 @@
 
 /*static void	manage_interaction(t_game *game, int i, int *npc_in_range)
 {
-	if (is_npc_in_range(game->player.position, \
+	if (is_npc_in_range(game->player.position,
 		game->npcs[game->interaction.npc_id].position))
-		display_interaction(game, \
+		display_interaction(game,
 			game->npcs[game->interaction.npc_id].text);
 	else
 	{

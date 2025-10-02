@@ -60,7 +60,7 @@ int	init_assets(t_game *game)
 		throw_error(game, ERROR_LOADING_GLYPHS);
 	game->water_anim.type = TEXTURE_WATER;
 	game->water_anim.index = anim_init(TEXTURE_WATER0,
-		TEXTURE_WATER19, 0.4f, true);
+			TEXTURE_WATER19, 0.4f, true);
 	loading_log(0, NULL, NULL);
 	if (game->textures[TEXTURE_GRASS] != game->textures[TEXTURE_ERROR])
 		color_texture(game->textures[TEXTURE_GRASS], game->parsing.floor_color);
@@ -122,7 +122,8 @@ void	color_texture(t_png *tex, t_rgba8 tint)
 	size_t	y;
 	t_rgba8	*pixel;
 
-	if (tint.channels.r == 255 && tint.channels.g == 255 && tint.channels.b == 255)
+	if (tint.channels.r == 255 && tint.channels.g == 255
+		&& tint.channels.b == 255)
 		return ;
 	y = 0;
 	while (y < tex->header.height)

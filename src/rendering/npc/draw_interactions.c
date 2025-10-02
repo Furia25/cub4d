@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_interactions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:38:25 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/25 18:57:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 10:03:30 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	draw_interact_button(t_game *game, t_button *btn, int text_box)
 	x = btn->x + (btn->width * 0.25);
 	y = btn->y + (btn->height * 0.50);
 	if (!text_box)
-		draw_text(L"{5~}E", (t_text_properties) \
+		draw_text(L"{5~}E", (t_text_properties)
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
 	else
-		draw_text(L"{3~}E", (t_text_properties) \
+		draw_text(L"{3~}E", (t_text_properties)
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
 	x = game->win.halfwidth - 120;
 	y = game->win.height * 0.96;
 	if (!text_box)
-		draw_text(L"{3*}interact", (t_text_properties) \
+		draw_text(L"{3*}interact", (t_text_properties)
 		{x, y, 0.8, 0, 0, 1, 16, game->start_time}, game->frame);
 }
 
@@ -62,7 +62,7 @@ void	draw_textbox(t_game *game, char *text, uint64_t time, t_ivec2 pos)
 	draw_button(game, &btn);
 	x = pos.x + 40;
 	y = pos.y + 40;
-	draw_text(w_text, (t_text_properties){x, y, 0.8, 0, 0, 1, 70, \
+	draw_text(w_text, (t_text_properties){x, y, 0.8, 0, 0, 1, 70,
 		time}, game->frame);
 	btn.x = 1775;
 	btn.y = 950;

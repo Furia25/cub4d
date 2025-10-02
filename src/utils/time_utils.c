@@ -39,7 +39,7 @@ uint64_t	get_elapsed_ms(void)
 uint64_t	get_fps(uint64_t start_time)
 {
 	static int		fps_time = 0;
-	static uint64_t fps_total = 0;
+	static uint64_t	fps_total = 0;
 	static uint64_t	last = 0;
 	uint64_t		actual;
 	uint64_t		delta;
@@ -60,6 +60,5 @@ uint64_t	get_fps(uint64_t start_time)
 	}
 	fps_total += actual;
 	fps_time += 1;
-	return (fps_total / fps_time); 
+	return (fps_total / fps_time);
 }
-

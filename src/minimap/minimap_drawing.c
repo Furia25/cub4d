@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_drawing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:49:50 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/01 00:17:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 09:58:07 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off)
 	int	x;
 	int	y;
 
-	i = 0;
-	while (i < MMAP_TILE_SIZE - mid_off)
+	i = -1;
+	while (++i < MMAP_TILE_SIZE - mid_off)
 	{
 		j = 0;
 		while (j < MMAP_TILE_SIZE - mid_off)
@@ -32,14 +32,13 @@ void	draw_tile(t_tile_context *tile, t_rgba8 color, int mid_off)
 			y = (tile->pos_y * MMAP_TILE_SIZE + j - tile->off_y
 					+ MINIMAP_Y_START + MINIMAP_BORDER) + (mid_off / 2)
 				+ (tile->ent_off_y * MMAP_TILE_SIZE);
-			if (x >= MINIMAP_X_START + MINIMAP_BORDER && \
-				x < MINIMAP_X_START + MINIMAP_SIZE - MINIMAP_BORDER + 1 && \
-				y >= MINIMAP_Y_START + MINIMAP_BORDER && \
-				y < MINIMAP_Y_START + MINIMAP_SIZE - MINIMAP_BORDER + 1)
+			if (x >= MINIMAP_X_START + MINIMAP_BORDER
+				&& x < MINIMAP_X_START + MINIMAP_SIZE - MINIMAP_BORDER + 1
+				&& y >= MINIMAP_Y_START + MINIMAP_BORDER
+				&& y < MINIMAP_Y_START + MINIMAP_SIZE - MINIMAP_BORDER + 1)
 				draw_pixel(color, x, y, tile->game->frame);
 			j++;
 		}
-		i++;
 	}
 }
 
@@ -56,10 +55,10 @@ void	draw_border(t_game *game)
 		j = 0;
 		while (j < MINIMAP_SIZE)
 		{
-			if (j < MINIMAP_BORDER || \
-				j > MINIMAP_SIZE - MINIMAP_BORDER || \
-				i < MINIMAP_BORDER || \
-				i > MINIMAP_SIZE - MINIMAP_BORDER)
+			if (j < MINIMAP_BORDER
+				|| j > MINIMAP_SIZE - MINIMAP_BORDER
+				|| i < MINIMAP_BORDER
+				|| i > MINIMAP_SIZE - MINIMAP_BORDER)
 			{
 				draw_pixel(color, i + MINIMAP_X_START,
 					j + MINIMAP_Y_START, game->frame);
@@ -83,10 +82,10 @@ void	draw_player(t_game *game)
 		{
 			draw_pixel(
 				rgba8(255, 0, 10, 200),
-				((7 * MMAP_TILE_SIZE) + i + MINIMAP_X_START \
-				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
-				((7 * MMAP_TILE_SIZE) + j + MINIMAP_Y_START \
-				+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
+				((7 * MMAP_TILE_SIZE) + i + MINIMAP_X_START
+					+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
+				((7 * MMAP_TILE_SIZE) + j + MINIMAP_Y_START
+					+ MINIMAP_BORDER - (MINIMAP_P_SIZE / 2)),
 				game->frame
 				);
 			j++;
@@ -97,11 +96,6 @@ void	draw_player(t_game *game)
 
 void	draw_entites(t_game *game, t_entity *entity)
 {
-	int				off_x;
-	int				off_y;
-	float			ent_off_x;
-	float			ent_off_y;
-	t_vec2			minimap_pos;
 	t_vec3			pos;
 	t_tile_context	tile_info;
 
@@ -111,16 +105,7 @@ void	draw_entites(t_game *game, t_entity *entity)
 		&& (pos.y >= game->player.position.y - 8
 			&& pos.y <= game->player.position.y + 9))
 	{
-		off_x = calculate_offset(game->player.position.x);
-		off_y = calculate_offset(game->player.position.y);
-		ent_off_x = pos.x - floor(pos.x);
-		ent_off_y = pos.x - floor(pos.x);
-		pos.x = floor(pos.x);
-		pos.y = floor(pos.y);
-		minimap_pos.x = 8 - game->player.position.x + pos.x;
-		minimap_pos.y = 8 - game->player.position.y + pos.y;
-		tile_info = (t_tile_context){game, NULL, 0, floor(minimap_pos.x), 
-			floor(minimap_pos.y), off_x, off_y, ent_off_x, ent_off_y};
+		init_tile_ctx(game, pos, &tile_info);
 		draw_tile(&tile_info, entity->map_color, MMAP_TILE_SIZE / 2);
 	}
 }

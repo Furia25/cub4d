@@ -57,7 +57,7 @@ void	str_remove_chars(char *str, char *set)
 		{
 			str[j] = str[i];
 			j++;
-		}	
+		}
 		i++;
 	}
 	str[j] = '\0';

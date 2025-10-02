@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/30 23:58:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:33:06 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ from random source, using fallback : %016lx\n."
 # define MINIMAP_SIZE		249
 # define MINIMAP_BORDER		5
 # define MINIMAP_P_SIZE		8
-#define MINIMAP_X_START 	20
-#define MINIMAP_Y_START 	20
+# define MINIMAP_X_START 	20
+# define MINIMAP_Y_START 	20
 
 # define PLAYER_SIZE		0.25
 
@@ -182,7 +182,7 @@ typedef struct s_hud_cigarette
 	t_animation	anim_flex;
 }	t_hud_cigarette;
 
-typedef void (*t_event_func)(void *ptr, t_game*);
+typedef void	(*t_event_func)(void *ptr, t_game*);
 
 typedef struct s_event
 {
@@ -297,6 +297,7 @@ void		draw_player(t_game *game);
 void		draw_full_map(t_game *game);
 int			calculate_offset(double p_pos);
 void		map_manage_entities(t_game *game);
+void		init_tile_ctx(t_game *game, t_vec3 pos, t_tile_context *tile_info);
 
 // ----- NPC ----- //
 void		draw_interact_button(t_game *game, t_button *btn, int text_box);

@@ -89,24 +89,24 @@ static inline void	set_texture_orientation(t_raycast_hit *result)
 		result->tile_info->texture = TEXTURE_SOUTH;
 }
 
-static inline void	init_texture_ctx(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
-	t_render_context *render, float dist)
+static inline void	init_texture_ctx(t_vertical_tex *tex_ctx,
+	t_raycast_hit *hit, t_render_context *render, float dist)
 {
 	float				dist_inv;
 	float				y_floor;
 	float				y_ceiling;
 
 	dist_inv = 1 / dist;
-	y_floor = ((hit->tile->floor - render->eye_height) \
-		* dist_inv) * render->proj_y;
-	y_ceiling = ((hit->tile->ceiling - render->eye_height) \
-		* dist_inv) * render->proj_y;
+	y_floor = ((hit->tile->floor - render->eye_height)
+			* dist_inv) * render->proj_y;
+	y_ceiling = ((hit->tile->ceiling - render->eye_height)
+			* dist_inv) * render->proj_y;
 	tex_ctx->wall_height = render->render_height * dist_inv;
-	tex_ctx->wall_start = clamp(-y_ceiling + render->halfh, \
-		0, render->render_height - 1);
+	tex_ctx->wall_start = clamp(-y_ceiling + render->halfh,
+			0, render->render_height - 1);
 	tex_ctx->wall_start_actual = -y_ceiling + render->halfh;
 	tex_ctx->wall_end = clamp(-y_floor + render->halfh,
-		0, render->render_height - 1);
+			0, render->render_height - 1);
 	tex_ctx->wall_end_actual = -y_floor + render->halfh;
 }
 
@@ -126,9 +126,9 @@ void	render_draw_ray(t_raycast_hit *hit, t_raycast_context *ctx,
 		draw_bot_faces(hit, tex_ctx.wall_end + 1, ctx, render);
 	if (hit->draw_walls)
 	{
-		hit->pos.x = hit->o_ray.origin.x 
+		hit->pos.x = hit->o_ray.origin.x
 			+ hit->o_ray.dir_normal.x * hit->dist;
-		hit->pos.y = hit->o_ray.origin.y 
+		hit->pos.y = hit->o_ray.origin.y
 			+ hit->o_ray.dir_normal.y * hit->dist;
 		manage_texture(hit, ctx, render, &tex_ctx);
 	}

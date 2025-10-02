@@ -21,11 +21,13 @@ static inline void	player_handle_jump(t_player *plr, t_game *game);
 void	update_player(t_player *player, t_game *game)
 {
 	const bool	gravity_key = key_is_released(KEY_GRAVITY, game);
-	const float	fly = key_check(KEY_FLY_UP, game) - key_check(KEY_FLY_DOWN, game);
+	const float	fly = key_check(KEY_FLY_UP, game)
+		- key_check(KEY_FLY_DOWN, game);
 
 	if (gravity_key)
 		player->has_gravity = !player->has_gravity;
-	player->yaw_rad += (M_PI / 100) * (key_check(KEY_LOOK_RIGHT, game) - key_check(KEY_LOOK_LEFT, game));
+	player->yaw_rad += (M_PI / 100)
+		* (key_check(KEY_LOOK_RIGHT, game) - key_check(KEY_LOOK_LEFT, game));
 	game->player.yaw_rad = fmodf(game->player.yaw_rad, 2 * M_PI);
 	player_handle_move(player, game);
 	if (fly == 0)
@@ -44,14 +46,16 @@ static inline void	player_handle_move(t_player *player, t_game *game)
 	t_vec2		dir;
 
 	dir = vec2_from_angle(player->yaw_rad);
-	move = vec2_add(vec2_scale(dir, forward), vec2_scale(vec2_new(-dir.y, dir.x), strafe));
+	move = vec2_add(vec2_scale(dir, forward),
+			vec2_scale(vec2_new(-dir.y, dir.x), strafe));
 	if (strafe == 0 && forward == 0)
 	{
 		move = player->last_move;
 		player->accel = fmaxf(player->accel - player->friction, 0);
 	}
 	else
-		player->accel = fminf(player->accel + player->accel_speed, player->base_speed + player->accel_max);
+		player->accel = fminf(player->accel + player->accel_speed,
+				player->base_speed + player->accel_max);
 	if (move.x != 0 || move.y != 0)
 		move = vec2_scale(vec2_normalize(move), player->accel);
 	player->last_move = move;
@@ -77,7 +81,7 @@ static inline void	player_handle_jump(t_player *plr, t_game *game)
 	bool		jumping;
 
 	plr->is_grounded = tilemap_collide_bbox((t_vec3){0, 0, -0.1},
-		plr->bbox, game->tilemap);
+			plr->bbox, game->tilemap);
 	jumping = key_check(KEY_JUMP, game);
 	if (jumping && plr->is_grounded)
 	{
@@ -92,7 +96,7 @@ static inline void	player_handle_jump(t_player *plr, t_game *game)
 	else
 		plr->jump_velocity = 0;
 	if (!tilemap_collide_bbox((t_vec3){0, 0, plr->jump_velocity},
-			plr->bbox, game->tilemap))
+		plr->bbox, game->tilemap))
 		player_add_z(plr->jump_velocity, plr);
 	else
 		plr->jump_velocity = 0.0f;

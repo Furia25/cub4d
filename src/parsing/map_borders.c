@@ -30,7 +30,7 @@ void	map_check_borders(t_parsing *parsing, t_game *game)
 		{
 			c = parsing->map[y][x];
 			if (is_symbol_central(c) || c == ' ')
-				if ((c != ' ' || check_neighbour_central(x, y, parsing)) 
+				if ((c != ' ' || check_neighbour_central(x, y, parsing))
 					&& !check_neighbour_valid(x, y, parsing))
 					throw_error(game, ERROR_PARSING_UNCLOSED);
 			x++;

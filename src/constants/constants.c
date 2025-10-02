@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   constants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 02:01:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:34:47 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
+const char		*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_ERROR] = "assets/textures/missing.png",
 [TEXTURE_WALL] = NULL,
 [TEXTURE_GRASS] = "assets/textures/tiles/grass.png",
@@ -50,7 +50,7 @@ const char	*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_WATER19] = "assets/textures/tiles/water/water19.png"
 };
 
-const char *g_property_token[PROP_UNKNOWN] = {
+const char		*g_property_token[PROP_UNKNOWN] = {
 [PROP_NO] = "NO ",
 [PROP_SO] = "SO ",
 [PROP_WE] = "WE ",
@@ -64,7 +64,7 @@ const char *g_property_token[PROP_UNKNOWN] = {
 [PROP_COMMENT] = "#"
 };
 
-const int	g_keymap[KEY_MAX_COUNT] = {
+const int			g_keymap[KEY_MAX_COUNT] = {
 [KEY_QUIT] = XK_Escape,
 [KEY_TEST] = XK_r,
 [KEY_UP] = XK_w,
@@ -97,8 +97,12 @@ name
 */
 
 const t_tile_data	g_base_tile_info[TILE_MAX] = {
-[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_ERROR, TEXTURE_ERROR, SOLID_NONE, false, -5, -6, "Empty"},
-[TILE_GRASS] = {TILE_GRASS, TEXTURE_GRASS, TEXTURE_GRASS, SOLID_ALL, true, 0, 0, "Empty"},
-[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP, SOLID_ALL, true, 1.5, 0, "Wall"},
-[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER, SOLID_FLOOR, true, -0.1, -0.15, "Water"},
+[TILE_EMPTY] = {TILE_EMPTY, TEXTURE_ERROR, TEXTURE_ERROR,
+	SOLID_NONE, false, -5, -6, "Empty"},
+[TILE_GRASS] = {TILE_GRASS, TEXTURE_GRASS, TEXTURE_GRASS,
+	SOLID_ALL, true, 0, 0, "Empty"},
+[TILE_WALL] = {TILE_WALL, TEXTURE_WALL, TEXTURE_TOP,
+	SOLID_ALL, true, 1.5, 0, "Wall"},
+[TILE_WATER] = {TILE_WATER, TEXTURE_WATER, TEXTURE_WATER,
+	SOLID_FLOOR, true, -0.1, -0.15, "Water"},
 };

@@ -12,11 +12,11 @@
 
 #include "cub3d.h"
 
-static int mouse_move(int x, int y, t_game *game);
+static int	mouse_move(int x, int y, t_game *game);
 
 void	init_hooks(t_game *game)
 {
-	//mlx_mouse_hide(game->mlx, game->win.ptr);
+	mlx_mouse_hide(game->mlx, game->win.ptr);
 	mlx_hook(game->win.ptr, KeyPress, KeyPressMask, key_pressed, game);
 	mlx_hook(game->win.ptr, KeyRelease, KeyReleaseMask, key_released, game);
 	mlx_hook(game->win.ptr, MotionNotify, PointerMotionMask, mouse_move, game);
@@ -24,7 +24,7 @@ void	init_hooks(t_game *game)
 	mlx_loop_hook(game->mlx, game_loop, game);
 }
 
-static int mouse_move(int x, int y, t_game *game)
+static int	mouse_move(int x, int y, t_game *game)
 {
 	double		x_dif;
 	double		y_dif;
@@ -43,7 +43,7 @@ static int mouse_move(int x, int y, t_game *game)
 	game->player.yaw_rad = fmodf(game->player.yaw_rad, 2 * M_PI);
 	game->player.pitch_offset += y_dif;
 	game->player.pitch_offset = clamp(game->player.pitch_offset,
-		-game->win.halfheight, game->win.halfheight);
+			-game->win.halfheight, game->win.halfheight);
 	mlx_mouse_move(game->mlx, game->win.ptr,
 		game->win.halfwidth, game->win.halfheight);
 	return (1);

@@ -35,7 +35,7 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 	entity->transform.width = 50;
 	if (!event_queue_push((void (*)(void *, t_game *))entity_npc_postload,
 		entity, false, game->events_postload))
-	throw_error(game, ERROR_ENTITIES_ALLOC);
+		throw_error(game, ERROR_ENTITIES_ALLOC);
 	return (entity);
 }
 

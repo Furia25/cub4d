@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   text.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:27:11 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/23 17:37:53 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:57:14 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ void	draw_text(wchar_t *str, t_text_properties prop, t_img_data *img)
 		if (c == L'{' && text_command(&ctx, str))
 			continue ;
 		if (c == '\n' || (ctx.line_char >= prop.wrap_max
-			&& (c == ' ' || ctx.true_break)))
+				&& (c == ' ' || ctx.true_break)))
 		{
 			line_break(&ctx, &prop, tform);
-			continue;
+			continue ;
 		}
 		ctx.actual_glyph = glyph_get_index(c);
 		if (ctx.actual_glyph != -1)

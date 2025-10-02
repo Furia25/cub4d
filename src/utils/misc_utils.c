@@ -41,9 +41,10 @@ bool	is_pixel_valid(int x, int y, t_img_data *img)
 	return (!(x < 0 || x > img->width || y < 0 || y > img->height));
 }
 
-t_vec3 bbox_get_center(t_bbox bbox)
+t_vec3	bbox_get_center(t_bbox bbox)
 {
-	const float half = 0.5f;
+	const float	half = 0.5f;
+
 	return ((t_vec3){(bbox.min.x + bbox.max.x) * half,
 		(bbox.min.y + bbox.max.y) * half,
 		(bbox.min.z + bbox.max.z) * half});

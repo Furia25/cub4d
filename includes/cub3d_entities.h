@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_entities.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 23:14:11 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:34:22 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 
 typedef struct s_entity	t_entity;
 
-typedef bool (*t_entity_data_constructor)(t_entity*, t_property, t_game*);
-typedef t_entity* (*t_entity_constructor)(t_vec3, t_game*);
+typedef bool			(*t_entity_data_constructor)(t_entity*,
+	t_property, t_game*);
+typedef t_entity*		(*t_entity_constructor)(t_vec3, t_game*);
 
 struct s_entity
 {
@@ -45,8 +46,6 @@ typedef struct s_entity_ctx
 	t_entity_data_constructor	data_constructor;
 	t_error						error;
 }	t_entity_ctx;
-
-
 
 t_entity	*entity_new(t_game *game);
 void		entity_free(t_entity *entity);

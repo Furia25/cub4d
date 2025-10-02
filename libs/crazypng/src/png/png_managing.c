@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   png_managing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 11:48:38 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 23:40:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/01 10:26:10 by halnuma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static bool			verify_png_signature(t_cp_file *file);
 static bool			assign_basics(t_png *png, char *file_name);
-static inline void	png_clean(t_png *png);
+static inline void		png_clean(t_png *png);
 
 t_png	*png_open(char *file_name)
 {
