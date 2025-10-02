@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 03:22:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 05:52:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ from random source, using fallback : %016lx\n."
 
 # define S_BUTTON_INTERACT	100
 # define S_BUTTON_OUTL		4
-# define INTERACTION_RANGE	2
+# define INTERACTION_RANGE	0.4
 
 # define MENU_ACTIONS	2
 # define MENU_OPTION_PLAY	L"{5}PLAY"
@@ -139,6 +139,7 @@ typedef struct s_interaction
 
 typedef struct s_player
 {
+	t_vec3	spawn_pos;
 	float	base_speed;
 	float	eye_height;
 	float	jump_force;
@@ -146,7 +147,6 @@ typedef struct s_player
 	float	accel_speed;
 	float	accel_max;
 	float	friction;
-	float	air_friction;
 	t_bbox	bbox;
 	t_vec3	position;
 	t_vec2	direction;
@@ -157,11 +157,15 @@ typedef struct s_player
 	t_vec2	last_move;
 	bool	is_grounded;
 	bool	has_gravity;
+	bool	interaction;
+	bool	interaction;
+	char	*interact_text;
 }	t_player;
 
 typedef struct s_entity_manager
 {
 	t_vector	*entities;
+	uint64_t	last_tick;
 }	t_entity_manager;
 
 typedef struct s_win
@@ -243,7 +247,6 @@ typedef struct s_button
 
 void		throw_error(t_game *game, t_error error);
 void		throw_error_info(t_game *game, t_error error, char *info);
-void		player_death(t_game *game);
 int			exit_game(t_game *game);
 
 void		init_engine_preparsing(t_game *game);
@@ -306,11 +309,11 @@ void		draw_interact_button(t_game *game, t_button *btn, int text_box);
 void		draw_textbox(t_game *game, char *text, uint64_t time, t_ivec2 pos);
 //
 
+void		player_death(t_player *game);
 void		update_player(t_player *player, t_game *game);
-void		player_add_x(float value, t_player *player);
-void		player_add_y(float value, t_player *player);
 void		player_add_z(float value, t_player *player);
 void		object_move(t_vec3 offset, t_vec3 *pos, t_bbox *bbox);
+void		object_set_pos(t_vec3 new_pos, t_vec3 *pos, t_bbox *bbox);
 
 void		draw_button(t_game *game, t_button *btn);
 void		render_menu(t_game *game, int start);

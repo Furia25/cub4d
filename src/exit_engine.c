@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 02:00:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 04:23:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,6 @@ void	throw_error_info(t_game *game, t_error error, char *info)
 		}
 	}
 	ft_putstr_fd("\n", 2);
-	exit_game(game);
-}
-
-void	player_death(t_game *game)
-{
-	printf(ANSI_BOLD ANSI_RED DEATH_MESSAGE ANSI_RESET);
 	exit_game(game);
 }
 

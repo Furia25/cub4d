@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 13:09:30 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 03:22:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 04:22:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,13 @@ void	rad_to_vect(t_vec2 *direction, float rad)
 	direction->y = sin(rad);
 }
 
-void	player_add_x(float value, t_player *player)
+void	object_set_pos(t_vec3 new_pos, t_vec3 *pos, t_bbox *bbox)
 {
-	player->position.x += value;
-	player->bbox.min.x += value;
-	player->bbox.max.x += value;
-}
+	t_vec3	offset;
 
-void	player_add_y(float value, t_player *player)
-{
-	player->position.y += value;
-	player->bbox.min.y += value;
-	player->bbox.max.y += value;
+	offset = vec3_sub(new_pos, *pos);
+	bbox_add(offset, bbox);
+	*pos = new_pos;
 }
 
 void	player_add_z(float value, t_player *player)

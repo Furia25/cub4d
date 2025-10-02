@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_interactions.c                                :+:      :+:    :+:   */
+/*   interactions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:38:25 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/25 18:57:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 05:49:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,23 @@ void	draw_textbox(t_game *game, char *text, uint64_t time, t_ivec2 pos)
 	t_button		btn;
 	int				x;
 	int				y;
-	wchar_t			w_text[TEXT_MAX_SIZE];
 
-	setlocale(LC_ALL, "");
-	mbstowcs(w_text, text, TEXT_MAX_SIZE);
 	btn.color_light = g_colors[C_BLANCHED_ALMOND];
 	btn.color_dark = g_colors[C_BURLY_WOOD];
 	btn.color_out = g_colors[C_DIM_GRAY];
 	btn.x = pos.x;
 	btn.y = pos.y;
-	btn.width = game->win.width - pos.x - 80;
+	btn.width = 500;
 	btn.height = MINIMAP_SIZE;
 	btn.shadow_size = 15;
 	draw_button(game, &btn);
 	x = pos.x + 40;
 	y = pos.y + 40;
-	draw_text(w_text, (t_text_properties){x, y, 0.8, 0, 0, 1, 70, \
-		time}, game->frame);
-	btn.x = 1775;
-	btn.y = 950;
+	draw_text((wchar_t *)text, (t_text_properties){x, y, 0.8, 0,
+		0, 1, 70, time}, game->frame);
 	btn.width = 60;
 	btn.height = 60;
+	btn.x += btn.width - btn.width - 2;
+	btn.y += btn.height - btn.height - 2;
 	draw_interact_button(game, &btn, 1);
 }

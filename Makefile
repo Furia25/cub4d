@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/02 03:04:52 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/02 05:38:41 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,6 @@ SRC_FILES = \
 	rendering/texture.c \
 	rendering/button.c \
 	rendering/menu.c \
-	rendering/npc/manage_npc.c \
-	rendering/npc/draw_interactions.c \
 	tilemaps/tilemap_basics.c \
 	tilemaps/tilemap_managing.c \
 	tilemaps/tilemap_populate.c \
@@ -97,8 +95,9 @@ SRC_FILES = \
 	init_engine.c \
 	exit_engine.c \
 	hooks.c \
-	gameloop/player_movement.c \
+	gameloop/player.c \
 	gameloop/game_loop.c \
+	gameloop/interactions.c \
 	gameloop/animation.c \
 	keys/keys_buffer.c \
 	keys/keys_handling.c \

@@ -6,14 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/01 21:27:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 05:51:23 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_entities.h"
 
 void	entity_npc_tick(t_entity *self, t_game *game);
-void	entity_npc_create(t_entity *self, t_game *game);
 bool	entity_npc_data(t_entity *self, t_property prop, t_game *game);
 void	entity_npc_postload(t_entity *self, t_game *game);
 
@@ -29,7 +28,7 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 	entity->map_color = g_colors[C_ALICE_BLUE];
 	entity->draw = entity_basic_draw;
 	entity->tick = entity_npc_tick;
-	entity->create = entity_npc_create;
+	entity->create = NULL;
 	entity->free_data = free;
 	entity->transform.height = 100;
 	entity->transform.width = 50;
@@ -70,12 +69,11 @@ void	entity_npc_postload(t_entity *self, t_game *game)
 
 void	entity_npc_tick(t_entity *self, t_game *game)
 {
-	(void)game;
-	self->transform.index = (self->transform.index + 1) % 2;
-}
+	t_player	*player;
 
-void	entity_npc_create(t_entity *self, t_game *game)
-{
-	(void)game;
-	(void)self;
+	player = game->player;
+	self->transform.index = (self->transform.index + 1) % 2;
+	if (self->transform.depth < INTERACTION_RANGE && player.)
+	{
+	}
 }

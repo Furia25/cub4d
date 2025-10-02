@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_movement.c                                  :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 15:47:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 03:26:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 04:55:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ static inline void	player_handle_move(t_player *player, t_game *game);
 static inline void	player_move_collision(t_vec3 move,
 						t_player *player, t_game *game);
 static inline void	player_handle_jump(t_player *plr, t_game *game);
+
+void	player_death(t_player *player)
+{
+	printf(ANSI_BOLD ANSI_RED DEATH_MESSAGE ANSI_RESET);
+	object_set_pos(player->spawn_pos, &player->position, &player->bbox);
+}
 
 void	update_player(t_player *player, t_game *game)
 {
@@ -33,9 +39,9 @@ void	update_player(t_player *player, t_game *game)
 	if (fly == 0)
 		player_handle_jump(player, game);
 	else
-		player_add_z(fly * 0.025, player);
-	if (player->position.z < -15)
-		player_death(game);
+		player_add_z(fly * 0.05, player);
+	if (player->position.z < -8 && player->has_gravity)
+		player_death(player);
 }
 
 static inline void	player_handle_move(t_player *player, t_game *game)
@@ -86,7 +92,7 @@ static inline void	player_move_collision(t_vec3 move,
 	}
 	temp_v = (t_vec3){0, move.y, 0};
 	if (!tilemap_collide_bbox(temp_v, player->bbox, game->tilemap))
-		player_add_y(move.y, player);
+		object_move(temp_v, &player->position, &player->bbox);
 	else if (!tilemap_collide_bbox(temp_v, temp_bbox, game->tilemap))
 		object_move((t_vec3){0, move.y, PLAYER_STEP_THRESHOLD * stepped},
 			&player->position, &player->bbox);
