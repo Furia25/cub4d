@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 14:21:18 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:48:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline void	play_loop(t_game *game, uint64_t time)
 		&& key_is_pressed(KEY_INTERACT, game))
 	{
 		entities->interacted = entities->can_interact;
-		if(entities->interacted->interaction)
+		if (entities->interacted->interaction)
 			entities->interacted->interaction(entities->interacted, game);
 	}
 	anim_tile_update(&game->water_anim, game);

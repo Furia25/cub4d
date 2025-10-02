@@ -6,71 +6,68 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 21:18:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 15:43:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:50:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_rendering.h"
 
-
 static inline void	draw_top_faces(t_raycast_hit *h, int y,
-		t_raycast_context *ctx, t_render_context *r_ctx)
+		t_raycast_context *ctx, t_render_context *r)
 {
 	float				real_dist;
 	int					buffer_idx;
 	float				inv_proj_cos;
 	float				z;
 
-	inv_proj_cos = (1.0f / cosf(h->original_angle - r_ctx->direction))
-		* r_ctx->proj_y;
-	z = (h->tile->ceiling - r_ctx->player->position.z);
+	inv_proj_cos = (1.0f / cosf(h->base_angle - r->direction)) * r->proj_y;
+	z = (h->tile->ceiling - r->player->position.z);
 	if (ctx->actual.dist <= 0.01)
-		y = r_ctx->render_height - 1;
-	while (y != r_ctx->halfh && y >= 0)
+		y = r->render_height - 1;
+	while (y != r->halfh && y >= 0)
 	{
-		real_dist = (z / (r_ctx->halfh - y)) * inv_proj_cos;
-		buffer_idx = y * r_ctx->render_width + ctx->column;
-		if (real_dist < r_ctx->z_buffer[buffer_idx])
+		real_dist = (z / (r->halfh - y)) * inv_proj_cos;
+		buffer_idx = y * r->render_width + ctx->column;
+		if (real_dist < r->z_buffer[buffer_idx])
 		{
 			h->pos.x = h->o_ray.origin.x + h->o_ray.dir_normal.x * real_dist;
 			h->pos.y = h->o_ray.origin.y + h->o_ray.dir_normal.y * real_dist;
 			if (floor(h->pos.x) != h->tile_x || floor(h->pos.y) != h->tile_y)
 				break ;
 			render_horizontal_texture((t_ivec2){ctx->column, y},
-				h->pos, r_ctx, h->tile_info->texture_topbot);
-			r_ctx->z_buffer[buffer_idx] = real_dist;
+				h->pos, r, h->tile_info->texture_topbot);
+			r->z_buffer[buffer_idx] = real_dist;
 		}
 		y--;
 	}
 }
 
 static inline void	draw_bot_faces(t_raycast_hit *h, int y,
-		t_raycast_context *ctx, t_render_context *r_ctx)
+		t_raycast_context *ctx, t_render_context *r)
 {
 	float				real_dist;
 	int					buffer_idx;
 	float				inv_proj_cos;
 	float				z;
 
-	inv_proj_cos = (1.0f / cosf(fabsf(h->original_angle - r_ctx->direction)))
-		* r_ctx->proj_y;
-	z = (r_ctx->player->position.z - h->tile->floor);
+	inv_proj_cos = 1.0f / cosf(fabsf(h->base_angle - r->direction)) * r->proj_y;
+	z = (r->player->position.z - h->tile->floor);
 	if (ctx->actual.dist <= 0.01)
 		y = 1;
-	while (y <= r_ctx->halfh)
+	while (y <= r->halfh)
 	{
-		real_dist = (z / (y - r_ctx->halfh)) * inv_proj_cos;
-		buffer_idx = y * r_ctx->render_width + ctx->column;
-		if (real_dist < r_ctx-> z_buffer[buffer_idx])
+		real_dist = (z / (y - r->halfh)) * inv_proj_cos;
+		buffer_idx = y * r->render_width + ctx->column;
+		if (real_dist < r-> z_buffer[buffer_idx])
 		{
 			h->pos.x = h->o_ray.origin.x + h->o_ray.dir_normal.x * real_dist;
 			h->pos.y = h->o_ray.origin.y + h->o_ray.dir_normal.y * real_dist;
 			if (floor(h->pos.x) != h->tile_x || floor(h->pos.y) != h->tile_y)
 				break ;
 			render_horizontal_texture((t_ivec2){ctx->column, y},
-				h->pos, r_ctx, h->tile_info->texture_topbot);
-			r_ctx->z_buffer[buffer_idx] = real_dist;
+				h->pos, r, h->tile_info->texture_topbot);
+			r->z_buffer[buffer_idx] = real_dist;
 		}
 		y++;
 	}
@@ -118,7 +115,7 @@ void	render_draw_ray(t_raycast_hit *hit, t_raycast_context *ctx,
 	t_vertical_tex	tex_ctx;
 
 	corrected_dist = hit->dist
-		* cosf(hit->original_angle - render->direction);
+		* cosf(hit->base_angle - render->direction);
 	set_texture_orientation(hit);
 	init_texture_ctx(&tex_ctx, hit, render, corrected_dist);
 	if (hit->tile->ceiling < render->eye_height)

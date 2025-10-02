@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 10:38:25 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 15:45:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:55:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,4 @@ void	draw_textbox(t_render_context *ctx, char *text,
 	y = btn.y + 40;
 	draw_text(text, (t_text_properties){x, y, 0.8, 0, 0, 1, 26
 		* ctx->aspect_res, time}, ctx);
-	
 }

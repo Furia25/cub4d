@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_dda.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 12:33:29 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:49:33 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	render_ray(float base_angle, int column,
 {
 	t_raycast_context	ctx;
 
-	ctx.actual.original_angle = base_angle;
+	ctx.actual.base_angle = base_angle;
 	ctx.actual.o_ray = *ray;
 	ctx.column = column;
 	ctx.render_ctx = render_ctx;

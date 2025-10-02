@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 14:13:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:56:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_raycast_hit
 	bool		draw_walls;
 	t_vec2		pos;
 	t_ray2		o_ray;
-	float		original_angle;
+	float		base_angle;
 	short		orientation;
 	double		dist;
 	int			tile_x;
@@ -106,7 +106,9 @@ void	entity_basic_draw(t_entity *entity, t_render_context *render);
 void	draw_interaction(t_render_context *ctx, t_game *game);
 void	draw_button(t_render_context *ctx, t_button *btn);
 void	render_menu(int start, t_render_context *ctx, t_game *game);
-void	draw_interact_button(t_render_context *ctx, t_button *btn, int text_box);
-void	draw_textbox(t_render_context *ctx, char *text, uint64_t time, t_ivec2 pos);
+void	draw_interact_button(t_render_context *ctx, t_button *btn,
+			int text_box);
+void	draw_textbox(t_render_context *ctx, char *text,
+			uint64_t time, t_ivec2 pos);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 15:46:35 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:56:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,37 +131,6 @@ typedef struct s_menu
 {
 	int		action;
 }	t_menu;
-
-typedef struct s_player
-{
-	t_vec3	spawn_pos;
-	float	base_speed;
-	float	eye_height;
-	float	jump_force;
-	float	fov_deg;
-	float	accel_speed;
-	float	accel_max;
-	float	friction;
-	t_bbox	bbox;
-	t_vec3	position;
-	t_vec2	direction;
-	float	yaw_rad;
-	int		pitch_offset;
-	float	accel;
-	float	jump_velocity;
-	t_vec2	last_move;
-	bool	is_grounded;
-	bool	has_gravity;
-	bool	interaction;
-	bool	interaction;
-	char	*interact_text;
-}	t_player;
-
-typedef struct s_entity_manager
-{
-	t_vector	*entities;
-	uint64_t	last_tick;
-}	t_entity_manager;
 
 typedef struct s_win
 {
@@ -309,6 +278,5 @@ void		object_set_pos(t_vec3 new_pos, t_vec3 *pos, t_bbox *bbox);
 
 bool		is_pixel_valid(int x, int y, t_img_data *img);
 int			is_fdigit(int c);
-
 
 #endif

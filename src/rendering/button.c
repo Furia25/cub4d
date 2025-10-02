@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 09:50:02 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 14:05:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:52:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ static int	is_shadow(int i, int j, t_button *btn)
 
 void	draw_button(t_render_context *render, t_button *btn)
 {
-	int				i;
-	int				j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < btn->width)
 	{
-		j = 0;
-		while (j < btn->height)
+		j = -1;
+		while (++j < btn->height)
 		{
 			if (is_corner(i, j, btn))
 			{
@@ -57,14 +57,14 @@ void	draw_button(t_render_context *render, t_button *btn)
 				continue ;
 			}
 			if (is_border(i, j, btn))
-				draw_pixel(btn->color_out, i + btn->x, j + btn->y, render->frame);
+				draw_pixel(btn->color_out, i + btn->x,
+					j + btn->y, render->frame);
 			else if (is_shadow(i, j, btn))
 				draw_pixel(btn->color_dark, i + btn->x,
 					j + btn->y, render->frame);
 			else
 				draw_pixel(btn->color_light, i + btn->x,
 					j + btn->y, render->frame);
-			j++;
 		}
 	}
 }

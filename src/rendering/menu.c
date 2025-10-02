@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 15:35:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:52:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static char	*g_menu_options[] = {
 	NULL
 };
 
-static inline void	handle_menu_options(t_render_context *ctx, bool start, int x, int y)
+static inline void	handle_menu_options(t_render_context *ctx, bool start,
+						int x, int y)
 {
 	int				index;
 	char			*temp;

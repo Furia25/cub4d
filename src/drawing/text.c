@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:27:11 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 15:30:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:55:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static inline bool	char_command(t_text_context *ctx, char c)
 		ctx->effect = TE_EMPTY;
 	else
 		valid = false;
-	ctx->index += valid;
 	return (valid);
 }
 
 static inline bool	text_command(t_text_context *ctx, char *str)
 {
-	wchar_t	c;
+	bool	valid;
+	char	c;
 
 	ctx->index++;
 	while (str[ctx->index])
@@ -57,7 +57,9 @@ static inline bool	text_command(t_text_context *ctx, char *str)
 			ctx->index++;
 			return (true);
 		}
-		if (!char_command(ctx, c))
+		valid = char_command(ctx, c);
+		ctx->index += valid;
+		if (!valid)
 			return (true);
 	}
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 13:04:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:56:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ struct s_entity
 	uint16_t					state;
 	void						(*create)(t_entity*, t_game*);
 	void						(*tick)(t_entity*, t_game*);
-	void						(*draw)(t_entity*,  void *);
+	void						(*draw)(t_entity*, void *);
 	void						(*interaction)(t_entity *, t_game*);
 	void						(*destroy)(t_entity*, t_game*);
 	void						(*free_data)(void *);
