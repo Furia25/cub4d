@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 20:22:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 21:25:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ typedef struct s_game	t_game;
 
 typedef enum s_data_type
 {
+	TYPE_NULL,
 	TYPE_INT,
 	TYPE_FLOAT,
 	TYPE_BOOL,
 	TYPE_STRING,
-	TYPE_ARRAY,
 	TYPE_MAX
 }	t_data_type;
 
@@ -41,10 +41,11 @@ extern const char	*g_datatype_name[TYPE_MAX];
 typedef struct s_argument
 {
 	const char		*name;
+	bool			array;
 	t_data_type		type;
 	long			limit_min;
 	long			limit_max;
-	void			*value;
+	bool			optional;
 }	t_argument;
 
 typedef struct s_property
@@ -124,7 +125,10 @@ void		interpret_map_from_file(t_parsing *parsing, t_game *game);
 void		build_entities(t_parsing *parsing, t_game *game);
 
 /*Properties Arguments*/
-size_t	arguments_length(t_argument **args);
+size_t	arguments_length(t_argument *args);
+bool	is_datatype_numeral(t_data_type type);
+bool	is_argument_limited(t_argument *arg);
+void	print_property_usage(const t_property *prop);
 
 /*Parsing Properties*/
 t_prop_input	property_get_args(char *line, t_property_type type, t_game *game);

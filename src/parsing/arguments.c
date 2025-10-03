@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   properties_args.c                                  :+:      :+:    :+:   */
+/*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:44:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 20:00:28 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 21:17:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static const char	*g_datatype_name[TYPE_MAX] = {
 [TYPE_FLOAT] = "FLOAT"
 };
 
-size_t	arguments_length(t_argument **args)
+size_t	arguments_length(t_argument *args)
 {
 	size_t	length;
 
 	if (!args)
 		return (0);
 	length = 0;
-	while (args[length])
+	while (args[length].type != TYPE_NULL)
 		length++;
 	return (length);
 }

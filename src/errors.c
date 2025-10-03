@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:55:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 20:18:58 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 21:23:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,35 +85,13 @@ void	print_error_property(bool newline, t_property *prop,
 		line, prop->name, g_errors[error]);
 }
 
-void	print_property_usage(const t_property *prop)
-{
-	const size_t	length = arguments_length(&prop->args);
-	t_argument		*argument;
-	size_t			index;
-
-	if (!prop)
-		return ;
-	ft_printf("Usage : '%s'(", prop->name);
-	index = 0;
-	while (index < length)
-	{
-		argument = &prop->args[index];
-		if (argument)
-		{
-			ft_printf("%s: ", argument->name);
-			if (argument.)
-		}
-		index++;
-	}
-	ft_putstr_fd(")\n", 1);
-}
-
 void	throw_error_property(const t_property *prop,
 			t_error error, t_game *game)
 {
 	if (!prop || error == ERROR_NONE)
 		throw_error(ERROR_BASIC, game);
 	print_error_property(true, prop, error, game->parsing.line_num);
+	print_property_usage(prop);
 	exit_game(game);
 }
 
