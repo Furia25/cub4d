@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 12:43:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_entity	*entity_new_tree(t_vec3 position, t_game *game)
 		entity, false, game->events_postload))
 	{
 		free(entity);
-		throw_error(game, ERROR_ENTITIES_ALLOC);
+		throw_error(ERROR_ENTITIES_ALLOC, game);
 	}
 	return (entity);
 }

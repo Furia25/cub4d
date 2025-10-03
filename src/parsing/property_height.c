@@ -3,43 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   property_height.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:42:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 12:33:13 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:21:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static inline void	property_check_set_heights(char *line, t_height_data *data,
-						t_property *prop, t_game *game);
+						t_prop_input *prop, t_game *game);
 
 void	parse_property_height(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	t_property		*prop;
+	t_prop_input		*prop;
 	t_height_data	*event_data;
 
 	parsing->temp_prop = property_get_args(line, type, game);
 	prop = &parsing->temp_prop;
 	if (!(prop->argc == 5 && type != PROP_HEIGHT_PRECISE) && prop->argc != 6)
-		throw_error_info(game, ERROR_PROPERTY_HEIGHT, line);
+		throw_error_info(ERROR_PROPERTY_HEIGHT, line, game);
 	event_data = malloc(sizeof(t_height_data));
 	if (!event_data)
-		throw_error(game, ERROR_PARSING_ALLOC);
+		throw_error(ERROR_PARSING_ALLOC, game);
 	event_data->precise = type == PROP_HEIGHT_PRECISE;
 	property_check_set_heights(line, event_data, prop, game);
 	if (!event_queue_push((void (*)(void *, t_game *))apply_height_postload,
 		event_data, true, game->events_postload))
 	{
 		free(event_data);
-		throw_error(game, ERROR_PARSING_ALLOC);
+		throw_error(ERROR_PARSING_ALLOC, game);
 	}
 }
 
 static inline void	property_check_set_heights(char *line, t_height_data *data,
-						t_property *prop, t_game *game)
+						t_prop_input *prop, t_game *game)
 {
 	t_error	error;
 
@@ -63,7 +63,7 @@ static inline void	property_check_set_heights(char *line, t_height_data *data,
 	if (error != ERROR_NONE)
 	{
 		free(data);
-		throw_error_info(game, error, line);
+		throw_error_info(error, line, game);
 	}
 }
 

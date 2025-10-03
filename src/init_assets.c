@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:27:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 23:23:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:03:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int	init_assets(t_game *game)
 		= png_open((char *)g_textures_files[TEXTURE_ERROR]);
 	loading_log(!game->textures[TEXTURE_ERROR] * 2, NULL, NULL);
 	if (!game->textures[TEXTURE_ERROR])
-		throw_error_info(game, ERROR_LOADING_TEXTURES_FALLBACK,
-			(char *)g_textures_files[TEXTURE_ERROR]);
+		throw_error_info(ERROR_LOADING_TEXTURES_FALLBACK,
+			(char *)g_textures_files[TEXTURE_ERROR], game);
 	init_textures(game);
 	temp = glyph_init(GLYPH_PATH);
 	loading_log(!temp * 2, NULL, NULL);
 	if (!temp)
-		throw_error(game, ERROR_LOADING_GLYPHS);
+		throw_error(ERROR_LOADING_GLYPHS, game);
 	game->water_anim.type = TEXTURE_WATER;
 	game->water_anim.index = anim_init(TEXTURE_WATER0,
 			TEXTURE_WATER19, 0.4f, true);
@@ -107,7 +107,7 @@ static inline void	textures_log(t_png *actual, char *path, t_game *game)
 		&& (errno == ENOMEM || errno == ENFILE || errno == EMFILE))
 	{
 		loading_log(2, NULL, NULL);
-		throw_error(game, ERROR_LOADING_TEXTURES_FATAL);
+		throw_error(ERROR_LOADING_TEXTURES_FATAL, game);
 	}
 	if (errno == ENAMETOOLONG)
 		warning = WARNING_TEXTURE_NAME;

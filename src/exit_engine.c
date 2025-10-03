@@ -6,83 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 15:44:42 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 18:55:26 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "glyphs.h"
 #include "cub3d_errors.h"
-
-const char	*g_errors[ERROR_MAX] = {
-[ERROR_NONE] = "",
-[ERROR_ALLOC] = "Couldn't allocate enough memory.",
-[ERROR_PARSING] = "Unable to continue the map parsing.",
-[ERROR_PARSING_IO] = "Unable to open/read the map file.",
-[ERROR_PARSING_VALIDITY] = "Map couldn't be used, verify integrity.",
-[ERROR_PARSING_NL_MAP] = "Unexpected new line in tilemap.",
-[ERROR_PARSING_QUOTE] = "Unclosed quote",
-[ERROR_PARSING_ALLOC] = "Couldn't allocate enough memory when parsing.",
-[ERROR_PARSING_PLAYERS] = "Map must contain exactly one player spawn point.",
-[ERROR_PARSING_NOPLAYER] = "Map must contain at least one player spawn point.",
-[ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
-[ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
-[ERROR_PARSING_UNCLOSED] = "All tiles must be surrounded by walls; \
-the map cannot have open edges.",
-[ERROR_PARSING_MISSING_COLOR] = "Invalid map configuration: floor and \
-ceiling colors must be defined using the F and C properties.",
-[ERROR_PARSING_MISSING_PATHS] = "Invalid map configuration: wall textures \
-must be defined for all directions using the NO, SO, WE, and EA properties.",
-[ERROR_PROPERTY_COLOR] = "Malformed property: 'C|F' <red:byte> <green:byte> \
-<blue:byte>\n 'A' <red:byte> <green:byte> <blue:byte> [intensity:0-250] ",
-[ERROR_PROPERTY_ENTITY] = "Malformed property: 'ENTITY' <type:string> \
-<x:float> <y:float> <z:float> [optional_datas] ",
-[ERROR_PROPERTY_ENTITY_UNKNOWN] = "Malformed property: Unknown Entity type",
-[ERROR_PROPERTY_HEIGHT] = "Malformed property: 'HEIGHT'/'HEIGHT_PRECISE' \n\
-<x:uint> <y:uint> <w:uint> <h:uint> \
-(<zoffset:float> | <ceil_offset:float> <floor_offset:float>) ",
-[ERROR_PROPERTY_HEIGHT_OFFSET] = "Malformed property: Floor height offset \
-cannot exceed ceiling height ",
-[ERROR_PROPERTY_HEIGHT_LIMIT] = "Malformed property: Height offset must be \
-between -100 and 100 ",
-[ERROR_PROPERTY_PATH] = "Malformed property: 'EA|WE|SO|NO' <path:string> ",
-[ERROR_LOADING_ASSETS] = "Couldn't load assets.",
-[ERROR_LOADING_TEXTURES_FALLBACK] = "Failed to load fallback error texture \
-from the required path",
-[ERROR_LOADING_TEXTURES_FATAL] = "Fatal error occurred while loading textures",
-[ERROR_LOADING_GLYPHS] = "Failed to load or initialize glyphs.",
-[ERROR_LOADING_GRAPHICS] = "Couldn't load textures.",
-[ERROR_LOADING] = "Initilization of the game failed.",
-[ERROR_WINDOW] = "Unable to create Window and/or Framebuffers.",
-[ERROR_ENTITIES_ALLOC] = "Entities Manager caused a memory allocation error.",
-[ERROR_ENTITIES_MISC] = "Unexpected entity manager error.",
-[ERROR_ENTITIES_INVALID] = "Entity Manager couldn't resolve unknown entity.",
-[ERROR_ENTITY_NPC] = "Malformed Entity Data: 'NPC' [text:string]",
-[ERROR_WTF] = "You are cooked, I don't even know how it's possible."
-};
-
-void	throw_error(t_game *game, t_error error)
-{
-	throw_error_info(game, error, NULL);
-}
-
-void	throw_error_info(t_game *game, t_error error, char *info)
-{
-	if (error != ERROR_NONE)
-	{
-		ft_putstr_fd(ERROR_PREFIX, 2);
-		if (error < ERROR_MAX)
-			ft_putstr_fd((char *)g_errors[error], 2);
-		if (info)
-		{
-			ft_putstr_fd(": \"", 2);
-			ft_putstr_fd(info, 2);
-			ft_putchar_fd('\"', 2);
-		}
-	}
-	ft_putstr_fd("\n", 2);
-	exit_game(game);
-}
 
 static void	free_textures(t_game *game);
 

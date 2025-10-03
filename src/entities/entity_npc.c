@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 16:32:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:21:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "cub3d_rendering.h"
 
 void	entity_npc_tick(t_entity *self, t_game *game);
-bool	entity_npc_data(t_entity *self, t_property prop, t_game *game);
+bool	entity_npc_data(t_entity *self, t_prop_input prop, t_game *game);
 void	entity_npc_postload(t_entity *self, t_game *game);
 void	entity_npc_interacted(t_entity *self, t_game *game);
 
@@ -39,14 +39,14 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 		entity, false, game->events_postload))
 	{
 		free(entity);
-		throw_error(game, ERROR_ENTITIES_ALLOC);
+		throw_error(ERROR_ENTITIES_ALLOC, game);
 	}
 	return (entity);
 }
 
 /*Entity Data Constructor from parsed property*/
 
-bool	entity_npc_data(t_entity *self, t_property prop, t_game *game)
+bool	entity_npc_data(t_entity *self, t_prop_input prop, t_game *game)
 {
 	(void)game;
 	if (prop.argc > 1)
@@ -72,17 +72,7 @@ void	entity_npc_postload(t_entity *self, t_game *game)
 
 void	entity_npc_tick(t_entity *self, t_game *game)
 {
-	float	distance;
-
-	distance = vec3_distance2(self->position, game->player.position);
-	if (distance < INTERACTION_RANGE && self->data)
-		game->entity_manager.can_interact = self;
-	else if (game->entity_manager.interacted == self
-		|| game->entity_manager.can_interact == self)
-	{
-		game->entity_manager.interacted = NULL;
-		game->render_textbox = false;
-	}
+	check_interaction(self, game);
 	if (game->entity_manager.interacted == self)
 		self->transform.index = (self->transform.index + 1) % 2;
 	else

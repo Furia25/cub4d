@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:51 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 12:43:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ bool	entity_add(t_entity *entity, t_game *game)
 	t_vector	*entities;
 
 	if (!entity)
-		throw_error(game, ERROR_ENTITIES_INVALID);
+		throw_error(ERROR_ENTITIES_INVALID, game);
 	entities = game->entity_manager.entities;
 	if (!entities->append(entities, entity))
 	{
 		entity_free(entity);
-		throw_error(game, ERROR_ENTITIES_ALLOC);
+		throw_error(ERROR_ENTITIES_ALLOC, game);
 	}
 	if (entity->create)
 		entity->create(entity, game);
@@ -35,7 +35,7 @@ bool	entity_destroy(t_entity *entity, t_game *game)
 	long		index;
 
 	if (!entity)
-		throw_error(game, ERROR_ENTITIES_INVALID);
+		throw_error(ERROR_ENTITIES_INVALID, game);
 	entities = game->entity_manager.entities;
 	if (entity->destroy)
 		entity->destroy(entity, game);
@@ -43,9 +43,9 @@ bool	entity_destroy(t_entity *entity, t_game *game)
 	if (index == -1)
 	{
 		entity_free(entity);
-		throw_error(game, ERROR_ENTITIES_INVALID);
+		throw_error(ERROR_ENTITIES_INVALID, game);
 	}
 	if (!entities->remove(entities, index))
-		throw_error(game, ERROR_ENTITIES_ALLOC);
+		throw_error(ERROR_ENTITIES_ALLOC, game);
 	return (true);
 }

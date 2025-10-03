@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 13:49:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 20:22:44 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,45 @@
 # define CUB3D_PARSING_H
 
 # include "cub3d_structs.h"
+# include "cub3d_errors.h"
 
 # define DEBUG_PARSING	0
 # define PARSING_MAP_MESSAGE "Map size parsed to %dx%d.\n"
 
+# define TRUE_STR	"true"
+# define FALSE_STR	"false"
+
 # define PROPERTY_AMBIANT_MAX	250
 
 typedef struct s_game	t_game;
+
+typedef enum s_data_type
+{
+	TYPE_INT,
+	TYPE_FLOAT,
+	TYPE_BOOL,
+	TYPE_STRING,
+	TYPE_ARRAY,
+	TYPE_MAX
+}	t_data_type;
+
+extern const char	*g_datatype_name[TYPE_MAX];
+
+typedef struct s_argument
+{
+	const char		*name;
+	t_data_type		type;
+	long			limit_min;
+	long			limit_max;
+	void			*value;
+}	t_argument;
+
+typedef struct s_property
+{
+	const char	*name;
+	bool		variable;
+	t_argument	*args;
+}	t_property;
 
 typedef enum e_property_type
 {
@@ -39,14 +71,16 @@ typedef enum e_property_type
 	PROP_UNKNOWN
 }	t_property_type;
 
-typedef struct s_property
+typedef struct s_prop_input
 {
 	char	**argv;
 	int		argc;
-}	t_property;
+	void	**values;
+}	t_prop_input;
 
 typedef struct s_parsing
 {
+	int				line_num;
 	int				file_fd;
 	int				file_length;
 	char			**file_content;
@@ -63,7 +97,7 @@ typedef struct s_parsing
 	t_rgba8			ceil_color;
 	bool			has_ceil;
 	bool			has_floor;
-	t_property		temp_prop;
+	t_prop_input	temp_prop;
 }	t_parsing;
 
 typedef struct s_height_data
@@ -89,9 +123,12 @@ void		map_check_borders(t_parsing *parsing, t_game *game);
 void		interpret_map_from_file(t_parsing *parsing, t_game *game);
 void		build_entities(t_parsing *parsing, t_game *game);
 
+/*Properties Arguments*/
+size_t	arguments_length(t_argument **args);
+
 /*Parsing Properties*/
-t_property	property_get_args(char *line, t_property_type type, t_game *game);
-bool		property_check_color(t_property prop);
+t_prop_input	property_get_args(char *line, t_property_type type, t_game *game);
+bool		property_check_color(t_prop_input prop);
 void		apply_height_postload(t_height_data *args, t_game *game);
 
 void		parse_property_broadcast(char *line, t_game *game);

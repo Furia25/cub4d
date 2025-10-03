@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 20:10:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 18:53:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 16:51:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,11 @@ static inline void	hud_cigarette_animator(t_hud_cigarette *hud_cigarette,
 
 static inline void	play_loop(t_game *game, uint64_t time)
 {
-	t_entity_manager	*entities;
-
-	entities = &game->entity_manager;
 	if (key_is_pressed(KEY_PAUSE, game))
 		game->state = STATE_PAUSED;
-	entities_tick(entities, game);
-	if (entities->can_interact && !entities->interacted
-		&& key_is_pressed(KEY_INTERACT, game))
-	{
-		entities->interacted = entities->can_interact;
-		if (entities->interacted->interaction)
-			entities->interacted->interaction(entities->interacted, game);
-	}
+	entities_tick(&game->entity_manager, game);
+	event_queue_execute(game->events_postload, game);
+	handle_interactions(game);
 	anim_tile_update(&game->water_anim, game);
 	update_player(&game->player, game);
 	hud_cigarette_animator(&game->hud_cigarette, game);

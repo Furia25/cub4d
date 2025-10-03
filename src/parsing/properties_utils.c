@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 15:42:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 15:46:08 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:21:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@ int	is_fdigit(int c)
 	return (0);
 }
 
-t_property	property_get_args(char *line, t_property_type type, t_game *game)
+t_prop_input	property_get_args(char *line, t_property_type type, t_game *game)
 {
-	t_property	result;
+	t_prop_input	result;
 	size_t		index;
 	char		*temp;
 
 	if (!line || *line == '\0')
-		throw_error(game, ERROR_WTF);
+		throw_error(ERROR_WTF, game);
 	index = ft_strlen(g_property_token[type]);
 	if (!line[index])
-		throw_error_info(game, ERROR_PARSING_PROPERTY, line);
+		throw_error_info(ERROR_PARSING_PROPERTY, line, game);
 	temp = line + index;
 	if (!str_remove_chars(temp, " \t\n"))
-		throw_error_info(game, ERROR_PARSING_QUOTE, line);
+		throw_error_info(ERROR_PARSING_QUOTE, line, game);
 	result.argc = count_words(temp, ',');
 	result.argv = ft_split(temp, ',');
 	if (!result.argv)
-		throw_error(game, ERROR_PARSING_ALLOC);
+		throw_error(ERROR_PARSING_ALLOC, game);
 	if (DEBUG_PARSING)
 	{
 		printf(DEBUG_PREFIX "%s : ", (char *)g_property_token[type]);
@@ -45,7 +45,7 @@ t_property	property_get_args(char *line, t_property_type type, t_game *game)
 	return (result);
 }
 
-bool	property_check_color(t_property prop)
+bool	property_check_color(t_prop_input prop)
 {
 	size_t	index;
 	char	*temp;
@@ -73,10 +73,10 @@ bool	property_check_color(t_property prop)
 
 void	property_free(void *ptr)
 {
-	t_property	*property;
+	t_prop_input	*property;
 	int			index;
 
-	property = (t_property *)ptr;
+	property = (t_prop_input *)ptr;
 	if (!property)
 		return ;
 	if (property->argv)

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:02:07 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 22:45:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	try_parse_map(int index, t_parsing *parsing, t_game *game)
 	parsing->map_end = end_nls;
 	parsing->map_height = parsing->map_end - parsing->map_start + 1;
 	if (parsing->map_height <= 0)
-		throw_error(game, ERROR_PARSING_VALIDITY);
+		throw_error(ERROR_PARSING_VALIDITY, game);
 	parsing->map = ft_calloc(parsing->map_height + 3, sizeof(char *));
 	if (!parsing->map)
-		throw_error(game, ERROR_PARSING_ALLOC);
+		throw_error(ERROR_PARSING_ALLOC, game);
 	parsing->map_width = map_get_width(parsing);
 	if (parsing->map_width <= 0)
-		throw_error(game, ERROR_PARSING_VALIDITY);
+		throw_error(ERROR_PARSING_VALIDITY, game);
 	parsing->has_player = false;
 	parse_map_from_file(parsing, game);
 }
@@ -67,13 +67,13 @@ static inline void	parse_map_from_file(t_parsing *parsing, t_game *game)
 	while (y <= parsing->map_end && parsing->file_content[y])
 	{
 		if (parsing->file_content[y][0] == '\0')
-			throw_error(game, ERROR_PARSING_NL_MAP);
+			throw_error(ERROR_PARSING_NL_MAP, game);
 		line = ft_calloc(parsing->map_width + 1, sizeof(char));
 		if (!line)
-			throw_error(game, ERROR_PARSING_ALLOC);
+			throw_error(ERROR_PARSING_ALLOC, game);
 		length = ft_strlen(parsing->file_content[y]);
 		if (length > (size_t)parsing->map_width)
-			throw_error(game, ERROR_PARSING_VALIDITY);
+			throw_error(ERROR_PARSING_VALIDITY, game);
 		ft_memcpy(line, parsing->file_content[y], length);
 		parsing->map[y - parsing->map_start] = line;
 		parse_map_line(line, y - parsing->map_start, parsing, game);
@@ -92,7 +92,7 @@ static inline void	parse_map_line(char *line, int y,
 	{
 		c = line[x];
 		if (!is_symbol_valid(c))
-			throw_error(game, ERROR_PARSING_SYMBOL);
+			throw_error(ERROR_PARSING_SYMBOL, game);
 		if (is_symbol_player(c))
 			map_set_player_pos(x, y, parsing, game);
 		x++;

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 19:35:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:21:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 typedef struct s_entity	t_entity;
 
 typedef bool			(*t_entity_data_constructor)(t_entity*,
-	t_property, t_game*);
+	t_prop_input, t_game*);
 typedef t_entity*		(*t_entity_constructor)(t_vec3, t_game*);
 
 typedef struct s_entity_manager
@@ -48,6 +48,31 @@ struct s_entity
 	bool						solid;
 };
 
+typedef struct s_entity_door_data
+{
+	int		x_start;
+	int		y_start;
+	int		width;
+	int		height;
+	float	offset;
+	float	speed;
+	float	actual;
+	int		x_end;
+	int		y_end;
+	int		mode;
+	bool	visible;
+	bool	interacted;
+}	t_entity_door_data;
+
+typedef enum	s_entity_type
+{
+	ENTITY_UNKNOWN,
+	ENTITY_NPC,
+	ENTITY_DOOR,
+	ENTITY_TREE,
+	ENTITY_MAX
+}	t_entity_type;
+
 typedef struct s_entity_ctx
 {
 	char						*token;
@@ -56,27 +81,23 @@ typedef struct s_entity_ctx
 	t_error						error;
 }	t_entity_ctx;
 
-typedef struct s_entity_door_data
-{
-	t_tile	*tile;
-	float	actual;
-	float	offset;
-	bool	interacted;
-}	t_entity_door_data;
+t_entity_type		entity_get_from_token(const char *token);
+void				entity_instantiate(t_entity_type type, t_vec3 position,
+						t_prop_input *prop, t_game *game);
 
-t_entity	*entity_new(t_game *game);
-void		entity_free(t_entity *entity);
-bool		entity_add(t_entity *entity, t_game *game);
-bool		entity_destroy(t_entity *entity, t_game *game);
-void		entities_tick(t_entity_manager *manager, t_game *game);
-void		entity_init_basics(t_vec3 position, t_entity *entity);
+t_entity			*entity_new(t_game *game);
+void				entity_free(t_entity *entity);
+bool				entity_add(t_entity *entity, t_game *game);
+bool				entity_destroy(t_entity *entity, t_game *game);
+void				entities_tick(t_entity_manager *manager, t_game *game);
+void				entity_init_basics(t_vec3 position, t_entity *entity);
 
-t_entity	*entity_new_npc(t_vec3 position, t_game *game);
-bool		entity_npc_data(t_entity *self, t_property prop, t_game *game);
+t_entity			*entity_new_npc(t_vec3 position, t_game *game);
+bool				entity_npc_data(t_entity *self, t_prop_input prop, t_game *game);
 
-t_entity	*entity_new_tree(t_vec3 position, t_game *game);
+t_entity			*entity_new_tree(t_vec3 position, t_game *game);
 
-t_entity	*entity_new_door(t_vec3 position, t_game *game);
-bool		entity_door_data(t_entity *self, t_property prop, t_game *game);
+t_entity			*entity_new_door(t_vec3 position, t_game *game);
+bool				entity_door_data(t_entity *self, t_prop_input prop, t_game *game);
 
 #endif

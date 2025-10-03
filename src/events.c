@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 23:34:29 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/01 00:05:57 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:02:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_vector	*event_queue_init(t_game *game)
 
 	result = vector_new();
 	if (!result)
-		throw_error(game, ERROR_ALLOC);
+		throw_error(ERROR_ALLOC, game);
 	result->val_free = (void (*)(void *))event_free;
 	return (result);
 }

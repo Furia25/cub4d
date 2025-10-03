@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:06:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 01:12:07 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	interpret_map_from_file(t_parsing *parsing, t_game *game)
 	index = 0;
 	while (index < parsing->file_length && parsing->file_content[index])
 	{
+		parsing->line_num++;
 		line = parsing->file_content[index];
 		if (is_str_empty(line))
 		{
@@ -42,7 +43,7 @@ void	interpret_map_from_file(t_parsing *parsing, t_game *game)
 		index++;
 	}
 	if (index >= parsing->file_length)
-		throw_error(game, ERROR_PARSING_VALIDITY);
+		throw_error(ERROR_PARSING_VALIDITY, game);
 	try_parse_map(index, parsing, game);
 }
 

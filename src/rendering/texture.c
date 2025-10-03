@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 09:41:26 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 10:02:21 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/03 16:29:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_rendering.h"
 #include "cub3d.h"
 
-inline static void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
+static inline void	render_texture(t_vertical_tex *tex_ctx, t_raycast_hit *hit,
 				t_raycast_context *ctx, float *zbuf)
 {
 	int		buffer_idx;
@@ -59,21 +59,4 @@ void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
 		|| (hit->orientation == 1 && hit->o_ray.dir_normal.y < 0))
 		tex_ctx->tex_x = tex_ctx->texture->header.width - tex_ctx->tex_x - 1;
 	render_texture(tex_ctx, hit, ctx, zbuf);
-}
-
-void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
-			t_render_context *r_ctx, t_texture_type texture_type)
-{
-	t_png	*texture;
-	t_vec2	off;
-	t_ivec2	tex;
-
-	texture = r_ctx->textures[texture_type];
-	off.x = real_pos.x - floor(real_pos.x);
-	off.y = real_pos.y - floor(real_pos.y);
-	tex.x = fmodf(off.x * texture->header.width, texture->header.width);
-	tex.y = fmodf(off.y * texture->header.height, texture->header.height);
-	draw_pixel(
-		(t_rgba8)texture->pixels_8bit[tex.y * texture->header.width + tex.x],
-		pixel.x, pixel.y, r_ctx->frame);
 }

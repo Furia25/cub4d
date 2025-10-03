@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:03:47 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 15:52:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,19 @@ bool	is_str_empty(char *str)
 	return (true);
 }
 
+int	is_str_bool(char *str)
+{
+	if (ft_strcmp(str, FALSE_STR) == 0)
+		return (0);
+	if (ft_strcmp(str, TRUE_STR) == 0)
+		return (1);
+	return (-1);
+}
+
 void	map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game)
 {
 	if (parsing->has_player)
-		throw_error(game, ERROR_PARSING_PLAYERS);
+		throw_error(ERROR_PARSING_PLAYERS, game);
 	parsing->has_player = true;
 	game->player.position.x = (float)x + 0.5;
 	game->player.position.y = (float)y + 0.5;
@@ -39,7 +48,7 @@ void	map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game)
 	else if (game->parsing.map[y][x] == 'E')
 		game->player.yaw_rad = 0;
 	else
-		throw_error(game, ERROR_WTF);
+		throw_error(ERROR_WTF, game);
 }
 
 bool	str_remove_chars(char *str, char *set)

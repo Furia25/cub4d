@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 19:21:48 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 23:09:03 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	map_check_borders(t_parsing *parsing, t_game *game)
 			if (is_symbol_central(c) || c == ' ')
 				if ((c != ' ' || check_neighbour_central(x, y, parsing))
 					&& !check_neighbour_valid(x, y, parsing))
-					throw_error(game, ERROR_PARSING_UNCLOSED);
+					throw_error(ERROR_PARSING_UNCLOSED, game);
 			x++;
 		}
 		y++;

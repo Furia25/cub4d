@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 15:49:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 16:18:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	render_ray(float base_angle, int column,
 	ctx.step.y = sign(ray->dir_normal.y);
 	ctx.last_ceil = 200;
 	ctx.last_floor = -201;
+	ctx.last_tile_visible = false;
 	ctx.actual.orientation = 0;
 	raycast_init(&ctx);
 	if (check_tile(&ctx.actual, &ctx) != 0)

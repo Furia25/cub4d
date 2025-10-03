@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 15:56:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 16:44:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ void	render_draw_ray(t_raycast_hit *hit, t_raycast_context *ctx,
 			t_render_context *render);
 void	manage_texture(t_raycast_hit *hit, t_raycast_context *ctx,
 			t_render_context *render, t_vertical_tex	*tex_ctx);
-void	render_horizontal_texture(t_ivec2 pixel, t_vec2 real_pos,
-			t_render_context *r_ctx, t_texture_type texture_type);
 void	draw_sprite(t_transform tform,
 			t_sprite *spr, t_render_context *ctx);
 void	entities_draw(t_game *game, t_render_context *render);
@@ -110,5 +108,9 @@ void	draw_interact_button(t_render_context *ctx, t_button *btn,
 			int text_box);
 void	draw_textbox(t_render_context *ctx, char *text,
 			uint64_t time, t_ivec2 pos);
+void	draw_top_faces(t_raycast_hit *h, int y,
+		t_raycast_context *ctx, t_render_context *r);
+void	draw_bot_faces(t_raycast_hit *h, int y,
+		t_raycast_context *ctx, t_render_context *r);
 
 #endif

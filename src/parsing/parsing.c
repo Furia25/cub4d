@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/30 23:18:44 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,18 @@ void	parsing(char *file_name, t_game *game)
 	parsing = &game->parsing;
 	parsing->file_fd = open(file_name, O_RDONLY);
 	if (parsing->file_fd == -1)
-		throw_error(game, ERROR_PARSING_IO);
+		throw_error(ERROR_PARSING_IO, game);
 	parsing->file_length = file_length(file_name);
 	if (parsing->file_length == -1)
-		throw_error(game, ERROR_ALLOC);
+		throw_error(ERROR_ALLOC, game);
 	else if (parsing->file_length == -2)
-		throw_error(game, ERROR_PARSING_IO);
+		throw_error(ERROR_PARSING_IO, game);
 	else if (parsing->file_length == 0)
-		throw_error(game, ERROR_PARSING_VALIDITY);
+		throw_error(ERROR_PARSING_VALIDITY, game);
 	read_mapfile(parsing, game);
 	close(parsing->file_fd);
 	parsing->file_fd = -1;
+	parsing->line_num = 0;
 	interpret_map_from_file(parsing, game);
 	parsing_end(parsing, game);
 }
@@ -54,14 +55,14 @@ static inline void	parsing_end(t_parsing *parsing, t_game *game)
 static inline void	parsing_check_mandatory(t_parsing *parsing, t_game *game)
 {
 	if (!parsing->has_player)
-		throw_error(game, ERROR_PARSING_NOPLAYER);
+		throw_error(ERROR_PARSING_NOPLAYER, game);
 	if (!parsing->has_ceil || !parsing->has_floor)
-		throw_error(game, ERROR_PARSING_MISSING_COLOR);
+		throw_error(ERROR_PARSING_MISSING_COLOR, game);
 	if (!parsing->textures_paths[0]
 		|| !parsing->textures_paths[1]
 		|| !parsing->textures_paths[2]
 		|| !parsing->textures_paths[3])
-		throw_error(game, ERROR_PARSING_MISSING_PATHS);
+		throw_error(ERROR_PARSING_MISSING_PATHS, game);
 	parsing->ceil_color.channels.a = 255;
 	parsing->floor_color.channels.a = 255;
 }
@@ -73,7 +74,7 @@ static inline void	read_mapfile(t_parsing *parsing, t_game *game)
 
 	parsing->file_content = ft_calloc(parsing->file_length + 1, sizeof(char *));
 	if (!parsing->file_content)
-		throw_error(game, ERROR_ALLOC);
+		throw_error(ERROR_ALLOC, game);
 	i = 0;
 	line = get_next_line(parsing->file_fd);
 	while (!line.error && i < parsing->file_length)
@@ -89,5 +90,5 @@ static inline void	read_mapfile(t_parsing *parsing, t_game *game)
 		line = get_next_line(parsing->file_fd);
 	}
 	free(line.line);
-	throw_error(game, ERROR_PARSING_IO);
+	throw_error(ERROR_PARSING_IO, game);
 }

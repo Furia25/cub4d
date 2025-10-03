@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 18:52:05 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 20:31:16 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
+# include <float.h>
 
 # include "libft.h"
 # include "mlx.h"
@@ -210,8 +212,8 @@ typedef struct s_button
 	int				shadow_size;
 }	t_button;
 
-void		throw_error(t_game *game, t_error error);
-void		throw_error_info(t_game *game, t_error error, char *info);
+void		throw_error(t_error error, t_game *game);
+void		throw_error_info(t_error error, char *info, t_game *game);
 int			exit_game(t_game *game);
 
 void		init_engine_preparsing(t_game *game);
@@ -279,5 +281,10 @@ void		object_set_pos(t_vec3 new_pos, t_vec3 *pos, t_bbox *bbox);
 
 bool		is_pixel_valid(int x, int y, t_img_data *img);
 int			is_fdigit(int c);
+
+void		anim_tile_update(t_tile_animation *anim, t_game *game);
+
+void		handle_interactions(t_game *game);
+void		check_interaction(t_entity *self, t_game *game);
 
 #endif

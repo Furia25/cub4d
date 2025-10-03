@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/02 16:45:35 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/03 19:06:44 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ LIBS_DIR = libs
 # Source files
 SRC_FILES = \
 	main.c \
+	rendering/render_draw_horizontals.c \
 	rendering/render_draw_ray.c \
 	rendering/raycast_dda.c \
 	rendering/render.c \
@@ -92,14 +93,10 @@ SRC_FILES = \
 	utils/vector_methods.c \
 	utils/vector_methods2.c \
 	utils/file_utils.c \
-	events.c \
-	init_assets.c \
-	init_engine.c \
-	exit_engine.c \
-	hooks.c \
 	gameloop/player.c \
 	gameloop/game_loop.c \
 	gameloop/animation.c \
+	gameloop/interaction.c \
 	keys/keys_buffer.c \
 	keys/keys_handling.c \
 	keys/keys.c \
@@ -116,7 +113,15 @@ SRC_FILES = \
 	entities/entities_utils.c \
 	entities/entity_npc.c \
 	entities/entity_tree.c \
-	entities/manager.c
+	entities/entity_door.c \
+	entities/manager.c \
+	entities/instantiate.c \
+	events.c \
+	init_assets.c \
+	init_engine.c \
+	exit_engine.c \
+	hooks.c \
+	errors.c \
 
 HEADERS = \
 	cub3d.h \

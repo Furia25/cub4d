@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:27:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 13:09:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_entity	*entity_new(t_game *game)
 
 	result = ft_calloc(1, sizeof(t_entity));
 	if (!result)
-		throw_error(game, ERROR_ENTITIES_ALLOC);
+		throw_error(ERROR_ENTITIES_ALLOC, game);
 	return (result);
 }
 

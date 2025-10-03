@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:25:01 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 18:39:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_engine_preparsing(t_game *game)
 	game->entity_manager.entities = vector_new();
 	game->entity_manager.entities->val_free = (void (*)(void *))entity_free;
 	if (!game->entity_manager.entities)
-		throw_error(game, ERROR_LOADING);
+		throw_error(ERROR_LOADING, game);
 	game->events_postload = event_queue_init(game);
 }
 
@@ -38,13 +38,13 @@ void	init_engine(t_game *game)
 	init_assets(game);
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		throw_error(game, ERROR_LOADING_GRAPHICS);
+		throw_error(ERROR_LOADING_GRAPHICS, game);
 	game->win.ptr = mlx_new_window(game->mlx, WINDOW_WIDTH,
 			WINDOW_HEIGHT, GAME_NAME);
 	if (!game->win.ptr)
-		throw_error(game, ERROR_WINDOW);
+		throw_error(ERROR_WINDOW, game);
 	if (!create_frame_image(game))
-		throw_error(game, ERROR_WINDOW);
+		throw_error(ERROR_WINDOW, game);
 	game->state = STATE_MENU;
 	init_hooks(game);
 	event_queue_execute(game->events_postload, game);
