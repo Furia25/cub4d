@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 20:20:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 19:55:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/04 20:48:33 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	check_delimiters(char c, char open, char close, int *count)
 	return (true);
 }
 
-t_error	property_check_inputes(char *str)
+t_error	property_check_inputs(char *str)
 {
 	t_error	result;
 	int		braces;
@@ -61,11 +61,11 @@ t_prop_input	property_get_inputs(char *line, t_property_type type,
 
 	index = ft_strlen(g_property_token[type]);
 	temp = line + index;
-	temp_error = property_check_inputes(temp);
+	temp_error = property_check_inputs(temp);
 	if (temp_error != ERROR_NONE)
 		throw_error_property(property, temp_error, game);
 	str_remove_chars(temp, " \t\n"),
-	result.argv = tokenize(temp, ",", "[]{}\"", &result.argc);
+	result.argv = tokenize(temp, ",", "\"\"{}[]", &result.argc);
 	if (!result.argv)
 		throw_error(ERROR_PARSING_ALLOC, game);
 	if (DEBUG_PARSING)

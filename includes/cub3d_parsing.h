@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 19:29:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/04 19:56:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,8 @@ void			interpret_map_from_file(t_parsing *parsing, t_game *game);
 void			build_entities(t_parsing *parsing, t_game *game);
 
 /*Properties Inputs/Arguments*/
-t_prop_input	property_get_inputs(char *line, t_property_type type, t_game *game);
+t_prop_input	property_get_inputs(char *line, t_property_type type,
+					t_property *property, t_game *game);
 char			**tokenize(const char *str, const char *set,
 					const char *enclosers, size_t *wcount);
 size_t			arguments_length(t_argument *args);
