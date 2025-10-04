@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:55:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 21:23:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/04 19:33:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ from the required path",
 [ERROR_PROP_TOOMANY] = "Too many arguments/values for this property",
 [ERROR_PROP_MISSING] = "Required property is missing",
 [ERROR_PROP_DUPLICATE] = "Property defined multiple times",
+[ERROR_PROP_UNCLOSED_QUOTE] = "Unclosed quote",
+[ERROR_PROP_UNCLOSED_STRUCT] = "Unclosed struct",
+[ERROR_PROP_UNCLOSED_ARRAY] = "Unclosed array",
 [ERROR_PROP_UNKNOWN] = "Unknown property"
 };
 
@@ -94,15 +97,3 @@ void	throw_error_property(const t_property *prop,
 	print_property_usage(prop);
 	exit_game(game);
 }
-
-/*void	throw_error_property(t_property *prop, t_error error, t_game *game)
-{
-	t_argument	argument;
-
-	if (!prop)
-		throw_error(ERROR_BASIC, game);
-	argument = prop->args[index];
-	ft_printf_fd(2, "Error: Line %d: Property '%s' — %s\n",
-		game->parsing.line_num, prop->name, g_errors_arg[error]);
-	ft_printf_fd(2, "	Expected: %s", g_datatype_name[argument])
-}*/

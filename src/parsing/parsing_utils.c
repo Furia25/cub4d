@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:03:47 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/04 19:29:23 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void	map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game)
 		throw_error(ERROR_WTF, game);
 }
 
-bool	str_remove_chars(char *str, char *set)
+void	str_remove_chars(char *str, char *set)
 {
 	bool	in_quotes;
 	int		read_pos;
 	int		write_pos;
 
 	if (!str || !set)
-		return (true);
+		return ;
 	in_quotes = false;
 	read_pos = 0;
 	write_pos = 0;
@@ -75,7 +75,6 @@ bool	str_remove_chars(char *str, char *set)
 		read_pos++;
 	}
 	str[write_pos] = '\0';
-	return (!in_quotes);
 }
 
 int	check_player(t_game *game, int i, int j, int *player)

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:42:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 19:21:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/04 17:46:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parse_property_height(char *line, t_property_type type,
 	t_prop_input		*prop;
 	t_height_data	*event_data;
 
-	parsing->temp_prop = property_get_args(line, type, game);
+	parsing->temp_prop = property_get_inputs(line, type, game);
 	prop = &parsing->temp_prop;
 	if (!(prop->argc == 5 && type != PROP_HEIGHT_PRECISE) && prop->argc != 6)
 		throw_error_info(ERROR_PROPERTY_HEIGHT, line, game);

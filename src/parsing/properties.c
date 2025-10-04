@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:56:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 19:21:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/04 17:46:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	parse_property_color(char *line, t_property_type type,
 	t_prop_input	prop;
 	t_rgba8		*color;
 
-	prop = property_get_args(line, type, game);
+	prop = property_get_inputs(line, type, game);
 	game->parsing.temp_prop = prop;
 	if ((type != PROP_A && prop.argc != 3)
 		|| (type == PROP_A && (prop.argc != 3 && prop.argc != 4))
@@ -72,7 +72,7 @@ void	parse_property_wall(char *line, t_property_type type,
 		cardinal = 3;
 	else
 		cardinal = 0;
-	prop = property_get_args(line, type, game);
+	prop = property_get_inputs(line, type, game);
 	game->parsing.temp_prop = prop;
 	if (prop.argc != 1)
 		throw_error_info(ERROR_PROPERTY_PATH, line, game);

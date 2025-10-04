@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 21:25:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/04 19:29:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,61 @@ typedef struct s_game	t_game;
 
 typedef enum s_data_type
 {
-	TYPE_NULL,
-	TYPE_INT,
-	TYPE_FLOAT,
-	TYPE_BOOL,
-	TYPE_STRING,
-	TYPE_MAX
+	DT_NULL,
+	DT_STRUCT,
+	DT_ENUM,
+	DT_ARRAY,
+	DT_INT,
+	DT_FLOAT,
+	DT_STRING,
+	DT_MAX
 }	t_data_type;
 
-extern const char	*g_datatype_name[TYPE_MAX];
+typedef enum s_data_subtype
+{
+	SDT_NULL,
+	SDT_VEC3,
+	SDT_BOOL,
+	SDT_MAX
+}	t_data_subtype;
+
+typedef struct s_data_type_info
+{
+	const char	*name;
+	size_t		size;
+}	t_data_type_info;
+
+typedef struct s_data_subtype_info
+{
+	const char			*name;
+	const t_argument	*fields;
+	const char			**enum_values;
+	const size_t		count;
+}	t_data_subtype_info;
+
+extern const t_data_type_info		g_data_type_info[DT_MAX];
+extern const t_data_subtype_info	g_data_subtype_info[SDT_MAX];
 
 typedef struct s_argument
 {
-	const char		*name;
-	bool			array;
-	t_data_type		type;
-	long			limit_min;
-	long			limit_max;
-	bool			optional;
+	const char			*name;
+	t_data_subtype		subtype;
+	t_data_type			type;
+	int					int_min;
+	int					int_max;
+	float				fl_min;
+	float				fl_max;
+	bool				limited;
+	bool				array;
+	size_t				array_size;
+	bool				optional;
 }	t_argument;
 
 typedef struct s_property
 {
-	const char	*name;
-	bool		variable;
-	t_argument	*args;
+	const char			*name;
+	const bool			variable;
+	const t_argument	args[];
 }	t_property;
 
 typedef enum e_property_type
@@ -115,46 +145,48 @@ typedef struct s_height_data
 extern const char		*g_property_token[PROP_UNKNOWN];
 
 /*Parsing*/
-void		parsing(char *file_name, t_game *game);
-int			check_file_extension(char *filename);
-void		try_parse_map(int index, t_parsing *parsing, t_game *game);
-void		map_check_borders(t_parsing *parsing, t_game *game);
+void			parsing(char *file_name, t_game *game);
+int				check_file_extension(char *filename);
+void			try_parse_map(int index, t_parsing *parsing, t_game *game);
+void			map_check_borders(t_parsing *parsing, t_game *game);
 
 /*Interpret*/
-void		interpret_map_from_file(t_parsing *parsing, t_game *game);
-void		build_entities(t_parsing *parsing, t_game *game);
+void			interpret_map_from_file(t_parsing *parsing, t_game *game);
+void			build_entities(t_parsing *parsing, t_game *game);
 
-/*Properties Arguments*/
-size_t	arguments_length(t_argument *args);
-bool	is_datatype_numeral(t_data_type type);
-bool	is_argument_limited(t_argument *arg);
-void	print_property_usage(const t_property *prop);
+/*Properties Inputs/Arguments*/
+t_prop_input	property_get_inputs(char *line, t_property_type type, t_game *game);
+char			**tokenize(const char *str, const char *set,
+					const char *enclosers, size_t *wcount);
+size_t			arguments_length(t_argument *args);
+void			print_property_usage(const t_property *prop);
 
 /*Parsing Properties*/
-t_prop_input	property_get_args(char *line, t_property_type type, t_game *game);
-bool		property_check_color(t_prop_input prop);
-void		apply_height_postload(t_height_data *args, t_game *game);
 
-void		parse_property_broadcast(char *line, t_game *game);
-void		parse_property_height(char *line, t_property_type type,
-				t_parsing *parsing, t_game *game);
-void		parse_property_color(char *line, t_property_type type,
-				t_parsing *parsing, t_game *game);
-void		parse_property_wall(char *line, t_property_type type,
-				t_parsing *parsing, t_game *game);
-void		parse_property_entity(char *line, t_property_type type,
-				t_parsing *parsing, t_game *game);
+void			throw_error_property(const t_property *prop,
+					t_error error, t_game *game);
+
+void			apply_height_postload(t_height_data *args, t_game *game);
+void			parse_property_broadcast(char *line, t_game *game);
+void			parse_property_height(char *line, t_property_type type,
+					t_parsing *parsing, t_game *game);
+void			parse_property_color(char *line, t_property_type type,
+					t_parsing *parsing, t_game *game);
+void			parse_property_wall(char *line, t_property_type type,
+					t_parsing *parsing, t_game *game);
+void			parse_property_entity(char *line, t_property_type type,
+					t_parsing *parsing, t_game *game);
 
 /*Tile Symbols*/
-bool		is_symbol_player(char c);
-bool		is_symbol_border(char c);
-bool		is_symbol_central(char c);
-bool		is_symbol_valid(char c);
+bool			is_symbol_player(char c);
+bool			is_symbol_border(char c);
+bool			is_symbol_central(char c);
+bool			is_symbol_valid(char c);
 
 /*Utils*/
-void		property_free(void *ptr);
-bool		str_remove_chars(char *str, char *set);
-bool		is_str_empty(char *str);
-void		map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game);
+void			property_free(void *ptr);
+void			str_remove_chars(char *str, char *set);
+bool			is_str_empty(char *str);
+void			map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game);
 
 #endif

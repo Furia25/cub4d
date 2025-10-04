@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 03:02:54 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 19:21:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/04 17:46:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static inline void					build_entity(char *line, t_prop_input prop,
 void	parse_property_entity(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	parsing->temp_prop = property_get_args(line, type, game);
+	parsing->temp_prop = property_get_inputs(line, type, game);
 	if (!parsing->temp_prop.argv)
 		throw_error(ERROR_PARSING_ALLOC, game);
 	if (parsing->temp_prop.argc < 4)
