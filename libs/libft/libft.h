@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 15:39:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 17:39:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 04:51:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ size_t			ft_strlen(const char *str);
 size_t			ft_strlcat(char *dest, char *src, size_t size);
 size_t			ft_strlcpy(char *dest, char *src, size_t size);
 long			ft_strchri(char *s, int c);
+size_t			ft_strcount(const char *str, char c);
 //
 int				ft_putnbr_base_fd(long nb, char *base, int fd);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);

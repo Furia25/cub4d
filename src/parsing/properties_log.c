@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:50:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 01:43:28 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 04:34:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,36 @@
 #include "stdbool.h"
 #include "stdio.h"
 
+/*
+Error: line 16: 'ENTITY': Invalid Values
+	x : expected <int[5]>, got 'fsdfsdf'
+	name : expected string, got 'fdfdfd' (out of range)
+ */
+
+void	print_property_error(int line, t_error error, t_property *property)
+{
+	ft_printf_fd(2, "Error: line %d: '%s': %s\n",
+		line, property->name, g_errors[error]);
+}
+
+void	print_error_argument(int depth, t_error error,
+			char *token, t_argument *argument)
+{
+	ft_putchar_fd('\t', 2);
+	while (depth > 0)
+	{
+		ft_putchar_fd('\t', 2);
+		depth--;
+	}
+	ft_printf_fd(2, "- %s : expected ", argument->name);
+	print_argument(true, false, argument);
+	ft_printf_fd(2, ", got '%s' ", token);
+	ft_printf_fd(2, "(%s)\n", g_errors[error]);
+}
+				
 static inline void	print_struct_enum(bool verbose, bool name,
 						const t_data_subtype_info *sub);
 
-void	print_error_argument(t_error error,
-			size_t index, t_prop_input *input)
-{
-	const t_property	*property = input->property;
-	const t_argument	*argument = &property->args[index];
-	static bool			property_printed = false;
-
-	if (!property_printed)
-		print_property_error(input->line, ERROR_PROP_INVALID, property);
-	property_printed = true;
-	ft_printf("		- %s : expected ", property);
-	print_argument(true, false, argument);
-	ft_printf(", got '%s' ", input->argv[index]);
-	ft_printf("(%s)\n", g_errors[error]);
-}
-						
 void	print_argument(bool verbose, bool name, const t_argument *arg)
 {
 	const t_data_subtype_info	*sub = &g_data_subtype_info[arg->subtype];
@@ -89,17 +100,4 @@ static inline void	print_struct_enum(bool verbose, bool name,
 			ft_putstr_fd((char *)tab + index, 1);
 		index++;
 	}
-}
-
-/*
-Error: line 16: 'ENTITY': Invalid Values
-	x : expected <int[5]>, got 'fsdfsdf' ()
-	name : expected string, got 'fdfdfd' ()
-		reason: out of range
- */
-
-void	print_property_error(int line, t_error error, t_property *property)
-{
-	ft_printf_fd(2, "Error: line %d: '%s': %s\n",
-		line, property->name, g_errors[error]);
 }

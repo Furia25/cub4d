@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 01:37:42 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 04:42:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ typedef enum e_property_type
 
 typedef struct s_prop_input
 {
-	t_property	*property;
-	char		*line;
 	void		**values;
 	char		**argv;
 	int			argc;
@@ -155,13 +153,29 @@ void			map_check_borders(t_parsing *parsing, t_game *game);
 void			interpret_map_from_file(t_parsing *parsing, t_game *game);
 void			build_entities(t_parsing *parsing, t_game *game);
 
+/*Datatypes parsing*/
+t_error			handle_struct(int depth, char *pretoken,
+					void **value, t_argument *arg);
+t_error			handle_array(int depth, char *pretoken,
+					void **value, t_argument *arg);
+t_error			handle_enum(char *token, void **value,
+					t_argument *arg)
+
+
 /*Properties Inputs/Arguments*/
+
 t_prop_input	property_get_inputs(char *line, t_property_type type,
 					t_property *property, t_game *game);
+t_error			parse_arguments(int depth, void **values,
+					t_argument *args, char **tokens);
 char			**tokenize(const char *str, const char *set,
 					const char *enclosers, size_t *wcount);
 size_t			arguments_length(t_argument *args);
 void			print_property_usage(const t_property *prop);
+void			print_property_error(int line, t_error error,
+					t_property *property);
+void			print_error_argument(int depth, t_error error,
+				char *token, t_argument *argument);
 
 /*Parsing Properties*/
 
@@ -186,9 +200,11 @@ bool			is_symbol_central(char c);
 bool			is_symbol_valid(char c);
 
 /*Utils*/
+bool			prefix_check(bool check_array, char *token, t_argument *arg);
 void			property_free(void *ptr);
 void			str_remove_chars(char *str, char *set);
 bool			is_str_empty(char *str);
-void			map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game);
+void			map_set_player_pos(int x, int y,
+					t_parsing *parsing, t_game *game);
 
 #endif
