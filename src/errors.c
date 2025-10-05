@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:55:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 19:33:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 00:52:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ from the required path",
 [ERROR_PROP_UNCLOSED_QUOTE] = "Unclosed quote",
 [ERROR_PROP_UNCLOSED_STRUCT] = "Unclosed struct",
 [ERROR_PROP_UNCLOSED_ARRAY] = "Unclosed array",
+[ERROR_PROP_INVALID] = "Invalid Values",
 [ERROR_PROP_UNKNOWN] = "Unknown property"
 };
 
@@ -91,9 +92,10 @@ void	print_error_property(bool newline, t_property *prop,
 void	throw_error_property(const t_property *prop,
 			t_error error, t_game *game)
 {
-	if (!prop || error == ERROR_NONE)
+	if (!prop)
 		throw_error(ERROR_BASIC, game);
-	print_error_property(true, prop, error, game->parsing.line_num);
+	if (error != ERROR_NONE)
+		print_error_property(true, prop, error, game->parsing.line_num);
 	print_property_usage(prop);
 	exit_game(game);
 }

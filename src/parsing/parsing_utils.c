@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:03:47 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 19:29:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 01:34:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,23 @@ bool	is_str_empty(char *str)
 	return (true);
 }
 
-int	is_str_bool(char *str)
+bool	prefix_check(char *token, t_argument *arg)
 {
-	if (ft_strcmp(str, FALSE_STR) == 0)
-		return (0);
-	if (ft_strcmp(str, TRUE_STR) == 0)
-		return (1);
-	return (-1);
+	const size_t	length = ft_strlen(token);
+
+	if (length < 2)
+		return (false);
+	if (arg->array && (token[0] != '[' || token[length - 1] != ']'))
+		return (false);
+	else if (arg->type == DT_STRUCT
+		&& (token[0] != '{' || token[length - 1] != '}'))
+		return (false);
+	else if (arg->type == DT_STRING
+		&& (token[0] != '\"' || token[length - 1] != '\"'))
+		return (true);
+	ft_memmove(token, token + 1, length - 2);
+	token[length - 2] = '\0';
+	return (true);
 }
 
 void	map_set_player_pos(int x, int y, t_parsing *parsing, t_game *game)

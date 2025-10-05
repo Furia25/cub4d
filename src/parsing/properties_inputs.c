@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 20:20:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 20:48:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 02:02:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	check_delimiters(char c, char open, char close, int *count)
 	return (true);
 }
 
-t_error	property_check_inputs(char *str)
+t_error	property_check_delimiters(char *str)
 {
 	t_error	result;
 	int		braces;
@@ -51,27 +51,49 @@ t_error	property_check_inputs(char *str)
 	return (ERROR_NONE);
 }
 
+void	property_check_argc(t_prop_input *inputs, t_game *game)
+{
+	const t_property	*property = &inputs->property;
+	const size_t		length = arguments_length(property->args);
+
+	if (inputs->argc < length)
+		throw_error_property(property, ERROR_PROP_MISSING, game);
+	if (property->variable && inputs->argc > length)
+		throw_error_property(property, ERROR_PROP_TOOMANY, game);	
+}
+
+static inline void	handle_error(t_error error, t_property *property,
+						t_prop_input *input, t_game *game)
+{
+	if (error.)
+}
+
 t_prop_input	property_get_inputs(char *line, t_property_type type,
 					t_property *property, t_game *game)
 {
-	t_prop_input	result;
+	t_prop_input	inputs;
 	size_t			index;
 	char			*temp;
 	t_error			temp_error;
 
 	index = ft_strlen(g_property_token[type]);
 	temp = line + index;
-	temp_error = property_check_inputs(temp);
+	temp_error = property_check_delimiters(temp);
 	if (temp_error != ERROR_NONE)
 		throw_error_property(property, temp_error, game);
+	inputs.property = property;
+	inputs.line = line;
 	str_remove_chars(temp, " \t\n"),
-	result.argv = tokenize(temp, ",", "\"\"{}[]", &result.argc);
-	if (!result.argv)
+	inputs.argv = tokenize(temp, TOKEN_DELIMITER,
+		TOKEN_ENCLOSERS, &inputs.argc);
+	if (!inputs.argv)
 		throw_error(ERROR_PARSING_ALLOC, game);
-	if (DEBUG_PARSING)
-	{
-		printf(DEBUG_PREFIX "%s : ", (char *)g_property_token[type]);
-		print_char_tab(result.argv);
-	}
-	return (result);
+	property_check_argc(&inputs, game);
+	inputs.values = ft_calloc(inputs.argc, sizeof(void *));
+	if (!inputs.values)
+		throw_error(ERROR_PARSING_ALLOC, game);
+	temp_error = parse_arguments(1, &inputs.values,
+		&property->args, inputs.argv);
+	handle_error(temp_error, property, &inputs, game);
+	return (inputs);
 }

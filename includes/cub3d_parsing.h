@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 19:56:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 01:37:42 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 # define DEBUG_PARSING	0
 # define PARSING_MAP_MESSAGE "Map size parsed to %dx%d.\n"
 
-# define TRUE_STR	"true"
-# define FALSE_STR	"false"
-
 # define PROPERTY_AMBIANT_MAX	250
+
+# define TOKEN_ENCLOSERS	"\"\"{}[]"
+# define TOKEN_DELIMITER	","
 
 typedef struct s_game	t_game;
 
@@ -31,7 +31,6 @@ typedef enum s_data_type
 	DT_NULL,
 	DT_STRUCT,
 	DT_ENUM,
-	DT_ARRAY,
 	DT_INT,
 	DT_FLOAT,
 	DT_STRING,
@@ -104,9 +103,11 @@ typedef enum e_property_type
 
 typedef struct s_prop_input
 {
-	char	**argv;
-	int		argc;
-	void	**values;
+	t_property	*property;
+	char		*line;
+	void		**values;
+	char		**argv;
+	int			argc;
 }	t_prop_input;
 
 typedef struct s_parsing

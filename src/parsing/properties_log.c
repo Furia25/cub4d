@@ -1,52 +1,70 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argument_log.c                                     :+:      :+:    :+:   */
+/*   properties_log.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:50:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 18:44:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 01:43:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_parsing.h"
+#include "ft_printf.h"
 #include "stdlib.h"
 #include "stdbool.h"
 #include "stdio.h"
 
-static inline void	print_struct_enum(bool verbose,
+static inline void	print_struct_enum(bool verbose, bool name,
 						const t_data_subtype_info *sub);
 
-void	print_argument(bool verbose, const t_argument *arg)
+void	print_error_argument(t_error error,
+			size_t index, t_prop_input *input)
+{
+	const t_property	*property = input->property;
+	const t_argument	*argument = &property->args[index];
+	static bool			property_printed = false;
+
+	if (!property_printed)
+		print_property_error(input->line, ERROR_PROP_INVALID, property);
+	property_printed = true;
+	ft_printf("		- %s : expected ", property);
+	print_argument(true, false, argument);
+	ft_printf(", got '%s' ", input->argv[index]);
+	ft_printf("(%s)\n", g_errors[error]);
+}
+						
+void	print_argument(bool verbose, bool name, const t_argument *arg)
 {
 	const t_data_subtype_info	*sub = &g_data_subtype_info[arg->subtype];
 
 	write(1, '<', arg->optional);
-	printf("%s: ", arg->name);
+	if (name)
+		ft_printf("%s: ", arg->name);
 	if (sub->name != NULL)
 	{
-		printf("%s ", sub->name);
+		ft_printf("%s ", sub->name);
 		if (verbose)
-			print_struct_enum(verbose, sub);
+			print_struct_enum(verbose, name, sub);
 	}
 	else
 		ft_putstr_fd(g_data_type_info[arg->type].name, 1);
 	if (arg->array && arg->array_size != 0)
-		printf("[%zu]", arg->array_size);
+		ft_printf("[%zu]", arg->array_size);
 	else if (arg->array)
 		ft_putstr_fd("[]", 1);
 	if (arg->limited)
 	{
 		if (arg->type == DT_INT)
-			printf("(%d-%d)", arg->int_min, arg->int_max);
+			ft_printf("(%d-%d)", arg->int_min, arg->int_max);
 		else if (arg->type == DT_FLOAT)
-			printf("(%f-%f)", arg->fl_min, arg->fl_max);
+			ft_printf("(%f-%f)", arg->fl_min, arg->fl_max);
 	}
 	write(1, '<', arg->optional);
 }
 
-static inline void	print_struct_enum(bool verbose,
+static inline void	print_struct_enum(bool verbose, bool name,
 						const t_data_subtype_info *sub)
 {
 	size_t		index;
@@ -66,9 +84,22 @@ static inline void	print_struct_enum(bool verbose,
 		else if (index > 0)
 			ft_putstr_fd(", ", 1);
 		if (tab == sub->fields)
-			print_argument(verbose, (t_argument *)tab + index);
+			print_argument(verbose, name, (t_argument *)tab + index);
 		else
 			ft_putstr_fd((char *)tab + index, 1);
 		index++;
 	}
+}
+
+/*
+Error: line 16: 'ENTITY': Invalid Values
+	x : expected <int[5]>, got 'fsdfsdf' ()
+	name : expected string, got 'fdfdfd' ()
+		reason: out of range
+ */
+
+void	print_property_error(int line, t_error error, t_property *property)
+{
+	ft_printf_fd(2, "Error: line %d: '%s': %s\n",
+		line, property->name, g_errors[error]);
 }

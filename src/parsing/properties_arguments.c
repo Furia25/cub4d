@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:44:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 20:47:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 02:05:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,30 @@ size_t	arguments_length(t_argument *args)
 	return (length);
 }
 
-void	property_check_inputs(t_prop_input *inputs,
-			t_property *property, t_game *game)
+t_error	parse_arguments(int depth, void ***values,
+			t_argument *args, char **tokens)
 {
-	const size_t	length = arguments_length(property->args);
+	const size_t		length = arguments_length(args);
+	t_argument			*argument;
+	size_t				index;
+	t_error				error;
 
-	if (inputs->argc < length)
-		throw_error_property(property, ERROR_PROP_MISSING, game);
-	if (property->variable && inputs->argc > length)
-		throw_error_property(property, ERROR_PROP_TOOMANY, game);
+	index = 0;
+	error = ERROR_NONE;
+	while (index < length)
+	{
+		argument = &args[index];
+		if (argument->array)
+			error = handle_array(index, depth, argument, tokens[index]);
+		else if (argument->type == DT_STRUCT)
+			error = handle_struct(index, depth, argument, tokens[index]);
+		else if (argument->type == DT_ENUM)
+			error = handle_enum(index, argument, tokens[index]);
+		else if (argument->type == DT_STRING)
+			error = handle_string(index, argument, tokens[index]);
+		else
+			error = handle_scalar(index, argument, tokens[index]);
+		index++;
+	}
+	return (error);
 }
