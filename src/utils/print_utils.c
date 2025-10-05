@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 19:18:29 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 22:56:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline void	print_loading(int loaded, int max, int *bar)
 
 	index = 0;
 	percent = (int)((float)(loaded + 1) / max * 100);
-	ft_putstr_fd(ANSI_CARRIAGE ANSI_ERASE, 1);
+	ft_putstr_fd(ANSI_CARRIAGE ANSI_CLEAR_LINE, 1);
 	ft_putstr_fd(LOADING_COLOR LOADING_PREFIX " " LOADING_BORDER_LEFT, 1);
 	while (index < max)
 	{
@@ -63,11 +63,11 @@ void	loading_log(int error, char *error_format, char *str)
 
 	if (loaded >= 0)
 		bar[loaded] = error;
-	ft_putstr_fd(ANSI_SEQUENCE_DOWN, 2);
+	ft_putstr_fd(ANSI_CURSOR_DOWN, 2);
 	print_loading(loaded, loading_max, bar);
 	if (error && error_format && str)
 	{
-		ft_putstr_fd(ANSI_CARRIAGE ANSI_ERASE, 1);
+		ft_putstr_fd(ANSI_CARRIAGE ANSI_CLEAR_LINE, 1);
 		error_occured++;
 		if (error == 1)
 			ft_putstr_fd(WARNING_PREFIX, 2);
@@ -94,7 +94,7 @@ void	log_game(uint64_t time, t_game *game)
 	minutes = time_passed / 60000;
 	seconds = (time_passed % 60000) / 1000;
 	milliseconds = time_passed % 1000;
-	ft_putstr_fd(ANSI_CARRIAGE ANSI_ERASE, 1);
+	ft_putstr_fd(ANSI_CARRIAGE ANSI_CLEAR_LINE, 1);
 	ft_printf("FPS : %d DEATH : %d TIME : ", get_fps(time), game->player.deaths);
 	if (minutes < 10)
 		ft_putchar_fd('0', 1);

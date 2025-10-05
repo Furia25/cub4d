@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:55:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 21:02:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 21:55:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ void	free_tokens(char **tokens, size_t argc)
 		free(tokens[index]);
 		index++;
 	}
+	free(tokens);
 }
 
 void	property_inputs_free(t_prop_inputs *inputs)
 {
 	if (!inputs)
 		return ;
-	printf("%ld\n", inputs->argc);
-	free_tokens(inputs->argv, inputs->argc);
+	free_tokens(inputs->argv, inputs->argc + 1);
 	if (inputs->values)
 		free_property_values(true, inputs->values,
 			arguments_length(inputs->arguments), inputs->arguments);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:56:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 19:46:43 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 00:02:30 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static const t_argument	g_argument_color[] = {
 	{.name = "r", .type = DT_UINT, .limited = true, .int_max = 255},
 	{.name = "g", .type = DT_UINT, .limited = true, .int_max = 255},
 	{.name = "b", .type = DT_UINT, .limited = true, .int_max = 255},
-	{.name = "a", .type = DT_UINT,
-		.limited = true, .int_max = PROPERTY_AMBIANT_MAX, .optional = true},
+	{.name = "visible", .type = DT_STRUCT, .subtype = SDT_VEC3, .array = true},
 	{}
 };
 
@@ -43,22 +42,24 @@ void	parse_property_color(char *line, t_property_type type,
 {
 	static const t_property	property = {.name = "color",
 		.args = g_argument_color};
-	t_prop_inputs			prop;
+	t_prop_inputs			*inputs;
 	t_rgba8					*color;
 
-	prop = property_get_inputs(line, type, &property, game);
-	game->parsing.temp_inputs = prop;
+	property_get_inputs(line, type, &property, game);
+	inputs = &parsing->temp_inputs;
+	if (type != PROP_A && inputs->argc == 4)
+		throw_error_property(&property, ERROR_PROP_COLORS_ALPHA, game);
 	if (type == PROP_C)
 		color = &parsing->ceil_color;
 	else if (type == PROP_A)
 		color = &parsing->ambiant_color;
 	else
 		color = &parsing->floor_color;
-	color->channels.r = *(int *)prop.values[0];
-	color->channels.g = *(int *)prop.values[1];
-	color->channels.b = *(int *)prop.values[2];
-	if (type == PROP_A && prop.values[3])
-		parsing->ambiant_strength = *(int *)prop.values[3];
+	color->channels.r = *(int *)inputs->values[0];
+	color->channels.g = *(int *)inputs->values[1];
+	color->channels.b = *(int *)inputs->values[2];
+	if (type == PROP_A && inputs->values[3])
+		parsing->ambiant_strength = *(int *)inputs->values[3];
 	else if (type == PROP_A)
 		parsing->ambiant_strength = 5;
 }
@@ -74,7 +75,7 @@ void	parse_property_wall(char *line, t_property_type type,
 	static const t_property	property = {.name = "wall",
 		.args = g_argument_wall};
 	int						cardinal;
-	t_prop_inputs			inputs;
+	t_prop_inputs			*inputs;
 
 	if (type == PROP_NO)
 		cardinal = 0;
@@ -86,8 +87,8 @@ void	parse_property_wall(char *line, t_property_type type,
 		cardinal = 3;
 	else
 		cardinal = 0;
-	inputs = property_get_inputs(line, type, &property, game);
-	game->parsing.temp_inputs = inputs;
-	parsing->textures_paths[cardinal] = (char *)inputs.values[0];
-	inputs.values[0] = NULL;
+	property_get_inputs(line, type, &property, game);
+	inputs = &parsing->temp_inputs;
+	parsing->textures_paths[cardinal] = (char *)inputs->values[0];
+	inputs->values[0] = NULL;
 }

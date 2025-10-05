@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 04:44:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 20:55:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 23:24:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ t_error	handle_uint(char *token, void **value, t_argument *arg)
 	t_error	error;
 
 	error = handle_int(token, value, arg);
-	if (*value && *(int *)value < 0)
+	if (error != ERROR_NONE)
+		return (error);
+	if (*value && *(int *)(*value) < 0)
 		return (ERROR_ARG_UNSIGNED);
 	return (error);
 }

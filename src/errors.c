@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:55:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 20:47:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 23:38:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,11 @@ const char	*g_errors[ERROR_MAX] = {
 [ERROR_PARSING_NOPLAYER] = "Map must contain at least one player spawn point.",
 [ERROR_PARSING_SYMBOL] = "Invalid map tile symbol encountered.",
 [ERROR_PARSING_PROPERTY] = "Malformed property: check map integrity",
-[ERROR_PARSING_UNCLOSED] = "All tiles must be surrounded by walls; \
-the map cannot have open edges.",
-[ERROR_PARSING_MISSING_COLOR] = "Invalid map configuration: floor and \
-ceiling colors must be defined using the F and C properties.",
-[ERROR_PARSING_MISSING_PATHS] = "Invalid map configuration: wall textures \
-must be defined for all directions using the NO, SO, WE, and EA properties.",
+[ERROR_PARSING_UNCLOSED] = "All tiles must be surrounded by walls; the map cannot have open edges.",
+[ERROR_PARSING_MISSING_COLOR] = "Invalid map configuration: floor and ceiling colors must be defined using the F and C properties.",
+[ERROR_PARSING_MISSING_PATHS] = "Invalid map configuration: wall textures must be defined for all directions using the NO, SO, WE, and EA properties.",
 [ERROR_LOADING_ASSETS] = "Couldn't load assets.",
-[ERROR_LOADING_TEXTURES_FALLBACK] = "Failed to load fallback error texture \
-from the required path",
+[ERROR_LOADING_TEXTURES_FALLBACK] = "Failed to load fallback error texture from the required path",
 [ERROR_LOADING_TEXTURES_FATAL] = "Fatal error occurred while loading textures",
 [ERROR_LOADING_GLYPHS] = "Failed to load or initialize glyphs.",
 [ERROR_LOADING_GRAPHICS] = "Couldn't load textures.",
@@ -45,21 +41,23 @@ from the required path",
 [ERROR_ENTITIES_MISC] = "Unexpected entity manager error.",
 [ERROR_ENTITIES_INVALID] = "Entity Manager couldn't resolve unknown entity.",
 [ERROR_WTF] = "You are cooked, I don't even know how it's possible.",
-[ERROR_PROP_TOOMANY] = "Too many arguments/values for this property",
+[ERROR_PROP_TOOMANY] = "Too many arguments.",
 [ERROR_PROP_MISSING] = "Required property is missing.",
 [ERROR_PROP_DUPLICATE] = "Property defined multiple times.",
-[ERROR_PROP_UNCLOSED_QUOTE] = "Unclosed quote.",
+[ERROR_PROP_UNCLOSED_QUOTE] = "Unclosed quote detected in property value.",
 [ERROR_PROP_UNCLOSED_STRUCT] = "Unclosed struct.",
-[ERROR_PROP_UNCLOSED_ARRAY] = "Unclosed array.",
-[ERROR_PROP_INVALID] = "Invalid Values",
-[ERROR_PROP_HEIGHT_OFFSET] = "Ceil offset is greater than floor offset.",
-[ERROR_ARG_ARRAY_SIZE] = "The array has fixed size.",
-[ERROR_ARG_INCOMPLETE] = "Incomplete data type.",
-[ERROR_ARG_INVALID] = "Invalid Value.",
-[ERROR_ARG_LIMITS] = "Out of range.",
-[ERROR_ARG_MALFORMED_ARRAY] = "Arrays need to be enclosed with brackets.",
-[ERROR_ARG_MALFORMED_STRUCT] = "Structs need to be enclosed with braces.",
-[ERROR_ARG_NAN] = "Not a number.",
+[ERROR_PROP_UNCLOSED_ARRAY] = "Missing closing bracket ']' in array definition.",
+[ERROR_PROP_INVALID] = "Invalid value or syntax.",
+[ERROR_PROP_HEIGHT_OFFSET] = "Ceiling offset cannot exceed floor offset.",
+[ERROR_PROP_COLORS_ALPHA] = "Alpha channel only allowed for 'A'.",
+[ERROR_ARG_ARRAY_SIZE] = "Array size mismatch",
+[ERROR_ARG_INCOMPLETE] = "Incomplete data type",
+[ERROR_ARG_INVALID] = "Invalid argument value or type.",
+[ERROR_ARG_LIMITS] = "Value out of range",
+[ERROR_ARG_MALFORMED_ARRAY] = "Array must be enclosed in square brackets '[...]'",
+[ERROR_ARG_MALFORMED_STRUCT] = "Struct must be enclosed in curly braces '{...}'",
+[ERROR_ARG_NAN] = "Expected a number",
+[ERROR_ARG_UNSIGNED] = "Expected a positive value"
 };
 
 void	print_error(bool newline, t_error error)
@@ -89,22 +87,13 @@ void	throw_error(t_error error, t_game *game)
 	exit_game(game);
 }
 
-void	print_error_property(bool newline, const t_property *prop,
-			t_error error, int line)
-{
-	ft_printf_fd(2, "Error: Line %d: Property '%s' — %s",
-		line, prop->name, g_errors[error]);
-	if (newline)
-		ft_putchar_fd('\n', 2);
-}
-
 void	throw_error_property(const t_property *prop,
 			t_error error, t_game *game)
 {
 	if (!prop)
 		throw_error(ERROR_BASIC, game);
 	if (error != ERROR_NONE)
-		print_error_property(true, prop, error, game->parsing.line_num);
+		print_property_error(game->parsing.line_num, error, prop);
 	print_property_usage(2, prop);
 	exit_game(game);
 }

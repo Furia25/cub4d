@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 17:53:21 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 20:12:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 21:52:31 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static inline void	handle_enclosers(char c, bool *literal,
 	char	*pos;
 	size_t	index;
 
+	if (c == '\0')
+		return ;
 	if (*literal)
 	{
 		if (c == enclosers[*current + 1])
@@ -66,6 +68,7 @@ static inline bool	token_allocate(size_t *wcount, size_t length,
 	tab[*wcount] = ft_substr(start, 0, length);
 	if (!tab[*wcount])
 	{
+		*wcount = 0;
 		free_tab((void **)tab);
 		return (false);
 	}

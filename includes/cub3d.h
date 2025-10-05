@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/05 18:19:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 22:44:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "cub3d_anim.h"
 # include "cub3d_parsing.h"
 # include "cub3d_entities.h"
+# include "ansi_sequence.h"
 
 # define GAME_NAME	"CUB3D"
 # define GAME_NAME_F	"{9t~*}CUB3D"
@@ -49,15 +50,6 @@
 # define SEED_SYSTEM_RAND_FILE	"/dev/urandom"
 # define SEED_FALLBACK_DEFAULT	0xCACA
 # define SEED_MESSAGE	"Seed have been initialized to %016lx\n."
-
-# define ANSI_BOLD	"\033[1m"
-# define ANSI_YELLOW	"\033[1;33m"
-# define ANSI_RED	"\033[31m"
-# define ANSI_RESET	"\033[0m"
-# define ANSI_ERASE	"\033[2K"
-# define ANSI_CARRIAGE	"\r"
-# define ANSI_SEQUENCE_UP	"\033[%dA"
-# define ANSI_SEQUENCE_DOWN	"\033[%dB"
 
 # define INFO_PREFIX	"\033[36mInfo:\033[0m "
 # define DEBUG_PREFIX	"\033[34mDebug:\033[0m "

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 20:39:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 22:44:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "cub3d_structs.h"
 # include "cub3d_errors.h"
+# include "ansi_sequence.h"
 
 # define DEBUG_PARSING	0
 # define PARSING_MAP_MESSAGE "Map size parsed to %dx%d.\n"
@@ -176,7 +177,9 @@ t_error			handle_string(char *token, void **value, t_argument *arg);
 /*Properties Inputs/Arguments*/
 t_prop_inputs	property_get_vla(t_prop_inputs *inputs);
 void			property_inputs_free(t_prop_inputs *inputs);
-t_prop_inputs	property_get_inputs(char *line, t_property_type type,
+void			property_handle_error(int exit_code,
+					const t_property *property, t_game *game);
+void			property_get_inputs(char *line, t_property_type type,
 					const t_property *property, t_game *game);
 int				parse_arguments(int depth, void **values,
 					const t_argument *args, char **tokens);

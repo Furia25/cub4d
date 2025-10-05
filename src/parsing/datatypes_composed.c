@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:01:35 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 20:40:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 00:11:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,27 @@ t_error	handle_struct(int depth, char *pretoken, void **value, t_argument *arg)
 {
 	const t_data_subtype_info	*subtype = &g_data_subtype_info[arg->subtype];
 	char						**tokens;
-	size_t						arg_length;
-	size_t						tokens_length;
+	size_t						arg_needed;
+	size_t						length;
 	t_error						error;
 
 	if (!pretoken || !dt_check_prefix(pretoken, arg))
 		return (ERROR_ARG_MALFORMED_STRUCT);
-	arg_length = arguments_length(subtype->fields);
-	*value = ft_calloc(arg_length + 1, sizeof(void *));
+	arg_needed = arguments_length(subtype->fields);
+	*value = ft_calloc(arg_needed + 1, sizeof(void *));
 	if (!(*value))
 		return (ERROR_PARSING_ALLOC);
-	tokens = tokenize(pretoken, TOKEN_DELIMITER,
-		TOKEN_ENCLOSERS, &tokens_length);
+	tokens = tokenize(pretoken, TOKEN_DELIMITER, TOKEN_ENCLOSERS, &length);
 	if (!tokens)
 		return (ERROR_PARSING_ALLOC);
-	if (arg_length != tokens_length)
+	if (arg_needed != length)
 	{
 		free_tab((void **)tokens);
 		return (ERROR_ARG_INCOMPLETE);
 	}
 	error = parse_arguments(depth + 1, *value,
 		subtype->fields, tokens);
+	printf("%d\n", error);
 	free_tab((void **)tokens);
 	return (error);
 }
@@ -64,7 +64,7 @@ static inline t_error	parse_array(int depth, char **tokens,
 		{
 			print_error_argument(depth, temp_error,
 				tokens[index], &array->template);
-			error = temp_error;
+			error = ERROR_ARG_INCOMPLETE;
 		}
 		index++;
 	}
@@ -79,7 +79,7 @@ t_error	handle_array(int depth, char *pretoken, void **value, t_argument *arg)
 	t_error		error;
 
 	if (!pretoken || !dt_check_prefix(pretoken, arg))
-		return (ERROR_ARG_MALFORMED_STRUCT);
+		return (ERROR_ARG_MALFORMED_ARRAY);
 	tokens = tokenize(pretoken, TOKEN_DELIMITER, TOKEN_ENCLOSERS, &length);
 	if (!tokens)
 		return (ERROR_PARSING_ALLOC);

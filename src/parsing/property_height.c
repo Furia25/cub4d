@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:42:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 18:57:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 21:33:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	parse_property_height(char *line, t_property_type type,
 	t_prop_inputs	*prop;
 	t_height_data	*event_data;
 
-	parsing->temp_inputs = property_get_inputs(line, type, &property, game);
+	property_get_inputs(line, type, &property, game);
 	prop = &parsing->temp_inputs;
 	event_data = malloc(sizeof(t_height_data));
 	if (!event_data)
