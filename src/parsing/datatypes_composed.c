@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:01:35 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 00:11:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 01:47:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ t_error	handle_struct(int depth, char *pretoken, void **value, t_argument *arg)
 		free_tab((void **)tokens);
 		return (ERROR_ARG_INCOMPLETE);
 	}
-	error = parse_arguments(depth + 1, *value,
+	error = parse_arguments(depth, *value,
 		subtype->fields, tokens);
-	printf("%d\n", error);
 	free_tab((void **)tokens);
 	return (error);
 }
@@ -62,8 +61,9 @@ static inline t_error	parse_array(int depth, char **tokens,
 			return (ERROR_PARSING_ALLOC);
 		else if (temp_error != ERROR_NONE)
 		{
-			print_error_argument(depth, temp_error,
-				tokens[index], &array->template);
+			if (!argument_error_register(depth, temp_error,
+				tokens[index], &array->template))
+				return (ERROR_WTF);
 			error = ERROR_ARG_INCOMPLETE;
 		}
 		index++;
@@ -73,7 +73,6 @@ static inline t_error	parse_array(int depth, char **tokens,
 
 t_error	handle_array(int depth, char *pretoken, void **value, t_argument *arg)
 {
-	t_dt_array	*array;
 	char		**tokens;
 	size_t		length;
 	t_error		error;
@@ -88,15 +87,14 @@ t_error	handle_array(int depth, char *pretoken, void **value, t_argument *arg)
 		free_tab((void **)tokens);
 		return (ERROR_ARG_ARRAY_SIZE);
 	}
-	array = ft_calloc(1, sizeof(t_dt_array) + ((length + 1) * sizeof(void *)));
-	if (!array)
+	*value = ft_calloc(1, sizeof(t_dt_array) + ((length + 1) * sizeof(void *)));
+	if (!(*value))
 	{
 		free_tab((void **)tokens);
 		return (ERROR_PARSING_ALLOC);
 	}
-	*value = array;
-	array->length = length;
-	error = parse_array(depth + 1, tokens, array, arg);
+	((t_dt_array *)*value)->length = length;
+	error = parse_array(depth + 1, tokens, *value, arg);
 	free_tab((void **)tokens);
 	return (error);
 }

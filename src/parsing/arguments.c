@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   properties_arguments.c                             :+:      :+:    :+:   */
+/*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:44:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 23:54:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 01:45:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,35 +69,33 @@ t_error	parse_datatype(int depth, char *token,
 	return (error);
 }
 
-int	parse_arguments(int depth, void **values,
+t_error	parse_arguments(int depth, void **values,
 			const t_argument *args, char **tokens)
 {
 	const size_t		length = arguments_length(args);
 	t_argument			*arg;
 	size_t				index;
-	int					exit_code;
+	t_error				exit_error;
 	t_error				error;
 
 	index = 0;
-	exit_code = 0;
+	exit_error = ERROR_NONE;
 	while (index < length)
 	{
 		arg = (t_argument *)args + index;
-		if (arg->optional && (!tokens[index] || tokens[index][0] == '\0'))
+		if (!arg->optional || (tokens[index] && tokens[index][0] == '\0'))
 		{
-			values[index] = NULL;
-			index++;
-			continue ;
-		}
-		error = parse_datatype(depth, tokens[index], values + index, arg);
-		if (error == ERROR_BASIC || error == ERROR_PARSING_ALLOC)
-			return (2);
-		else if (error != ERROR_NONE)
-		{
-			print_error_argument(depth, error, tokens[index], arg);
-			exit_code = 1;
+			error = parse_datatype(depth, tokens[index], values + index, arg);
+			if (error == ERROR_PARSING_ALLOC)
+				return (ERROR_PARSING_ALLOC);
+			else if (error != ERROR_NONE)
+			{
+				if (!argument_error_register(depth, error, tokens[index], arg))
+					return (ERROR_PARSING_ALLOC);
+				exit_error = ERROR_ARG_INVALID;
+			}
 		}
 		index++;
 	}
-	return (exit_code);
+	return (exit_error);
 }

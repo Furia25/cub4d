@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 18:33:00 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 01:31:25 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	parsing(char *file_name, t_game *game)
 	close(parsing->file_fd);
 	parsing->file_fd = -1;
 	parsing->line_num = 0;
+	argument_error_queue_init(game);
 	interpret_map_from_file(parsing, game);
 	parsing_end(parsing, game);
 }
@@ -48,6 +49,7 @@ static inline void	parsing_end(t_parsing *parsing, t_game *game)
 	map_check_borders(parsing, game);
 	free_tab((void **)parsing->file_content);
 	parsing->file_content = NULL;
+	argument_error_queue_clean();
 	printf(INFO_PREFIX PARSING_MAP_MESSAGE,
 		parsing->map_width, parsing->map_height);
 }

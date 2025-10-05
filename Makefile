@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/05 18:20:43 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/06 01:18:03 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,8 @@ SRC_FILES = \
 	parsing/properties_log.c \
 	parsing/properties_inputs.c \
 	parsing/properties_free.c \
-	parsing/properties_arguments.c \
+	parsing/arguments.c \
+	parsing/arguments_errors.c \
 	parsing/parsing.c \
 	parsing/parsing_utils.c \
 	parsing/map_parsing.c \

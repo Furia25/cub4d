@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 20:20:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 23:29:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 01:43:50 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,20 @@ void	property_check_argc(const t_property *property, t_prop_inputs *inputs,
 		throw_error_property(property, ERROR_PROP_TOOMANY, game);
 }
 
-void	property_handle_error(int exit_code,
+void	property_handle_error(t_error error,
 			const t_property *property, t_game *game)
 {
-	if (exit_code == 0)
+	if (error == ERROR_NONE)
 		return ;
-	else if (exit_code == 1)
+	else if (error != ERROR_PARSING_ALLOC)
 	{
-		ft_putstr_fd(ANSI_RESTORE_CURSOR, 2);
 		print_property_error(game->parsing.line_num, ERROR_PROP_INVALID, property);
+		argument_queue_print();
 		print_property_usage(2, property);
 		exit_game(game);
 	}
 	else
-		throw_error(ERROR_PARSING_ALLOC, game);
+		throw_error(ERROR_PARSING_ALLOC, game);	
 }
 
 void	property_get_inputs(char *line, t_property_type type,
@@ -85,7 +85,7 @@ void	property_get_inputs(char *line, t_property_type type,
 	t_prop_inputs		*inputs;
 	char				*temp;
 	t_error				temp_error;
-	int					exit_code;
+	t_error				error;
 
 	inputs = &game->parsing.temp_inputs;
 	temp = line + ft_strlen(g_property_token[type]);
@@ -105,6 +105,6 @@ void	property_get_inputs(char *line, t_property_type type,
 	inputs->values = ft_calloc(inputs->argc + 1, sizeof(void *));
 	if (!inputs->values)
 		throw_error(ERROR_PARSING_ALLOC, game);
-	exit_code = parse_arguments(1, inputs->values, property->args, inputs->argv);
-	property_handle_error(exit_code, property, game);
+	error = parse_arguments(1, inputs->values, property->args, inputs->argv);
+	property_handle_error(error, property, game);
 }

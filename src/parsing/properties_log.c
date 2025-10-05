@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:50:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 23:47:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 01:56:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 #include "stdlib.h"
 #include "stdbool.h"
 #include "stdio.h"
-
-/*
-Error: line 16: 'ENTITY': Invalid Values
-	x : expected <int[5]>, got 'fsdfsdf'
-	name : expected string, got 'fdfdfd' (out of range)
-*/
 
 void	print_property_usage(int fd, const t_property *property)
 {
@@ -57,18 +51,18 @@ void	print_error_argument(int depth, t_error error,
 {
 	while (depth > 0)
 	{
-		ft_putstr_fd("   ", 2);
+		ft_putstr_fd("  ", 2);
 		depth--;
 	}
 	ft_printf_fd(2, "- " ANSI_BRIGHT_CYAN "%s" ANSI_RESET ": expected ",
 		argument->name);
-	print_argument(2, true, false, argument);
+	print_argument(2, false, false, argument);
 	ft_printf_fd(2, ", got '%s' ", token);
 	ft_printf_fd(2, "(" ANSI_BRIGHT_BLACK "%s" ANSI_RESET ")\n",
 		g_errors[error]);
 }
 				
-static inline void	print_struct_enum(int fd, bool verbose, bool name,
+static inline void	print_struct_enum(int fd, bool verbose,
 						const t_data_subtype_info *sub);
 
 void	print_argument(int fd, bool verbose, bool name, const t_argument *arg)
@@ -86,9 +80,9 @@ void	print_argument(int fd, bool verbose, bool name, const t_argument *arg)
 		type_name = (char *)(g_data_type_info[arg->type]);
 	ft_printf_fd(fd, ANSI_MAGENTA "%s" ANSI_RESET, type_name);
 	if (verbose && sub->name)
-		print_struct_enum(fd, verbose, name, sub);
+		print_struct_enum(fd, verbose, sub);
 	if (arg->array_size != 0)
-		ft_printf_fd(fd, ANSI_BRIGHT_MAGENTA"[%d]"ANSI_RESET, arg->array_size);
+		ft_printf_fd(fd, ANSI_BRIGHT_MAGENTA"[%d]"ANSI_WHITE, arg->array_size);
 	else if (arg->array)
 		ft_putstr_fd(ANSI_BRIGHT_MAGENTA"[]"ANSI_RESET, fd);
 	if (arg->limited && arg->type == DT_FLOAT)
@@ -100,7 +94,7 @@ void	print_argument(int fd, bool verbose, bool name, const t_argument *arg)
 	ft_putstr_fd(ANSI_RESET, fd);
 }
 
-static inline void	print_struct_enum(int fd, bool verbose, bool name,
+static inline void	print_struct_enum(int fd, bool verbose,
 						const t_data_subtype_info *sub)
 {
 	size_t		index;
@@ -121,7 +115,7 @@ static inline void	print_struct_enum(int fd, bool verbose, bool name,
 		else if (index > 0)
 			ft_putstr_fd("|", fd);
 		if (tab == sub->fields)
-			print_argument(fd, verbose, name, (t_argument *)tab + index);
+			print_argument(fd, verbose, true, (t_argument *)tab + index);
 		else
 			ft_putstr_fd(((char **)tab)[index], fd);
 		index++;

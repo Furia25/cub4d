@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 22:44:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 01:54:30 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_prop_inputs
 
 typedef struct s_parsing
 {
+	t_vector		error_queue;
 	int				line_num;
 	int				file_fd;
 	int				file_length;
@@ -148,6 +149,14 @@ typedef struct s_height_data
 	bool	precise;
 }	t_height_data;
 
+typedef struct s_argument_error
+{
+	t_error		error;
+	int			depth;
+	char		*token;
+	t_argument	argument;
+}	t_argument_error;
+
 extern const char		*g_property_token[PROP_UNKNOWN];
 
 /*Parsing*/
@@ -174,14 +183,22 @@ t_error			handle_int(char *token, void **value, t_argument *arg);
 t_error			handle_uint(char *token, void **value, t_argument *arg);
 t_error			handle_string(char *token, void **value, t_argument *arg);
 
+/*Errors*/
+void	argument_error_free(t_argument_error *error_packet);
+void	argument_error_queue_init(t_game *game);
+void	argument_error_queue_clean(void);
+bool	argument_error_register(int depth, t_error error, char *token,
+			const t_argument *argument);
+void	argument_queue_print(void);
+
 /*Properties Inputs/Arguments*/
 t_prop_inputs	property_get_vla(t_prop_inputs *inputs);
 void			property_inputs_free(t_prop_inputs *inputs);
-void			property_handle_error(int exit_code,
+void			property_handle_error(t_error exit_code,
 					const t_property *property, t_game *game);
 void			property_get_inputs(char *line, t_property_type type,
 					const t_property *property, t_game *game);
-int				parse_arguments(int depth, void **values,
+t_error			parse_arguments(int depth, void **values,
 					const t_argument *args, char **tokens);
 t_error			parse_datatype(int depth, char *token,
 					void **value, t_argument *argument);
@@ -189,7 +206,8 @@ char			**tokenize(const char *str, const char *set,
 					const char *enclosers, size_t *wcount);
 size_t			arguments_count_required(const t_argument *args);
 size_t			arguments_length(const t_argument *args);
-void			print_argument(int fd, bool verbose, bool name, const t_argument *arg);
+void			print_argument(int fd, bool verbose, bool name,
+					const t_argument *arg);
 void			print_property_usage(int fd, const t_property *property);
 void			print_property_error(int line, t_error error,
 					const t_property *property);
