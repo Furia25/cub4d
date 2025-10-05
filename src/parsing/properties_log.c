@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:50:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 18:27:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 20:09:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ void	print_property_usage(int fd, const t_property *property)
 	if (!property)
 		return ;
 	length = arguments_length(property->args);
-	ft_printf_fd(fd, "Usage : '%s'(", property->name);
+	ft_printf_fd(fd, "Usage : '%s' (", property->name);
 	while (index < length)
 	{
 		print_argument(fd, true, true, &property->args[index]);
 		index++;
+		if (index < length)
+			ft_putstr_fd(", ", fd);
 	}
 	if (property->variable)
 		ft_putstr_fd("...", fd);
@@ -52,10 +54,9 @@ void	print_property_error(int line, t_error error,
 void	print_error_argument(int depth, t_error error,
 			char *token, t_argument *argument)
 {
-	ft_putchar_fd('\t', 2);
 	while (depth > 0)
 	{
-		ft_putchar_fd('\t', 2);
+		ft_putstr_fd("   ", 2);
 		depth--;
 	}
 	ft_printf_fd(2, "- %s : expected ", argument->name);
@@ -82,7 +83,7 @@ void	print_argument(int fd, bool verbose, bool name, const t_argument *arg)
 			print_struct_enum(fd, verbose, name, sub);
 	}
 	else
-		ft_putstr_fd((char *)(g_data_type_info[arg->type].name), fd);
+		ft_putstr_fd((char *)(g_data_type_info[arg->type]), fd);
 	if (arg->array && arg->array_size != 0)
 		ft_printf_fd(fd, "[%zu]", arg->array_size);
 	else if (arg->array)
@@ -95,7 +96,7 @@ void	print_argument(int fd, bool verbose, bool name, const t_argument *arg)
 			ft_printf_fd(fd, "(%f-%f)", arg->fl_min, arg->fl_max);
 	}
 	if (arg->optional)
-		ft_putchar_fd('<', fd);
+		ft_putchar_fd('>', fd);
 }
 
 static inline void	print_struct_enum(int fd, bool verbose, bool name,

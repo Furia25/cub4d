@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:56:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 17:16:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 19:46:43 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,25 @@ void	parse_property_broadcast(char *line, t_game *game)
 	}
 }
 
+static const t_argument	g_argument_color[] = {
+	{.name = "r", .type = DT_UINT, .limited = true, .int_max = 255},
+	{.name = "g", .type = DT_UINT, .limited = true, .int_max = 255},
+	{.name = "b", .type = DT_UINT, .limited = true, .int_max = 255},
+	{.name = "a", .type = DT_UINT,
+		.limited = true, .int_max = PROPERTY_AMBIANT_MAX, .optional = true},
+	{}
+};
+
 void	parse_property_color(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	t_prop_inputs	prop;
-	t_rgba8		*color;
+	static const t_property	property = {.name = "color",
+		.args = g_argument_color};
+	t_prop_inputs			prop;
+	t_rgba8					*color;
 
-	prop = property_get_inputs(line, type, NULL, game);
-	game->parsing.temp_prop = prop;
+	prop = property_get_inputs(line, type, &property, game);
+	game->parsing.temp_inputs = prop;
 	if (type == PROP_C)
 		color = &parsing->ceil_color;
 	else if (type == PROP_A)
@@ -52,11 +63,18 @@ void	parse_property_color(char *line, t_property_type type,
 		parsing->ambiant_strength = 5;
 }
 
+static const t_argument	g_argument_wall[] = {
+	{.name = "path", .type = DT_STRING},
+	{}
+};
+
 void	parse_property_wall(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	int			cardinal;
-	t_prop_inputs	prop;
+	static const t_property	property = {.name = "wall",
+		.args = g_argument_wall};
+	int						cardinal;
+	t_prop_inputs			inputs;
 
 	if (type == PROP_NO)
 		cardinal = 0;
@@ -68,8 +86,8 @@ void	parse_property_wall(char *line, t_property_type type,
 		cardinal = 3;
 	else
 		cardinal = 0;
-	prop = property_get_inputs(line, type, NULL, game);
-	game->parsing.temp_prop = prop;
-	parsing->textures_paths[cardinal] = (char *)prop.values[0];
-	prop.values[0] = NULL;
+	inputs = property_get_inputs(line, type, &property, game);
+	game->parsing.temp_inputs = inputs;
+	parsing->textures_paths[cardinal] = (char *)inputs.values[0];
+	inputs.values[0] = NULL;
 }

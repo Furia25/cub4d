@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 18:27:27 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 20:39:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define DEBUG_PARSING	0
 # define PARSING_MAP_MESSAGE "Map size parsed to %dx%d.\n"
 
-# define PROPERTY_AMBIANT_MAX	250
+# define PROPERTY_AMBIANT_MAX	200
 
 # define TOKEN_ENCLOSERS	"\"\"{}[]"
 # define TOKEN_DELIMITER	","
@@ -32,6 +32,7 @@ typedef enum s_data_type
 	DT_STRUCT,
 	DT_ENUM,
 	DT_INT,
+	DT_UINT,
 	DT_FLOAT,
 	DT_STRING,
 	DT_MAX
@@ -46,13 +47,7 @@ typedef enum s_data_subtype
 	SDT_MAX
 }	t_data_subtype;
 
-typedef struct s_data_type_info
-{
-	const char	*name;
-	size_t		size;
-}	t_data_type_info;
-
-extern const t_data_type_info		g_data_type_info[DT_MAX];
+extern const char		*g_data_type_info[DT_MAX];
 
 typedef struct s_argument
 {
@@ -68,6 +63,13 @@ typedef struct s_argument
 	size_t				array_size;
 	bool				optional;
 }	t_argument;
+
+typedef struct s_dt_array
+{
+	size_t		length;
+	t_argument	template;
+	void		*values[];
+}	t_dt_array;
 
 typedef struct s_data_subtype_info
 {
@@ -131,7 +133,7 @@ typedef struct s_parsing
 	t_rgba8			ceil_color;
 	bool			has_ceil;
 	bool			has_floor;
-	t_prop_inputs	temp_prop;
+	t_prop_inputs	temp_inputs;
 }	t_parsing;
 
 typedef struct s_height_data
@@ -168,19 +170,21 @@ t_error			handle_array(int depth, char *pretoken,
 t_error			handle_enum(char *token, void **value, t_argument *arg);
 t_error			handle_float(char *token, void **value, t_argument *arg);
 t_error			handle_int(char *token, void **value, t_argument *arg);
+t_error			handle_uint(char *token, void **value, t_argument *arg);
 t_error			handle_string(char *token, void **value, t_argument *arg);
 
 /*Properties Inputs/Arguments*/
 t_prop_inputs	property_get_vla(t_prop_inputs *inputs);
 void			property_inputs_free(t_prop_inputs *inputs);
 t_prop_inputs	property_get_inputs(char *line, t_property_type type,
-					t_property *property, t_game *game);
-t_error			parse_arguments(int depth, void **values,
+					const t_property *property, t_game *game);
+int				parse_arguments(int depth, void **values,
 					const t_argument *args, char **tokens);
 t_error			parse_datatype(int depth, char *token,
 					void **value, t_argument *argument);
 char			**tokenize(const char *str, const char *set,
 					const char *enclosers, size_t *wcount);
+size_t			arguments_count_required(const t_argument *args);
 size_t			arguments_length(const t_argument *args);
 void			print_argument(int fd, bool verbose, bool name, const t_argument *arg);
 void			print_property_usage(int fd, const t_property *property);

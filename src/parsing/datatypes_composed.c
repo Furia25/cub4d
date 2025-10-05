@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:01:35 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 18:32:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 20:40:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,29 @@ t_error	handle_struct(int depth, char *pretoken, void **value, t_argument *arg)
 }
 
 static inline t_error	parse_array(int depth, char **tokens,
-							void **values, t_argument *arg)
+							t_dt_array *array, t_argument *arg)
 {
-	t_argument	template;
-	t_error		error;
-	size_t		length;
+	t_error		temp_error;
 	size_t		index;
+	t_error		error;
 
-	length = tab_length((void **)tokens);
-	template = *arg;
-	template.array = false;
-	template.optional = false;
+	array->template = *arg;
+	array->template.array = false;
+	array->template.optional = false;
 	index = 0;
 	error = ERROR_NONE;
-	while (index < length)
+	while (index < array->length)
 	{
-		error = parse_datatype(depth + 1, tokens[index],
-			values + index, &template);
-		if (error == ERROR_PARSING_ALLOC || error == ERROR_BASIC)
-			break ;
-		else if (error != ERROR_NONE)
-			print_error_argument(depth, error, tokens[index], &template);
+		temp_error = parse_datatype(depth + 1, tokens[index],
+			array->values + index, &array->template);
+		if (temp_error == ERROR_PARSING_ALLOC || temp_error == ERROR_BASIC)
+			return (ERROR_PARSING_ALLOC);
+		else if (temp_error != ERROR_NONE)
+		{
+			print_error_argument(depth, temp_error,
+				tokens[index], &array->template);
+			error = temp_error;
+		}
 		index++;
 	}
 	return (error);
@@ -71,9 +73,10 @@ static inline t_error	parse_array(int depth, char **tokens,
 
 t_error	handle_array(int depth, char *pretoken, void **value, t_argument *arg)
 {
-	char	**tokens;
-	size_t	length;
-	t_error	error;
+	t_dt_array	*array;
+	char		**tokens;
+	size_t		length;
+	t_error		error;
 
 	if (!pretoken || !dt_check_prefix(pretoken, arg))
 		return (ERROR_ARG_MALFORMED_STRUCT);
@@ -85,13 +88,15 @@ t_error	handle_array(int depth, char *pretoken, void **value, t_argument *arg)
 		free_tab((void **)tokens);
 		return (ERROR_ARG_ARRAY_SIZE);
 	}
-	*value = ft_calloc(length + 1, sizeof(void *));
-	if (!(*value))
+	array = ft_calloc(1, sizeof(t_dt_array) + ((length + 1) * sizeof(void *)));
+	if (!array)
 	{
 		free_tab((void **)tokens);
 		return (ERROR_PARSING_ALLOC);
 	}
-	error = parse_array(depth + 1, tokens, (void **)*value, arg);
+	*value = array;
+	array->length = length;
+	error = parse_array(depth + 1, tokens, array, arg);
 	free_tab((void **)tokens);
 	return (error);
 }

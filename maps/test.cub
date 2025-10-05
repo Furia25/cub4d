@@ -4,15 +4,15 @@
 ##
 
 #Textures
-NO assets/textures/tiles/wall_north.png
+NO "assets/textures/tiles/wall_north.png"
 SO assets/textures/tiles/wall_south.png
 WE assets/textures/tiles/wall_west.png
 EA assets/textures/tiles/wall_east.png
 
 #Colors
-F 153, 247, 98
+F 350, 247, 350,
 C 135, 206, 250
-A 135, 206, 250, 2
+A 135, 206, 350, 300
 
 #Tilemap
 #

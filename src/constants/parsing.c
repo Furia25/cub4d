@@ -6,20 +6,21 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:28:39 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 17:31:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 20:50:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_entities.h"
 #include "cub3d_parsing.h"
 
-const t_data_type_info			g_data_type_info[DT_MAX] = {
-[DT_INT] = {"int", sizeof(int)},
-[DT_FLOAT] = {"float", sizeof(float)},
-[DT_STRING] = {"string", sizeof(char *)},
-[DT_STRUCT] = {"struct", 0},
-[DT_ENUM] = {"enum", 0},
-[DT_NULL] = {"null", 0}
+const char						*g_data_type_info[DT_MAX] = {
+[DT_INT] = "int",
+[DT_FLOAT] = "float",
+[DT_STRING] = "string",
+[DT_UINT] = "uint",
+[DT_STRUCT] = "struct",
+[DT_ENUM] = "enum",
+[DT_NULL] = "null",
 };
 
 const t_argument				g_dt_vec3[4] = {

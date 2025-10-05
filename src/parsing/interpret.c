@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:06:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 17:09:42 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 19:27:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	interpret_map_from_file(t_parsing *parsing, t_game *game)
 		if (type == PROP_UNKNOWN)
 			break ;
 		parse_property(line, type, parsing, game);
-		property_inputs_free(&parsing->temp_prop);
+		property_inputs_free(&parsing->temp_inputs);
 		index++;
 	}
 	if (index >= parsing->file_length)

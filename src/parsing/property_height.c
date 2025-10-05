@@ -6,11 +6,21 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:42:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 17:50:29 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 18:57:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static const t_argument	g_arguments_height[] = {
+	{.name = "x", .type = DT_UINT},
+	{.name = "y", .type = DT_UINT},
+	{.name = "ceil_offset", .type = DT_FLOAT, .limited = true,
+		.fl_min = -HEIGHT_LIMIT, .fl_max = HEIGHT_LIMIT},
+	{.name = "floor_offset", .type = DT_FLOAT, .limited = true,
+		.fl_min = -HEIGHT_LIMIT, .fl_max = HEIGHT_LIMIT, .optional = true},
+	{}
+};
 
 static inline void	property_check_set_heights(t_height_data *data,
 						t_prop_inputs *prop, t_game *game);
@@ -18,11 +28,13 @@ static inline void	property_check_set_heights(t_height_data *data,
 void	parse_property_height(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	t_prop_inputs		*prop;
+	static const 	t_property property = {.name = "HEIGHT",
+		.args = g_arguments_height};
+	t_prop_inputs	*prop;
 	t_height_data	*event_data;
 
-	parsing->temp_prop = property_get_inputs(line, type, NULL, game);
-	prop = &parsing->temp_prop;
+	parsing->temp_inputs = property_get_inputs(line, type, &property, game);
+	prop = &parsing->temp_inputs;
 	event_data = malloc(sizeof(t_height_data));
 	if (!event_data)
 		throw_error(ERROR_PARSING_ALLOC, game);

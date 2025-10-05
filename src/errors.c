@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:55:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 18:28:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 20:47:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ from the required path",
 [ERROR_ARG_LIMITS] = "Out of range.",
 [ERROR_ARG_MALFORMED_ARRAY] = "Arrays need to be enclosed with brackets.",
 [ERROR_ARG_MALFORMED_STRUCT] = "Structs need to be enclosed with braces.",
-[ERROR_ARG_MALFORMED_STRING] = "Strings need to be enclosed with quotes.",
 [ERROR_ARG_NAN] = "Not a number.",
 };
 

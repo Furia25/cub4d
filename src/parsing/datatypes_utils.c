@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:25:39 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 17:28:53 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 20:44:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ bool	dt_check_prefix(char *token, t_argument *arg)
 	else if (arg->type == DT_STRUCT
 		&& (token[0] != '{' || token[length - 1] != '}'))
 		return (false);
-	else if (arg->type == DT_STRING
-		&& (token[0] != '\"' || token[length - 1] != '\"'))
-		return (true);
 	ft_memmove(token, token + 1, length - 2);
 	token[length - 2] = '\0';
 	return (true);
