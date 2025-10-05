@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:09:37 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/03 18:55:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 17:10:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	exit_game(t_game *game)
 		close(game->parsing.file_fd);
 	game->textures[TEXTURE_WATER] = NULL;
 	tilemap_free(game->tilemap);
-	free_tab((void **)game->parsing.temp_prop.argv);
+	property_inputs_free(&game->parsing.temp_prop);
 	free_tab((void **)game->parsing.map);
 	free_tab((void **)game->parsing.file_content);
 	if (game->win.ptr)

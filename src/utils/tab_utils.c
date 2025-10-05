@@ -6,11 +6,26 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:13:59 by halnuma           #+#    #+#             */
-/*   Updated: 2025/09/29 18:58:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 16:42:11 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+size_t	tab_length(void **tab)
+{
+	size_t	count;
+
+	if (!tab)
+		return (0);
+	count = 0;
+	while (*tab)
+	{
+		tab++;
+		count++;
+	}
+	return (count);
+}
 
 char	**chartab_dup(char **tab, size_t height)
 {

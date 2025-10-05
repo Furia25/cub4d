@@ -6,30 +6,28 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:42:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 17:46:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 17:50:29 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static inline void	property_check_set_heights(char *line, t_height_data *data,
-						t_prop_input *prop, t_game *game);
+static inline void	property_check_set_heights(t_height_data *data,
+						t_prop_inputs *prop, t_game *game);
 
 void	parse_property_height(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	t_prop_input		*prop;
+	t_prop_inputs		*prop;
 	t_height_data	*event_data;
 
-	parsing->temp_prop = property_get_inputs(line, type, game);
+	parsing->temp_prop = property_get_inputs(line, type, NULL, game);
 	prop = &parsing->temp_prop;
-	if (!(prop->argc == 5 && type != PROP_HEIGHT_PRECISE) && prop->argc != 6)
-		throw_error_info(ERROR_PROPERTY_HEIGHT, line, game);
 	event_data = malloc(sizeof(t_height_data));
 	if (!event_data)
 		throw_error(ERROR_PARSING_ALLOC, game);
 	event_data->precise = type == PROP_HEIGHT_PRECISE;
-	property_check_set_heights(line, event_data, prop, game);
+	property_check_set_heights(event_data, prop, game);
 	if (!event_queue_push((void (*)(void *, t_game *))apply_height_postload,
 		event_data, true, game->events_postload))
 	{
@@ -38,32 +36,22 @@ void	parse_property_height(char *line, t_property_type type,
 	}
 }
 
-static inline void	property_check_set_heights(char *line, t_height_data *data,
-						t_prop_input *prop, t_game *game)
+static inline void	property_check_set_heights(t_height_data *data,
+						t_prop_inputs *prop, t_game *game)
 {
-	t_error	error;
-
-	error = ERROR_NONE;
-	data->x = ft_atoi(prop->argv[0]);
-	data->y = ft_atoi(prop->argv[1]);
-	data->width = ft_atoi(prop->argv[2]);
-	data->height = ft_atoi(prop->argv[3]);
-	data->ceil_offset = ft_atof(prop->argv[4]);
-	if (prop->argc == 6)
-		data->floor_offset = ft_atof(prop->argv[5]);
+	data->x = *(int *)prop->values[0];
+	data->y = *(int *)prop->values[1];
+	data->width = *(int *)prop->values[2];
+	data->height = *(int *)prop->values[3];
+	data->ceil_offset = *(float *)prop->values[4];
+	if (prop->values[5])
+		data->floor_offset = *(float *)prop->values[5];
 	else
 		data->floor_offset = data->ceil_offset;
 	if (data->floor_offset > data->ceil_offset && prop->argc == 6)
-		error = ERROR_PROPERTY_HEIGHT_OFFSET;
-	else if (data->x < 0 || data->y < 0 || data->width < 0 || data->height < 0)
-		error = ERROR_PROPERTY_HEIGHT;
-	else if (fabsf(data->floor_offset) > HEIGHT_LIMIT
-		|| fabsf(data->ceil_offset) > HEIGHT_LIMIT)
-		error = ERROR_PROPERTY_HEIGHT_LIMIT;
-	if (error != ERROR_NONE)
 	{
 		free(data);
-		throw_error_info(error, line, game);
+		throw_error_property(prop->property, ERROR_PROP_HEIGHT_OFFSET, game);
 	}
 }
 

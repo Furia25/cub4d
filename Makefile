@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/03 19:06:44 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/05 18:20:43 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,15 +75,23 @@ SRC_FILES = \
 	minimap/minimap_logic.c \
 	minimap/minimap_utils.c \
 	minimap/full_map.c \
-	parsing/interpret.c \
-	parsing/map_parsing.c \
-	parsing/parsing_utils.c \
-	parsing/parsing.c \
-	parsing/map_borders.c \
+	parsing/tokenization.c \
+	parsing/property_height.c \
+	parsing/property_entity.c \
 	parsing/properties.c \
 	parsing/properties_utils.c \
-	parsing/property_entity.c \
-	parsing/property_height.c \
+	parsing/properties_log.c \
+	parsing/properties_inputs.c \
+	parsing/properties_free.c \
+	parsing/properties_arguments.c \
+	parsing/parsing.c \
+	parsing/parsing_utils.c \
+	parsing/map_parsing.c \
+	parsing/map_borders.c \
+	parsing/interpret.c \
+	parsing/datatypes.c \
+	parsing/datatypes_utils.c \
+	parsing/datatypes_composed.c \
 	utils/tab_utils.c \
 	utils/print_utils.c \
 	utils/misc_utils.c \
@@ -109,6 +117,7 @@ SRC_FILES = \
 	drawing/interactions.c \
 	constants/constants.c \
 	constants/colors.c \
+	constants/parsing.c \
 	entities/entities_updates.c \
 	entities/entities_utils.c \
 	entities/entity_npc.c \
@@ -138,7 +147,7 @@ LIBS_INCLUDE_DIRS := $(addsuffix /includes, $(LIBS_DIRS))
 
 # Compiler & flags
 CC = cc
-CFLAGS = -O3 -flto -g3 -Wall -Werror -Wextra
+CFLAGS = -O3 -g3 -Wall -Werror -Wextra
 
 LOG = echo
 

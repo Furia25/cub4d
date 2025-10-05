@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:40:06 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/03 19:08:22 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 17:49:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ static inline void	handle_menu_options(t_render_context *ctx, bool start,
 		temp = g_menu_options[index];
 		if (start && index == 0)
 			temp = MENU_OPTION_PLAY;
-		draw_text(temp, (t_text_arguments){x, y + (125 * index),
+		draw_text(temp, (t_text_properties){x, y + (125 * index),
 			0.8, 0, 0, 1, 75, ctx->game->start_time}, ctx);
 		index++;
 	}
-	draw_text("{5}>", (t_text_arguments){x - 50,
+	draw_text("{5}>", (t_text_properties){x - 50,
 		y + (125 * ctx->game->menu.action), 0.8,
 		0, 0, 1, 75, ctx->game->start_time}, ctx);
 	if (start)
-		draw_text(GAME_NAME_F, (t_text_arguments){ctx->render_width * 0.38,
+		draw_text(GAME_NAME_F, (t_text_properties){ctx->render_width * 0.38,
 			ctx->render_height * 0.25, 0.8, 0, 0, 1,
 			75, ctx->game->start_time}, ctx);
 }

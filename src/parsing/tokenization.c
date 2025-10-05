@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inputs_tokenize.c                                  :+:      :+:    :+:   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 17:53:21 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 20:45:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 18:33:20 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 #include "cub3d_parsing.h"
 
 static inline void	handle_enclosers(char c, bool *literal,
@@ -60,12 +61,12 @@ static inline size_t	count_token(const char *str, const char *set,
 }
 
 static inline bool	token_allocate(size_t *wcount, size_t length,
-						char *start, char **tab)
+						const char *start, char **tab)
 {
 	tab[*wcount] = ft_substr(start, 0, length);
 	if (!tab[*wcount])
 	{
-		free_chartab(tab);
+		free_tab((void **)tab);
 		return (false);
 	}
 	(*wcount)++;

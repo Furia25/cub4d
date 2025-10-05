@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 19:21:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 16:41:33 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "cub3d_rendering.h"
 
 void	entity_npc_tick(t_entity *self, t_game *game);
-bool	entity_npc_data(t_entity *self, t_prop_input prop, t_game *game);
+bool	entity_npc_data(t_entity *self, t_prop_inputs prop, t_game *game);
 void	entity_npc_postload(t_entity *self, t_game *game);
 void	entity_npc_interacted(t_entity *self, t_game *game);
 
@@ -46,7 +46,7 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 
 /*Entity Data Constructor from parsed property*/
 
-bool	entity_npc_data(t_entity *self, t_prop_input prop, t_game *game)
+bool	entity_npc_data(t_entity *self, t_prop_inputs prop, t_game *game)
 {
 	(void)game;
 	if (prop.argc > 1)

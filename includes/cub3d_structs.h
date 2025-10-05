@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 15:28:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 18:19:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,18 @@
 # include <X11/keysym.h>
 # include <X11/Xlib.h>
 # include <stdint.h>
-# include <crazypng.h>
-# include "maths2_vectors.h"
+
+# include "libft.h"
+# include "mlx.h"
+# include "mlx_int.h"
+# include "crazypng.h"
+# include "math.h"
+# include "maths2.h"
+# include "maths2_rng.h"
+# include "maths2_geometry.h"
+# include "maths2_utils.h"
+# include "maths2_easing.h"
+# include "vector.h"
 
 typedef union u_rgba8
 {

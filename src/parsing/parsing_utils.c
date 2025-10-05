@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:03:47 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 04:23:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 16:43:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,6 @@ bool	is_str_empty(char *str)
 			return (false);
 		str++;
 	}
-	return (true);
-}
-
-bool	prefix_check(bool check_array, char *token, t_argument *arg)
-{
-	const size_t	length = ft_strlen(token);
-
-	if (length < 2)
-		return (false);
-	if (check_array && arg->array
-		&& (token[0] != '[' || token[length - 1] != ']'))
-		return (false);
-	else if (arg->type == DT_STRUCT
-		&& (token[0] != '{' || token[length - 1] != '}'))
-		return (false);
-	else if (arg->type == DT_STRING
-		&& (token[0] != '\"' || token[length - 1] != '\"'))
-		return (true);
-	ft_memmove(token, token + 1, length - 2);
-	token[length - 2] = '\0';
 	return (true);
 }
 

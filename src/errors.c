@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:55:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 00:52:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 18:28:10 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,24 @@ from the required path",
 [ERROR_ENTITIES_INVALID] = "Entity Manager couldn't resolve unknown entity.",
 [ERROR_WTF] = "You are cooked, I don't even know how it's possible.",
 [ERROR_PROP_TOOMANY] = "Too many arguments/values for this property",
-[ERROR_PROP_MISSING] = "Required property is missing",
-[ERROR_PROP_DUPLICATE] = "Property defined multiple times",
-[ERROR_PROP_UNCLOSED_QUOTE] = "Unclosed quote",
-[ERROR_PROP_UNCLOSED_STRUCT] = "Unclosed struct",
-[ERROR_PROP_UNCLOSED_ARRAY] = "Unclosed array",
+[ERROR_PROP_MISSING] = "Required property is missing.",
+[ERROR_PROP_DUPLICATE] = "Property defined multiple times.",
+[ERROR_PROP_UNCLOSED_QUOTE] = "Unclosed quote.",
+[ERROR_PROP_UNCLOSED_STRUCT] = "Unclosed struct.",
+[ERROR_PROP_UNCLOSED_ARRAY] = "Unclosed array.",
 [ERROR_PROP_INVALID] = "Invalid Values",
-[ERROR_PROP_UNKNOWN] = "Unknown property"
+[ERROR_PROP_HEIGHT_OFFSET] = "Ceil offset is greater than floor offset.",
+[ERROR_ARG_ARRAY_SIZE] = "The array has fixed size.",
+[ERROR_ARG_INCOMPLETE] = "Incomplete data type.",
+[ERROR_ARG_INVALID] = "Invalid Value.",
+[ERROR_ARG_LIMITS] = "Out of range.",
+[ERROR_ARG_MALFORMED_ARRAY] = "Arrays need to be enclosed with brackets.",
+[ERROR_ARG_MALFORMED_STRUCT] = "Structs need to be enclosed with braces.",
+[ERROR_ARG_MALFORMED_STRING] = "Strings need to be enclosed with quotes.",
+[ERROR_ARG_NAN] = "Not a number.",
 };
 
-void	print_error(bool newline, t_error error, t_game *game)
+void	print_error(bool newline, t_error error)
 {
 	if (error != ERROR_NONE)
 	{
@@ -69,7 +77,7 @@ void	print_error(bool newline, t_error error, t_game *game)
 
 void	throw_error_info(t_error error, char *info, t_game *game)
 {
-	print_error(false, game, error);
+	print_error(false, error);
 	if (info && info[0])
 		ft_printf_fd(2, ": %s", info);
 	ft_putstr_fd("\n", 2);
@@ -78,15 +86,17 @@ void	throw_error_info(t_error error, char *info, t_game *game)
 
 void	throw_error(t_error error, t_game *game)
 {
-	print_error(true, error, game);
+	print_error(true, error);
 	exit_game(game);
 }
 
-void	print_error_property(bool newline, t_property *prop,
+void	print_error_property(bool newline, const t_property *prop,
 			t_error error, int line)
 {
-	ft_printf_fd(2, "Error: Line %d: Property '%s' — %s\n",
+	ft_printf_fd(2, "Error: Line %d: Property '%s' — %s",
 		line, prop->name, g_errors[error]);
+	if (newline)
+		ft_putchar_fd('\n', 2);
 }
 
 void	throw_error_property(const t_property *prop,
@@ -96,6 +106,6 @@ void	throw_error_property(const t_property *prop,
 		throw_error(ERROR_BASIC, game);
 	if (error != ERROR_NONE)
 		print_error_property(true, prop, error, game->parsing.line_num);
-	print_property_usage(prop);
+	print_property_usage(2, prop);
 	exit_game(game);
 }

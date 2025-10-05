@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 15:42:13 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/04 17:46:58 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 17:37:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,50 +19,15 @@ int	is_fdigit(int c)
 	return (0);
 }
 
-bool	property_check_color(t_prop_input prop)
+t_prop_inputs	property_get_vla(t_prop_inputs *inputs)
 {
-	size_t	index;
-	char	*temp;
-	int		temp_int;
+	t_prop_inputs	result;
+	size_t			length;
 
-	if (!prop.argv)
-		return (false);
-	index = 0;
-	while (prop.argv[index])
-	{
-		temp = prop.argv[index];
-		if (ft_strlen(temp) > 8)
-			return (false);
-		if (!ft_strcheck(temp, ft_isdigit))
-			return (false);
-		temp_int = ft_atoi(temp);
-		if (index < 3 && (temp_int < 0 || temp_int > 255))
-			return (false);
-		if (index == 3 && (temp_int < 0 || temp_int >= PROPERTY_AMBIANT_MAX))
-			return (false);
-		index++;
-	}
-	return (true);
-}
-
-void	property_free(void *ptr)
-{
-	t_prop_input	*property;
-	int			index;
-
-	property = (t_prop_input *)ptr;
-	if (!property)
-		return ;
-	if (property->argv)
-	{
-		index = 0;
-		while (property->argv[index])
-		{
-			free(property->argv[index++]);
-			property->argv[index] = NULL;
-			index++;
-		}
-		free(property->argv);
-	}
-	free(property);
+	result = *inputs;
+	length = arguments_length(inputs->arguments);
+	result.argc -= length;
+	result.argv += length;
+	result.values += length;
+	return (result);
 }

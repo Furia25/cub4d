@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 19:04:59 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 18:33:00 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static inline void	parsing_end(t_parsing *parsing, t_game *game)
 	game->tilemap = tilemap_from_tab(game->parsing.map,
 			game->parsing.map_width, game->parsing.map_height, 1);
 	map_check_borders(parsing, game);
-	free_chartab(parsing->file_content);
+	free_tab((void **)parsing->file_content);
 	parsing->file_content = NULL;
 	printf(INFO_PREFIX PARSING_MAP_MESSAGE,
 		parsing->map_width, parsing->map_height);

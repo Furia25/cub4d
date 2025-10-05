@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 04:39:31 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 17:44:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ typedef enum e_error
 	ERROR_ARG_MALFORMED_STRUCT,
 	ERROR_ARG_MALFORMED_ARRAY,
 	ERROR_PROP_INVALID,
-	ERROR_PROP_UNKNOWN,
+	ERROR_PROP_HEIGHT_OFFSET,
 	ERROR_ARG_ARRAY_SIZE,
 	ERROR_ARG_LIMITS,
 	ERROR_ARG_NAN,
-	ERROR_ARG_STRING,
+	ERROR_ARG_MALFORMED_STRING,
 	ERROR_ARG_INCOMPLETE,
 	ERROR_ARG_INVALID,
 	ERROR_MAX

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 20:20:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 04:33:34 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/05 18:29:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ bool	check_delimiters(char c, char open, char close, int *count)
 
 t_error	property_check_delimiters(char *str)
 {
-	t_error	result;
 	int		braces;
 	int		brackets;
 
 	braces = 0;
 	brackets = 0;
-	result = ERROR_NONE;
 	while (str && *str)
 	{
 		if (*str == '"')
@@ -51,7 +49,7 @@ t_error	property_check_delimiters(char *str)
 	return (ERROR_NONE);
 }
 
-void	property_check_argc(t_property *property, t_prop_input *inputs,
+void	property_check_argc(t_property *property, t_prop_inputs *inputs,
 			t_game *game)
 {
 	const size_t		length = arguments_length(property->args);
@@ -62,26 +60,29 @@ void	property_check_argc(t_property *property, t_prop_input *inputs,
 		throw_error_property(property, ERROR_PROP_TOOMANY, game);
 }
 
-static inline void	handle_error(t_error error, t_property *property,
-						t_prop_input *input, t_game *game)
+static inline void	handle_error(t_error error, const t_property *property,
+						t_prop_inputs *input, t_game *game)
 {
+	(void)input;
 	if (error == ERROR_ALLOC)
 		throw_error(ERROR_PARSING_ALLOC, game);
 	else if (error == ERROR_BASIC)
 	{
-		print_property_usage(property);
+		print_property_usage(2, property);
 		exit_game(game);
 	}
 }
 
-t_prop_input	property_get_inputs(char *line, t_property_type type,
+t_prop_inputs	property_get_inputs(char *line, t_property_type type,
 					t_property *property, t_game *game)
 {
-	t_prop_input	inputs;
+	t_prop_inputs	inputs;
 	size_t			index;
 	char			*temp;
 	t_error			temp_error;
 
+	if (!property)
+		throw_error(ERROR_PROP_INVALID, game);
 	index = ft_strlen(g_property_token[type]);
 	temp = line + index;
 	temp_error = property_check_delimiters(temp);
@@ -93,11 +94,13 @@ t_prop_input	property_get_inputs(char *line, t_property_type type,
 	if (!inputs.argv)
 		throw_error(ERROR_PARSING_ALLOC, game);
 	property_check_argc(property, &inputs, game);
-	inputs.values = ft_calloc(inputs.argc, sizeof(void *));
+	inputs.arguments = property->args;
+	inputs.property = property;
+	inputs.values = ft_calloc(inputs.argc + 1, sizeof(void *));
 	if (!inputs.values)
 		throw_error(ERROR_PARSING_ALLOC, game);
-	temp_error = parse_arguments(1, &inputs.values,
-		&property->args, inputs.argv);
+	temp_error = parse_arguments(1, inputs.values,
+		property->args, inputs.argv);
 	handle_error(temp_error, property, &inputs, game);
 	return (inputs);
 }
