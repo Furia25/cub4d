@@ -6,13 +6,13 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:58:06 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/24 16:27:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 03:23:01 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_itoab(int n, wchar_t *res, int offset)
+void	ft_itoab(int n, char *res, int offset)
 {
 	unsigned int	u_n;
 	int				digit_count;

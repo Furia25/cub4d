@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 20:20:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 01:43:50 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 02:10:39 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	property_get_inputs(char *line, t_property_type type,
 	str_remove_chars(temp, " \t\n");
 	inputs->argv = tokenize(temp, TOKEN_DELIMITER,
 		TOKEN_ENCLOSERS, &inputs->argc);
+	print_char_tab(inputs->argv);
 	if (!inputs->argv)
 		throw_error(ERROR_PARSING_ALLOC, game);
 	property_check_argc(property, inputs, game);

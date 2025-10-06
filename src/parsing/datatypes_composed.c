@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:01:35 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 01:47:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 03:25:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,31 @@ t_error	handle_struct(int depth, char *pretoken, void **value, t_argument *arg)
 	return (error);
 }
 
+# define ARRAY_CONTENT_STR	"element  "
+
+static inline bool	array_init_template(t_dt_array *array, t_argument *argument)
+{
+	size_t	temp_length;
+	size_t	name_length;
+
+	name_length = ft_strlen(ARRAY_CONTENT_STR);
+	temp_length = array->length;
+	while (temp_length != 0)
+	{
+		temp_length /= 10;
+		name_length++;
+	}
+	array->template = *argument;
+	array->base_arg = argument;
+	array->template.array = array->template.array - 1;
+	array->template.optional = false;
+	array->template.name = ft_calloc(name_length, sizeof(char));
+	if (!array->template.name)
+		return (false);
+	ft_strcpy(array->template.name, ARRAY_CONTENT_STR);
+	return (true);
+}
+
 static inline t_error	parse_array(int depth, char **tokens,
 							t_dt_array *array, t_argument *arg)
 {
@@ -48,13 +73,13 @@ static inline t_error	parse_array(int depth, char **tokens,
 	size_t		index;
 	t_error		error;
 
-	array->template = *arg;
-	array->template.array = false;
-	array->template.optional = false;
 	index = 0;
 	error = ERROR_NONE;
+	if (!array_init_template(array, arg))
+		return (ERROR_PARSING_ALLOC);
 	while (index < array->length)
 	{
+		ft_itoab(index, array->template.name, ft_strlen(ARRAY_CONTENT_STR) - 1);
 		temp_error = parse_datatype(depth + 1, tokens[index],
 			array->values + index, &array->template);
 		if (temp_error == ERROR_PARSING_ALLOC || temp_error == ERROR_BASIC)
@@ -63,8 +88,8 @@ static inline t_error	parse_array(int depth, char **tokens,
 		{
 			if (!argument_error_register(depth, temp_error,
 				tokens[index], &array->template))
-				return (ERROR_WTF);
-			error = ERROR_ARG_INCOMPLETE;
+				return (ERROR_PARSING_ALLOC);
+			error = ERROR_ARG_ARRAY_CONTENT;
 		}
 		index++;
 	}

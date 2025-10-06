@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:43 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 22:09:42 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 02:04:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef enum e_error
 	ERROR_PROP_HEIGHT_OFFSET,
 	ERROR_PROP_COLORS_ALPHA,
 	ERROR_ARG_ARRAY_SIZE,
+	ERROR_ARG_ARRAY_CONTENT,
 	ERROR_ARG_LIMITS,
 	ERROR_ARG_NAN,
 	ERROR_ARG_UNSIGNED,

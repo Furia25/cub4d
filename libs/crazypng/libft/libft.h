@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 15:39:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/28 17:39:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 03:23:31 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(const char *s);
 t_gnl_result	get_next_line(int fd);
 char			*ft_itoa(int n);
-void			ft_itoab(int n, wchar_t *res, int len);
+void			ft_itoab(int n, char *res, int len);
 //
 void			ft_striteri(char *s, void (*f)(size_t, char *));
 void			ft_lstdelone(t_list *lst, void (*del)(void *));

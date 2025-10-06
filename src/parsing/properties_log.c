@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:50:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 01:56:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 03:31:08 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,13 @@ void	print_error_argument(int depth, t_error error,
 	ft_printf_fd(2, "- " ANSI_BRIGHT_CYAN "%s" ANSI_RESET ": expected ",
 		argument->name);
 	print_argument(2, false, false, argument);
-	ft_printf_fd(2, ", got '%s' ", token);
+	ft_putstr_fd(", got ", 2);
+	if (argument->array > 0)
+		ft_printf_fd(2, "'[%s]' ", token);
+	else if (argument->type == DT_STRUCT)
+		ft_printf_fd(2, "'{%s}' ", token);
+	else
+		ft_printf_fd(2, "'%s' ", token);
 	ft_printf_fd(2, "(" ANSI_BRIGHT_BLACK "%s" ANSI_RESET ")\n",
 		g_errors[error]);
 }

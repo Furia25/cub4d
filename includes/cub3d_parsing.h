@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 01:54:30 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 02:42:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ extern const char		*g_data_type_info[DT_MAX];
 
 typedef struct s_argument
 {
-	const char			*name;
+	char				*name;
 	t_data_subtype		subtype;
 	t_data_type			type;
 	int					int_min;
@@ -60,16 +60,17 @@ typedef struct s_argument
 	float				fl_min;
 	float				fl_max;
 	bool				limited;
-	bool				array;
+	size_t				array;
 	size_t				array_size;
 	bool				optional;
 }	t_argument;
 
 typedef struct s_dt_array
 {
-	size_t		length;
-	t_argument	template;
-	void		*values[];
+	const t_argument	*base_arg;
+	size_t				length;
+	t_argument			template;
+	void				*values[];
 }	t_dt_array;
 
 typedef struct s_data_subtype_info
@@ -167,7 +168,6 @@ void			map_check_borders(t_parsing *parsing, t_game *game);
 
 /*Interpret*/
 void			interpret_map_from_file(t_parsing *parsing, t_game *game);
-void			build_entities(t_parsing *parsing, t_game *game);
 
 /*Datatypes parsing*/
 t_vec3			dt_get_vec3(void *values);
@@ -184,12 +184,12 @@ t_error			handle_uint(char *token, void **value, t_argument *arg);
 t_error			handle_string(char *token, void **value, t_argument *arg);
 
 /*Errors*/
-void	argument_error_free(t_argument_error *error_packet);
-void	argument_error_queue_init(t_game *game);
-void	argument_error_queue_clean(void);
-bool	argument_error_register(int depth, t_error error, char *token,
-			const t_argument *argument);
-void	argument_queue_print(void);
+void			argument_error_free(t_argument_error *error_packet);
+void			argument_error_queue_init(t_game *game);
+void			argument_error_queue_clean(void);
+bool			argument_error_register(int depth, t_error error, char *token,
+					const t_argument *argument);
+void			argument_queue_print(void);
 
 /*Properties Inputs/Arguments*/
 t_prop_inputs	property_get_vla(t_prop_inputs *inputs);
@@ -237,7 +237,6 @@ bool			is_symbol_central(char c);
 bool			is_symbol_valid(char c);
 
 /*Utils*/
-void			property_free(void *ptr);
 void			str_remove_chars(char *str, char *set);
 bool			is_str_empty(char *str);
 void			map_set_player_pos(int x, int y,
