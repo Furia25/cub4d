@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:55:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 03:16:20 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 05:04:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static inline void	free_property_values(bool is_array, void **values,
 	t_argument	*actual;
 	size_t		index;
 
-	if (!values)
-		return ;
 	index = 0;
 	while (index < size)
 	{

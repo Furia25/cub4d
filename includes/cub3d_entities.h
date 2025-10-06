@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 18:18:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 04:40:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ typedef struct s_entity	t_entity;
 typedef struct s_game	t_game;
 typedef struct s_entity_manager	t_entity_manager;
 
-typedef bool			(*t_entity_data_constructor)(t_entity*,
-	t_prop_inputs, t_game*);
+typedef t_error			(*t_entity_data_constructor)(t_entity*, t_prop_inputs);
 typedef t_entity*		(*t_entity_constructor)(t_vec3, t_game*);
 
 struct s_entity
@@ -81,7 +80,7 @@ typedef struct s_entity_ctx
 	char						*token;
 	t_entity_constructor		constructor;
 	t_entity_data_constructor	data_constructor;
-	t_error						error;
+	t_property					property;
 }	t_entity_ctx;
 
 void				entity_instantiate(t_entity_type type, t_vec3 position,
@@ -96,11 +95,11 @@ void				entity_init_basics(t_vec3 position, t_entity *entity);
 void				check_interaction(t_entity *self, t_game *game);
 
 t_entity			*entity_new_npc(t_vec3 position, t_game *game);
-bool				entity_npc_data(t_entity *self, t_prop_inputs prop, t_game *game);
+t_error				entity_npc_data(t_entity *self, t_prop_inputs prop);
 
 t_entity			*entity_new_tree(t_vec3 position, t_game *game);
 
 t_entity			*entity_new_door(t_vec3 position, t_game *game);
-bool				entity_door_data(t_entity *self, t_prop_inputs prop, t_game *game);
+t_error				entity_door_data(t_entity *self, t_prop_inputs prop);
 
 #endif

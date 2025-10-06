@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 04:10:15 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 04:28:38 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,10 @@ bool			argument_error_register(int depth, t_error error, char *token,
 void			argument_queue_print(void);
 
 /*Properties Inputs/Arguments*/
-t_prop_inputs	property_get_vla(t_prop_inputs *inputs);
+void			property_check_argc(const t_property *property,
+					t_prop_inputs *inputs, t_game *game);
+t_prop_inputs	property_get_vla(t_prop_inputs *inputs,
+					const t_property *property, t_game *game);
 void			property_inputs_free(t_prop_inputs *inputs);
 void			property_handle_error(t_error exit_code,
 					const t_property *property, t_game *game);

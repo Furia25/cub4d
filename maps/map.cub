@@ -13,39 +13,39 @@ C 135, 206, 250
 A 135, 206, 250, 2
 
 #NPC
-ENTITY NPC,9.5,4.5,0.95,"{T3~=}Hey I am John.{~=e} It’s my friend Johny's birthday. Please wish him a happy birthday for me. He’s on the other side of the void. Thank you."
-ENTITY NPC,10.5,21.9,0.95
+ENTITY NPC,{9.5,4.5,0.95},"{T3~=}Hey I am John.{~=e} It’s my friend Johny's birthday. Please wish him a happy birthday for me. He’s on the other side of the void. Thank you."
+ENTITY NPC,{10.5,21.9,0.95}
 
 #Reset Map Height after spawn
-HEIGHT_PRECISE 9x,4y,3w,1h,0.2,0
-HEIGHT_PRECISE 0x,5y,200w,200h,0.2,0
+HEIGHT_PRECISE 9,4,3,1,0.2,0
+HEIGHT_PRECISE 0,5,200,200,0.2,0
 
 #Tree areas
 
 # left
-ENTITY TREE,1.5,7.5,2.8
+ENTITY TREE,{1.5,7.5,2.8}
 HEIGHT 1,7,1,1,0.2
 
-ENTITY TREE,1.5,11.5,2.8
+ENTITY TREE,{1.5,11.5,2.8}
 HEIGHT 1,11,1,1,0.2
 
-ENTITY TREE,1.5,15.5,2.8
+ENTITY TREE,{1.5,15.5,2.8}
 HEIGHT 1,15,1,1,0.2
 
-ENTITY TREE,1.5,19.5,2.8
+ENTITY TREE,{1.5,19.5,2.8}
 HEIGHT 1,19,1,1,0.2
 
 # right
-ENTITY TREE,19.5,7.5,2.8
+ENTITY TREE,{19.5,7.5,2.8}
 HEIGHT 19,7,1,1,0.2
 
-ENTITY TREE,19.5,11.5,2.8
+ENTITY TREE,{19.5,11.5,2.8}
 HEIGHT 19,11,1,1,0.2
 
-ENTITY TREE,19.5,15.5,2.8
+ENTITY TREE,{19.5,15.5,2.8}
 HEIGHT 19,15,1,1,0.2
 
-ENTITY TREE,19.5,19.5,2.8
+ENTITY TREE,{19.5,19.5,2.8}
 HEIGHT 19,19,1,1,0.2
 #------------------------
 

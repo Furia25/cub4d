@@ -6,14 +6,14 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 20:20:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 03:48:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 05:12:56 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	property_check_argc(const t_property *property, t_prop_inputs *inputs,
-			t_game *game)
+void	property_check_argc(const t_property *property,
+			t_prop_inputs *inputs, t_game *game)
 {
 	const size_t		max_length = arguments_length(property->args);
 	const size_t		min_length = arguments_count_required(property->args);
@@ -31,7 +31,8 @@ void	property_handle_error(t_error error,
 		return ;
 	else if (error != ERROR_PARSING_ALLOC)
 	{
-		print_property_error(game->parsing.line_num, ERROR_PROP_INVALID, property);
+		print_property_error(game->parsing.line_num,
+			ERROR_PROP_INVALID, property);
 		argument_queue_print();
 		print_property_usage(2, property);
 		exit_game(game);
@@ -68,4 +69,24 @@ void	property_get_inputs(char *line, t_property_type type,
 		throw_error(ERROR_PARSING_ALLOC, game);
 	error = parse_arguments(1, inputs->values, property->args, inputs->argv);
 	property_handle_error(error, property, game);
+}
+
+t_prop_inputs	property_get_vla(t_prop_inputs *inputs,
+					const t_property *property, t_game *game)
+{
+	t_prop_inputs	result;
+	size_t			length;
+	t_error			error;
+
+	result = *inputs;
+	length = arguments_length(inputs->arguments);
+	result.argc -= length;
+	result.argv += length;
+	result.values += length;
+	property_check_argc(property, &result, game);
+	result.arguments = property->args;
+	result.property = property;
+	error = parse_arguments(1, result.values, property->args, result.argv);
+	property_handle_error(error, property, game);
+	return (result);
 }

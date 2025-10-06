@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:28:39 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 20:50:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 04:55:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ const t_data_subtype_info		g_data_subtype_info[SDT_MAX] = {
 [SDT_NULL] = {.name = NULL},
 [SDT_VEC3] = {.name = "vec3", .fields = g_dt_vec3, .count = 3},
 [SDT_BOOL] = {.name = "bool", .enum_values = g_dt_bool, .count = 2},
-[SDT_ENTITY] = {.name = "type", .enum_values = g_dt_entity, .count = ENTITY_MAX - 1}
+[SDT_ENTITY] = {.name = "entity_type", .enum_values = g_dt_entity, .count = ENTITY_MAX}
 };

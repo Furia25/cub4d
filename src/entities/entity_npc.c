@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 03:41:04 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 05:13:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "cub3d_rendering.h"
 
 void	entity_npc_tick(t_entity *self, t_game *game);
-bool	entity_npc_data(t_entity *self, t_prop_inputs prop, t_game *game);
 void	entity_npc_postload(t_entity *self, t_game *game);
 void	entity_npc_interacted(t_entity *self, t_game *game);
 
@@ -46,17 +45,11 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 
 /*Entity Data Constructor from parsed property*/
 
-bool	entity_npc_data(t_entity *self, t_prop_inputs prop, t_game *game)
+t_error	entity_npc_data(t_entity *self, t_prop_inputs prop)
 {
-	(void)game;
-	if (prop.argc > 1)
-		return (false);
-	if (prop.argc == 0)
-		return (true);
-	self->data = ft_strdup(prop.argv[0]);
-	if (!self->data)
-		return (false);
-	return (true);
+	self->data = (char *)prop.values[0];
+	prop.values[0] = NULL;
+	return (ERROR_NONE);
 }
 
 void	entity_npc_postload(t_entity *self, t_game *game)

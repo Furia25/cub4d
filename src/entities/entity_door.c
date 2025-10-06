@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:20:17 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 16:41:33 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 04:40:29 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ t_entity	*entity_new_door(t_vec3 position, t_game *game)
 
 /*Entity Data Constructor from parsed property*/
 
-bool	entity_door_data(t_entity *self, t_prop_inputs prop, t_game *game)
+t_error	entity_door_data(t_entity *self, t_prop_inputs prop)
 {
 	t_entity_door_data	*temp_data;
 
-	(void)game;
 	if (prop.argc != 6 || !ft_strcheck(prop.argv[0], ft_isdigit)
 		|| !ft_strcheck(prop.argv[1], ft_isdigit)
 		|| !ft_strcheck(prop.argv[2], ft_isdigit)
