@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:55:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 02:06:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 03:59:35 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,14 @@ from the required path",
 [ERROR_PROP_MISSING] = "Required property is missing.",
 [ERROR_PROP_DUPLICATE] = "Property defined multiple times.",
 [ERROR_PROP_UNCLOSED_QUOTE] = "Unclosed quote detected in property value.",
-[ERROR_PROP_UNCLOSED_STRUCT] = "Unclosed struct.",
+[ERROR_PROP_UNCLOSED_STRUCT] = "Missing closing brace '}' \
+in struct definition.",
 [ERROR_PROP_UNCLOSED_ARRAY] = "Missing closing bracket ']' \
 in array definition.",
+[ERROR_PROP_UNEXPECTED_CLOSING_STRUCT] = "Unexpected closing brace '}' \
+without matching opening brace.",
+[ERROR_PROP_UNEXPECTED_CLOSING_ARRAY] = "Unexpected closing bracket ']' \
+without matching opening bracket.",
 [ERROR_PROP_INVALID] = "Invalid value or syntax.",
 [ERROR_PROP_HEIGHT_OFFSET] = "Ceiling offset cannot exceed floor offset.",
 [ERROR_PROP_COLORS_ALPHA] = "Alpha channel only allowed for 'A'.",

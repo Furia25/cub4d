@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:56:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 02:56:26 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 04:11:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static const t_argument	g_argument_color[] = {
 	{.name = "r", .type = DT_UINT, .limited = true, .int_max = 255},
 	{.name = "g", .type = DT_UINT, .limited = true, .int_max = 255},
 	{.name = "b", .type = DT_UINT, .limited = true, .int_max = 255},
-	{.name = "visible", .type = DT_INT, .array = 2},
+	{.name = "a", .type = DT_UINT, .limited = true,
+		.int_max = PROPERTY_AMBIANT_MAX, .optional = true},
 	{}
 };
 

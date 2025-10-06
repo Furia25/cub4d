@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:44:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 03:26:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 03:43:32 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_error	parse_arguments(int depth, void **values,
 	while (index < length)
 	{
 		arg = (t_argument *)args + index;
-		if (!arg->optional || (tokens[index] && tokens[index][0] == '\0'))
+		if (!arg->optional || (tokens[index] && tokens[index][0] != '\0'))
 		{
 			error = parse_datatype(depth, tokens[index], values + index, arg);
 			if (error == ERROR_PARSING_ALLOC)

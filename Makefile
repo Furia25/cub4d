@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/06 01:18:03 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/06 04:09:09 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,11 +76,13 @@ SRC_FILES = \
 	minimap/minimap_utils.c \
 	minimap/full_map.c \
 	parsing/tokenization.c \
+	parsing/token_delimiters.c \
 	parsing/property_height.c \
 	parsing/property_entity.c \
 	parsing/properties.c \
 	parsing/properties_utils.c \
 	parsing/properties_log.c \
+	parsing/properties_log_argument.c \
 	parsing/properties_inputs.c \
 	parsing/properties_free.c \
 	parsing/arguments.c \

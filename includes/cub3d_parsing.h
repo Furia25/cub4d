@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 02:42:28 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 04:10:15 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ t_error			parse_arguments(int depth, void **values,
 					const t_argument *args, char **tokens);
 t_error			parse_datatype(int depth, char *token,
 					void **value, t_argument *argument);
+t_error			token_check_delimiters(char *str);
 char			**tokenize(const char *str, const char *set,
 					const char *enclosers, size_t *wcount);
 size_t			arguments_count_required(const t_argument *args);
