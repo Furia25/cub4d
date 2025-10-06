@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:58:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 05:11:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 19:31:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,14 @@ static const t_argument		g_argument_npc[] = {
 };
 
 static const t_argument		g_argument_door[] = {
-{.name = "text", .type = DT_STRING},
+{.name = "x", .type = DT_UINT},
+{.name = "y", .type = DT_UINT},
+{.name = "width", .type = DT_UINT},
+{.name = "height", .type = DT_UINT},
+{.name = "ceil_offset", .type = DT_FLOAT, .limited = true,
+.fl_min = -HEIGHT_LIMIT, .fl_max = HEIGHT_LIMIT},
+{.name = "speed", .type = DT_FLOAT},
+{.name = "mode", .type = DT_ENUM, .subtype = SDT_DOOR, .optional = true},
 {}
 };
 

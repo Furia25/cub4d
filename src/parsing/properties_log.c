@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:50:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 04:10:58 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 19:20:58 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_error_argument(int depth, t_error error,
 {
 	while (depth > 0)
 	{
-		ft_putstr_fd("  ", 2);
+		ft_putstr_fd("	", 2);
 		depth--;
 	}
 	ft_printf_fd(2, "- " ANSI_BRIGHT_CYAN "%s" ANSI_RESET ": expected ",

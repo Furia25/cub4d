@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 04:28:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 19:48:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef enum s_data_subtype
 	SDT_VEC3,
 	SDT_BOOL,
 	SDT_ENTITY,
+	SDT_DOOR,
 	SDT_MAX
 }	t_data_subtype;
 
@@ -114,6 +115,7 @@ typedef struct s_prop_inputs
 	size_t				argc;
 	const t_property	*property;
 	const t_argument	*arguments;
+	bool				vla;
 }	t_prop_inputs;
 
 typedef struct s_parsing

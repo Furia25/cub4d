@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inflate.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:37:16 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/01 10:25:39 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/06 18:17:05 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ static bool	inflate_init_context(t_inflate_context *context,
 		return (false);
 	context->distance_fixed = huffman_deflate_dist_table();
 	if (!context->distance_fixed)
+	{
+		huffman_free_table(context->huffman_fixed);
 		return (false);
+	}
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 20:20:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 05:12:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 19:48:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	property_check_argc(const t_property *property,
 		throw_error_property(property, ERROR_PROP_MISSING, game);
 	if (!property->variable && inputs->argc > max_length)
 		throw_error_property(property, ERROR_PROP_TOOMANY, game);
+	inputs->vla = false;
 }
 
 void	property_handle_error(t_error error,
@@ -86,6 +87,7 @@ t_prop_inputs	property_get_vla(t_prop_inputs *inputs,
 	property_check_argc(property, &result, game);
 	result.arguments = property->args;
 	result.property = property;
+	result.vla = true;
 	error = parse_arguments(1, result.values, property->args, result.argv);
 	property_handle_error(error, property, game);
 	return (result);

@@ -11,8 +11,7 @@ F 153, 247, 98
 C 135, 206, 250
 A 135, 206, 250, 2
 
-#ENTITY DOOR, x, y, z, xstart, ystart, width, height, offset, speed, mode
-ENTITY DOOR, 4.5, 5, 1, 6,      6,     1,     1,      0.8,    0.01,  0
+ENTITY DOOR, {4.5, 5, 1}, 5, 5, 1, 1,0.8, 0.01,DEFAULT
 
 1111111111
 1000000001

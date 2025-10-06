@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 01:03:47 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 16:43:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 18:48:40 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,4 @@ void	str_remove_chars(char *str, char *set)
 		read_pos++;
 	}
 	str[write_pos] = '\0';
-}
-
-int	check_player(t_game *game, int i, int j, int *player)
-{
-	if (is_symbol_player(game->parsing.file_content[i][j]))
-	{
-		if (*player)
-			return (0);
-		game->player.position.x = (double)j + 0.5;
-		game->player.position.y = (double)(i - 8) + 0.5;
-		if (game->parsing.file_content[i][j] == 'S')
-			game->player.yaw_rad = M_PI / 2;
-		else if (game->parsing.file_content[i][j] == 'N')
-			game->player.yaw_rad = 3 * M_PI / 2;
-		else if (game->parsing.file_content[i][j] == 'W')
-			game->player.yaw_rad = M_PI;
-		else if (game->parsing.file_content[i][j] == 'E')
-			game->player.yaw_rad = 0;
-		rad_to_vect(&game->player.direction, game->player.yaw_rad);
-		*player = 1;
-	}
-	return (1);
 }

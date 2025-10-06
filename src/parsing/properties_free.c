@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:55:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 05:04:24 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 19:49:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static inline void	free_property_array(void *value)
 	t_dt_array	*array;
 
 	array = (t_dt_array *)value;
+	
 	if (!array)
 		return ;
 	free(array->template.name);
@@ -39,7 +40,6 @@ static inline void	free_property_struct(void *value, t_argument *actual)
 static inline void	free_property_values(bool is_array, void **values,
 						size_t size, const t_argument *args)
 {
-	
 	t_argument	*actual;
 	size_t		index;
 
@@ -84,7 +84,8 @@ void	property_inputs_free(t_prop_inputs *inputs)
 {
 	if (!inputs)
 		return ;
-	free_tokens(inputs->argv, inputs->argc + 1);
+	if (!inputs->vla)
+		free_tokens(inputs->argv, inputs->argc + 1);
 	if (inputs->values)
 		free_property_values(false, inputs->values,
 			arguments_length(inputs->arguments), inputs->arguments);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:20:17 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 04:40:29 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 19:46:18 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,20 @@ t_error	entity_door_data(t_entity *self, t_prop_inputs prop)
 {
 	t_entity_door_data	*temp_data;
 
-	if (prop.argc != 6 || !ft_strcheck(prop.argv[0], ft_isdigit)
-		|| !ft_strcheck(prop.argv[1], ft_isdigit)
-		|| !ft_strcheck(prop.argv[2], ft_isdigit)
-		|| !ft_strcheck(prop.argv[3], ft_isdigit)
-		|| !ft_strcheck(prop.argv[4], is_fdigit)
-		|| !ft_strcheck(prop.argv[4], is_fdigit))
-		return (false);
 	temp_data = ft_calloc(1, sizeof(t_entity_door_data));
-	if (!temp_data)
-		return (false);
-	*temp_data = (t_entity_door_data){
-		ft_atoi(prop.argv[0]), ft_atoi(prop.argv[1]),
-		ft_atoi(prop.argv[2]), ft_atoi(prop.argv[3]),
-		ft_atof(prop.argv[4]), ft_atof(prop.argv[5]), 0, false, 0, 0, 0, 0};
-	if (fabsf(temp_data->offset) >= HEIGHT_LIMIT)
+	if (temp_data)
 	{
 		free(temp_data);
-		return (false);
+		property_inputs_free(&prop);
+		return (ERROR_PARSING_ALLOC);
 	}
+	temp_data->x_start = *((int *)prop.values[0]);
+	temp_data->y_start = *((int *)prop.values[1]);
+	temp_data->width = *((int *)prop.values[2]);
+	temp_data->height = *((int *)prop.values[3]);
+	temp_data->offset = *((float *)prop.values[4]);
 	self->data = temp_data;
-	return (true);
+	return (ERROR_NONE);
 }
 
 static inline void	door_activated(t_entity *self, t_tilemap *tilemap);

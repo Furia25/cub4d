@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 19:03:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/26 16:30:47 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/06 18:06:47 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	tilemap_free_tiles(t_tilemap *map)
 	index = 0;
 	while (index < map->height)
 	{
-		if (map->tiles[index] == NULL)
-			break ;
 		free(map->tiles[index]);
 		index++;
 	}
