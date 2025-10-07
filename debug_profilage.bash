@@ -22,3 +22,4 @@ if command -v kcachegrind >/dev/null 2>&1; then
 else
 	echo "[!] KCachegrind not found. Skipping GUI analysis."
 fi
+
