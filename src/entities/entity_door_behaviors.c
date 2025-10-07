@@ -6,18 +6,24 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:20:17 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 04:43:38 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 05:03:41 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_rendering.h"
 
+static inline void		door_activated_tick(t_entity *self, t_game *game);
+static inline t_tile		*door_get_next_tile(t_entity_door_data *data,
+							t_game *game);
+static inline void		door_activate_all(t_entity_door_data *data,
+							t_game *game);
+
 void	entity_door_interacted(t_entity *self, t_game *game)
 {
 	t_entity_door_data	*data;
 
-	data = (t_entity_door_data	*)self->data;
+	data = (t_entity_door_data *)self->data;
 	if (data->interacted)
 		return ;
 	if (game->entity_manager.interacted == self)
@@ -27,11 +33,6 @@ void	entity_door_interacted(t_entity *self, t_game *game)
 	if (data->mode == 2)
 		shuffle_indices(data->random_order, data->tiles_num, &game->rng);
 }
-
-static inline void	door_activated_tick(t_entity *self, t_game *game);
-static inline t_tile	*door_get_next_tile(t_entity_door_data *data,
-							t_game *game);
-static inline void	door_activate_all(t_entity_door_data *data, t_game *game);
 
 void	entity_door_tick(t_entity *self, t_game *game)
 {

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 04:28:23 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:49:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	shuffle_indices(size_t *order, size_t n, t_rng_state *rng)
 	size_t	tmp;
 
 	if (n < 2)
-    	return;
+		return ;
 	i = n - 1;
 	while (i > 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 20:20:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 04:25:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:50:11 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	property_handle_error(t_prop_inputs *inputs, t_error error,
 	{
 		if (inputs->vla)
 			property_inputs_free(inputs);
-		throw_error(ERROR_PARSING_ALLOC, game);	
+		throw_error(ERROR_PARSING_ALLOC, game);
 	}
 }
 
@@ -63,7 +63,7 @@ void	property_get_inputs(char *line, t_property_type type,
 		throw_error_property(property, temp_error, game);
 	str_remove_chars(temp, " \t\n");
 	inputs->argv = tokenize(temp, TOKEN_DELIMITER,
-		TOKEN_ENCLOSERS, &inputs->argc);
+			TOKEN_ENCLOSERS, &inputs->argc);
 	if (!inputs->argv)
 		throw_error(ERROR_PARSING_ALLOC, game);
 	property_check_argc(property, inputs, game);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:21:04 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 16:44:01 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 05:41:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ void	draw_interact_button(t_render_context *ctx, t_button *btn,
 void	draw_textbox(t_render_context *ctx, char *text,
 			uint64_t time, t_ivec2 pos);
 void	draw_top_faces(t_raycast_hit *h, int y,
-		t_raycast_context *ctx, t_render_context *r);
+			t_raycast_context *ctx, t_render_context *r);
 void	draw_bot_faces(t_raycast_hit *h, int y,
-		t_raycast_context *ctx, t_render_context *r);
+			t_raycast_context *ctx, t_render_context *r);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 22:56:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:48:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ void	log_game(uint64_t time, t_game *game)
 	uint32_t		seconds;
 	uint32_t		minutes;
 
-	if (altern++ % 6 == 0)
+	if (altern++ % 8 == 0)
 		return ;
 	time_passed = get_elapsed_ms();
 	minutes = time_passed / 60000;
 	seconds = (time_passed % 60000) / 1000;
 	milliseconds = time_passed % 1000;
-	ft_putstr_fd(ANSI_CARRIAGE ANSI_CLEAR_LINE, 1);
-	ft_printf("FPS : %d DEATH : %d TIME : ", get_fps(time), game->player.deaths);
+	ft_printf(ANSI_CARRIAGE ANSI_CLEAR_LINE "FPS : %d DEATH : %d TIME : ",
+		get_fps(time), game->player.deaths);
 	if (minutes < 10)
 		ft_putchar_fd('0', 1);
 	ft_printf("%d:", minutes);

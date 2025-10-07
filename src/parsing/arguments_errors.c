@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 00:51:42 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 01:29:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:56:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	argument_queue_print(void)
 	while (true)
 	{
 		error_packet = (t_argument_error *)g_error_queue->get(g_error_queue,
-			index);
+				index);
 		if (!error_packet)
 			return ;
 		print_error_argument(error_packet->depth, error_packet->error,

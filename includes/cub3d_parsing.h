@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 02:41:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 05:51:29 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define PROPERTY_AMBIANT_MAX	200
 
+# define ARRAY_CONTENT_STR	"element  "
 # define TOKEN_ENCLOSERS	"\"\"{}[]\0"
 # define TOKEN_DELIMITER	","
 
@@ -49,8 +50,6 @@ typedef enum s_data_subtype
 	SDT_DOOR_TYPE,
 	SDT_MAX
 }	t_data_subtype;
-
-extern const char		*g_data_type_info[DT_MAX];
 
 typedef struct s_argument
 {
@@ -82,8 +81,6 @@ typedef struct s_data_subtype_info
 	const char			**enum_values;
 	const size_t		count;
 }	t_data_subtype_info;
-
-extern const t_data_subtype_info	g_data_subtype_info[SDT_MAX];
 
 typedef struct s_property
 {
@@ -161,7 +158,11 @@ typedef struct s_argument_error
 	t_argument	argument;
 }	t_argument_error;
 
+extern const char		*g_data_type_info[DT_MAX];
+
 extern const char		*g_property_token[PROP_UNKNOWN];
+
+extern const t_data_subtype_info	g_data_subtype_info[SDT_MAX];
 
 /*Parsing*/
 void			parsing(char *file_name, t_game *game);
@@ -218,7 +219,7 @@ void			print_property_usage(int fd, const t_property *property);
 void			print_property_error(int line, t_error error,
 					const t_property *property);
 void			print_error_argument(int depth, t_error error,
-				char *token, t_argument *argument);
+					char *token, t_argument *argument);
 
 /*Parsing Properties*/
 

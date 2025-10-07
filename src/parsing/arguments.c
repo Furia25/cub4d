@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:44:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 02:25:41 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 05:37:35 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,24 @@ t_error	parse_datatype(int depth, char *token,
 	return (error);
 }
 
+static inline void	init_parsing_arguments(size_t *length, size_t *index,
+						t_error *exit_error, const t_argument *args)
+{
+	*index = 0;
+	*exit_error = ERROR_NONE;
+	*length = arguments_length(args);
+}
+
 t_error	parse_arguments(int depth, void **values,
 			const t_argument *args, char **tokens)
 {
-	const size_t		length = arguments_length(args);
+	size_t				length;
 	t_argument			*arg;
 	size_t				index;
 	t_error				exit_error;
 	t_error				error;
 
-	index = 0;
-	exit_error = ERROR_NONE;
+	init_parsing_arguments(&length, &index, &exit_error, args);
 	while (index < length && tokens[index])
 	{
 		arg = (t_argument *)args + index;

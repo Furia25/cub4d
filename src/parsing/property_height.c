@@ -6,22 +6,22 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:42:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 04:48:54 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:55:35 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static const t_argument	g_arguments_height[] = {
-	{.name = "x", .type = DT_UINT},
-	{.name = "y", .type = DT_UINT},
-	{.name = "width", .type = DT_UINT},
-	{.name = "height", .type = DT_UINT},
-	{.name = "ceil_offset", .type = DT_FLOAT, .limited = true,
-		.fl_min = -HEIGHT_LIMIT, .fl_max = HEIGHT_LIMIT},
-	{.name = "floor_offset", .type = DT_FLOAT, .limited = true,
-		.fl_min = -HEIGHT_LIMIT, .fl_max = HEIGHT_LIMIT, .optional = true},
-	{}
+{.name = "x", .type = DT_UINT},
+{.name = "y", .type = DT_UINT},
+{.name = "width", .type = DT_UINT},
+{.name = "height", .type = DT_UINT},
+{.name = "ceil_offset", .type = DT_FLOAT, .limited = true,
+	.fl_min = -HEIGHT_LIMIT, .fl_max = HEIGHT_LIMIT},
+{.name = "floor_offset", .type = DT_FLOAT, .limited = true,
+	.fl_min = -HEIGHT_LIMIT, .fl_max = HEIGHT_LIMIT, .optional = true},
+{}
 };
 
 static inline void	property_check_set_heights(t_height_data *data,
@@ -30,10 +30,10 @@ static inline void	property_check_set_heights(t_height_data *data,
 void	parse_property_height(char *line, t_property_type type,
 			t_parsing *parsing, t_game *game)
 {
-	static const 	t_property property = {.name = "HEIGHT",
+	static const t_property	property = {.name = "HEIGHT",
 		.args = g_arguments_height};
-	t_prop_inputs	*prop;
-	t_height_data	*event_data;
+	t_prop_inputs			*prop;
+	t_height_data			*event_data;
 
 	property_get_inputs(line, type, &property, game);
 	prop = &parsing->temp_inputs;

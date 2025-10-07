@@ -6,15 +6,16 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:50:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 04:08:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 05:50:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_parsing.h"
 #include "ft_printf.h"
-		
+
 static inline void	print_struct_enum(int fd, bool verbose,
 						const t_data_subtype_info *sub);
+
 static inline void	print_array(int fd, const t_argument *arg)
 {
 	size_t	index;
@@ -50,8 +51,8 @@ void	print_argument(int fd, bool verbose, bool name, const t_argument *arg)
 		print_struct_enum(fd, verbose, sub);
 	print_array(fd, arg);
 	if (arg->limited && arg->type == DT_FLOAT)
-		ft_printf_fd(fd, "(%f-%f)", arg->fl_min, arg->fl_max);
-	else if (arg->limited )
+		ft_printf_fd(fd, "(%d-%d)", (int)arg->fl_min, (int)arg->fl_max);
+	else if (arg->limited)
 		ft_printf_fd(fd, "(%d-%d)", arg->int_min, arg->int_max);
 	if (arg->optional)
 		ft_putstr_fd(ANSI_RESET ">", fd);

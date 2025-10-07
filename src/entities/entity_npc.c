@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 03:10:17 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 05:00:31 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 	entity->transform.height = 100;
 	entity->transform.width = 50;
 	if (!event_queue_push((t_event_func)entity_npc_postload, entity,
-		false, game->events_postload))
+			false, game->events_postload))
 	{
 		free(entity);
 		throw_error(ERROR_ENTITIES_ALLOC, game);

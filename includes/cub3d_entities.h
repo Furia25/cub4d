@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 04:15:08 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 05:41:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 # include "cub3d_parsing.h"
 # include "tilemap.h"
 
-typedef struct s_entity	t_entity;
-typedef struct s_game	t_game;
+typedef struct s_entity			t_entity;
+typedef struct s_game			t_game;
 typedef struct s_entity_manager	t_entity_manager;
 
-typedef void			(*t_entity_draw_event)(t_entity*, void *);
-typedef void			(*t_event_func)(void *, t_game*);
-typedef t_error			(*t_entity_data_constructor)(t_entity*,\
+typedef void					(*t_entity_draw_event)(t_entity*, void *);
+typedef void					(*t_event_func)(void *, t_game*);
+typedef t_error					(*t_entity_data_constructor)(t_entity*,\
 t_prop_inputs, t_game *);
-typedef t_entity*		(*t_entity_constructor)(t_vec3, t_game*);
+typedef t_entity*				(*t_entity_constructor)(t_vec3, t_game*);
 
 struct s_entity
 {
@@ -70,7 +70,7 @@ typedef struct s_entity_door_data
 	bool	interacted;
 }	t_entity_door_data;
 
-typedef enum	s_entity_type
+typedef enum s_entity_type
 {
 	ENTITY_NPC,
 	ENTITY_DOOR,
@@ -106,5 +106,6 @@ t_entity			*entity_new_tree(t_vec3 position, t_game *game);
 t_entity			*entity_new_door(t_vec3 position, t_game *game);
 t_error				entity_door_data(t_entity *self,
 						t_prop_inputs prop, t_game *game);
+void				entity_door_postload(t_entity *self, t_game *game);
 
 #endif

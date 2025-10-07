@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:58:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 01:24:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 05:38:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static const t_argument		g_argument_npc[] = {
 static const t_argument		g_argument_door[] = {
 {.name = "to_open", .type = DT_STRUCT, .subtype = SDT_TILE, .array = 1},
 {.name = "offset", .type = DT_FLOAT, .limited = true,
-.fl_min = -HEIGHT_LIMIT, .fl_max = HEIGHT_LIMIT},
-{.name = "speed", .type = DT_FLOAT},
+	.fl_min = -HEIGHT_LIMIT, .fl_max = HEIGHT_LIMIT},
+{.name = "speed", .type = DT_FLOAT, .limited = true, .fl_min = -5,
+	.fl_max = 5},
 {.name = "visible", .type = DT_ENUM, .subtype = SDT_BOOL, .optional = true},
 {.name = "button", .type = DT_ENUM, .subtype = SDT_BOOL, .optional = true},
 {.name = "mode", .type = DT_ENUM, .subtype = SDT_DOOR_TYPE, .optional = true},
@@ -53,7 +54,7 @@ void	entity_instantiate(t_entity_type type, t_vec3 position,
 		&& constructors->property.args)
 	{
 		temp_inputs = property_get_vla(inputs,
-			&constructors->property, game);
+				&constructors->property, game);
 		data_error = constructors->data_constructor(entity, temp_inputs, game);
 		if (data_error != ERROR_NONE)
 			throw_error(data_error, game);

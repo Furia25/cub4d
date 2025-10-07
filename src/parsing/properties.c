@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:56:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 04:11:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:52:04 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	parse_property_broadcast(char *line, t_game *game)
 }
 
 static const t_argument	g_argument_color[] = {
-	{.name = "r", .type = DT_UINT, .limited = true, .int_max = 255},
-	{.name = "g", .type = DT_UINT, .limited = true, .int_max = 255},
-	{.name = "b", .type = DT_UINT, .limited = true, .int_max = 255},
-	{.name = "a", .type = DT_UINT, .limited = true,
-		.int_max = PROPERTY_AMBIANT_MAX, .optional = true},
-	{}
+{.name = "r", .type = DT_UINT, .limited = true, .int_max = 255},
+{.name = "g", .type = DT_UINT, .limited = true, .int_max = 255},
+{.name = "b", .type = DT_UINT, .limited = true, .int_max = 255},
+{.name = "a", .type = DT_UINT, .limited = true,
+	.int_max = PROPERTY_AMBIANT_MAX, .optional = true},
+{}
 };
 
 void	parse_property_color(char *line, t_property_type type,
@@ -66,8 +66,8 @@ void	parse_property_color(char *line, t_property_type type,
 }
 
 static const t_argument	g_argument_wall[] = {
-	{.name = "path", .type = DT_STRING},
-	{}
+{.name = "path", .type = DT_STRING},
+{}
 };
 
 void	parse_property_wall(char *line, t_property_type type,

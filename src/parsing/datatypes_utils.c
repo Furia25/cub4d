@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:25:39 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 03:01:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:51:26 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ t_vec3	sdt_get_vec3(void *values)
 	if (!values)
 		return ((t_vec3){0, 0, 0});
 	structure = ((void **)values);
-	result = (t_vec3){*(float *)structure[0], *(float *)structure[1],
+	result = (t_vec3){
+		*(float *)structure[0],
+		*(float *)structure[1],
 		*(float *)structure[2]};
 	return (result);
 }
@@ -54,5 +56,7 @@ t_svec2	sdt_get_tile(void *values)
 	if (!values)
 		return ((t_svec2){0, 0});
 	structure = ((void **)values);
-	return ((t_svec2){*(int *)structure[0], *(int *)structure[1]});
+	return ((t_svec2){
+		*(int *)structure[0],
+		*(int *)structure[1]});
 }

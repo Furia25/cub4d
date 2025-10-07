@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:01:35 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 04:47:11 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 05:50:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,10 @@ t_error	handle_struct(int depth, char *pretoken, void **value, t_argument *arg)
 		return (ERROR_ARG_INCOMPLETE);
 	}
 	error = parse_arguments(depth, *value,
-		subtype->fields, tokens);
+			subtype->fields, tokens);
 	free_tab((void **)tokens);
 	return (error);
 }
-
-# define ARRAY_CONTENT_STR	"element  "
 
 static inline bool	array_init_template(t_dt_array *array, t_argument *argument)
 {
@@ -81,13 +79,13 @@ static inline t_error	parse_array(int depth, char **tokens,
 	{
 		ft_itoab(index, array->template.name, ft_strlen(ARRAY_CONTENT_STR) - 1);
 		temp_error = parse_datatype(depth + 1, tokens[index],
-			array->values + index, &array->template);
+				array->values + index, &array->template);
 		if (temp_error == ERROR_PARSING_ALLOC || temp_error == ERROR_BASIC)
 			return (ERROR_PARSING_ALLOC);
 		else if (temp_error != ERROR_NONE)
 		{
 			if (!argument_error_register(depth, temp_error,
-				tokens[index], &array->template))
+					tokens[index], &array->template))
 				return (ERROR_PARSING_ALLOC);
 			error = ERROR_ARG_ARRAY_CONTENT;
 		}
