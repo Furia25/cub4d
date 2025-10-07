@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/07 05:22:52 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/07 06:05:20 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,6 +126,7 @@ SRC_FILES = \
 	entities/entities_utils.c \
 	entities/entity_npc.c \
 	entities/entity_tree.c \
+	entities/entity_cake.c \
 	entities/entity_door.c \
 	entities/entity_door_data.c \
 	entities/entity_door_behaviors.c \

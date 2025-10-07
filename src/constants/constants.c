@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 00:23:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 00:31:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 06:01:18 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ const char			*g_textures_files[TEXTURE_MAX_COUNT] = {
 [TEXTURE_EAST] = "4",
 [TEXTURE_ENTITY_NPC] = "assets/textures/entity/npc.png",
 [TEXTURE_ENTITY_DOOR] = "assets/textures/entity/lever.png",
+[TEXTURE_ENTITY_CAKE] = "assets/textures/entity/cake.png",
 [TEXTURE_ENTITY_TREE] = "assets/textures/entity/tree.png",
 [TEXTURE_WATER] = NULL,
 [TEXTURE_CIGARETTE] = "assets/textures/cigarette.png",

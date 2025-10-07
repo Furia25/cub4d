@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/07 04:23:21 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 06:23:09 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,21 @@ from random source, using fallback : %016lx\n."
 # define MENU_OPTION_RESUME	"{5}RESUME"
 # define MENU_OPTION_CONFIG	"{4}Config"
 # define MENU_OPTION_QUIT	"{4}Quit"
+
 # define DEATH_MESSAGE	"\n\n\
 ▗▖  ▗▖▄▄▄  █  ▐▌    ▗▄▄▄  ▄ ▗▞▀▚▖   ▐▌\n\
  ▝▚▞▘█   █ ▀▄▄▞▘    ▐▌  █ ▄ ▐▛▀▀▘   ▐▌\n\
   ▐▌ ▀▄▄▄▀          ▐▌  █ █ ▝▚▄▄▖▗▞▀▜▌\n\
   ▐▌                ▐▙▄▄▀ █      ▝▚▄▟▌\n\
 \n"
+
+# define WIN_MESSAGE	"\n\n\
+ __  __            _      __          __\n\
+ \\ \\/ /__  __ __  | | /| / /__  ___  / /\n\
+  \\  / _ \\/ // /  | |/ |/ / _ \\/ _ \\/_/ \n\
+  /_/\\___/\\_,_/   |__/|__/\\___/_//_(_)  \n\
+                                        \n\
+"
 
 typedef enum e_game_state
 {

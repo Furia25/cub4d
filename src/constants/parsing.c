@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:28:39 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 05:50:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 06:06:46 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static const char				*g_sdt_bool[] = {"false", "true"};
 static const char				*g_sdt_entity[ENTITY_MAX] = {
 [ENTITY_NPC] = "NPC",
 [ENTITY_DOOR] = "DOOR",
-[ENTITY_TREE] = "TREE"
+[ENTITY_TREE] = "TREE",
+[ENTITY_CAKE] = "CAKE"
 };
 
 static const char				*g_sdt_door[5] = {

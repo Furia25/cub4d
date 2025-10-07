@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 16:58:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 05:38:24 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 06:07:07 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ static const t_argument		g_argument_door[] = {
 };
 
 static const t_entity_ctx	g_entities_datas[] = {
-[ENTITY_NPC] = {"NPC", entity_new_npc, entity_npc_data,
+[ENTITY_NPC] = {entity_new_npc, entity_npc_data,
 {.name = "NPC Data", .args = g_argument_npc}},
-[ENTITY_DOOR] = {"DOOR", entity_new_door, entity_door_data,
+[ENTITY_DOOR] = {entity_new_door, entity_door_data,
 {.name = "DOOR Data", .args = g_argument_door}},
-[ENTITY_TREE] = {"TREE", entity_new_tree, NULL, {}}
+[ENTITY_TREE] = {entity_new_tree, NULL, {}},
+[ENTITY_CAKE] = {entity_new_cake, NULL, {}}
 };
 
 void	entity_instantiate(t_entity_type type, t_vec3 position,

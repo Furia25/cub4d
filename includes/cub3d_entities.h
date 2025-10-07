@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 05:41:45 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 06:06:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ typedef enum s_entity_type
 	ENTITY_NPC,
 	ENTITY_DOOR,
 	ENTITY_TREE,
+	ENTITY_CAKE,
 	ENTITY_MAX
 }	t_entity_type;
 
 typedef struct s_entity_ctx
 {
-	char						*token;
 	t_entity_constructor		constructor;
 	t_entity_data_constructor	data_constructor;
 	t_property					property;
@@ -102,6 +102,8 @@ t_error				entity_npc_data(t_entity *self,
 						t_prop_inputs prop, t_game *game);
 
 t_entity			*entity_new_tree(t_vec3 position, t_game *game);
+
+t_entity			*entity_new_cake(t_vec3 position, t_game *game);
 
 t_entity			*entity_new_door(t_vec3 position, t_game *game);
 t_error				entity_door_data(t_entity *self,
