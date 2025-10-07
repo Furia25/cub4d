@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 22:58:41 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/18 17:59:54 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 23:50:31 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,25 @@ void	draw_spr_sheet(t_draw_transform tform, size_t index,
 			pos.x++;
 		}
 		pos.y++;
+	}
+}
+
+void	draw_rectangle(t_svec2 pos, t_svec2 size,
+			t_rgba8 color, t_img_data *frame)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (i < size.y)
+	{
+		j = 0;
+		while (j < size.x)
+		{
+			draw_pixel(color, pos.x + j, pos.y + i, frame);
+			j++;
+		}
+		i++;
 	}
 }

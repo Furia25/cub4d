@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   full_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: halnuma <halnuma@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 09:58:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/02 12:29:55 by halnuma          ###   ########.fr       */
+/*   Updated: 2025/10/08 00:10:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,23 @@
 
 void	draw_tiles(t_game *game, int pos_x, int pos_y, t_rgba8 color)
 {
-	int	i;
-	int	j;
-	int	w_tile_size;
-	int	h_tile_size;
-	int	tile_size;
+	size_t	w_tile_size;
+	size_t	h_tile_size;
+	size_t	tile_size;
+	size_t	hwidth;
+	size_t	hheight;
 
-	w_tile_size = game->win.width / game->parsing.map_width;
-	h_tile_size = game->win.height / game->parsing.map_height;
-	if (w_tile_size > h_tile_size)
-		tile_size = h_tile_size;
-	else
-		tile_size = w_tile_size;
-	i = 0;
-	while (i < tile_size)
-	{
-		j = 0;
-		while (j < tile_size)
-		{
-			draw_pixel(color, (pos_x * tile_size + i),
-				(pos_y * tile_size + j), game->frame);
-			j++;
-		}
-		i++;
-	}
+	w_tile_size = (game->win.width * 0.75) / game->parsing.map_width;
+	h_tile_size = (game->win.height * 0.75) / game->parsing.map_height;
+	tile_size = min(w_tile_size, h_tile_size);
+	hwidth = tile_size * game->parsing.map_width;
+	hheight = tile_size * game->parsing.map_height;
+	draw_rectangle(
+		(t_svec2){pos_x * tile_size + (game->win.width * 0.5 - hwidth * 0.5),
+			pos_y * tile_size + (game->win.height * 0.5 - hheight * 0.5)},
+		(t_svec2){tile_size, tile_size},
+		color,
+		game->frame);
 }
 
 void	draw_lines(char *line, t_game *game, int pos_y)

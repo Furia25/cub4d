@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 05:59:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 12:43:24 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/08 00:15:18 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_entity	*entity_new_cake(t_vec3 position, t_game *game)
 	entity = entity_new(game);
 	entity_init_basics(position, entity);
 	entity->transform.index = 0;
-	entity->map_color = g_colors[C_GREEN];
+	entity->map_color = g_colors[C_HOTPINK];
 	entity->draw = (t_entity_draw_event)entity_basic_draw;
 	entity->tick = entity_cake_tick;
 	entity->create = NULL;
@@ -49,7 +49,7 @@ void	entity_cake_tick(t_entity *self, t_game *game)
 	t = get_elapsed_ms() / 1000.0;
 	object_move((t_vec3){0, 0, sin(t) * 0.005}, &self->position, &self->hitbox);
 	distance = vec3_distance(self->position, game->player.position);
-	if (distance < 0.4)
+	if (distance < 0.55)
 	{
 		printf(ANSI_BRIGHT_GREEN WIN_MESSAGE ANSI_RESET);
 		exit_game(game);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:50:45 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/02 17:37:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/08 00:12:02 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ void	render(t_game *game)
 			&game->hud_cigarette.sprite, &context);
 	if (game->entity_manager.can_interact != NULL)
 		draw_interaction(&context, game);
-	draw_minimap(game);
 	if (key_check(KEY_TAB, game))
 		draw_full_map(game);
+	else
+		draw_minimap(game);
 }
 static inline void	clear_zbuffer(float *zbuffer, int width, int height);
 

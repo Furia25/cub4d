@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/07 06:05:20 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/07 23:07:32 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ else
 endif
 
 # Project
-NAME = cub3d
+NAME = cub4d
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes
