@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:05:50 by vdurand           #+#    #+#             */
-/*   Updated: 2025/06/04 02:04:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 00:44:06 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ double	rng_rand(t_rng_state *rng_state)
 int	rng_int_range(t_rng_state *rng_state, int min, int max)
 {
 	return (min + (int)(rng_next(rng_state) % (uint64_t)(max - min + 1)));
+}
+
+size_t	rng_sizet_range(t_rng_state *rng_state, size_t min, size_t max)
+{
+	return (min + (size_t)(rng_next(rng_state) % (uint64_t)(max - min + 1)));
 }
 
 float	rng_float_range(t_rng_state *rng_state, float min, float max)

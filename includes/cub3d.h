@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/06 19:09:52 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:23:21 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,7 @@ bool		key_is_released(t_key_type type, t_game *game);
 bool		key_is_pressed(t_key_type type, t_game *game);
 
 // ----- UTILS ----- //
+void		shuffle_indices(size_t *order, size_t n, t_rng_state *rng);
 void		free_tab(void **map);
 size_t		tab_length(void **tab);
 char		**chartab_dup(char **tab, size_t height);

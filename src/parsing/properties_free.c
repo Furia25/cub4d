@@ -6,25 +6,25 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:55:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 19:49:19 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 02:27:51 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static inline void	free_property_values(bool is_array, void **values,
-						size_t size, const t_argument *args);
+static inline void	free_property_values(uint8_t mask, void **values,
+						size_t size, t_argument *args);
 
 static inline void	free_property_array(void *value)
 {
 	t_dt_array	*array;
 
 	array = (t_dt_array *)value;
-	
 	if (!array)
 		return ;
+	if (array->length > 0)
+		free_property_values(2, array->values, array->length, &array->template);
 	free(array->template.name);
-	free_property_values(true, array->values, array->length, &array->template);
 	free(array);
 }
 
@@ -33,35 +33,36 @@ static inline void	free_property_struct(void *value, t_argument *actual)
 	const t_data_subtype_info	*subtype;
 
 	subtype = &g_data_subtype_info[actual->subtype];
-	free_property_values(false, value, arguments_length(subtype->fields),
-		subtype->fields);
+	free_property_values(true, value, arguments_length(subtype->fields),
+		(t_argument *)subtype->fields);
 }
 
-static inline void	free_property_values(bool is_array, void **values,
-						size_t size, const t_argument *args)
+static inline void	free_property_values(uint8_t mask, void **values,
+						size_t size, t_argument *args)
 {
-	t_argument	*actual;
-	size_t		index;
+	t_argument			*actual;
+	size_t				index;
 
 	index = 0;
 	while (index < size)
 	{
-		if (values[index] != NULL)
+		if (values && values[index] != NULL)
 		{
-			if (is_array)
-				actual = (t_argument *)args;
+			if (mask == 2)
+				actual = args;
 			else
-				actual = (t_argument *)(&args[index]);
+				actual = args + index;
 			if (actual->array > 0)
 				free_property_array(values[index]);
 			else if (actual->type == DT_STRUCT)
 				free_property_struct(values[index], actual);
 			else
 				free(values[index]);
+			values[index] = NULL;
 		}
 		index++;
 	}
-	if (!is_array)
+	if (mask == 1)
 		free(values);
 }
 
@@ -87,8 +88,10 @@ void	property_inputs_free(t_prop_inputs *inputs)
 	if (!inputs->vla)
 		free_tokens(inputs->argv, inputs->argc + 1);
 	if (inputs->values)
-		free_property_values(false, inputs->values,
-			arguments_length(inputs->arguments), inputs->arguments);
+	{
+		free_property_values(!inputs->vla, inputs->values,
+			inputs->argc, (t_argument *)inputs->arguments);
+	}
 	inputs->arguments = NULL;
 	inputs->property = NULL;
 	inputs->values = NULL;

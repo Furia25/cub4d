@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 19:48:13 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 02:41:41 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define PROPERTY_AMBIANT_MAX	200
 
-# define TOKEN_ENCLOSERS	"\"\"{}[]"
+# define TOKEN_ENCLOSERS	"\"\"{}[]\0"
 # define TOKEN_DELIMITER	","
 
 typedef struct s_game	t_game;
@@ -44,8 +44,9 @@ typedef enum s_data_subtype
 	SDT_NULL,
 	SDT_VEC3,
 	SDT_BOOL,
-	SDT_ENTITY,
-	SDT_DOOR,
+	SDT_TILE,
+	SDT_ENTITY_TYPE,
+	SDT_DOOR_TYPE,
 	SDT_MAX
 }	t_data_subtype;
 
@@ -172,7 +173,8 @@ void			map_check_borders(t_parsing *parsing, t_game *game);
 void			interpret_map_from_file(t_parsing *parsing, t_game *game);
 
 /*Datatypes parsing*/
-t_vec3			dt_get_vec3(void *values);
+t_vec3			sdt_get_vec3(void *values);
+t_svec2			sdt_get_tile(void *values);
 bool			dt_check_prefix(char *token, t_argument *arg);
 
 t_error			handle_struct(int depth, char *pretoken,
@@ -199,8 +201,6 @@ void			property_check_argc(const t_property *property,
 t_prop_inputs	property_get_vla(t_prop_inputs *inputs,
 					const t_property *property, t_game *game);
 void			property_inputs_free(t_prop_inputs *inputs);
-void			property_handle_error(t_error exit_code,
-					const t_property *property, t_game *game);
 void			property_get_inputs(char *line, t_property_type type,
 					const t_property *property, t_game *game);
 t_error			parse_arguments(int depth, void **values,

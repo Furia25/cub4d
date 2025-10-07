@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:21:21 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/06 19:24:32 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 02:57:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int ac, char **av)
 	}
 	init_engine_preparsing(&game);
 	parsing(av[1], &game);
-	exit_game(&game);
 	init_engine(&game);
 	return (0);
 }

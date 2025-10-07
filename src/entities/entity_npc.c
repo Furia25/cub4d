@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 05:13:51 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 03:10:17 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 	entity_init_basics(position, entity);
 	entity->transform.index = 1;
 	entity->map_color = g_colors[C_ALICE_BLUE];
-	entity->draw = (void (*)(struct s_entity *, void *))entity_basic_draw;
+	entity->draw = (t_entity_draw_event)entity_basic_draw;
 	entity->tick = entity_npc_tick;
 	entity->create = NULL;
 	entity->interaction = entity_npc_interacted;
 	entity->free_data = free;
 	entity->transform.height = 100;
 	entity->transform.width = 50;
-	if (!event_queue_push((void (*)(void *, t_game *))entity_npc_postload,
-		entity, false, game->events_postload))
+	if (!event_queue_push((t_event_func)entity_npc_postload, entity,
+		false, game->events_postload))
 	{
 		free(entity);
 		throw_error(ERROR_ENTITIES_ALLOC, game);
@@ -45,8 +45,9 @@ t_entity	*entity_new_npc(t_vec3 position, t_game *game)
 
 /*Entity Data Constructor from parsed property*/
 
-t_error	entity_npc_data(t_entity *self, t_prop_inputs prop)
+t_error	entity_npc_data(t_entity *self, t_prop_inputs prop, t_game *game)
 {
+	(void)game;
 	self->data = (char *)prop.values[0];
 	prop.values[0] = NULL;
 	return (ERROR_NONE);

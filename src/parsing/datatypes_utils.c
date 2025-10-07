@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 17:25:39 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 00:02:02 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 03:01:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	dt_check_prefix(char *token, t_argument *arg)
 	return (true);
 }
 
-t_vec3	dt_get_vec3(void *values)
+t_vec3	sdt_get_vec3(void *values)
 {
 	void	**structure;
 	t_vec3	result;
@@ -45,4 +45,14 @@ t_vec3	dt_get_vec3(void *values)
 	result = (t_vec3){*(float *)structure[0], *(float *)structure[1],
 		*(float *)structure[2]};
 	return (result);
+}
+
+t_svec2	sdt_get_tile(void *values)
+{
+	void	**structure;
+
+	if (!values)
+		return ((t_svec2){0, 0});
+	structure = ((void **)values);
+	return ((t_svec2){*(int *)structure[0], *(int *)structure[1]});
 }

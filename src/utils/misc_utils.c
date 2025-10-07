@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:07:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 03:23:24 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:28:23 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,23 @@ t_vec3	bbox_get_center(t_bbox bbox)
 	return ((t_vec3){(bbox.min.x + bbox.max.x) * half,
 		(bbox.min.y + bbox.max.y) * half,
 		(bbox.min.z + bbox.max.z) * half});
+}
+
+void	shuffle_indices(size_t *order, size_t n, t_rng_state *rng)
+{
+	size_t	i;
+	size_t	j;
+	size_t	tmp;
+
+	if (n < 2)
+    	return;
+	i = n - 1;
+	while (i > 0)
+	{
+		j = rng_sizet_range(rng, 0, i);
+		tmp = order[i];
+		order[i] = order[j];
+		order[j] = tmp;
+		i--;
+	}
 }

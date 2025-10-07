@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 23:03:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/05 22:43:55 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 02:42:45 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,17 @@ typedef struct s_player
 	t_vec3		spawn_pos;
 	float		spawn_dir;
 }	t_player;
+
+typedef struct s_encloser_stack
+{
+	char	data[64];
+	size_t	top;
+}	t_encloser_stack;
+
+void	stack_init(t_encloser_stack *s);
+bool	stack_empty(t_encloser_stack *s);
+void	stack_push(t_encloser_stack *s, char c);
+char	stack_pop(t_encloser_stack *s);
+char	stack_peek(t_encloser_stack *s);
 
 #endif

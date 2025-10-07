@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 19:21:58 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 04:40:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:15:08 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 
 # include "cub3d_structs.h"
 # include "cub3d_parsing.h"
+# include "tilemap.h"
 
 typedef struct s_entity	t_entity;
 typedef struct s_game	t_game;
 typedef struct s_entity_manager	t_entity_manager;
 
-typedef t_error			(*t_entity_data_constructor)(t_entity*, t_prop_inputs);
+typedef void			(*t_entity_draw_event)(t_entity*, void *);
+typedef void			(*t_event_func)(void *, t_game*);
+typedef t_error			(*t_entity_data_constructor)(t_entity*,\
+t_prop_inputs, t_game *);
 typedef t_entity*		(*t_entity_constructor)(t_vec3, t_game*);
 
 struct s_entity
@@ -29,7 +33,6 @@ struct s_entity
 	t_transform					transform;
 	t_vec3						position;
 	t_bbox						hitbox;
-	uint16_t					anim_index;
 	uint16_t					state;
 	void						(*create)(t_entity*, t_game*);
 	void						(*tick)(t_entity*, t_game*);
@@ -53,17 +56,17 @@ typedef struct s_entity_manager
 
 typedef struct s_entity_door_data
 {
-	int		x_start;
-	int		y_start;
-	int		width;
-	int		height;
 	float	offset;
 	float	speed;
-	float	actual;
-	int		x_end;
-	int		y_end;
-	int		mode;
 	bool	visible;
+	bool	button;
+	size_t	mode;
+	float	actual_offset;
+	t_tile	*actual;
+	t_svec2	*tiles;
+	size_t	*random_order;
+	size_t	tiles_changed;
+	size_t	tiles_num;
 	bool	interacted;
 }	t_entity_door_data;
 
@@ -95,11 +98,13 @@ void				entity_init_basics(t_vec3 position, t_entity *entity);
 void				check_interaction(t_entity *self, t_game *game);
 
 t_entity			*entity_new_npc(t_vec3 position, t_game *game);
-t_error				entity_npc_data(t_entity *self, t_prop_inputs prop);
+t_error				entity_npc_data(t_entity *self,
+						t_prop_inputs prop, t_game *game);
 
 t_entity			*entity_new_tree(t_vec3 position, t_game *game);
 
 t_entity			*entity_new_door(t_vec3 position, t_game *game);
-t_error				entity_door_data(t_entity *self, t_prop_inputs prop);
+t_error				entity_door_data(t_entity *self,
+						t_prop_inputs prop, t_game *game);
 
 #endif

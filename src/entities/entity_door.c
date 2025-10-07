@@ -6,15 +6,17 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:20:17 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 19:46:18 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:43:28 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cub3d_rendering.h"
 
+void	entity_door_postload(t_entity *self, t_game *game);
 void	entity_door_tick(t_entity *self, t_game *game);
 void	entity_door_interacted(t_entity *self, t_game *game);
+void	entity_door_free(void *ptr);
 
 /*Entity constructor*/
 
@@ -25,94 +27,126 @@ t_entity	*entity_new_door(t_vec3 position, t_game *game)
 	entity = entity_new(game);
 	entity_init_basics(position, entity);
 	entity->transform.index = 1;
-	entity->map_color = g_colors[C_ALICE_BLUE];
+	entity->map_color = g_colors[C_CORAL];
 	entity->draw = NULL;
 	entity->tick = entity_door_tick;
 	entity->create = NULL;
 	entity->interaction = entity_door_interacted;
-	entity->free_data = free;
-	entity->transform.height = 100;
-	entity->transform.width = 50;
+	entity->free_data = entity_door_free;
+	entity->spr.width = 110;
+	entity->spr.spr_per_line = 2;
+	entity->transform.height = 50;
+	entity->transform.width = 25;
 	return (entity);
 }
 
+void	entity_door_postload(t_entity *self, t_game *game)
+{
+	const t_tilemap		*tilemap = game->tilemap;
+	t_svec2				tile_coord;
+	t_entity_door_data	*data;
+	size_t				index;
+	size_t				valids;
+
+	data = (t_entity_door_data *)self->data;
+	self->spr.asset = game->textures[TEXTURE_ENTITY_DOOR];
+	self->spr.height = self->spr.asset->header.height;
+	index = 0;
+	valids = 0;
+	while (index < data->tiles_num)
+	{
+		tile_coord = data->tiles[index];
+		if (tile_coord.x < tilemap->width && tile_coord.y < tilemap->height)
+			data->tiles[valids++] = tile_coord;
+		index++;
+	}
+	data->tiles_num = valids;
+}
+
+static inline bool	init_door_buffer(t_entity_door_data *data,
+						const t_dt_array *array);
+static inline void	init_door_values(t_entity_door_data *data,
+						void **values, size_t argc);
+
 /*Entity Data Constructor from parsed property*/
 
-t_error	entity_door_data(t_entity *self, t_prop_inputs prop)
+t_error	entity_door_data(t_entity *self, t_prop_inputs prop, t_game *game)
 {
+	const t_dt_array	*array = (t_dt_array *)prop.values[0];
 	t_entity_door_data	*temp_data;
 
-	temp_data = ft_calloc(1, sizeof(t_entity_door_data));
-	if (temp_data)
+	self->data = ft_calloc(1, sizeof(t_entity_door_data));
+	temp_data = (t_entity_door_data *)self->data;
+	if (!self->data)
 	{
-		free(temp_data);
 		property_inputs_free(&prop);
 		return (ERROR_PARSING_ALLOC);
 	}
-	temp_data->x_start = *((int *)prop.values[0]);
-	temp_data->y_start = *((int *)prop.values[1]);
-	temp_data->width = *((int *)prop.values[2]);
-	temp_data->height = *((int *)prop.values[3]);
-	temp_data->offset = *((float *)prop.values[4]);
-	self->data = temp_data;
+	ft_memset(temp_data, 0, sizeof(t_entity_door_data));
+	if (!init_door_buffer(temp_data, array))
+	{
+		property_inputs_free(&prop);
+		return (ERROR_PARSING_ALLOC);
+	}
+	init_door_values(temp_data, prop.values, prop.argc);
+	property_inputs_free(&prop);
+	if (temp_data->visible)
+		self->draw = (t_entity_draw_event)entity_basic_draw;
+	if (!event_queue_push((t_event_func)entity_door_postload, self,
+			false, game->events_postload))
+			throw_error(ERROR_ENTITIES_ALLOC, game);
 	return (ERROR_NONE);
 }
 
-static inline void	door_activated(t_entity *self, t_tilemap *tilemap);
-
-void	entity_door_tick(t_entity *self, t_game *game)
+static inline bool	init_door_buffer(t_entity_door_data *data,
+						const t_dt_array *array)
 {
-	t_entity_door_data	*data;
+	size_t	index;
 
-	data = (t_entity_door_data *)self->data;
-	if (!data->interacted)
-		check_interaction(self, game);
-	else
-		door_activated(self, game->tilemap);
-	if (fabsf(data->actual) >= fabsf(data->offset))
-		self->tick = NULL;
-}
-
-static inline void	door_activated(t_entity *self, t_tilemap *tilemap)
-{
-	t_entity_door_data	*data;
-	t_tile				*tile;
-	int					x;
-	int					y;
-
-	data = (t_entity_door_data *)self->data;
-	y = data->y_start;
-	while (y != data->y_end)
+	data->tiles_num = array->length;
+	data->tiles = ft_calloc(array->length, sizeof(t_svec2));
+	if (!data->tiles)
+		return (false);
+	data->random_order = ft_calloc(array->length, sizeof(size_t));
+	if (!data->random_order)
+		return (false);
+	index = 0;
+	while (index < array->length)
 	{
-		x = data->x_start;
-		while (x != data->x_end)
-		{
-			if (x > 0 || y > 0 || x < (int)tilemap->width
-				|| y < (int)tilemap->height)
-			{
-				tile = &tilemap->tiles[y][x];
-				if (tile->ceiling + data->speed > tile->floor)
-					tile->ceiling = fclamp(tile->ceiling + data->speed,
-						tile->floor + 0.01, HEIGHT_LIMIT);
-			}
-			x += sign(data->width);
-		}
-		y += sign(data->height);
+		data->random_order[index] = index;
+		index++;
 	}
-	data->actual += data->speed;
+	index = 0;
+	while (index < array->length && array->values[index])
+	{
+		data->tiles[index] = sdt_get_tile(array->values[index]);
+		index++;
+	}
+	return (true);
 }
 
-void	entity_door_interacted(t_entity *self, t_game *game)
+static inline void	init_door_values(t_entity_door_data *data,
+						void **values, size_t argc)
+{
+	data->offset = *((float *)values[1]);
+	data->speed = *((float *)values[2]);
+	if (argc > 3 && values[3] != NULL)
+		data->visible = *((bool *)values[3]);
+	if (argc > 4 && values[4] != NULL)
+		data->button = *((bool *)values[4]);
+	if (argc > 5 && values[5] != NULL)
+		data->mode = *((size_t *)values[5]);
+}
+
+void	entity_door_free(void *ptr)
 {
 	t_entity_door_data	*data;
 
-	if (!self->data)
-		return ;
-	data = (t_entity_door_data *)self->data;
-	data->interacted = true;
-	data->actual = 0;
-	data->x_end = data->x_start + data->width;
-	data->y_end = data->y_start + data->height;
-	if (game->entity_manager.interacted == self)
-		game->entity_manager.interacted = NULL;
+	data = (t_entity_door_data *)ptr;
+	if (data)
+	{
+		free(data->tiles);
+		free(data->random_order);
+	}
+	free(data);
 }

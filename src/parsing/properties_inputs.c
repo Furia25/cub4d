@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 20:20:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 19:48:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 04:25:52 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	property_check_argc(const t_property *property,
 	inputs->vla = false;
 }
 
-void	property_handle_error(t_error error,
+void	property_handle_error(t_prop_inputs *inputs, t_error error,
 			const t_property *property, t_game *game)
 {
 	if (error == ERROR_NONE)
@@ -36,10 +36,16 @@ void	property_handle_error(t_error error,
 			ERROR_PROP_INVALID, property);
 		argument_queue_print();
 		print_property_usage(2, property);
+		if (inputs->vla)
+			property_inputs_free(inputs);
 		exit_game(game);
 	}
 	else
+	{
+		if (inputs->vla)
+			property_inputs_free(inputs);
 		throw_error(ERROR_PARSING_ALLOC, game);	
+	}
 }
 
 void	property_get_inputs(char *line, t_property_type type,
@@ -69,7 +75,7 @@ void	property_get_inputs(char *line, t_property_type type,
 	if (!inputs->values)
 		throw_error(ERROR_PARSING_ALLOC, game);
 	error = parse_arguments(1, inputs->values, property->args, inputs->argv);
-	property_handle_error(error, property, game);
+	property_handle_error(inputs, error, property, game);
 }
 
 t_prop_inputs	property_get_vla(t_prop_inputs *inputs,
@@ -89,6 +95,6 @@ t_prop_inputs	property_get_vla(t_prop_inputs *inputs,
 	result.property = property;
 	result.vla = true;
 	error = parse_arguments(1, result.values, property->args, result.argv);
-	property_handle_error(error, property, game);
+	property_handle_error(&result, error, property, game);
 	return (result);
 }

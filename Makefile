@@ -6,7 +6,7 @@
 #    By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/13 23:20:17 by val               #+#    #+#              #
-#    Updated: 2025/10/06 04:09:09 by vdurand          ###   ########.fr        #
+#    Updated: 2025/10/07 02:47:04 by vdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,7 @@ SRC_FILES = \
 	parsing/datatypes.c \
 	parsing/datatypes_utils.c \
 	parsing/datatypes_composed.c \
+	parsing/stack.c \
 	utils/tab_utils.c \
 	utils/print_utils.c \
 	utils/misc_utils.c \
@@ -126,6 +127,7 @@ SRC_FILES = \
 	entities/entity_npc.c \
 	entities/entity_tree.c \
 	entities/entity_door.c \
+	entities/entity_door_behaviors.c \
 	entities/manager.c \
 	entities/instantiate.c \
 	events.c \
