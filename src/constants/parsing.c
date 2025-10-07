@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:28:39 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 12:13:06 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:43:31 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static const char				*g_sdt_door[5] = {
 [2] = "RANDOM"
 };
 
-const t_data_subtype_info		g_data_subtype_info[SDT_MAX] = {
+const t_sdt_info				g_data_subtype_info[SDT_MAX] = {
 [SDT_NULL] = {.name = NULL},
 [SDT_VEC3] = {.name = "vec3", .fields = g_sdt_vec3, .count = 3},
 [SDT_BOOL] = {.name = "bool", .enum_values = g_sdt_bool, .count = 2},

@@ -6,24 +6,12 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 17:45:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 04:48:46 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:55:12 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "ft_printf.h"
-
-void	print_char_tab(char **tab)
-{
-	while (tab && *tab)
-	{
-		if (*(tab + 1))
-			printf("|%s|, ", *tab);
-		else
-			printf("|%s|\n", *tab);
-		tab++;
-	}
-}
 
 static inline void	print_loading(int loaded, int max, int *bar)
 {

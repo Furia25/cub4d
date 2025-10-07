@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 05:51:29 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:40:48 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_data_subtype_info
 	const t_argument	*fields;
 	const char			**enum_values;
 	const size_t		count;
-}	t_data_subtype_info;
+}	t_sdt_info;
 
 typedef struct s_property
 {
@@ -162,7 +162,7 @@ extern const char		*g_data_type_info[DT_MAX];
 
 extern const char		*g_property_token[PROP_UNKNOWN];
 
-extern const t_data_subtype_info	g_data_subtype_info[SDT_MAX];
+extern const t_sdt_info	g_data_subtype_info[SDT_MAX];
 
 /*Parsing*/
 void			parsing(char *file_name, t_game *game);

@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:55:33 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 05:50:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:41:19 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline void	free_property_array(void *value)
 
 static inline void	free_property_struct(void *value, t_argument *actual)
 {
-	const t_data_subtype_info	*subtype;
+	const t_sdt_info	*subtype;
 
 	subtype = &g_data_subtype_info[actual->subtype];
 	free_property_values(true, value, arguments_length(subtype->fields),

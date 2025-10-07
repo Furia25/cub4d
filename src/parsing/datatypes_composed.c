@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 01:01:35 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 05:50:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:43:03 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 t_error	handle_struct(int depth, char *pretoken, void **value, t_argument *arg)
 {
-	const t_data_subtype_info	*subtype = &g_data_subtype_info[arg->subtype];
-	char						**tokens;
-	size_t						arg_needed;
-	size_t						length;
-	t_error						error;
+	const t_sdt_info	*subtype = &g_data_subtype_info[arg->subtype];
+	char				**tokens;
+	size_t				arg_needed;
+	size_t				length;
+	t_error				error;
 
 	if (!pretoken || !dt_check_prefix(pretoken, arg))
 		return (ERROR_ARG_MALFORMED_STRUCT);
@@ -124,8 +124,8 @@ t_error	handle_array(int depth, char *pretoken, void **value, t_argument *arg)
 
 t_error	handle_enum(char *token, void **value, t_argument *arg)
 {
-	const t_data_subtype_info	*subtype = &g_data_subtype_info[arg->subtype];
-	size_t						index;
+	const t_sdt_info	*subtype = &g_data_subtype_info[arg->subtype];
+	size_t				index;
 
 	if (!subtype->enum_values)
 		return (ERROR_ARG_INVALID);

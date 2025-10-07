@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 05:59:00 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 06:25:36 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:43:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_entity	*entity_new_cake(t_vec3 position, t_game *game)
 	entity->transform.height = 100;
 	entity->transform.width = 100;
 	if (!event_queue_push((t_event_func)entity_cake_postload,
-		entity, false, game->events_postload))
+			entity, false, game->events_postload))
 	{
 		free(entity);
 		throw_error(ERROR_ENTITIES_ALLOC, game);

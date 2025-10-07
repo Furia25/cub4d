@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vdurand <vdurand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 12:59:23 by vdurand           #+#    #+#             */
-/*   Updated: 2024/11/08 18:12:37 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:49:34 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 	return (0);
 }
-
-/*   int	main(void)
-{
-	unsigned char *test = "";
-	unsigned char *test2 = "AAAAAA";
-
-	printf("%d\n", strncmp(test, test2, 6));
-	printf("%d", ft_strncmp(test, test2, 6));
-}  */

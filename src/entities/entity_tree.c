@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:33:23 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 06:00:10 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:35:49 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_entity	*entity_new_tree(t_vec3 position, t_game *game)
 	entity->transform.height = 400;
 	entity->transform.width = 200;
 	if (!event_queue_push((t_event_func)entity_tree_postload,
-		entity, false, game->events_postload))
+			entity, false, game->events_postload))
 	{
 		free(entity);
 		throw_error(ERROR_ENTITIES_ALLOC, game);

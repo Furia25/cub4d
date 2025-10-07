@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:50:22 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 05:50:49 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:43:13 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_printf.h"
 
 static inline void	print_struct_enum(int fd, bool verbose,
-						const t_data_subtype_info *sub);
+						const t_sdt_info *sub);
 
 static inline void	print_array(int fd, const t_argument *arg)
 {
@@ -35,8 +35,8 @@ static inline void	print_array(int fd, const t_argument *arg)
 
 void	print_argument(int fd, bool verbose, bool name, const t_argument *arg)
 {
-	const t_data_subtype_info	*sub = &g_data_subtype_info[arg->subtype];
-	char						*type_name;
+	const t_sdt_info	*sub = &g_data_subtype_info[arg->subtype];
+	char				*type_name;
 
 	if (arg->optional)
 		ft_putchar_fd('<', fd);
@@ -60,7 +60,7 @@ void	print_argument(int fd, bool verbose, bool name, const t_argument *arg)
 }
 
 static inline void	print_struct_enum(int fd, bool verbose,
-						const t_data_subtype_info *sub)
+						const t_sdt_info *sub)
 {
 	size_t		index;
 	const void	*tab;
