@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 22:54:59 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 23:06:56 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:00:14 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ bool	is_symbol_central(char c)
 bool	is_symbol_valid(char c)
 {
 	return (c == SYMBOL_WATER || c == SYMBOL_WALL || c == SYMBOL_GRASS
-		|| is_symbol_player(c) || c == ' ');
+		|| is_symbol_player(c) || c == ' ' || c == SYMBOL_HELPER);
 }

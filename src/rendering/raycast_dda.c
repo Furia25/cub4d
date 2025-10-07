@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 18:25:18 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/03 16:18:58 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:58:24 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ static inline void	raycast_init(t_raycast_context *ctx)
 	if (float_equal(ray->dir_normal.x, 0))
 		ctx->delta_dist.x = INFINITY;
 	else
-		ctx->delta_dist.x = fabs(1 / ray->dir_normal.x);
+		ctx->delta_dist.x = fabsf(1 / ray->dir_normal.x);
 	if (float_equal(ray->dir_normal.y, 0))
 		ctx->delta_dist.y = INFINITY;
 	else
-		ctx->delta_dist.y = fabs(1 / ray->dir_normal.y);
+		ctx->delta_dist.y = fabsf(1 / ray->dir_normal.y);
 	if (ray->dir_normal.x < 0.0)
 		ctx->step_dist.x
 			= (ray->origin.x - ctx->actual_tile.x) * ctx->delta_dist.x;

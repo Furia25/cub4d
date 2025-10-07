@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 18:44:57 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 05:37:35 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:13:53 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ t_error	parse_datatype(int depth, char *token,
 	t_error	error;
 
 	error = ERROR_NONE;
-	if (!token || !token[0] || !value || !argument)
+	if (!token || !token[0] | !value || !argument)
 		return (ERROR_ARG_INCOMPLETE);
 	if (argument->type == DT_NULL)
 		return (ERROR_NONE);
 	else if (argument->array > 0)
 		error = handle_array(depth, token, value, argument);
 	else if (argument->type == DT_STRUCT)
-		error = handle_struct(depth, token, value, argument);
+		error = handle_struct(depth, token,value, argument);
 	else if (argument->type == DT_ENUM)
 		error = handle_enum(token, value, argument);
 	else if (argument->type == DT_STRING)

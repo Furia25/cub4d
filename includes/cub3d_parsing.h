@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 00:17:28 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 12:40:48 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:03:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "cub3d_errors.h"
 # include "ansi_sequence.h"
 
-# define DEBUG_PARSING	0
+# define MAP_HELPER	1
 # define PARSING_MAP_MESSAGE "Map size parsed to %dx%d.\n"
 
 # define PROPERTY_AMBIANT_MAX	200

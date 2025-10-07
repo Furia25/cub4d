@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 21:54:34 by vdurand           #+#    #+#             */
-/*   Updated: 2025/09/29 00:41:39 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:00:55 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define SYMBOL_WALL	'1'
 # define SYMBOL_GRASS	'0'
 # define SYMBOL_WATER	'2'
+# define SYMBOL_HELPER	'+'
 
 typedef enum e_tile_solid_mode
 {

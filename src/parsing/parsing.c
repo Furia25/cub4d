@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 23:58:56 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/06 01:31:25 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 18:03:54 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ static inline void	parsing_end(t_parsing *parsing, t_game *game)
 	argument_error_queue_clean();
 	printf(INFO_PREFIX PARSING_MAP_MESSAGE,
 		parsing->map_width, parsing->map_height);
+	if (MAP_HELPER)
+		printf("MAP HALF SIZE : %d, %d\n", parsing->map_width / 2,
+			parsing->map_height / 2);
 }
 
 static inline void	parsing_check_mandatory(t_parsing *parsing, t_game *game)
