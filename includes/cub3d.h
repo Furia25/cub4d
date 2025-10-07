@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 10:22:29 by halnuma           #+#    #+#             */
-/*   Updated: 2025/10/07 06:23:09 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 11:37:57 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define WINDOW_WIDTH		1280
 # define WINDOW_HEIGHT		720
 # define ASPECT_RES			1080
-# define MOUSE_SENS			0.0005
+# define MOUSE_SENS			0.00075
 
 # define HEIGHT_LIMIT	100
 # define PLAYER_STEP_THRESHOLD	0.08

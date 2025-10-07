@@ -6,7 +6,7 @@
 /*   By: vdurand <vdurand@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 00:42:49 by vdurand           #+#    #+#             */
-/*   Updated: 2025/10/07 04:55:35 by vdurand          ###   ########.fr       */
+/*   Updated: 2025/10/07 11:58:27 by vdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static inline void	property_check_set_heights(t_height_data *data,
 	data->width = *(int *)prop->values[2];
 	data->height = *(int *)prop->values[3];
 	data->ceil_offset = *(float *)prop->values[4];
-	if (prop->values[5])
+	if (prop->argc > 5 && prop->values[5])
 		data->floor_offset = *(float *)prop->values[5];
 	else
 		data->floor_offset = data->ceil_offset;
