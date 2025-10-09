@@ -34,7 +34,7 @@ HEIGHT_PRECISE 16,1,1,1,7.3,0
 HEIGHT_PRECISE 15,1,1,1,0.2,-7.6
 
 # OPEN 1
-ENTITY DOOR,{13.8, 7.05, 1},[{16, 7}],0.7,0.01,true,false
+ENTITY DOOR,{13.8, 7.05, 1},[{16, 7}],0.8,0.01,true,false
 
 # TEST Levers
 ENTITY DOOR,{12, 22, 1},[{16, 7}],0.8,0.01,true,false
@@ -55,9 +55,10 @@ HEIGHT 4, 4, 1, 1, 1.66
 
 # PUZZLE 1
 ENTITY DOOR,{3.5, 9.05, 1},[{4, 4}],1.8,0.2,true,true
-ENTITY DOOR,{4, 9.05, 1},[{4, 4}],3,-0.2,true,true
+ENTITY DOOR,{4, 9.05, 1},[{4, 4}],4.2,-0.2,true,true
 ENTITY DOOR,{5.0, 9.05, 1},[{4, 4}],6.1,0.2,true,true
 ENTITY DOOR,{5.5, 9.05, 1},[{4, 4}],0.66,-0.2,true,true
+ENTITY DOOR,{4.5, 2.05, 1},[{4, 4}],0.66,0.2,true,true
 ENTITY NPC,{6.5,9,1},"{4o}Jill: {T4y}DOES THESE               LEVERS LEVITATES??"
 
 # OPEN 2
@@ -70,7 +71,7 @@ HEIGHT 27, 14, 1, 1, 2.5, 0
 
 # Barrier to protect cheat
 HEIGHT_PRECISE 1, 0, 28, 1, 0.1, -0.2
-HEIGHT 29, 10, 1, 11, 2.5, 0
+HEIGHT 29, 8, 1, 13, 2.5, 0
 HEIGHT 24, 16, 3, 1, 2.5, 0
 
 #*****************************
